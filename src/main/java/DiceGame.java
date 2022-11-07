@@ -23,8 +23,8 @@ public class DiceGame {
         car1.setPrimaryColor(Color.black);
         GUI_Car car2 = new GUI_Car();
         car2.setPrimaryColor(Color.white);
-        this.players[0] = new GUI_Player(language.playerName1, 1000,car1);
-        this.players[1] = new GUI_Player(language.playerName2, 1000,car2);
+        this.players[0] = new GUI_Player(language.playerName1, 20,car1);
+        this.players[1] = new GUI_Player(language.playerName2, 20,car2);
         this.streets = initializeStreets();
         this.fields = initializeFields(streets);
         this.gui = new GUI(fields, Color.white);
@@ -45,6 +45,7 @@ public class DiceGame {
             GUI_Player currentPlayer = players[playerTurn];
             playRound(currentPlayer);
             if (isGameover()) {
+                //needs to be changed to count money from other players.
                 this.gui.showMessage(currentPlayer.getName() + language.gameWon);
                 break;
             }
@@ -124,7 +125,7 @@ public class DiceGame {
         //maybe prompt that you landed
         int rent =Integer.parseInt(street.getRent());
         if (street.getOwnerName().equals("Bank")){
-
+                //currently just shows player id, would be nice to have full names for GUI clicks
                 street.setOwnerName(String.valueOf(playerTurn));
                 currentPlayer.setBalance(currentPlayer.getBalance()-rent);
 
@@ -139,16 +140,19 @@ public class DiceGame {
 
 
     private void playRound(GUI_Player currentPlayer) {
-
+//dicecup with 1 die is wierd, but works
         diceCup.roll();
         int diceSum = diceCup.getSum();
+        //might need to change language class to a txt file instead, make sure to check with helpers
         gui.showMessage(currentPlayer.getName() + " " + language.onRollDice);
 
         gui.setDie(diceSum);
         playerPos[playerTurn]+=diceSum;
+        //make go in circle
         if (playerPos[playerTurn]>=24)playerPos[playerTurn]-=24;
+        //show in gui
         movePlayer(playerPos[playerTurn], currentPlayer);
-
+        //onfield handeling, maybe could be put in another class
         checkFieldType(currentPlayer);
 
 
@@ -172,8 +176,12 @@ currentPlayer.getCar().setPosition(fields[pos]);
     }
 
     private boolean isGameover() {
-        int winLimit = 3000;
-        return players[0].getBalance() >= winLimit || players[1].getBalance() >= winLimit;
+        int winLimit = 0;
+        boolean res = false;
+        for (GUI_Player player : players){
+            if (player.getBalance()<0) res = true;
+        }
+        return res;
     }
 
     public static void main(String[] args) {
