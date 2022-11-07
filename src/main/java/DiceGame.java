@@ -58,7 +58,7 @@ public class DiceGame {
         //street increment
         int j = 0;
         for (int i = 0; i < fields.length; i++) {
-
+//GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
                 switch (i) {
                     case (0):
                         fields[i] = new GUI_Start("Start", " ", " ", Color.white, Color.black);
@@ -68,7 +68,7 @@ public class DiceGame {
                     case(15):
                     case(21):
                         //implement chance cards here
-                        fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
+                        fields[i] = new GUI_Refuge();
                         break;
                     case(6):
                         //implement proper constructor
@@ -108,13 +108,17 @@ public class DiceGame {
         }
         return streets;
     }
-    private String checkFieldType(GUI_Field field){
-        if (field instanceof GUI_Street) return "Street";
-        else if (field instanceof GUI_Chance) return "Chance";
-        else if(field instanceof GUI_Jail) return "Jail";
-        else if (field instanceof GUI_Start) return "Start";
-        else if (field instanceof GUI_Refuge) return "Refuge";
-        else return "Unknown";
+    private void checkFieldType(GUI_Player currentPlayer){
+        GUI_Field field = currentPlayer.getCar().getPosition();
+        if (field instanceof GUI_Street street){
+            onStreet(street,currentPlayer);
+
+        }
+        else if (field instanceof GUI_Chance) return ;
+        else if(field instanceof GUI_Jail) return ;
+        else if (field instanceof GUI_Start) return ;
+        else if (field instanceof GUI_Refuge) return ;
+        else return ;
     }
     private void onStreet (GUI_Street street,GUI_Player currentPlayer){
         //maybe prompt that you landed
@@ -144,12 +148,10 @@ public class DiceGame {
         playerPos[playerTurn]+=diceSum;
         if (playerPos[playerTurn]>=24)playerPos[playerTurn]-=24;
         movePlayer(playerPos[playerTurn], currentPlayer);
-        // Check if player is going to be under 0 in value.
-        // If so, value is set to value, instead of negative value.
-        int fieldValue = fieldValues[diceSum];
-        int player_balance = currentPlayer.getBalance();
-        int new_balance = player_balance + fieldValue;
-        currentPlayer.setBalance(Math.max(new_balance, 0));
+
+        checkFieldType(currentPlayer);
+
+
     }
 
     private void movePlayer(int pos, GUI_Player currentPlayer) {
