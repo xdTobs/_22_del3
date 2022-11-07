@@ -28,8 +28,8 @@ public class DiceCup {
 
     //int dice defined in Main as the total number of dice in a cup
     public DiceCup() {
-        diceArray = new Die[2];
-        for (int i = 0; i < 2; i++) {
+        diceArray = new Die[1];
+        for (int i = 0; i < 1; i++) {
             diceArray[i] = new Die();
         }
     }

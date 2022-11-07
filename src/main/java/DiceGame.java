@@ -9,6 +9,7 @@ public class DiceGame {
     GUI_Field[] fields;
     GUI_Street[] streets;
     Language language;
+    int[] playerPos = new int[2];
     int playerTurn;
     final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
 
@@ -36,6 +37,10 @@ public class DiceGame {
 
     private void playGame() {
         playerTurn = 0;
+
+        for (GUI_Player player : players){
+            movePlayer(0,player);
+        }
         while (true) {
             GUI_Player currentPlayer = players[playerTurn];
             playRound(currentPlayer);
@@ -49,11 +54,11 @@ public class DiceGame {
 
     private GUI_Field[] initializeFields(GUI_Street[] streets) {
         GUI_Field[] fields;
-        fields = new GUI_Field[40];
+        fields = new GUI_Field[24];
         //street increment
         int j = 0;
-        for (int i = 0; i < 40; i++) {
-            if (i<24){
+        for (int i = 0; i < fields.length; i++) {
+
                 switch (i) {
                     case (0):
                         fields[i] = new GUI_Start("Start", " ", " ", Color.white, Color.black);
@@ -83,10 +88,8 @@ public class DiceGame {
                         break;
                 }
 
-            }
-            else{
-                fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
-            }
+
+
 
         }
 
@@ -108,11 +111,15 @@ public class DiceGame {
 
 
     private void playRound(GUI_Player currentPlayer) {
-        showPlayerOnGui(0, currentPlayer);
+
         diceCup.roll();
         int diceSum = diceCup.getSum();
         gui.showMessage(currentPlayer.getName() + " " + language.onRollDice);
-        showPlayerOnGui(diceSum, currentPlayer);
+
+        gui.setDie(diceSum);
+        playerPos[playerTurn]+=diceSum;
+        if (playerPos[playerTurn]>=24)playerPos[playerTurn]-=24;
+        movePlayer(playerPos[playerTurn], currentPlayer);
         // Check if player is going to be under 0 in value.
         // If so, value is set to value, instead of negative value.
         int fieldValue = fieldValues[diceSum];
@@ -121,9 +128,9 @@ public class DiceGame {
         currentPlayer.setBalance(Math.max(new_balance, 0));
     }
 
-    private void showPlayerOnGui(int diceSum, GUI_Player currentPlayer) {
+    private void movePlayer(int pos, GUI_Player currentPlayer) {
 
-currentPlayer.getCar().setPosition(fields[diceSum]);
+currentPlayer.getCar().setPosition(fields[pos]);
 
     }
 
