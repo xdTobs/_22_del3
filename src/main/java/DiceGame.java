@@ -10,7 +10,7 @@ public class DiceGame {
     GUI_Street[] streets;
     Language language;
     int playerTurn;
-    final int[] fieldValues = {0, 0, 250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
+    final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
 
 
     DiceCup diceCup = new DiceCup();

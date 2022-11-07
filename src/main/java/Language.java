@@ -1,5 +1,5 @@
 public class Language {
-    public final String[] fieldNames = {"","Tower","Crater","Palace Gates","Cold Desert","Walled City","Monastery","Black Cave","Huts in the mountain","The Werewall","The Pit","Goldmine"};
+    public final String[] fieldNames = {"Burgerbaren","Pizzariaet","Slikbutikken","Iskiosken","Museet","Biblioteket","Skaterparken","Swimmingpoolen","Spillehallen","Biografen","Legetøjsbutikken","Dyrehandlen","Bowlinghallen","Zoo","Vandlandet","Strandpromenaden"};
     public final String gameWon = "has won the game";
     public final String playerName1 = "Player1";
     public final String playerName2 = "Player2";
