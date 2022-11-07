@@ -55,8 +55,23 @@ public class DiceGame {
         for (int i = 13; i < 40; i++) {
             fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
         }
+        GUI_Street street = new GUI_Street();
+        street.setOwnerName("hej");
+        fields[1] = street;
+
         return fields;
     }
+    private GUI_Street[] initializeStreets() {
+        GUI_Street[] streets;
+        streets = new GUI_Street[16];
+
+        for (int i = 0; i < streets.length; i++) {
+            streets[i] = new GUI_Street(language.fieldNames[i], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
+            streets[i].setOwnerName("Bank");
+        }
+        return streets;
+    }
+
 
     private void playRound(GUI_Player currentPlayer) {
         showPlayerOnGui(0, currentPlayer);
