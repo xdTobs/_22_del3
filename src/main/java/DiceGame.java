@@ -36,13 +36,9 @@ public class DiceGame {
         while (true) {
             GUI_Player currentPlayer = players[playerTurn];
             playRound(currentPlayer);
-            boolean isWerewall = diceCup.getSum() == 10;
             if (isGameover()) {
                 this.gui.showMessage(currentPlayer.getName() + language.gameWon);
                 break;
-            } else if (isWerewall) {
-                this.gui.showMessage(currentPlayer.getName() + " " + language.onWereWall);
-                continue;
             }
             nextPlayer();
         }
@@ -52,6 +48,7 @@ public class DiceGame {
         GUI_Field[] fields;
         fields = new GUI_Field[40];
         fields[0] = new GUI_Start("Start", " ", " ", Color.white, Color.black);
+
         for (int i = 1; i < 13; i++) {
             fields[i] = new GUI_Street(language.fieldNames[i - 1], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
         }
