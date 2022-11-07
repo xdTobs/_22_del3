@@ -44,20 +44,51 @@ public class DiceGame {
         }
     }
 
-    private GUI_Field[] initializeFields() {
+    private GUI_Field[] initializeFields(GUI_Street[] streets) {
         GUI_Field[] fields;
         fields = new GUI_Field[40];
-        fields[0] = new GUI_Start("Start", " ", " ", Color.white, Color.black);
+        //street increment
+        int j = 0;
+        for (int i = 0; i < 40; i++) {
+            if (i<24){
+                switch (i) {
+                    case (0):
+                        fields[i] = new GUI_Start("Start", " ", " ", Color.white, Color.black);
+                        break;
+                    case(3):
+                    case(9):
+                    case(15):
+                    case(21):
+                        //implement chance cards here
+                        fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
+                        break;
+                    case(6):
+                        //implement proper constructor
+                        fields[i] = new GUI_Jail();
+                        break;
+                    case(12):
+                        //implement proper constructor
+                        fields[i] = new GUI_Refuge();
+                        break;
+                    case(18):
+                        //implement go to jail
+                        fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
+                        break;
+                    default:
+                        fields[i] = streets[j];
+                        j++;
+                        break;
+                }
 
-        for (int i = 1; i < 13; i++) {
-            fields[i] = new GUI_Street(language.fieldNames[i - 1], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
+            }
+            else{
+                fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
+            }
+
         }
-        for (int i = 13; i < 40; i++) {
-            fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
-        }
-        GUI_Street street = new GUI_Street();
-        street.setOwnerName("hej");
-        fields[1] = street;
+
+
+
 
         return fields;
     }
