@@ -73,22 +73,12 @@ public class DiceGame {
     }
 
     private void showPlayerOnGui(int diceSum, GUI_Player currentPlayer) {
-//        int playerPosition = currentPlayer.getCar().getPosition();
-//        int newPosition = playerPosition + diceSum;
-//        if (newPosition > 12) {
-//            newPosition -= 12;
-//        }
-//        currentPlayer.getCar().setPosition(newPosition);
-//    }
-        clearCarFromGui(currentPlayer);
-        fields[diceSum].setCar(currentPlayer, true);
+
+currentPlayer.getCar().setPosition(fields[diceSum]);
+
     }
 
-    private void clearCarFromGui(GUI_Player player) {
-        for (int i = 0; i < 13; i++) {
-                fields[i].setCar(player, false);
-        }
-    }
+
 
 
     private void nextPlayer() {
