@@ -80,7 +80,7 @@ public class DiceGame {
                         break;
                     case(18):
                         //implement go to jail
-                        fields[i] = new GUI_Street(" ", " ", " ", " ", Color.BLACK, Color.BLACK);
+                        fields[i] = new GUI_Refuge();
                         break;
                     default:
                         fields[i] = streets[j];
@@ -107,6 +107,30 @@ public class DiceGame {
             streets[i].setOwnerName("Bank");
         }
         return streets;
+    }
+    private String checkFieldType(GUI_Field field){
+        if (field instanceof GUI_Street) return "Street";
+        else if (field instanceof GUI_Chance) return "Chance";
+        else if(field instanceof GUI_Jail) return "Jail";
+        else if (field instanceof GUI_Start) return "Start";
+        else if (field instanceof GUI_Refuge) return "Refuge";
+        else return "Unknown";
+    }
+    private void onStreet (GUI_Street street,GUI_Player currentPlayer){
+        //maybe prompt that you landed
+        int rent =Integer.parseInt(street.getRent());
+        if (street.getOwnerName().equals("Bank")){
+
+                street.setOwnerName(String.valueOf(playerTurn));
+                currentPlayer.setBalance(currentPlayer.getBalance()-rent);
+
+
+            //dont think we need an else, since we still want to purchace and then gameover if the player cant afford
+        }
+        else{
+            players[Integer.parseInt(street.getOwnerName())].setBalance(players[Integer.parseInt(street.getOwnerName())].getBalance()+rent);
+            currentPlayer.setBalance(currentPlayer.getBalance()-rent);
+        }
     }
 
 
