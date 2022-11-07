@@ -7,9 +7,11 @@ public class DiceGame {
     GUI_Player[] players = new GUI_Player[2];
     GUI gui;
     GUI_Field[] fields;
+    GUI_Street[] streets;
     Language language;
     int playerTurn;
     final int[] fieldValues = {0, 0, 250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
+
 
     DiceCup diceCup = new DiceCup();
 
@@ -22,7 +24,8 @@ public class DiceGame {
         car2.setPrimaryColor(Color.white);
         this.players[0] = new GUI_Player(language.playerName1, 1000,car1);
         this.players[1] = new GUI_Player(language.playerName2, 1000,car2);
-        this.fields = initializeFields();
+        this.streets = initializeStreets();
+        this.fields = initializeFields(streets);
         this.gui = new GUI(fields, Color.white);
 
         for (GUI_Player player :
