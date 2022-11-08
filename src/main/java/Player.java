@@ -7,7 +7,9 @@ public class Player {
     private int id;
     private static int nextId =0;
 
+
     public Player(String name, int balance, GUI_Car car) {
+
         this.name = name;
         this.balance = balance;
         this.car = car;
@@ -20,15 +22,16 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public int getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(int balance,GUI_Controller gui_controller) {
         this.balance = balance;
-        //GUI_Controller.updatePlayer();
+        gui_controller.updatePlayer(this.id);
     }
 
     public GUI_Car getCar() {

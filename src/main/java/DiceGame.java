@@ -5,13 +5,14 @@ import java.awt.*;
 
 public class DiceGame {
     final int playerCount = 2;
-    GUI_Player[] players = new GUI_Player[playerCount];
+    Player[] players = new Player[playerCount];
     GUI gui;
     GUI_Field[] fields;
 
     GUI_Street[] streets;
     boolean[] jailedPlayers =new boolean[playerCount];
     Language language;
+    GUI_Controller gui_controller;
     int[] playerPos = new int[playerCount];
     int playerTurn;
     final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
@@ -21,31 +22,29 @@ public class DiceGame {
 
     public DiceGame() {
         this.language = new Language();
+
         // Remember to give the car a color, so p1 and p2 don't have same colors.
         GUI_Car car1 = new GUI_Car();
         car1.setPrimaryColor(Color.black);
         GUI_Car car2 = new GUI_Car();
         car2.setPrimaryColor(Color.white);
-        this.players[0] = new GUI_Player(language.playerName1, 20,car1);
-        this.players[1] = new GUI_Player(language.playerName2, 20,car2);
+        this.players[0] = new Player(language.playerName1, 20,car1);
+        this.players[1] = new Player(language.playerName2, 20,car2);
         this.streets = initializeStreets();
         this.fields = initializeFields(streets);
         this.gui = new GUI(fields, Color.white);
-
-        for (GUI_Player player :
-                players) {
-            gui.addPlayer(player);
-        }
+        this.gui_controller = new GUI_Controller(gui,players,fields);
+        gui_controller.addPlayersToGUI();
     }
 
     private void playGame() {
         playerTurn = 0;
 
-        for (GUI_Player player : players){
+        for (Player player : players){
             movePlayer(0,player);
         }
         while (true) {
-            GUI_Player currentPlayer = players[playerTurn];
+            Player currentPlayer = players[playerTurn];
             if (!jailedPlayers[playerTurn]){
                 playRound(currentPlayer);
             }
@@ -117,7 +116,7 @@ public class DiceGame {
         }
         return streets;
     }
-    private void checkFieldType(GUI_Player currentPlayer){
+    private void checkFieldType(Player currentPlayer){
         GUI_Field field = currentPlayer.getCar().getPosition();
         if (field instanceof GUI_Street street){
             onStreet(street,currentPlayer);
@@ -129,25 +128,25 @@ public class DiceGame {
         else if (field instanceof GUI_Refuge) return ;
         else return ;
     }
-    private void onStreet (GUI_Street street,GUI_Player currentPlayer){
+    private void onStreet (GUI_Street street,Player currentPlayer){
         //maybe prompt that you landed
         int rent =Integer.parseInt(street.getRent());
         if (street.getOwnerName().equals("Bank")){
                 //currently just shows player id, would be nice to have full names for GUI clicks
                 street.setOwnerName(String.valueOf(playerTurn));
-                currentPlayer.setBalance(currentPlayer.getBalance()-rent);
+                currentPlayer.setBalance(currentPlayer.getBalance()-rent,gui_controller);
 
 
             //dont think we need an else, since we still want to purchace and then gameover if the player cant afford
         }
         else{
-            players[Integer.parseInt(street.getOwnerName())].setBalance(players[Integer.parseInt(street.getOwnerName())].getBalance()+rent);
-            currentPlayer.setBalance(currentPlayer.getBalance()-rent);
+            players[Integer.parseInt(street.getOwnerName())].setBalance(players[Integer.parseInt(street.getOwnerName())].getBalance()+rent,gui_controller);
+            currentPlayer.setBalance(currentPlayer.getBalance()-rent,gui_controller);
         }
     }
 
 
-    private void playRound(GUI_Player currentPlayer) {
+    private void playRound(Player currentPlayer) {
 //dicecup with 1 die is wierd, but works
         diceCup.roll();
         int diceSum = diceCup.getSum();
@@ -165,18 +164,19 @@ public class DiceGame {
 
 
     }
-    private void playJailedRound (GUI_Player currentPlayer){
+    private void playJailedRound (Player currentPlayer){
    //implement get out of jail card first
         //
         gui.showMessage(currentPlayer.getName() + " " + language.startTurnJail);
-    currentPlayer.setBalance(currentPlayer.getBalance()-1);
-    jailedPlayers[playerTurn]=false;
+
+        currentPlayer.setBalance(currentPlayer.getBalance()-1,gui_controller);
+        jailedPlayers[playerTurn]=false;
     }
 
-    private void movePlayer(int pos, GUI_Player currentPlayer) {
 
-currentPlayer.getCar().setPosition(fields[pos]);
-
+    private void movePlayer(int pos, Player currentPlayer) {
+        gui_controller.movePlayer(pos, currentPlayer.getId());
+        currentPlayer.getCar().setPosition(fields[pos]);
     }
 
 
@@ -193,7 +193,7 @@ currentPlayer.getCar().setPosition(fields[pos]);
     private boolean isGameover() {
         int winLimit = 0;
         boolean res = false;
-        for (GUI_Player player : players){
+        for (Player player : players){
             if (player.getBalance()<0) res = true;
         }
         return res;
