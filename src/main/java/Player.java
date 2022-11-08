@@ -28,6 +28,7 @@ public class Player {
 
     public void setBalance(int balance) {
         this.balance = balance;
+        //GUI_Controller.updatePlayer();
     }
 
     public GUI_Car getCar() {
