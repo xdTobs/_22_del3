@@ -4,12 +4,15 @@ import gui_main.GUI;
 import java.awt.*;
 
 public class DiceGame {
-    GUI_Player[] players = new GUI_Player[2];
+    final int playerCount = 2;
+    GUI_Player[] players = new GUI_Player[playerCount];
     GUI gui;
     GUI_Field[] fields;
+
     GUI_Street[] streets;
+    boolean[] jailedPlayers =new boolean[playerCount];
     Language language;
-    int[] playerPos = new int[2];
+    int[] playerPos = new int[playerCount];
     int playerTurn;
     final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
 
@@ -43,7 +46,12 @@ public class DiceGame {
         }
         while (true) {
             GUI_Player currentPlayer = players[playerTurn];
-            playRound(currentPlayer);
+            if (!jailedPlayers[playerTurn]){
+                playRound(currentPlayer);
+            }
+            else {
+                playJailedRound(currentPlayer);
+            }
             if (isGameover()) {
                 //needs to be changed to count money from other players.
                 this.gui.showMessage(currentPlayer.getName() + language.gameWon);
@@ -156,6 +164,13 @@ public class DiceGame {
         checkFieldType(currentPlayer);
 
 
+    }
+    private void playJailedRound (GUI_Player currentPlayer){
+   //implement get out of jail card first
+        //
+        gui.showMessage(currentPlayer.getName() + " " + language.startTurnJail);
+    currentPlayer.setBalance(currentPlayer.getBalance()-1);
+    jailedPlayers[playerTurn]=false;
     }
 
     private void movePlayer(int pos, GUI_Player currentPlayer) {

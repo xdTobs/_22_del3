@@ -5,4 +5,5 @@ public class Language {
     public final String playerName2 = "Player2";
     public final String onRollDice = "It is your turn. Roll the Dice";
     public final String onWereWall = "Landed on the WereWall. You get an extra turn";
+    public final String startTurnJail = "You are in Jail, you lose 1$ and your turn is skipped";
 }
