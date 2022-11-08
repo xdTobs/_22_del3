@@ -6,6 +6,7 @@ public class Player {
     private GUI_Car car;
     private int id;
     private static int nextId =0;
+    private int pos;
 
 
     public Player(String name, int balance, GUI_Car car) {
@@ -14,6 +15,7 @@ public class Player {
         this.balance = balance;
         this.car = car;
         this.id = nextId++;
+        this.pos = 0;
     }
 
     public String getName() {
@@ -48,5 +50,13 @@ public class Player {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 }
