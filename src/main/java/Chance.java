@@ -1,7 +1,7 @@
 public abstract class Chance {
 
-    String desc;
-    GUI_Controller gui_controller;
+    protected String desc;
+    protected GUI_Controller gui_controller;
     public void pullCard(Player p){};
 
     public String getDesc() {

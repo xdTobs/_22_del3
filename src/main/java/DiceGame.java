@@ -80,8 +80,8 @@ public class DiceGame {
                     case(9):
                     case(15):
                     case(21):
-                        //implement chance cards here
-                        fields[i] = new GUI_Refuge();
+
+                        fields[i] = new GUI_Chance();
                         break;
                     case(6):
                         //implement proper constructor
@@ -156,6 +156,7 @@ return cards.toArray(new Chance[0]);
         }
     }
     private void onChance(Chance chance,Player currentPlayer){
+        gui_controller.displayText(currentPlayer.getName()+" "+language.onChanceCard+chance.getDesc());
         if (chance instanceof moveChance moveChance) moveChance.pullCard(currentPlayer);
 
     }
