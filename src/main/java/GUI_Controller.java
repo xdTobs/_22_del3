@@ -2,6 +2,8 @@ import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 
+import java.util.SplittableRandom;
+
 public class GUI_Controller {
     GUI gui;
 Player[] players;
@@ -35,6 +37,10 @@ Player[] players;
     Player p =players[id];
     GUI_Player gp = GUI_Players[id];
     gp.setBalance(p.getBalance());
+    }
+
+    public void displayText(String text){
+        gui.showMessage(text);
     }
 
 
