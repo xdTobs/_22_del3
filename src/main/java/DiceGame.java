@@ -2,6 +2,8 @@ import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DiceGame {
     final int playerCount = 2;
@@ -15,6 +17,7 @@ public class DiceGame {
     GUI_Controller gui_controller;
     int[] playerPos = new int[playerCount];
     int playerTurn;
+    Chance[] cards;
     final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
 
 
@@ -32,9 +35,11 @@ public class DiceGame {
         this.players[1] = new Player(language.playerName2, 20,car2);
         this.streets = initializeStreets();
         this.fields = initializeFields(streets);
+
         this.gui = new GUI(fields, Color.white);
         this.gui_controller = new GUI_Controller(gui,players,fields);
         gui_controller.addPlayersToGUI();
+        this.cards = initializeChanceCards();
     }
 
     private void playGame() {
@@ -115,6 +120,12 @@ public class DiceGame {
             streets[i].setOwnerName("Bank");
         }
         return streets;
+    }
+    private Chance[] initializeChanceCards(){
+        List<Chance> cards = new ArrayList<>();
+        cards.add(new moveChance(language.moveTo+" "+fields[2].getTitle(),gui_controller,fields[2]));
+        Chance[] temp = new Chance[cards.size()];
+return cards.toArray(new Chance[0]);
     }
     private void checkFieldType(Player currentPlayer){
         GUI_Field field = currentPlayer.getCar().getPosition();
