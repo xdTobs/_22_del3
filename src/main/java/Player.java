@@ -7,6 +7,7 @@ public class Player {
     private int id;
     private static int nextId =0;
     private int pos;
+    private boolean jailed;
 
 
     public Player(String name, int balance, GUI_Car car) {
@@ -16,6 +17,15 @@ public class Player {
         this.car = car;
         this.id = nextId++;
         this.pos = 0;
+        this.jailed = false;
+    }
+
+    public boolean isJailed() {
+        return jailed;
+    }
+
+    public void setJailed(boolean jailed) {
+        this.jailed = jailed;
     }
 
     public String getName() {

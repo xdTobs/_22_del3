@@ -45,7 +45,7 @@ public class DiceGame {
         }
         while (true) {
             Player currentPlayer = players[playerTurn];
-            if (!jailedPlayers[playerTurn]){
+            if (!currentPlayer.isJailed()){
                 playRound(currentPlayer);
             }
             else {
@@ -171,7 +171,7 @@ public class DiceGame {
         gui.showMessage(currentPlayer.getName() + " " + language.startTurnJail);
 
         currentPlayer.setBalance(currentPlayer.getBalance()-1,gui_controller);
-        jailedPlayers[playerTurn]=false;
+        currentPlayer.setJailed(false);
     }
 
 
