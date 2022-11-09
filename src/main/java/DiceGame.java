@@ -154,12 +154,14 @@ public class DiceGame {
         gui.showMessage(currentPlayer.getName() + " " + language.onRollDice);
 
         gui.setDie(diceSum);
-        currentPlayer.setPos(currentPlayer.getPos()+diceSum);
-        //make go in circle
-        if (currentPlayer.getPos()>=24)movePlayer(currentPlayer.getPos()-24,currentPlayer);
-        else {movePlayer(currentPlayer.getPos(),currentPlayer);
+        //make sure player doesnt move out of bounds
+        int nextPos =currentPlayer.getPos()+diceSum;
+        if (nextPos>=24)currentPlayer.setPos(nextPos-24);
+        else currentPlayer.setPos(nextPos);
 
-        }
+        //move player
+        movePlayer(currentPlayer.getPos(),currentPlayer);
+
         //onfield handeling, maybe could be put in another class
         checkFieldType(currentPlayer);
 
