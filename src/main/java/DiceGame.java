@@ -133,7 +133,7 @@ return cards.toArray(new Chance[0]);
             onStreet(street,currentPlayer);
 
         }
-        else if (field instanceof GUI_Chance) return ;
+        else if (field instanceof GUI_Chance) onChance(cards[0],currentPlayer);
         else if(field instanceof GUI_Jail) return ;
         else if (field instanceof GUI_Start) return ;
         else if (field instanceof GUI_Refuge) return ;
@@ -154,6 +154,10 @@ return cards.toArray(new Chance[0]);
             players[Integer.parseInt(street.getOwnerName())].setBalance(players[Integer.parseInt(street.getOwnerName())].getBalance()+rent,gui_controller);
             currentPlayer.setBalance(currentPlayer.getBalance()-rent,gui_controller);
         }
+    }
+    private void onChance(Chance chance,Player currentPlayer){
+        if (chance instanceof moveChance moveChance) moveChance.pullCard(currentPlayer);
+
     }
 
 
@@ -178,6 +182,7 @@ return cards.toArray(new Chance[0]);
 
 
     }
+
     private void playJailedRound (Player currentPlayer){
    //implement get out of jail card first
         //
