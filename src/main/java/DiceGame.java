@@ -19,6 +19,7 @@ public class DiceGame {
     int playerTurn;
     Chance[] cards;
     final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
+    final Color[] streetColors = {Color.GREEN};
 
 
     DiceCup diceCup = new DiceCup();
@@ -116,14 +117,21 @@ public class DiceGame {
         streets = new GUI_Street[16];
 
         for (int i = 0; i < streets.length; i++) {
-            streets[i] = new GUI_Street(language.fieldNames[i], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
+            Color c;
+            if (i<8){
+                c = Color.green;
+            }
+            else {
+                c = Color.blue;
+            }
+            streets[i] = new GUI_Street(language.fieldNames[i], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), c, Color.BLACK);
             streets[i].setOwnerName("Bank");
         }
         return streets;
     }
     private Chance[] initializeChanceCards(){
         List<Chance> cards = new ArrayList<>();
-        cards.add(new moveChance(language.moveTo+" "+fields[2].getTitle(),gui_controller,fields[2]));
+        cards.add(new moveChance(gui_controller,fields[2]));
         Chance[] temp = new Chance[cards.size()];
 return cards.toArray(new Chance[0]);
     }
@@ -139,7 +147,7 @@ return cards.toArray(new Chance[0]);
         else if (field instanceof GUI_Refuge) return ;
         else return ;
     }
-    private void onStreet (GUI_Street street,Player currentPlayer){
+    public void onStreet (GUI_Street street,Player currentPlayer){
         //maybe prompt that you landed
         int rent =Integer.parseInt(street.getRent());
         if (street.getOwnerName().equals("Bank")){
@@ -219,9 +227,14 @@ return cards.toArray(new Chance[0]);
         return res;
     }
 
+    public GUI_Field[] getFields() {
+        return fields;
+    }
+
     public static void main(String[] args) {
         DiceGame game = new DiceGame();
         game.playGame();
+
     }
 }
 

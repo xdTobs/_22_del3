@@ -20,6 +20,8 @@ public class Player {
         this.jailed = false;
     }
 
+
+
     public boolean isJailed() {
         return jailed;
     }

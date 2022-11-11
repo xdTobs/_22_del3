@@ -43,7 +43,7 @@ Player[] players;
         gui.showMessage(text);
     }
 
-
-
-
+    public GUI getGui() {
+        return gui;
+    }
 }
