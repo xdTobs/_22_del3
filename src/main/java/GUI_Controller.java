@@ -46,4 +46,9 @@ Player[] players;
     public GUI getGui() {
         return gui;
     }
+
+    public GUI_Field[] getFields() {
+        return fields;
+    }
 }
+

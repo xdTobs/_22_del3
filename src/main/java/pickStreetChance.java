@@ -23,7 +23,7 @@ public class pickStreetChance extends Chance {
         String s =gui_controller.getGui().getUserSelection(l.onChanceCard+" "+l.onPickFieldChance, options);
         for (int i = 0; i < options.length; i++) {
             if (options[i].equals(s)){
-                moveGetChance temp = new moveGetChance(gui_controller,choices[i],game);
+                moveGetChance temp = new moveGetChance(gui_controller,i,game);
                 temp.pullCard(p);
                 break;
             }
