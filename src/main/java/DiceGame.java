@@ -131,7 +131,7 @@ public class DiceGame {
     }
     private Chance[] initializeChanceCards(){
         List<Chance> cards = new ArrayList<>();
-        cards.add(new moveChance(gui_controller,fields[2]));
+        cards.add(new moveChance(gui_controller,2));
         Chance[] temp = new Chance[cards.size()];
 return cards.toArray(new Chance[0]);
     }
