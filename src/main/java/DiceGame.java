@@ -51,12 +51,7 @@ public class DiceGame {
         }
         while (true) {
             Player currentPlayer = players[playerTurn];
-            if (!currentPlayer.isJailed()){
-                playRound(currentPlayer);
-            }
-            else {
-                playJailedRound(currentPlayer);
-            }
+            playRound(currentPlayer);
             if (isGameover()) {
                 //needs to be changed to count money from other players.
                 this.gui.showMessage(currentPlayer.getName() + language.gameWon);
@@ -175,6 +170,10 @@ return cards.toArray(new Chance[0]);
         diceCup.roll();
         int diceSum = diceCup.getSum();
         //might need to change language class to a txt file instead, make sure to check with helpers
+        if (currentPlayer.isJailed()){
+            currentPlayer.setBalance(currentPlayer.getBalance()-1,gui_controller);
+            currentPlayer.setJailed(false);
+        }
         gui.showMessage(currentPlayer.getName() + " " + language.onRollDice);
 
         gui.setDie(diceSum);
@@ -191,16 +190,6 @@ return cards.toArray(new Chance[0]);
 
 
     }
-
-    private void playJailedRound (Player currentPlayer){
-   //implement get out of jail card first
-        //
-        gui.showMessage(currentPlayer.getName() + " " + language.startTurnJail);
-
-        currentPlayer.setBalance(currentPlayer.getBalance()-1,gui_controller);
-        currentPlayer.setJailed(false);
-    }
-
 
     private void movePlayer(int pos, Player currentPlayer) {
         gui_controller.movePlayer(pos, currentPlayer.getId());
