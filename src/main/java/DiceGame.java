@@ -9,24 +9,20 @@ public class DiceGame {
     final int playerCount = 2;
     Player[] players = new Player[playerCount];
     GUI gui;
-    GUI_Field[] fields;
 
-    GUI_Street[] streets;
     boolean[] jailedPlayers =new boolean[playerCount];
-    Language language;
+    Language language = new Language();
     GUI_Controller gui_controller;
     int[] playerPos = new int[playerCount];
     int playerTurn;
     Chance[] cards;
     final int[] fieldValues = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
-    final Color[] streetColors = {Color.GREEN};
 
+    GameBoard gameBoard = new GameBoard(language);
 
     DiceCup diceCup = new DiceCup();
 
     public DiceGame() {
-        this.language = new Language();
-
         // Remember to give the car a color, so p1 and p2 don't have same colors.
         GUI_Car car1 = new GUI_Car();
         car1.setPrimaryColor(Color.black);
@@ -34,11 +30,9 @@ public class DiceGame {
         car2.setPrimaryColor(Color.white);
         this.players[0] = new Player(language.playerName1, 20,car1);
         this.players[1] = new Player(language.playerName2, 20,car2);
-        this.streets = initializeStreets();
-        this.fields = initializeFields(streets);
 
-        this.gui = new GUI(fields, Color.white);
-        this.gui_controller = new GUI_Controller(gui,players,fields);
+        this.gui = new GUI(gameBoard.getFields(), Color.white);
+        this.gui_controller = new GUI_Controller(gui,players, gameBoard.getFields());
         gui_controller.addPlayersToGUI();
         this.cards = initializeChanceCards();
     }
@@ -112,21 +106,18 @@ public class DiceGame {
         streets = new GUI_Street[16];
 
         for (int i = 0; i < streets.length; i++) {
-            Color c;
-            if (i<8){
-                c = Color.green;
-            }
-            else {
-                c = Color.blue;
-            }
-            streets[i] = new GUI_Street(language.fieldNames[i], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), c, Color.BLACK);
+            streets[i] = new GUI_Street(language.fieldNames[i], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
             streets[i].setOwnerName("Bank");
         }
         return streets;
     }
     private Chance[] initializeChanceCards(){
         List<Chance> cards = new ArrayList<>();
-        cards.add(new moveChance(gui_controller,2));
+        cards.add(new moveChance(
+                language.moveTo+" "+gameBoard.getFields()[3].getTitle(),
+                gui_controller,
+                gameBoard.getFields()[2])
+        );
         Chance[] temp = new Chance[cards.size()];
 return cards.toArray(new Chance[0]);
     }
@@ -142,7 +133,7 @@ return cards.toArray(new Chance[0]);
         else if (field instanceof GUI_Refuge) return ;
         else return ;
     }
-    public void onStreet (GUI_Street street,Player currentPlayer){
+    private void onStreet (GUI_Street street,Player currentPlayer){
         //maybe prompt that you landed
         int rent =Integer.parseInt(street.getRent());
         if (street.getOwnerName().equals("Bank")){
@@ -193,7 +184,7 @@ return cards.toArray(new Chance[0]);
 
     private void movePlayer(int pos, Player currentPlayer) {
         gui_controller.movePlayer(pos, currentPlayer.getId());
-        currentPlayer.getCar().setPosition(fields[pos]);
+        currentPlayer.getCar().setPosition(gameBoard.getFields()[pos]);
     }
 
 
@@ -216,14 +207,9 @@ return cards.toArray(new Chance[0]);
         return res;
     }
 
-    public GUI_Field[] getFields() {
-        return fields;
-    }
-
     public static void main(String[] args) {
         DiceGame game = new DiceGame();
         game.playGame();
-
     }
 }
 
