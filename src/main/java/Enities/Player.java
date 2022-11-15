@@ -2,27 +2,30 @@ package Enities;
 
 import gui_fields.GUI_Car;
 import Controllers.*;
+import gui_fields.GUI_Player;
 
 public class Player {
     private String name;
     private int balance;
-    private GUI_Car car;
+
+
+    private GUI_Player guiPlayer;
     private int id;
-    private static int nextId =0;
+    private static int nextId = 0;
     private int pos;
     private boolean jailed;
 
 
-    public Player(String name, int balance, GUI_Car car) {
+    public Player(String name, int balance, GUI_Car guiCar) {
 
         this.name = name;
         this.balance = balance;
-        this.car = car;
+        this.guiPlayer = new GUI_Player(name, balance, guiCar);
         this.id = nextId++;
         this.pos = 0;
         this.jailed = false;
-    }
 
+    }
 
 
     public boolean isJailed() {
@@ -48,15 +51,11 @@ public class Player {
 
     public void setBalance(int balance, GUI_Controller gui_controller) {
         this.balance = balance;
-        gui_controller.updatePlayer(this.id);
+        this.getGuiPlayer().setBalance(balance);
     }
 
     public GUI_Car getCar() {
-        return car;
-    }
-
-    public void setCar(GUI_Car car) {
-        this.car = car;
+        return guiPlayer.getCar();
     }
 
     public int getId() {
@@ -73,5 +72,9 @@ public class Player {
 
     public void setPos(int pos) {
         this.pos = pos;
+    }
+
+    public GUI_Player getGuiPlayer() {
+        return guiPlayer;
     }
 }

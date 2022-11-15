@@ -7,19 +7,14 @@ import gui_main.GUI;
 
 public class GUI_Controller {
     GUI gui;
-    Player[] players;
     GUI_Player[] GUI_Players;
     GUI_Field[] fields;
 
-    public GUI_Controller(GUI gui, Player[] players, GUI_Field[] fields) {
-        this.gui = gui;
+    public GUI_Controller(GUI_Player[] players, GUI_Field[] fields) {
         this.fields = fields;
-        this.players = players;
-        GUI_Players = new GUI_Player[players.length];
-        for (int i = 0; i < players.length; i++) {
-            GUI_Players[i] = new GUI_Player(players[i].getName(), players[i].getBalance(), players[i].getCar());
-        }
-
+        this.gui = new GUI(this.fields);
+        this.GUI_Players = players;
+        addPlayersToGUI();
     }
 
     public void addPlayersToGUI() {
@@ -29,15 +24,10 @@ public class GUI_Controller {
         }
     }
 
-    public void movePlayer(int pos, int playerId) {
-        GUI_Players[playerId].getCar().setPosition(fields[pos]);
+    public void movePlayer(int pos, Player player) {
+        player.getCar().setPosition(fields[pos]);
     }
 
-    public void updatePlayer(int id) {
-        Player p = players[id];
-        GUI_Player gp = GUI_Players[id];
-        gp.setBalance(p.getBalance());
-    }
 
     public void displayText(String text) {
         gui.showMessage(text);
@@ -49,6 +39,14 @@ public class GUI_Controller {
 
     public GUI_Field[] getFields() {
         return fields;
+    }
+
+    public void showMessage(String s) {
+        gui.showMessage(s);
+    }
+
+    public void setDie(int diceSum) {
+        gui.setDie(diceSum);
     }
 }
 

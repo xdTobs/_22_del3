@@ -9,25 +9,22 @@ import Enities.*;
 public class MoveGetChance extends Chance {
     GUI_Street street;
     GameHandler game;
-    int id;
+    int pos;
 
-    public MoveGetChance(GUI_Controller gui_controller, int id, GameHandler game) {
+    public MoveGetChance(GUI_Controller gui_controller, int pos, GameHandler game) {
         this.gui_controller = gui_controller;
-        this.street = (GUI_Street) gui_controller.getFields()[id];
-        this.desc = LanguageHandler.moveTo() + " " + street.getTitle();
         this.game = game;
-        this.id = id;
+        this.pos = pos;
+        this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(pos);
     }
 
     @Override
     public void pullCard(Player p) {
-        p.setPos(id);
+        p.setPos(pos);
         p.getCar().setPosition(street);
         if (street.getOwnerName().equals("Bank")) {
             p.setBalance(p.getBalance() + Integer.parseInt(street.getRent()), gui_controller);
             game.onStreet(street, p);
         } else game.onStreet(street, p);
-
-
     }
 }
