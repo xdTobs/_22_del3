@@ -7,11 +7,9 @@ import gui_fields.*;
 import java.awt.*;
 
 public class GameBoard {
-    //    final private GUI_Field[] fields = new GUI_Field[24];
     final private Field[] fields = new Field[24];
 
     public GameBoard() {
-        int streetIndex = 0;
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
                 this.fields[i] = new Field(i, new GUI_Start("Start", "Start", "Start", Color.white, Color.black));

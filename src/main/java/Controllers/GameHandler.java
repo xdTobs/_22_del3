@@ -2,7 +2,6 @@ package Controllers;
 
 import Language.LanguageHandler;
 import gui_fields.*;
-import gui_main.GUI;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,12 +15,9 @@ public class GameHandler {
     final int playerCount = 2;
     Player[] players = new Player[playerCount];
 
-    boolean[] jailedPlayers = new boolean[playerCount];
     GUI_Controller gui_controller;
-    int[] playerPos = new int[playerCount];
     int playerTurn;
     Chance[] cards;
-//    final int[] fieldValues = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5};
 
     GameBoard gameBoard = new GameBoard();
 
@@ -71,7 +67,6 @@ public class GameHandler {
                 gameBoard.getFields()[2])
         );*/
         cards.add(new MoveChance(gui_controller, 2));
-        Chance[] temp = new Chance[cards.size()];
         return cards.toArray(new Chance[0]);
     }
 
@@ -79,12 +74,23 @@ public class GameHandler {
         GUI_Field field = currentPlayer.getCar().getPosition();
         if (field instanceof GUI_Street) {
             onStreet((GUI_Street) field, currentPlayer);
+        } else if (field instanceof GUI_Chance) {
+            onChance(cards[0], currentPlayer);
+        } else if (field instanceof GUI_Jail) {
+            onJail(currentPlayer);
+        } else if (field instanceof GUI_Start) {
+            onStart();
+        } else if (field instanceof GUI_Refuge) {
+            onRefuge();
+        }
+    }
 
-        } else if (field instanceof GUI_Chance) onChance(cards[0], currentPlayer);
-        else if (field instanceof GUI_Jail) return;
-        else if (field instanceof GUI_Start) return;
-        else if (field instanceof GUI_Refuge) return;
-        else return;
+    private void onStart() {
+        gui_controller.showMessage(LanguageHandler.startMsg());
+    }
+
+    private void onRefuge() {
+        gui_controller.showMessage(LanguageHandler.parkingMsg());
     }
 
     public void onStreet(GUI_Street street, Player currentPlayer) {
@@ -107,6 +113,10 @@ public class GameHandler {
         gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chance.getDesc());
         if (chance instanceof MoveChance moveChance) moveChance.pullCard(currentPlayer);
 
+    }
+
+    private void onJail(Player currentPlayer) {
+        currentPlayer.setJailed(true);
     }
 
 

@@ -2,15 +2,9 @@ package Language;
 
 // TODO Translations for chance cards
 public class EnglishTranslation implements Translation {
-    private final String[] fieldNames = {"Start", "Burgerbaren", "Pizzariaet", "Chans", "Slikbutikken", "Iskiosken", "Fængsel", "Museet", "Biblioteket", "Chans", "Skaterparken", "Swimmingpoolen", "Parkering", "Spillehallen", "Biografen", "Chans", "Legetøjsbutikken", "Dyrehandlen", "Gå i fængsel", "Bowlinghallen", "Zoo", "Chans", "Vandlandet", "Strandpromenaden"};
-    private final String gameWon = "has won the game";
-    private final String playerName1 = "Enities.Player 1";
+    private final String[] fieldNames = {"Start", "Burgerbaren", "Pizzeriaet", "Chans", "Slikbutikken", "Iskiosken", "Fængsel", "Museet", "Biblioteket", "Chans", "Skaterparken", "Swimmingpoolen", "Parkering", "Spillehallen", "Biografen", "Chans", "Legetøjsbutikken", "Dyrehandlen", "Gå i fængsel", "Bowlinghallen", "Zoo", "Chans", "Vandlandet", "Strandpromenaden"};
 
-    private final String playerName2 = "Enities.Player 2";
-    private final String onRollDice = "It is your turn. Roll the Dice";
-    private final String startTurnJail = "You are in Jail, you lose 1$";
     private final String moveTo = "Move to";
-    private final String chanceCard = "pulled a chance card. It tells you to:";
     public final String onPickFieldChance = "Pick a field to move to. If it is available you get it for free. Otherwise you pay rent";
 
     public String getFieldName(int i) {
@@ -22,20 +16,20 @@ public class EnglishTranslation implements Translation {
     }
 
     public String getPlayerName1() {
-        return playerName1;
+        return "Player 1";
     }
 
     public String getPlayerName2() {
-        return playerName2;
+        return "Player 2";
     }
 
     public String rollDiceMsg() {
-        return onRollDice;
+        return "It is your turn. Roll the Dice";
     }
 
 
     public String jailMsg() {
-        return startTurnJail;
+        return "You are in Jail, you lose 1$";
     }
 
     // TODO implement i in moveToMsg
@@ -48,12 +42,19 @@ public class EnglishTranslation implements Translation {
     }
 
     public String chanceCardMsg() {
-        return chanceCard;
+        return "pulled a chance card. It tells you to:";
     }
 
     public String onPickFieldChance() {
         return onPickFieldChance;
     }
 
-    ;
+    @Override
+    public String parkingMsg() {
+        return "You are on parking. There is not much happening here.";
+    }
+
+    public String startMsg() {
+        return "You get two dollars for landing or passing through start";
+    }
 }

@@ -7,7 +7,6 @@ public class Street extends Field {
 
     public Street(int position) {
         super(position, new GUI_Street());
-        System.out.println("Street created" + " " + position);
         String rent = "" + calculateRent(position);
         GUI_Street street = (GUI_Street) super.getGuiField();
         street.setRent(rent);

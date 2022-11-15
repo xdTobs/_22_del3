@@ -7,13 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class LanguageHandlerTest {
 
     @Test
-    void isSingleton() {
-        LanguageHandler l1 = LanguageHandler.getInstance();
-        LanguageHandler l2 = LanguageHandler.getInstance();
-        assertEquals(l1, l2);
-    }
-
-    @Test
     void getFieldName() {
         int i = 20;
         String expected = "Zoo";
