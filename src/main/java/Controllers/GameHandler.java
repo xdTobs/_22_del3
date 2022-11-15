@@ -123,7 +123,7 @@ public class GameHandler {
                 gui_controller,
                 gameBoard.getFields()[2])
         );*/
-        cards.add(new moveChance( gui_controller,2));
+        cards.add(new MoveChance( gui_controller,2));
         Chance[] temp = new Chance[cards.size()];
         return cards.toArray(new Chance[0]);
     }
@@ -158,7 +158,7 @@ public class GameHandler {
 
     private void onChance(Chance chance, Player currentPlayer) {
         gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chance.getDesc());
-        if (chance instanceof moveChance moveChance) moveChance.pullCard(currentPlayer);
+        if (chance instanceof MoveChance moveChance) moveChance.pullCard(currentPlayer);
 
     }
 

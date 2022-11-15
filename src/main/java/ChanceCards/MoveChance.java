@@ -1,27 +1,24 @@
 package ChanceCards;
 
-import ChanceCards.Chance;
 import Controllers.GUI_Controller;
 import Enities.Player;
+import Language.LanguageHandler;
 import gui_fields.GUI_Field;
 
-public class moveChance extends Chance {
+public class MoveChance extends Chance {
     GUI_Field field;
     int id;
 
-    public moveChance(GUI_Controller gui_controller,int id){
+    public MoveChance(GUI_Controller gui_controller, int id) {
         this.gui_controller = gui_controller;
         this.field = gui_controller.getFields()[id];
-        this.desc = l.moveTo()+" "+field.getTitle();
+        this.desc = LanguageHandler.moveTo() + " " + field.getTitle();
         this.id = id;
     }
 
     @Override
-    public void pullCard(Player p){
+    public void pullCard(Player p) {
         p.setPos(id);
         p.getCar().setPosition(field);
-
     }
-
-
 }

@@ -1,16 +1,17 @@
 package ChanceCards;
 
-import ChanceCards.moveGetChance;
+import Language.LanguageHandler;
 import gui_fields.GUI_Street;
 import Enities.*;
 import Controllers.*;
-public class pickStreetChance extends Chance {
+
+public class PickStreetChance extends Chance {
     private GUI_Street[] choices;
     private String[] options;
     private GameHandler game;
 
 
-    public pickStreetChance(String desc, GUI_Controller gui_controller, GUI_Street[] choices, GameHandler game){
+    public PickStreetChance(String desc, GUI_Controller gui_controller, GUI_Street[] choices, GameHandler game) {
         this.gui_controller = gui_controller;
         this.desc = desc;
         this.choices = choices;
@@ -21,12 +22,13 @@ public class pickStreetChance extends Chance {
         }
 
     }
-    public void pullCard(Player p){
 
-        String s =gui_controller.getGui().getUserSelection(l.chanceCardMsg()+" "+l.onPickFieldChance(), options);
+    public void pullCard(Player p) {
+
+        String s = gui_controller.getGui().getUserSelection(LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance(), options);
         for (int i = 0; i < options.length; i++) {
-            if (options[i].equals(s)){
-                moveGetChance temp = new moveGetChance(gui_controller,i,game);
+            if (options[i].equals(s)) {
+                MoveGetChance temp = new MoveGetChance(gui_controller, i, game);
                 temp.pullCard(p);
                 break;
             }
