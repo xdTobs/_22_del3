@@ -48,7 +48,7 @@ public class LanguageHandler {
         return translation.parkingMsg();
     }
 
-    public static String startMsg() {
+    public static String passedStartMsg() {
         return translation.startMsg();
     }
 }

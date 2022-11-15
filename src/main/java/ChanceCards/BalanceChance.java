@@ -15,7 +15,7 @@ public class BalanceChance extends Chance {
 
     @Override
     public void pullCard(Player p) {
-        p.setBalance(p.getBalance() + amount, gui_controller);
+        p.setBalance(p.getBalance() + amount);
     }
 
 
