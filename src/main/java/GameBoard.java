@@ -1,3 +1,4 @@
+import Language.LanguageHandler;
 import gui_fields.*;
 
 import java.awt.*;
@@ -6,7 +7,7 @@ public class GameBoard {
     final private GUI_Field[] fields = new GUI_Field[24];
     private final int[] fieldValues = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5};
 
-    public GameBoard(Language lang) {
+    public GameBoard() {
         int streetIndex = 0;
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
@@ -24,14 +25,14 @@ public class GameBoard {
                 // Go to jail
                 fields[i] = new GUI_Jail();
             } else {
-                fields[i] = createStreet(streetIndex, lang);
+                fields[i] = createStreet(streetIndex);
                 streetIndex++;
             }
         }
     }
 
-    private GUI_Street createStreet(int streetIndex, Language lang) {
-        GUI_Street street = new GUI_Street(lang.fieldNames[streetIndex], "" + fieldValues[streetIndex], "This is a street.", "" + fieldValues[streetIndex], Color.white, Color.BLACK);
+    private GUI_Street createStreet(int streetIndex) {
+        GUI_Street street = new GUI_Street(LanguageHandler.getFieldName(streetIndex), "" + fieldValues[streetIndex], "This is a street.", "" + fieldValues[streetIndex], Color.white, Color.BLACK);
         street.setOwnerName("Bank");
         return street;
     }

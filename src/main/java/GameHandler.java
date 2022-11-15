@@ -1,4 +1,4 @@
-import Dice.DiceCup;
+import Language.LanguageHandler;
 import gui_fields.*;
 import gui_main.GUI;
 
@@ -6,31 +6,30 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiceGame {
+public class GameHandler {
     final int playerCount = 2;
     Player[] players = new Player[playerCount];
     GUI gui;
 
     boolean[] jailedPlayers = new boolean[playerCount];
-    Language language = new Language();
     GUI_Controller gui_controller;
     int[] playerPos = new int[playerCount];
     int playerTurn;
     Chance[] cards;
     final int[] fieldValues = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5};
 
-    GameBoard gameBoard = new GameBoard(language);
+    GameBoard gameBoard = new GameBoard();
 
     DiceCup diceCup = new DiceCup();
 
-    public DiceGame() {
+    public GameHandler() {
         // Remember to give the car a color, so p1 and p2 don't have same colors.
         GUI_Car car1 = new GUI_Car();
         car1.setPrimaryColor(Color.black);
         GUI_Car car2 = new GUI_Car();
         car2.setPrimaryColor(Color.white);
-        this.players[0] = new Player(language.playerName1, 20, car1);
-        this.players[1] = new Player(language.playerName2, 20, car2);
+        this.players[0] = new Player(LanguageHandler.getPlayerName1(), 20, car1);
+        this.players[1] = new Player(LanguageHandler.getPlayerName2(), 20, car2);
 
         this.gui = new GUI(gameBoard.getFields(), Color.white);
         this.gui_controller = new GUI_Controller(gui, players, gameBoard.getFields());
@@ -50,7 +49,7 @@ public class DiceGame {
             if (isGameover()) {
                 //needs to be changed to count money from other players.
                 // Should be a scoreboard showing first to last according to amount of money
-                this.gui.showMessage(currentPlayer.getName() + language.gameWon);
+                this.gui.showMessage(currentPlayer.getName() + LanguageHandler.gameWonMsg());
                 break;
             }
             nextPlayer();
@@ -105,7 +104,7 @@ public class DiceGame {
         streets = new GUI_Street[16];
 
         for (int i = 0; i < streets.length; i++) {
-            streets[i] = new GUI_Street(language.fieldNames[i], Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
+            streets[i] = new GUI_Street(LanguageHandler.getFieldName(i), Integer.toString(fieldValues[i]), " ", Integer.toString(fieldValues[i]), Color.white, Color.BLACK);
             streets[i].setOwnerName("Bank");
         }
         return streets;
@@ -114,7 +113,8 @@ public class DiceGame {
     private Chance[] initializeChanceCards() {
         List<Chance> cards = new ArrayList<>();
         cards.add(new moveChance(
-                language.moveTo + " " + gameBoard.getFields()[3].getTitle(),
+                // TODO implement i
+                LanguageHandler.moveToMsg(3) + " " + gameBoard.getFields()[3].getTitle(),
                 gui_controller,
                 gameBoard.getFields()[2])
         );
@@ -151,7 +151,7 @@ public class DiceGame {
     }
 
     private void onChance(Chance chance, Player currentPlayer) {
-        gui_controller.displayText(currentPlayer.getName() + " " + language.onChanceCard + chance.getDesc());
+        gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chance.getDesc());
         if (chance instanceof moveChance moveChance) moveChance.pullCard(currentPlayer);
 
     }
@@ -166,7 +166,7 @@ public class DiceGame {
             currentPlayer.setBalance(currentPlayer.getBalance() - 1, gui_controller);
             currentPlayer.setJailed(false);
         }
-        gui.showMessage(currentPlayer.getName() + " " + language.onRollDice);
+        gui.showMessage(currentPlayer.getName() + " " + LanguageHandler.rollDiceMsg());
 
         gui.setDie(diceSum);
         //make sure player doesnt move out of bounds
@@ -209,7 +209,7 @@ public class DiceGame {
     }
 
     public static void main(String[] args) {
-        DiceGame game = new DiceGame();
+        GameHandler game = new GameHandler();
         game.playGame();
     }
 }
