@@ -11,6 +11,7 @@ public class EnglishTranslation implements Translation {
     private final String startTurnJail = "You are in Jail, you lose 1$";
     private final String moveTo = "Move to";
     private final String chanceCard = "pulled a chance card. It tells you to:";
+    public final String onPickFieldChance = "Pick a field to move to. If it is available you get it for free. Otherwise you pay rent";
 
     public String getFieldName(int i ) {
         return fieldNames[i];
@@ -41,8 +42,15 @@ public class EnglishTranslation implements Translation {
     public String moveToMsg(int i) {
         return moveTo;
     }
+    public String moveTo() {
+        return moveTo;
+    }
 
     public String chanceCardMsg() {
         return chanceCard;
     }
+
+    public String onPickFieldChance(){
+        return onPickFieldChance;
+    };
 }

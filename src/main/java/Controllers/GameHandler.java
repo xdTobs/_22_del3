@@ -117,12 +117,13 @@ public class GameHandler {
 
     private Chance[] initializeChanceCards() {
         List<Chance> cards = new ArrayList<>();
-        cards.add(new moveChance(
+        /*cards.add(new moveChance(
                 // TODO implement i
                 LanguageHandler.moveToMsg(3) + " " + gameBoard.getFields()[3].getTitle(),
                 gui_controller,
                 gameBoard.getFields()[2])
-        );
+        );*/
+        cards.add(new moveChance( gui_controller,2));
         Chance[] temp = new Chance[cards.size()];
         return cards.toArray(new Chance[0]);
     }
@@ -139,7 +140,7 @@ public class GameHandler {
         else return;
     }
 
-    private void onStreet(GUI_Street street, Player currentPlayer) {
+    public void onStreet(GUI_Street street, Player currentPlayer) {
         //maybe prompt that you landed
         int rent = Integer.parseInt(street.getRent());
         if (street.getOwnerName().equals("Bank")) {

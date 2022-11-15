@@ -12,7 +12,7 @@ public class moveChance extends Chance {
     public moveChance(GUI_Controller gui_controller,int id){
         this.gui_controller = gui_controller;
         this.field = gui_controller.getFields()[id];
-        this.desc = l.moveTo+" "+field.getTitle();
+        this.desc = l.moveTo()+" "+field.getTitle();
         this.id = id;
     }
 

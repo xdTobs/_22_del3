@@ -9,5 +9,8 @@ public interface Translation {
     String jailMsg();
     // TODO implement i in moveToMsg
     String moveToMsg(int i);
+    String moveTo();
     String chanceCardMsg();
+
+    String onPickFieldChance();
 }
