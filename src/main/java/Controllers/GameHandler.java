@@ -1,3 +1,5 @@
+package Controllers;
+
 import Language.LanguageHandler;
 import gui_fields.*;
 import gui_main.GUI;
@@ -5,6 +7,9 @@ import gui_main.GUI;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import Enities.*;
+import ChanceCards.*;
+
 
 public class GameHandler {
     final int playerCount = 2;

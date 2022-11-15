@@ -1,3 +1,5 @@
+package Enities;
+
 import java.lang.Math;
 //Terningen udviklet med brug af ideer og kode fra Java Software Solutions: Foundations of Program design, 9th Edition, listing 4.2
 

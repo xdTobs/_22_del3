@@ -1,5 +1,3 @@
-package Test;
-
 import Language.LanguageHandler;
 import org.junit.jupiter.api.Test;
 
@@ -31,14 +29,14 @@ class LanguageHandlerTest {
 
     @Test
     void getPlayerName1() {
-        String expected = "Player 1";
+        String expected = "Enities.Player 1";
         String actual = LanguageHandler.getPlayerName1();
         assertEquals(expected, actual);
     }
 
     @Test
     void getPlayerName2() {
-        String expected = "Player 2";
+        String expected = "Enities.Player 2";
         String actual = LanguageHandler.getPlayerName2();
         assertEquals(expected, actual);
     }

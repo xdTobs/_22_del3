@@ -1,3 +1,7 @@
+package Enities;
+
+import Enities.Die;
+
 public class DiceCup {
 
     private Die[] diceArray;

@@ -1,3 +1,5 @@
+package Enities;
+
 import Language.LanguageHandler;
 import gui_fields.*;
 
@@ -13,7 +15,7 @@ public class GameBoard {
             if (i == 0) {
                 fields[i] = new GUI_Start("Start", "Start", "Start", Color.white, Color.black);
             } else if ((i + 3) % 6 == 0) {
-                // Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
+                // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
                 fields[i] = new GUI_Chance();
             } else if (i == 6) {
                 // Jail field
