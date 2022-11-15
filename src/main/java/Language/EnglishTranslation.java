@@ -4,9 +4,9 @@ package Language;
 public class EnglishTranslation implements Translation {
     private final String[] fieldNames = {"Start", "Burgerbaren", "Pizzariaet", "Chans", "Slikbutikken", "Iskiosken", "Fængsel", "Museet", "Biblioteket", "Chans", "Skaterparken", "Swimmingpoolen", "Parkering", "Spillehallen", "Biografen", "Chans", "Legetøjsbutikken", "Dyrehandlen", "Gå i fængsel", "Bowlinghallen", "Zoo", "Chans", "Vandlandet", "Strandpromenaden"};
     private final String gameWon = "has won the game";
-    private final String playerName1 = "Player 1";
+    private final String playerName1 = "Enities.Player 1";
 
-    private final String playerName2 = "Player 2";
+    private final String playerName2 = "Enities.Player 2";
     private final String onRollDice = "It is your turn. Roll the Dice";
     private final String startTurnJail = "You are in Jail, you lose 1$";
     private final String moveTo = "Move to";

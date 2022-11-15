@@ -1,4 +1,7 @@
+package Enities;
+
 import gui_fields.GUI_Car;
+import Controllers.*;
 
 public class Player {
     private String name;
@@ -41,7 +44,7 @@ public class Player {
         return balance;
     }
 
-    public void setBalance(int balance,GUI_Controller gui_controller) {
+    public void setBalance(int balance, GUI_Controller gui_controller) {
         this.balance = balance;
         gui_controller.updatePlayer(this.id);
     }

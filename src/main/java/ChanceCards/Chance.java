@@ -1,3 +1,8 @@
+package ChanceCards;
+
+import Enities.Player;
+import Controllers.*;
+
 public abstract class Chance {
 
     protected String desc;

@@ -1,3 +1,5 @@
+package Enities;
+
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 
