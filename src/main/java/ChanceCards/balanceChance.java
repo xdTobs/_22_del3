@@ -1,4 +1,8 @@
+package ChanceCards;
+
 import gui_fields.GUI_Field;
+import Controllers.*;
+import Enities.*;
 
 public class balanceChance extends Chance {
     int amount;

@@ -41,7 +41,14 @@ public class LanguageHandler {
         return getInstance().translation.moveToMsg(i);
     }
 
+    public static String moveTo() {
+        return getInstance().translation.moveTo();
+    }
+
     public static String chanceCardMsg() {
         return getInstance().translation.chanceCardMsg();
+    }
+    public static String onPickFieldChance() {
+        return getInstance().translation.onPickFieldChance();
     }
 }
