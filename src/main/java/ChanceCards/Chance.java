@@ -7,7 +7,9 @@ public abstract class Chance {
 
     protected String desc;
     protected GUI_Controller gui_controller;
+    protected Language l = new Language();
     public void pullCard(Player p){};
+
 
     public String getDesc() {
         return desc;

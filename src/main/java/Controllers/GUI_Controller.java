@@ -42,4 +42,13 @@ public class GUI_Controller {
     public void displayText(String text) {
         gui.showMessage(text);
     }
+
+    public GUI getGui() {
+        return gui;
+    }
+
+    public GUI_Field[] getFields() {
+        return fields;
+    }
 }
+
