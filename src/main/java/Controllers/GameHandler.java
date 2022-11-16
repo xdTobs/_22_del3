@@ -49,15 +49,15 @@ public class GameHandler {
         GUI_Car car2 = new GUI_Car();
         car2.setPrimaryColor(Color.white);
 
-        Deck cards = new Deck(gui_controller);
 
-        gameBoard = new GameBoard(cards);
         this.players[0] = new Player(LanguageHandler.getPlayerName1(), 20, car1);
         this.players[1] = new Player(LanguageHandler.getPlayerName2(), 20, car2);
 
-//        this.gui = new GUI(gameBoard.getGuiFields(), Color.white);
-
+        Deck cards = new Deck();
+        gameBoard = new GameBoard(cards);
         this.gui_controller = new GUI_Controller(new GUI_Player[]{this.players[0].getGuiPlayer(), this.players[1].getGuiPlayer()}, gameBoard.getGuiFields());
+
+
     }
 
     /**
@@ -95,7 +95,7 @@ public class GameHandler {
 
         // If a player was jailed last turn he needs to pay a fine to get out.
         if (currentPlayer.isJailed()) {
-            currentPlayer.setBalance(currentPlayer.getBalance() - 1);
+            currentPlayer.addBalance(-1);
             currentPlayer.setJailed(false);
         }
 
@@ -107,7 +107,7 @@ public class GameHandler {
         if (newPosition >= 24) {
             newPosition = newPosition - 24;
             gui_controller.showMessage(LanguageHandler.passedStartMsg());
-            currentPlayer.setBalance(currentPlayer.getBalance() + 2);
+            currentPlayer.addBalance(2);
         }
 
         // Move player

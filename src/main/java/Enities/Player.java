@@ -10,6 +10,7 @@ public class Player {
     private boolean jailed;
 
 
+
     public Player(String name, int balance, GUI_Car guiCar) {
         this.balance = balance;
         this.guiPlayer = new GUI_Player(name, balance, guiCar);
@@ -38,6 +39,9 @@ public class Player {
     public void setBalance(int balance) {
         this.balance = balance;
         this.getGuiPlayer().setBalance(balance);
+    }
+    public void addBalance(int balance) {
+        setBalance(this.balance + balance);
     }
 
     public GUI_Car getCar() {

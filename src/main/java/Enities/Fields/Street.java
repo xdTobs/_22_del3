@@ -4,7 +4,6 @@ import gui_fields.GUI_Field;
 import gui_fields.GUI_Street;
 
 public class Street extends Field {
-
     public Street(int position) {
         super(position, new GUI_Street());
         String rent = "" + calculateRent(position);

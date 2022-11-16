@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class Deck {
     Chance[] cards;
 
-    public Deck(GUI_Controller gui_controller) {
+    public Deck() {
         ArrayList<Chance> cards = new ArrayList<>();
-        cards.add(new MoveChance(gui_controller, 2));
+        cards.add(new MoveChance(new int[]{1, 2}));
         this.cards = cards.toArray(new Chance[0]);
     }
 

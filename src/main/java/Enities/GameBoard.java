@@ -75,7 +75,7 @@ public class GameBoard {
         if (street.getOwnerName().equals("Bank")) {
             //currently just shows player id, would be nice to have full names for GUI clicks
             street.setOwnerName(currentPlayer.getName());
-            currentPlayer.setBalance(currentPlayer.getBalance() - rent);
+            currentPlayer.addBalance(-rent);
         } else {
             // TODO Test if this works. I think it should.
             String houseOwnerName = street.getOwnerName();
@@ -87,8 +87,8 @@ public class GameBoard {
             }
             assert houseOwner != null;
             // If you land on your own house, you don't have to pay rent. But we can ignore handling that, because paying yourself $2 dollars makes no difference. The gameover check comes much later.
-            houseOwner.setBalance(houseOwner.getBalance() + rent);
-            currentPlayer.setBalance(currentPlayer.getBalance() - rent);
+            houseOwner.addBalance(rent);
+            currentPlayer.addBalance(-rent);
         }
     }
 
@@ -132,5 +132,9 @@ public class GameBoard {
         } else if (guiField instanceof GUI_Refuge) {
             onRefuge(gui_controller);
         }
+    }
+
+    public Field[] getFields() {
+        return fields;
     }
 }

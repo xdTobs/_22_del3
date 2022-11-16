@@ -9,18 +9,17 @@ import gui_fields.GUI_Field;
 // TODO first implement move to one field.
 public class MoveChance extends Chance {
     GUI_Field field;
-    int[] position;
+    int[] position = new int[2];
 
-    public MoveChance(GUI_Controller gui_controller, int position) {
+    public MoveChance(int[] position) {
 //        this.gui_controller = gui_controller;
-        this.field = gui_controller.getFields()[position];
-        this.desc = LanguageHandler.moveTo() + " " + field.getTitle();
-        this.position[0] = position;
+        this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(position[0]);
+        this.position = position;
     }
 
     @Override
     public void executeCardAction(Player p) {
         p.setPosition(position[0]);
-        p.getCar().setPosition(field);
+        // TODO Update GUI. Solution could be to give ChanceCard to GUI_Controller from GameHandler.
     }
 }

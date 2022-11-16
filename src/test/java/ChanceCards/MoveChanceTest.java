@@ -9,8 +9,9 @@ class MoveChanceTest {
 
     @BeforeEach
     void setUp() {
-        MoveChance card = new MoveChance(new GUI_Controller(null, null), 2);
+        MoveChance card = new MoveChance(new int[]{1, 2});
     }
+
     @Test
     void executeCardAction() {
     }

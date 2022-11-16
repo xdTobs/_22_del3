@@ -25,7 +25,7 @@ public class MoveGetChance extends Chance {
         p.setPosition(pos);
         p.getCar().setPosition(street);
         if (street.getOwnerName().equals("Bank")) {
-            p.setBalance(p.getBalance() + Integer.parseInt(street.getRent()));
+            p.addBalance(Integer.parseInt(street.getRent()));
             this.gameHandler.gameBoard.onStreet(street, p, gui_controller, gameHandler.players);
         } else {
             gameHandler.gameBoard.onStreet(street, p, gui_controller, gameHandler.players);
