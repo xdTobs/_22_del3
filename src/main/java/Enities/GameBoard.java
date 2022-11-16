@@ -101,6 +101,7 @@ public class GameBoard {
     // TODO implement action is an abstract method in chance, that is called here.
     public void onChance(Player currentPlayer, GUI_Controller gui_controller) {
         Chance chanceCard = cards.pullCard();
+        chanceCard.executeCardAction(currentPlayer);
         gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chanceCard.getDesc());
     }
 

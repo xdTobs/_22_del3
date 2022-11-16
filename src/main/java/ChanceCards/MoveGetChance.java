@@ -21,7 +21,7 @@ public class MoveGetChance extends Chance {
     }
 
     @Override
-    public void pullCard(Player p) {
+    public void executeCardAction(Player p) {
         p.setPosition(pos);
         p.getCar().setPosition(street);
         if (street.getOwnerName().equals("Bank")) {

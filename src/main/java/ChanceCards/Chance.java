@@ -8,7 +8,7 @@ public abstract class Chance {
     protected String desc;
     protected GUI_Controller gui_controller;
 
-    public abstract void pullCard(Player p);
+    public abstract void executeCardAction(Player p);
 
     public String getDesc() {
         return desc;

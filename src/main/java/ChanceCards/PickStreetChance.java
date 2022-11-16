@@ -23,13 +23,13 @@ public class PickStreetChance extends Chance {
 
     }
 
-    public void pullCard(Player p) {
+    public void executeCardAction(Player p) {
 
         String s = gui_controller.getGui().getUserSelection(LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance(), options);
         for (int i = 0; i < options.length; i++) {
             if (options[i].equals(s)) {
                 MoveGetChance temp = new MoveGetChance(gui_controller, i, game);
-                temp.pullCard(p);
+                temp.executeCardAction(p);
                 break;
             }
         }
