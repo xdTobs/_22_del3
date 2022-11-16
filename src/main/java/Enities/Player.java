@@ -6,14 +6,14 @@ import gui_fields.GUI_Player;
 public class Player {
     private int balance;
     private GUI_Player guiPlayer;
-    private int pos;
+    private int position;
     private boolean jailed;
 
 
     public Player(String name, int balance, GUI_Car guiCar) {
         this.balance = balance;
         this.guiPlayer = new GUI_Player(name, balance, guiCar);
-        this.pos = 0;
+        this.position = 0;
         this.jailed = false;
 
     }
@@ -47,15 +47,20 @@ public class Player {
         return guiPlayer.getCar();
     }
 
-    public int getPos() {
-        return pos;
+    public int getPosition() {
+        return position;
     }
 
-    public void setPosition(int pos) {
-        this.pos = pos;
+    public void moveForwards(int steps) {
+        this.position += steps;
     }
 
     public GUI_Player getGuiPlayer() {
         return guiPlayer;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+        assert position >= 0 && position <= 23;
     }
 }

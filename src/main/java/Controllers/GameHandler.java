@@ -103,7 +103,7 @@ public class GameHandler {
         gui_controller.setDie(diceSum);
 
         // Make sure player doesnt move out of bounds. If the check is true that means the player has moved a whole lap, and should be awarded start money, 2$.
-        int newPosition = currentPlayer.getPos() + diceSum;
+        int newPosition = currentPlayer.getPosition() + diceSum;
         if (newPosition >= 24) {
             newPosition = newPosition - 24;
             gui_controller.showMessage(LanguageHandler.passedStartMsg());

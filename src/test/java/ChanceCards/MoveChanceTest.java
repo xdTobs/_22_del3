@@ -1,6 +1,7 @@
 package ChanceCards;
 
 import Controllers.GUI_Controller;
+import Enities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,5 +15,6 @@ class MoveChanceTest {
 
     @Test
     void executeCardAction() {
+        Player player = new Player("Test", 0, null);
     }
 }

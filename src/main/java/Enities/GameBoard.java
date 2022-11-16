@@ -115,7 +115,7 @@ public class GameBoard {
 
     // When the player lands on a field, we find out which one here, and then we take action according to field type.
     public void fieldAction(Player currentPlayer, GUI_Controller gui_controller, Player[] players) {
-        var playerPosition = currentPlayer.getPos();
+        var playerPosition = currentPlayer.getPosition();
         var field = getField(playerPosition);
         GUI_Field guiField = field.getGuiField();
         if (field instanceof Street) {
