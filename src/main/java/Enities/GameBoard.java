@@ -69,11 +69,9 @@ public class GameBoard {
      * @param currentPlayer  the current player
      * @param gui_controller Controls for the gui
      */
-    public void onStreet(GUI_Street street, Player currentPlayer, GUI_Controller gui_controller, Player[] players) {
-        //maybe prompt that you landed
-        int rent = Integer.parseInt(street.getRent());
+    public void onStreet(Street street, Player currentPlayer, GUI_Controller gui_controller, Player[] players) {
+        int rent = street.getRent();
         if (street.getOwnerName().equals("Bank")) {
-            //currently just shows player id, would be nice to have full names for GUI clicks
             street.setOwnerName(currentPlayer.getName());
             currentPlayer.addBalance(-rent);
         } else {
@@ -121,8 +119,7 @@ public class GameBoard {
         var field = getField(playerPosition);
         GUI_Field guiField = field.getGuiField();
         if (field instanceof Street) {
-            GUI_Street guiStreet = (GUI_Street) field.getGuiField();
-            onStreet(guiStreet, currentPlayer, gui_controller, players);
+            onStreet((Street) field, currentPlayer, gui_controller, players);
         } else if (guiField instanceof GUI_Chance) {
             onChance(currentPlayer, gui_controller);
         } else if (guiField instanceof GUI_Jail) {

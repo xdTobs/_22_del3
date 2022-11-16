@@ -13,6 +13,23 @@ public class Street extends Field {
         street.setOwnerName("Bank");
     }
 
+    public int getRent() {
+        return Integer.parseInt(getGuiStreet().getRent());
+    }
+
+    public String getOwnerName() {
+        return getGuiStreet().getOwnerName();
+    }
+
+    public void setOwnerName(String ownerName) {
+        getGuiStreet().setOwnerName(ownerName);
+    }
+
+    private GUI_Street getGuiStreet() {
+        return (GUI_Street) super.getGuiField();
+    }
+
+
     private int calculateRent(int i) {
         if (i < 6) {
             return 1;

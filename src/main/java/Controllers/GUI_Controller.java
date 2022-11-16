@@ -1,5 +1,6 @@
 package Controllers;
 
+import Enities.Fields.Field;
 import Enities.Player;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -15,6 +16,12 @@ public class GUI_Controller {
         this.gui = new GUI(this.fields);
         this.GUI_Players = players;
         addPlayersToGUI();
+    }
+
+    // This method will update gui by setting all fields in gui to the latest values in the other states.
+    // This will be less prone to bugs I hope. Just call this method everytime you update state, instead of setting individual state of parts of the gui.
+    public void setGuiPlayerPosition(GUI_Player guiPlayer, GUI_Field field) {
+        guiPlayer.getCar().setPosition(field);
     }
 
     public void addPlayersToGUI() {
