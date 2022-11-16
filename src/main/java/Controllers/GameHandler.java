@@ -93,10 +93,16 @@ public class GameHandler {
         diceCup.roll();
         int diceSum = diceCup.getSum();
 
-        // If a player was jailed last turn he needs to pay a fine to get out.
+        // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
         if (currentPlayer.isJailed()) {
-            currentPlayer.addBalance(-1);
-            currentPlayer.setJailed(false);
+            if (currentPlayer.getGetOutOfJailCards()>0){
+                currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards()-1);
+                currentPlayer.setJailed(false);
+            }
+            else{
+                currentPlayer.addBalance(-1);
+                currentPlayer.setJailed(false);
+            }
         }
 
         gui_controller.showMessage(currentPlayer.getName() + " " + LanguageHandler.rollDiceMsg());
