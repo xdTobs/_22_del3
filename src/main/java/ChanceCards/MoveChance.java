@@ -19,7 +19,15 @@ public class MoveChance extends Chance {
 
     @Override
     public void executeCardAction(Player p) {
-        p.setPosition(position[0]);
+        if (position.length==1){
+            p.setPosition(position[0]);
+
+        }else{
+            p.setPosition(position[0]);
+            //prompt options on gui using GUI.getUserSelection
+            //move to selected option
+        }
+
         // TODO Update GUI. Solution could be to give ChanceCard to GUI_Controller from GameHandler.
     }
 }
