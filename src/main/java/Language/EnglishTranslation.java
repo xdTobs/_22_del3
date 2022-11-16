@@ -57,4 +57,7 @@ public class EnglishTranslation implements Translation {
     public String startMsg() {
         return "You get two dollars for landing or passing through start";
     }
+    public String onGetOutOfJail(){
+        return "Recieve a get out of jail free card. This will automatically be used when you go to jail";
+    }
 }

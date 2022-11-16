@@ -51,4 +51,7 @@ public class LanguageHandler {
     public static String passedStartMsg() {
         return translation.startMsg();
     }
+    public static String onGetOutOfJail(){
+        return translation.onGetOutOfJail();
+    }
 }
