@@ -8,6 +8,7 @@ public class Player {
     private GUI_Player guiPlayer;
     private int position;
     private boolean jailed;
+    private int getOutOfJailCards = 0;
 
 
     public Player(String name, int balance, GUI_Car guiCar) {
@@ -62,5 +63,13 @@ public class Player {
     public void setPosition(int position) {
         this.position = position;
         assert position >= 0 && position <= 23;
+    }
+
+    public int getGetOutOfJailCards() {
+        return getOutOfJailCards;
+    }
+
+    public void setGetOutOfJailCards(int getOutOfJailCards) {
+        this.getOutOfJailCards = getOutOfJailCards;
     }
 }
