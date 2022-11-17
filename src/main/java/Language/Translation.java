@@ -11,7 +11,8 @@ public interface Translation {
 
     String rollDiceMsg();
 
-    String jailMsg();
+    String gotoJailMsg(String playerName);
+    String leaveJailMsg(String playerName);
 
     // TODO implement i in moveToMsg
     String moveToMsg(int i);

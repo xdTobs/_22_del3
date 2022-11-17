@@ -1,9 +1,9 @@
 package ChanceCards;
 
 import Enities.Player;
-import Controllers.*;
+import View.*;
 
-public abstract class Chance {
+public abstract class ChanceCard {
 
     protected String desc;
     protected GUI_Controller gui_controller;

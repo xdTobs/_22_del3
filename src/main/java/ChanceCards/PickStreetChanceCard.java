@@ -3,15 +3,15 @@ package ChanceCards;
 import Language.LanguageHandler;
 import gui_fields.GUI_Street;
 import Enities.*;
-import Controllers.*;
+import View.*;
 
-public class PickStreetChance extends Chance {
+public class PickStreetChanceCard extends ChanceCard {
     private GUI_Street[] choices;
     private String[] options;
     private GameHandler game;
 
 
-    public PickStreetChance(String desc, GUI_Controller gui_controller, GUI_Street[] choices, GameHandler game) {
+    public PickStreetChanceCard(String desc, GUI_Controller gui_controller, GUI_Street[] choices, GameHandler game) {
         this.gui_controller = gui_controller;
         this.desc = desc;
         this.choices = choices;
@@ -28,7 +28,7 @@ public class PickStreetChance extends Chance {
         String s = gui_controller.getGui().getUserSelection(LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance(), options);
         for (int i = 0; i < options.length; i++) {
             if (options[i].equals(s)) {
-                MoveGetChance temp = new MoveGetChance(i, game);
+                MoveGetChanceCard temp = new MoveGetChanceCard(i, game);
                 temp.executeCardAction(p);
                 break;
             }

@@ -1,6 +1,5 @@
 package Enities;
 
-import gui_fields.GUI_Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        this.player = new Player("Test Player", 20, new GUI_Car());
+        this.player = new Player("Test Player", 20);
     }
 
     @Test

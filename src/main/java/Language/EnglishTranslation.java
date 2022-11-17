@@ -27,9 +27,14 @@ public class EnglishTranslation implements Translation {
         return "It is your turn. Roll the Dice";
     }
 
+    @Override
+    public String gotoJailMsg(String playerName) {
+        return "Go to jail " + playerName;
 
-    public String jailMsg() {
-        return "You are in Jail, you lose 1$";
+    }
+
+    public String leaveJailMsg(String playerName) {
+        return playerName + " , you are in Jail, you lose 1$";
     }
 
     // TODO implement i in moveToMsg
@@ -57,7 +62,8 @@ public class EnglishTranslation implements Translation {
     public String startMsg() {
         return "You get two dollars for landing or passing through start";
     }
-    public String onGetOutOfJail(){
+
+    public String onGetOutOfJail() {
         return "Recieve a get out of jail free card. This will automatically be used when you go to jail";
     }
 }

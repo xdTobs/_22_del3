@@ -2,12 +2,11 @@ package ChanceCards;
 
 import Enities.Player;
 import Language.LanguageHandler;
-import gui_fields.GUI_Field;
 
-public class GetOutOfJailChance extends Chance {
+public class GetOutOfJailChanceCard extends ChanceCard {
 
 
-    public GetOutOfJailChance() {
+    public GetOutOfJailChanceCard() {
         this.desc = LanguageHandler.onGetOutOfJail();
     }
 

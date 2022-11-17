@@ -1,6 +1,5 @@
-package Controllers;
+package View;
 
-import Enities.Fields.Field;
 import Enities.Player;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;

@@ -1,20 +1,18 @@
 package ChanceCards;
 
-import Controllers.GUI_Controller;
-import Controllers.GameHandler;
+import View.GUI_Controller;
 import Enities.Fields.Street;
 import Language.LanguageHandler;
-import gui_fields.GUI_Street;
 import Enities.*;
 
-public class MoveGetChance extends Chance {
+public class MoveGetChanceCard extends ChanceCard {
     Street street;
     int pos;
     GameHandler gameHandler;
 
     GUI_Controller gui_controller;
 
-    public MoveGetChance(int pos, GameHandler gameHandler) {
+    public MoveGetChanceCard(int pos, GameHandler gameHandler) {
         this.gameHandler = gameHandler;
         this.pos = pos;
         this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(pos);

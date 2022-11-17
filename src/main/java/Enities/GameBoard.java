@@ -1,137 +1,159 @@
 package Enities;
 
-import ChanceCards.Chance;
+import ChanceCards.ChanceCard;
 import ChanceCards.Deck;
-import Controllers.GUI_Controller;
-import Enities.Fields.Field;
-import Enities.Fields.Street;
+import Enities.Fields.*;
 import Language.LanguageHandler;
-import gui_fields.*;
-
-import java.awt.*;
 
 public class GameBoard {
-    final private Field[] fields = new Field[24];
+    private int playerCount = 2;
+    private Player[] players = new Player[playerCount];
+    private int playerTurn;
+    private DiceCup diceCup = new DiceCup();
+    private Field[] fields = new Field[24];
+    private Deck cards = new Deck();
 
     /**
      * The Cards, chance.
      */
-    public Deck cards;
 
-    public GameBoard(Deck cards) {
-        this.cards = cards;
+    public GameBoard() {
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
-                this.fields[i] = new Field(i, new GUI_Start("Start", "Start", "Start", Color.white, Color.black));
+                this.fields[i] = new Start(i);
             } else if ((i + 3) % 6 == 0) {
                 // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
-                this.fields[i] = new Field(i, new GUI_Chance());
-            } else if (i == 6) {
+                this.fields[i] = new Chance(i);
+            } else if (i == 5) {
                 // Jail field
-                this.fields[i] = new Field(i, new GUI_Jail());
-            } else if (i == 12) {
+                this.fields[i] = new Jail();
+            } else if (i == 11) {
                 // Parking
-                this.fields[i] = new Field(i, new GUI_Refuge());
-            } else if (i == 18) {
+                this.fields[i] = new Parking();
+            } else if (i == 17) {
                 // Go to jail
-                this.fields[i] = new Field(i, new GUI_Jail());
+                this.fields[i] = new GoToJail(i);
             } else {
-//                GUI_Street guiStreet = createStreet(i);
                 this.fields[i] = new Street(i);
             }
         }
-    }
 
-    public GUI_Field[] getGuiFields() {
-        GUI_Field[] guiFields = new GUI_Field[fields.length];
-        for (int i = 0; i < fields.length; i++) {
-            guiFields[i] = fields[i].getGuiField();
-        }
-        return guiFields;
+        this.players[0] = new Player(LanguageHandler.getPlayerName1(), 20);
+        this.players[1] = new Player(LanguageHandler.getPlayerName2(), 20);
     }
 
     public Field getField(int position) {
         return fields[position];
     }
 
-    public void onStart(GUI_Controller gui_controller) {
+    public void onStart() {
         gui_controller.showMessage(LanguageHandler.passedStartMsg());
     }
 
-    public void onRefuge(GUI_Controller gui_controller) {
+    public void onRefuge() {
         gui_controller.showMessage(LanguageHandler.parkingMsg());
     }
 
     /**
      * We have landed on street.
      *
-     * @param street         the street
-     * @param currentPlayer  the current player
-     * @param gui_controller Controls for the gui
+     * @param street        the street
+     * @param currentPlayer the current player
      */
-    public void onStreet(Street street, Player currentPlayer, GUI_Controller gui_controller, Player[] players) {
-        int rent = street.getRent();
-        if (street.getOwnerName().equals("Bank")) {
-            street.setOwnerName(currentPlayer.getName());
-            currentPlayer.addBalance(-rent);
-        } else {
-            // TODO Test if this works. I think it should.
-            String houseOwnerName = street.getOwnerName();
-            Player houseOwner = null;
-            for (Player player : players) {
-                if (player.getName().equals(houseOwnerName)) {
-                    houseOwner = player;
-                }
-            }
-            assert houseOwner != null;
-            // If you land on your own house, you don't have to pay rent. But we can ignore handling that, because paying yourself $2 dollars makes no difference. The gameover check comes much later.
-            houseOwner.addBalance(rent);
-            currentPlayer.addBalance(-rent);
-        }
-    }
+
 
     /**
      * We have landed on chance, we get a card.
      *
-     * @param currentPlayer  the current player
-     * @param gui_controller
+     * @param currentPlayer the current player
      */
     // TODO implement action is an abstract method in chance, that is called here.
-    public void onChance(Player currentPlayer, GUI_Controller gui_controller) {
-        Chance chanceCard = cards.pullCard();
+    public void onChance(Player currentPlayer) {
+        ChanceCard chanceCard = cards.pullCard();
         chanceCard.executeCardAction(currentPlayer);
-        gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chanceCard.getDesc());
+//        gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chanceCard.getDesc());
     }
 
     /**
      * We have landed on jail, we need to pay money next turn, unless we have special card.
      *
-     * @param currentPlayer  the current player
-     * @param gui_controller
+     * @param currentPlayer the current player
      */
-    public void onJail(Player currentPlayer, GUI_Controller gui_controller) {
+    public void onJail(Player currentPlayer) {
         currentPlayer.setJailed(true);
     }
 
     // When the player lands on a field, we find out which one here, and then we take action according to field type.
-    public void fieldAction(Player currentPlayer, GUI_Controller gui_controller, Player[] players) {
+    public void fieldAction(Player currentPlayer) {
         var playerPosition = currentPlayer.getPosition();
         var field = getField(playerPosition);
-        GUI_Field guiField = field.getGuiField();
-        if (field instanceof Street) {
-            onStreet((Street) field, currentPlayer, gui_controller, players);
-        } else if (guiField instanceof GUI_Chance) {
-            onChance(currentPlayer, gui_controller);
-        } else if (guiField instanceof GUI_Jail) {
-            onJail(currentPlayer, gui_controller);
-        } else if (guiField instanceof GUI_Start) {
-            onStart(gui_controller);
-        } else if (guiField instanceof GUI_Refuge) {
-            onRefuge(gui_controller);
-        }
+        field.executeFieldAction(this);
+//        if (field instanceof Street street) {
+//            street.executeFieldAction(this);
+//        } else if (field instanceof Chance) {
+//            onChance(currentPlayer);
+//        } else if (field instanceof Jail) {
+//            onJail(currentPlayer);
+//        } else if (field instanceof GoToJail goToJail) {
+//            goToJail.executeFieldAction(this);
+//        } else if (field instanceof Start) {
+//            onStart();
+//        } else if (field instanceof Parking) {
+//            onRefuge();
+//        }
     }
 
     public Field[] getFields() {
         return fields;
+    }
+
+    public void movePlayer(int pos, Player currentPlayer) {
+        currentPlayer.setPosition(pos);
+    }
+
+    public void resetPlayerPositions() {
+        for (Player player : players) {
+            player.setPosition(0);
+        }
+    }
+
+    public Player getCurrentPlayer() {
+        return players[playerTurn];
+    }
+
+    public DiceCup getDiceCup() {
+        return diceCup;
+    }
+
+    /**
+     * @return Returns true if player has passed go.
+     */
+    public boolean rollDieMovePlayer() {
+        diceCup.roll();
+        Player currentPlayer = getCurrentPlayer();
+        int playerPosition = currentPlayer.getPosition();
+        int newPosition = playerPosition + diceCup.getSum();
+        boolean hasPassedStart = false;
+        if (newPosition > 23) {
+            newPosition = newPosition - 24;
+            currentPlayer.addBalance(2);
+            hasPassedStart = true;
+        }
+        currentPlayer.setPosition(newPosition);
+        return hasPassedStart;
+    }
+
+    public void payFine(Player currentPlayer) {
+        if (currentPlayer.getGetOutOfJailCards() > 0) {
+            currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards() - 1);
+            currentPlayer.setJailed(false);
+        } else {
+            currentPlayer.addBalance(-1);
+            currentPlayer.setJailed(false);
+        }
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 }

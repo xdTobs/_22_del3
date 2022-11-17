@@ -1,6 +1,6 @@
 package Language;
 
-// Singleton
+// We can use this class to implement different languages. For example, we can make translation variable be an array and then we can loop through it and print out the different translations, so the game is multi-lingual.
 public class LanguageHandler {
     private final static Translation translation = new EnglishTranslation();
 
@@ -24,8 +24,8 @@ public class LanguageHandler {
         return translation.rollDiceMsg();
     }
 
-    public static String jailMsg() {
-        return translation.jailMsg();
+    public static String jailMsg(String playerName) {
+        return translation.leaveJailMsg(playerName);
     }
 
     public static String moveToMsg(int i) {
@@ -51,7 +51,8 @@ public class LanguageHandler {
     public static String passedStartMsg() {
         return translation.startMsg();
     }
-    public static String onGetOutOfJail(){
+
+    public static String onGetOutOfJail() {
         return translation.onGetOutOfJail();
     }
 }

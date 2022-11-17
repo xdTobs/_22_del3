@@ -1,12 +1,12 @@
 package ChanceCards;
 
-import Controllers.*;
+import View.*;
 import Enities.*;
 
-public class BalanceChance extends Chance {
+public class BalanceChanceCard extends ChanceCard {
     private int amount;
 
-    public BalanceChance(String desc, GUI_Controller gui_controller, int amount) {
+    public BalanceChanceCard(String desc, GUI_Controller gui_controller, int amount) {
         this.gui_controller = gui_controller;
         this.amount = amount;
         this.desc = desc;

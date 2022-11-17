@@ -1,21 +1,19 @@
 package Enities;
 
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Player;
 
 public class Player {
     private int balance;
-    private GUI_Player guiPlayer;
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
+    private String name;
 
 
-    public Player(String name, int balance, GUI_Car guiCar) {
+    public Player(String name, int balance) {
         this.balance = balance;
-        this.guiPlayer = new GUI_Player(name, balance, guiCar);
         this.position = 0;
         this.jailed = false;
+        this.name=name;
 
     }
 
@@ -27,25 +25,16 @@ public class Player {
         this.jailed = jailed;
     }
 
-    public String getName() {
-        return guiPlayer.getName();
-    }
-
     public int getBalance() {
         return balance;
     }
 
     public void setBalance(int balance) {
         this.balance = balance;
-        this.getGuiPlayer().setBalance(balance);
     }
 
     public void addBalance(int balance) {
         setBalance(this.balance + balance);
-    }
-
-    public GUI_Car getCar() {
-        return guiPlayer.getCar();
     }
 
     public int getPosition() {
@@ -54,10 +43,6 @@ public class Player {
 
     public void moveForwards(int steps) {
         this.position += steps;
-    }
-
-    public GUI_Player getGuiPlayer() {
-        return guiPlayer;
     }
 
     public void setPosition(int position) {
@@ -71,5 +56,9 @@ public class Player {
 
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
+    }
+
+    public String getName() {
+        return name;
     }
 }

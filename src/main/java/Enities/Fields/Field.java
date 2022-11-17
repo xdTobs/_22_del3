@@ -1,27 +1,20 @@
 package Enities.Fields;
 
-import Language.LanguageHandler;
-import gui_fields.*;
+import Enities.GameBoard;
 
-import java.awt.*;
-
-public class Field {
-    private GUI_Field guiField;
+public abstract class Field {
     private int position;
 
-    public Field(int position, GUI_Field guiField) {
+    public Field(int position) {
         this.position = position;
-        this.guiField = guiField;
-        guiField.setTitle(LanguageHandler.getFieldName(position));
-    }
-
-
-    public GUI_Field getGuiField() {
-        return guiField;
     }
 
     public int getPosition() {
         return position;
     }
 
+    public abstract String getName();
+
+    public abstract String getDescription();
+    public abstract void executeFieldAction(GameBoard gameBoard);
 }
