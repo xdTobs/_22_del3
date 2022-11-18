@@ -24,13 +24,13 @@ public class GameBoard {
             } else if ((i + 3) % 6 == 0) {
                 // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
                 this.fields[i] = new Chance(i);
-            } else if (i == 5) {
+            } else if (i == 6) {
                 // Jail field
                 this.fields[i] = new Jail();
-            } else if (i == 11) {
+            } else if (i == 12) {
                 // Parking
                 this.fields[i] = new Parking();
-            } else if (i == 17) {
+            } else if (i == 18) {
                 // Go to jail
                 this.fields[i] = new GoToJail(i);
             } else {

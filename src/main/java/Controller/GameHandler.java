@@ -3,18 +3,18 @@ package Controller;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
-import View.View;
+import View.GUI_View;
 
 
 /**
  * The type Game handler.
  */
 public class GameHandler {
-    private View view;
+    private View.GUI_View view;
 
     private GameBoard gameBoard;
 
-    public GameHandler(View view, GameBoard gameBoard) {
+    public GameHandler(GUI_View view, GameBoard gameBoard) {
         // Remember to give the car a color, so p1 and p2 don't have same colors.
         this.view = view;
         this.gameBoard = gameBoard;
@@ -70,10 +70,5 @@ public class GameHandler {
         gameBoard.resetPlayerPositions();
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
-
-
-    // The only player that can lose money is the current player, I think. Maybe the chance cards can take money from the player, but I don't think so.
-    // Never mind. There is a chance card that takes money from all other players and gives to current player. We need to check all players.
-
 }
 
