@@ -6,6 +6,10 @@ import gui_fields.GUI_Field;
 
 // MoveChance card allows you to move to a field, or choose between several different fields.
 // TODO first implement move to one field.
+
+/**
+ * Chance card to move to a given field.
+ */
 public class MoveChanceCard extends ChanceCard {
     GUI_Field field;
     int[] position = new int[2];

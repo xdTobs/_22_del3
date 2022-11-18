@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Deck of chance cards
+ */
 public class Deck {
     // Lets do 4 cards for now. All movechance cards.
     ChanceCard[] cards = new ChanceCard[4];

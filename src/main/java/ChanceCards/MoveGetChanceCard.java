@@ -7,6 +7,9 @@ import Enities.*;
 
 import java.util.Arrays;
 
+/**
+ * Chance card to move to a space and then buy that space if it is free or pay rent if someone owns it
+ */
 public class MoveGetChanceCard extends ChanceCard {
     Street street;
     int pos;

@@ -5,6 +5,9 @@ import gui_fields.GUI_Street;
 import Enities.*;
 import View.*;
 
+/**
+ * Chance card to pick a street to move to. Also buys / plays rent when landed on.
+ */
 public class PickStreetChanceCard extends ChanceCard {
     private GUI_Street[] choices;
     private String[] options;
