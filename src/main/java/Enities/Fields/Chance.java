@@ -1,5 +1,8 @@
 package Enities.Fields;
 
+import ChanceCards.BalanceChanceCard;
+import ChanceCards.ChanceCard;
+import ChanceCards.Deck;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 
@@ -10,7 +13,7 @@ public class Chance extends Field {
 
     public Chance(int position) {
         super(position);
-        name = LanguageHandler.getFieldName(position);
+        this.name = LanguageHandler.getFieldName(position);
     }
 
     @Override
@@ -25,8 +28,10 @@ public class Chance extends Field {
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
+        Deck deck =gameBoard.getCards();
+        ChanceCard chance = deck.pullCard();
+        chance.executeCardAction(gameBoard.getPlayers(), gameBoard.getCurrentPlayer());
 
-//        TODO
     }
 
 }

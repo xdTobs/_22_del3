@@ -128,6 +128,14 @@ public class GameBoard {
         return players;
     }
 
+    public Deck getCards() {
+        return cards;
+    }
+
+    public void setCards(Deck cards) {
+        this.cards = cards;
+    }
+
     public void nextPlayer() {
         if (playerTurn >= players.length - 1) {
             playerTurn = 0;
