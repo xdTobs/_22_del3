@@ -25,6 +25,6 @@ public class Start extends Field {
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.addBalance(2);
+        //currentPlayer.addBalance(2);
     }
 }

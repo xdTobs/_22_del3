@@ -31,7 +31,7 @@ public class Chance extends Field {
         Deck deck =gameBoard.getCards();
         ChanceCard chance = deck.pullCard();
         chance.executeCardAction(gameBoard.getPlayers(), gameBoard.getCurrentPlayer());
-
+        deck.removeCard(chance);
     }
 
 }

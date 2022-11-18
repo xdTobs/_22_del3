@@ -13,8 +13,8 @@ public class Deck {
     }
     public ChanceCard[] initCards(){
         ArrayList<ChanceCard> cards = new ArrayList<>();
-        cards.add(new MoveChanceCard(new int[]{1, 2}));
-        cards.add(new MoveChanceCard(new int[]{3, 4}));
+        cards.add(new BalanceChanceCard(-2));
+        cards.add(new BalanceChanceCard(2));
         return cards.toArray(new ChanceCard[0]);
     }
 
