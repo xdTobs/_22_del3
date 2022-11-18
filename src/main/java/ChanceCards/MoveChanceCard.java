@@ -11,25 +11,19 @@ import gui_fields.GUI_Field;
  * Chance card to move to a given field.
  */
 public class MoveChanceCard extends ChanceCard {
-    GUI_Field field;
-    int[] position = new int[2];
+    int position;
 
-    public MoveChanceCard(int[] position) {
-//        this.gui_controller = gui_controller;
-        this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(position[0]);
+    public MoveChanceCard(int position) {
+        this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(position);
         this.position = position;
     }
 
     @Override
     public void executeCardAction(Player[] players, Player p) {
-        if (position.length==1){
-            p.setPosition(position[0]);
 
-        }else{
-            p.setPosition(position[0]);
-            //prompt options on gui using GUI.getUserSelection
-            //move to selected option
-        }
+            p.setPosition(position);
+
+
 
         // TODO Update GUI. Solution could be to give ChanceCard to GUI_Controller from GameHandler.
     }

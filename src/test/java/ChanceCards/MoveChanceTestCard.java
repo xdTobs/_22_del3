@@ -9,7 +9,7 @@ class MoveChanceTestCard {
 
     @BeforeEach
     void setUp() {
-        MoveChanceCard card = new MoveChanceCard(new int[]{1, 2});
+        MoveChanceCard card = new MoveChanceCard(1);
     }
 
     @Test
