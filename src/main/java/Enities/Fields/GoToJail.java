@@ -10,9 +10,9 @@ public class GoToJail extends Field {
 
 
     public GoToJail(int position) {
-        super(17);
-        name = LanguageHandler.getFieldName(17);
-        description = "Go to jail";
+        super(18);
+        name = LanguageHandler.getFieldName(this.getPosition());
+        description = LanguageHandler.getFieldName(this.getPosition());
     }
 
     public String getName() {
@@ -24,7 +24,7 @@ public class GoToJail extends Field {
     }
     public void executeFieldAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.setPosition(5);
+        currentPlayer.setPosition(this.getPosition());
         currentPlayer.setJailed(true);
     }
 }

@@ -37,7 +37,8 @@ public class GameHandler {
             Player currentPlayer = gameBoard.getCurrentPlayer();
             playTurn(currentPlayer);
             if (gameBoard.isGameover()) {
-                view.showMessage(LanguageHandler.gameWonMsg(currentPlayer.getName()));
+                // TODO We need to add correct winner message. A list from loser to winner. The one with most money is winner.
+                view.showMessage(currentPlayer.getName() + " has lost!!!");
                 break;
             }
             gameBoard.nextPlayer();

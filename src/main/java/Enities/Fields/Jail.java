@@ -9,8 +9,9 @@ public class Jail extends Field {
 
 
     public Jail() {
-        super(5);
-        name = LanguageHandler.getFieldName(5);
+        super(6);
+        name = LanguageHandler.getFieldName(this.getPosition());
+        description = LanguageHandler.getFieldName(this.getPosition());
     }
 
     public String getName() {

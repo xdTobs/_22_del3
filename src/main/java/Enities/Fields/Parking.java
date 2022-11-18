@@ -3,15 +3,15 @@ package Enities.Fields;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 
-public class Parking  extends Field{
+public class Parking extends Field {
     private String name;
     private String description;
 
 
     public Parking() {
-        super(11);
-        name = LanguageHandler.getFieldName(11);
-        description = "Parking is here.";
+        super(12);
+        name = LanguageHandler.getFieldName(this.getPosition());
+        description = LanguageHandler.getFieldName(this.getPosition());
     }
 
     public String getName() {
