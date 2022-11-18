@@ -4,6 +4,7 @@ import ChanceCards.ChanceCard;
 import ChanceCards.Deck;
 import ChanceCards.PickStreetChanceCard;
 import Enities.Fields.Chance;
+import Enities.Fields.Street;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
@@ -72,9 +73,9 @@ public class GameHandler {
             Deck deck =gameBoard.getCards();
             ChanceCard chance = deck.pullCard();
             if (chance instanceof PickStreetChanceCard pickStreetChanceCard){
-                pickStreetChanceCard.chooseStreet(view.getGui());
-                gameBoard.fieldAction(currentPlayer);
-
+                int choice = pickStreetChanceCard.chooseStreet(view.getGui(),currentPlayer, gameBoard.getFields());
+                pickStreetChanceCard.setStreet((Street) gameBoard.getFields()[choice]);
+                pickStreetChanceCard.executeCardAction(gameBoard.getPlayers(), currentPlayer);
             }
         }
         else{
