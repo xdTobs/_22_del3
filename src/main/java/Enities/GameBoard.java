@@ -69,8 +69,8 @@ public class GameBoard {
 
     // When the player lands on a field, we find out which one here, and then we take action according to field type.
     public void fieldAction(Player currentPlayer) {
-        var playerPosition = currentPlayer.getPosition();
-        var field = getField(playerPosition);
+        int playerPosition = currentPlayer.getPosition();
+        Field field = getField(playerPosition);
         field.executeFieldAction(this);
     }
 
