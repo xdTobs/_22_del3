@@ -1,5 +1,7 @@
 package ChanceCards;
 
+import gui_fields.GUI_Street;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  * Deck of chance cards
  */
 public class Deck {
-    // Lets do 4 cards for now. All movechance cards.
+    // Let's do 4 cards for now. All movechance cards.
     ChanceCard[] cards = new ChanceCard[4];
 
     public Deck() {
@@ -16,8 +18,7 @@ public class Deck {
     }
     public ChanceCard[] initCards(){
         ArrayList<ChanceCard> cards = new ArrayList<>();
-        cards.add(new BalanceChanceCard(-2));
-        cards.add(new BalanceChanceCard(2));
+        cards.add(new PickStreetChanceCard(new int[]{1,2,4,5}));
         return cards.toArray(new ChanceCard[0]);
     }
 

@@ -11,18 +11,18 @@ import gui_main.GUI;
  * Chance card to pick a street to move to. Also buys / plays rent when landed on.
  */
 public class PickStreetChanceCard extends ChanceCard {
-    private GUI_Street[] choices;
+    private int[] choices;
     private String[] options;
     private int index;
 
 
-    public PickStreetChanceCard(String desc, GUI_Street[] choices) {
+    public PickStreetChanceCard(int[] choices) {
 
-        this.desc = desc;
+        this.desc = "temp";
         this.choices = choices;
         options = new String[choices.length];
         for (int i = 0; i < choices.length; i++) {
-            options[i] = choices[i].getTitle();
+            options[i] = String.valueOf(choices[i]);
         }
 
     }
