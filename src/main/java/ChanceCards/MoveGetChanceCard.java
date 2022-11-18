@@ -5,28 +5,36 @@ import Enities.Fields.Street;
 import Language.LanguageHandler;
 import Enities.*;
 
+import java.util.Arrays;
+
 public class MoveGetChanceCard extends ChanceCard {
     Street street;
     int pos;
-    GameHandler gameHandler;
 
     GUI_Controller gui_controller;
 
-    public MoveGetChanceCard(int pos, GameHandler gameHandler) {
-        this.gameHandler = gameHandler;
+    public MoveGetChanceCard(int pos) {
         this.pos = pos;
         this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(pos);
     }
 
     @Override
-    public void executeCardAction(Player p) {
-        p.setPosition(pos);
-        p.getCar().setPosition(street.getGuiField());
-        if (street.getOwnerName().equals("Bank")) {
-            p.addBalance(street.getRent());
-            this.gameHandler.gameBoard.onStreet(street, p, gui_controller, gameHandler.players);
+    public void executeCardAction(Player[] players, Player currentPlayer) {
+        currentPlayer.setPosition(pos);
+        if (street.getOwner().equals("Bank")) {
+            currentPlayer.addBalance(-street.getRent());
+            street.setOwner(currentPlayer.getName());
         } else {
-            gameHandler.gameBoard.onStreet(street, p, gui_controller, gameHandler.players);
+//            gameHandler.gameBoard.onStreet(street, currentPlayer, gui_controller, gameHandler.players);
+//            street.getOwner().addBalance(street.getRent());
+            Player owner = null;
+            for (Player p : players) {
+                if (p.getName().equals(street.getOwner())) {
+                    owner = p;
+                }
+            }
+            owner.addBalance(street.getRent());
+            currentPlayer.addBalance(-street.getRent());
         }
     }
 }

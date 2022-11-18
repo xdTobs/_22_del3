@@ -3,7 +3,7 @@ package Language;
 public interface Translation {
     String getFieldName(int i);
 
-    String gameWonMsg();
+    String gameWonMsg(String playerName);
 
     String getPlayerName1();
 

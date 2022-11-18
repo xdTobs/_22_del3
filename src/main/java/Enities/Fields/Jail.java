@@ -1,5 +1,6 @@
 package Enities.Fields;
 
+import Enities.GameBoard;
 import Language.LanguageHandler;
 
 public class Jail extends Field {
@@ -18,5 +19,11 @@ public class Jail extends Field {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public void executeFieldAction(GameBoard gameBoard) {
+        // If you land on jail field nothing happens. It is on goToJail field you get fined.
+        return;
     }
 }

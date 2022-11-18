@@ -30,9 +30,9 @@ public class GUI_Controller {
         }
     }
 
-    public void movePlayer(int pos, Player player) {
-        player.getCar().setPosition(fields[pos]);
-    }
+//    public void movePlayer(int pos, Player player) {
+//        player.getCar().setPosition(fields[pos]);
+//    }
 
 
     public void displayText(String text) {

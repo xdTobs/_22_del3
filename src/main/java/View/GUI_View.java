@@ -11,8 +11,13 @@ public class GUI_View extends View {
     private GUI_Player[] guiPlayers;
     private GUI_Field[] fields;
 
-    public GUI_View() {
+    public GUI_View(int numberOfPlayers) {
         super();
+        this.fields = new GUI_Field[40];
+        for (int i = 0; i < 24; i++) {
+            fields[i] = new GUI_Field();
+        }
+        this.gui = new GUI();
     }
 
     @Override

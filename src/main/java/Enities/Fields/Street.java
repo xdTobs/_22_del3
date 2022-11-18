@@ -6,9 +6,7 @@ import Language.LanguageHandler;
 
 public class Street extends Field {
     private int rent;
-
-
-    private String owner = "Banke";
+    private String owner = "Bank";
     String name;
 
     public Street(int position) {
@@ -29,8 +27,6 @@ public class Street extends Field {
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
-
-
         Player currentPlayer = gameBoard.getCurrentPlayer();
         Player[] players = gameBoard.getPlayers();
         int rent = getRent();
@@ -38,7 +34,6 @@ public class Street extends Field {
             setOwner(currentPlayer.getName());
             currentPlayer.addBalance(-rent);
         } else {
-            // TODO Test if this works. I think it should.
             String houseOwnerName = getOwner();
             Player houseOwner = null;
             for (Player player : players) {

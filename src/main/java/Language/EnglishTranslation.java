@@ -11,8 +11,8 @@ public class EnglishTranslation implements Translation {
         return fieldNames[i];
     }
 
-    public String gameWonMsg() {
-        return " has won the game!";
+    public String gameWonMsg(String playerName) {
+        return playerName + " has won the game!";
     }
 
     public String getPlayerName1() {
@@ -30,7 +30,6 @@ public class EnglishTranslation implements Translation {
     @Override
     public String gotoJailMsg(String playerName) {
         return "Go to jail " + playerName;
-
     }
 
     public String leaveJailMsg(String playerName) {

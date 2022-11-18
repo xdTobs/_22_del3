@@ -36,12 +36,11 @@ public class GameHandler {
         while (true) {
             Player currentPlayer = gameBoard.getCurrentPlayer();
             playTurn(currentPlayer);
-            if (isGameover()) {
-//                 TODO: Should be a scoreboard showing first to last according to amount of money
-//                gui_controller.showMessage(currentPlayer.getName() + LanguageHandler.gameWonMsg());
+            if (gameBoard.isGameover()) {
+                view.showMessage(LanguageHandler.gameWonMsg(currentPlayer.getName()));
                 break;
             }
-            nextPlayer();
+            gameBoard.nextPlayer();
         }
     }
 
@@ -63,6 +62,7 @@ public class GameHandler {
 
         // We make an action according to what field the player landed on.
         gameBoard.fieldAction(currentPlayer);
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
 
     }
 
@@ -72,23 +72,8 @@ public class GameHandler {
     }
 
 
-    private void nextPlayer() {
-        if (playerTurn >= players.length - 1) {
-            playerTurn = 0;
-        } else {
-            playerTurn++;
-        }
-    }
-
     // The only player that can lose money is the current player, I think. Maybe the chance cards can take money from the player, but I don't think so.
     // Never mind. There is a chance card that takes money from all other players and gives to current player. We need to check all players.
-    private boolean isGameover() {
-        for (Player player : players) {
-            if (player.getBalance() <= 0) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
 

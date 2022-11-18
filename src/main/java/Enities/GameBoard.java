@@ -20,7 +20,7 @@ public class GameBoard {
     public GameBoard() {
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
-                this.fields[i] = new Start(i);
+                this.fields[i] = new Start();
             } else if ((i + 3) % 6 == 0) {
                 // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
                 this.fields[i] = new Chance(i);
@@ -46,22 +46,6 @@ public class GameBoard {
         return fields[position];
     }
 
-    public void onStart() {
-        gui_controller.showMessage(LanguageHandler.passedStartMsg());
-    }
-
-    public void onRefuge() {
-        gui_controller.showMessage(LanguageHandler.parkingMsg());
-    }
-
-    /**
-     * We have landed on street.
-     *
-     * @param street        the street
-     * @param currentPlayer the current player
-     */
-
-
     /**
      * We have landed on chance, we get a card.
      *
@@ -70,7 +54,7 @@ public class GameBoard {
     // TODO implement action is an abstract method in chance, that is called here.
     public void onChance(Player currentPlayer) {
         ChanceCard chanceCard = cards.pullCard();
-        chanceCard.executeCardAction(currentPlayer);
+        chanceCard.executeCardAction(players, currentPlayer);
 //        gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chanceCard.getDesc());
     }
 
@@ -88,19 +72,6 @@ public class GameBoard {
         var playerPosition = currentPlayer.getPosition();
         var field = getField(playerPosition);
         field.executeFieldAction(this);
-//        if (field instanceof Street street) {
-//            street.executeFieldAction(this);
-//        } else if (field instanceof Chance) {
-//            onChance(currentPlayer);
-//        } else if (field instanceof Jail) {
-//            onJail(currentPlayer);
-//        } else if (field instanceof GoToJail goToJail) {
-//            goToJail.executeFieldAction(this);
-//        } else if (field instanceof Start) {
-//            onStart();
-//        } else if (field instanceof Parking) {
-//            onRefuge();
-//        }
     }
 
     public Field[] getFields() {
@@ -155,5 +126,22 @@ public class GameBoard {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public void nextPlayer() {
+        if (playerTurn >= players.length - 1) {
+            playerTurn = 0;
+        } else {
+            playerTurn++;
+        }
+    }
+
+    public boolean isGameover() {
+        for (Player player : players) {
+            if (player.getBalance() <= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

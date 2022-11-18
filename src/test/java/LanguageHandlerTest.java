@@ -16,8 +16,8 @@ class LanguageHandlerTest {
 
     @Test
     void gameWonMsg() {
-        String expected = " has won the game!";
-        String actual = LanguageHandler.gameWonMsg();
+        String expected = "TEST PLAYER has won the game!";
+        String actual = LanguageHandler.gameWonMsg("TEST PLAYER");
         assertEquals(expected, actual);
     }
 
@@ -44,8 +44,8 @@ class LanguageHandlerTest {
 
     @Test
     void jailMsg() {
-        String expected = "You are in Jail, you lose 1$";
-        String actual = LanguageHandler.jailMsg();
+        String expected = "TEST PLAYER, you are in Jail, you lose 1$";
+        String actual = LanguageHandler.jailMsg("TEST PLAYER");
         assertEquals(expected, actual);
     }
 

@@ -10,16 +10,12 @@ class FieldTest {
 
     @BeforeEach
     void setUp() {
-        field = new Field(3);
+        field = new Start();
     }
 
-    @Test
-    void getGuiField() {
-        assertNotNull(field.getGuiField());
-    }
 
     @Test
     void getPosition() {
-        assertEquals(3, field.getPosition());
+        assertEquals(0, field.getPosition());
     }
 }

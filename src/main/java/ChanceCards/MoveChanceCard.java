@@ -17,7 +17,7 @@ public class MoveChanceCard extends ChanceCard {
     }
 
     @Override
-    public void executeCardAction(Player p) {
+    public void executeCardAction(Player[] players, Player p) {
         if (position.length==1){
             p.setPosition(position[0]);
 
