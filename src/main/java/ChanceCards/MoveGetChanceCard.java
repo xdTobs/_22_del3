@@ -14,15 +14,15 @@ public class MoveGetChanceCard extends ChanceCard {
     Street street;
     int pos;
 
-    GUI_Controller gui_controller;
-
-    public MoveGetChanceCard(int pos) {
+    public MoveGetChanceCard(int pos,Street street) {
+        this.street = street;
         this.pos = pos;
         this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(pos);
     }
 
     @Override
     public void executeCardAction(Player[] players, Player currentPlayer) {
+
         currentPlayer.setPosition(pos);
         if (street.getOwner().equals("Bank")) {
             currentPlayer.addBalance(-street.getRent());

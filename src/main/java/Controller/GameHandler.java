@@ -1,5 +1,9 @@
 package Controller;
 
+import ChanceCards.ChanceCard;
+import ChanceCards.Deck;
+import ChanceCards.PickStreetChanceCard;
+import Enities.Fields.Chance;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
@@ -62,8 +66,23 @@ public class GameHandler {
         view.updateDie(gameBoard.getDiceCup());
 
         // We make an action according to what field the player landed on.
-        gameBoard.fieldAction(currentPlayer);
+
+        //unoptimal way to get acces to GUI in chance card, but gui is the only way to get user input, which we need
+        if (gameBoard.getFields()[gameBoard.getCurrentPlayer().getPosition()] instanceof Chance chanceCard){
+            Deck deck =gameBoard.getCards();
+            ChanceCard chance = deck.pullCard();
+            if (chance instanceof PickStreetChanceCard pickStreetChanceCard){
+                pickStreetChanceCard.chooseStreet(view.getGui());
+                gameBoard.fieldAction(currentPlayer);
+
+            }
+        }
+        else{
+            gameBoard.fieldAction(currentPlayer);
+
+        }
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+
 
     }
 

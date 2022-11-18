@@ -1,9 +1,11 @@
 package ChanceCards;
 
+import Enities.Fields.Street;
 import Language.LanguageHandler;
 import gui_fields.GUI_Street;
 import Enities.*;
 import View.*;
+import gui_main.GUI;
 
 /**
  * Chance card to pick a street to move to. Also buys / plays rent when landed on.
@@ -11,10 +13,11 @@ import View.*;
 public class PickStreetChanceCard extends ChanceCard {
     private GUI_Street[] choices;
     private String[] options;
+    private int index;
 
 
-    public PickStreetChanceCard(String desc, GUI_Controller gui_controller, GUI_Street[] choices) {
-        this.gui_controller = gui_controller;
+    public PickStreetChanceCard(String desc, GUI_Street[] choices) {
+
         this.desc = desc;
         this.choices = choices;
         options = new String[choices.length];
@@ -26,15 +29,18 @@ public class PickStreetChanceCard extends ChanceCard {
 
     public void executeCardAction(Player[] players, Player currentPlayer) {
 
-        String s = gui_controller.getGui().getUserSelection(LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance(), options);
+
+
+    }
+    public void chooseStreet(GUI gui){
+        String s = gui.getUserSelection(LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance(), options);
         for (int i = 0; i < options.length; i++) {
             if (options[i].equals(s)) {
-//                MoveGetChanceCard temp = new MoveGetChanceCard(players, currentPlayer);
-//                temp.executeCardAction(players, currentPlayer);
-                break;
+                index = i;
+
             }
         }
-        System.out.println(s);
+
 
     }
 

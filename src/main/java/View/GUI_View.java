@@ -90,4 +90,8 @@ public class GUI_View {
         updatePlayerBalances(players);
         updateDie(diceCup);
     }
+
+    public GUI getGui() {
+        return gui;
+    }
 }
