@@ -24,7 +24,7 @@ public class GoToJail extends Field {
     }
     public void executeFieldAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.setPosition(getPosition());
+        currentPlayer.setPosition(6);
         currentPlayer.setJailed(true);
     }
 }
