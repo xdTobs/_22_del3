@@ -1,35 +1,41 @@
 package ChanceCards;
 
-import gui_fields.GUI_Street;
+import Enities.GameBoard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Deck of chance cards
  */
 public class Deck {
     // Let's do 4 cards for now. All movechance cards.
-    ChanceCard[] cards = new ChanceCard[4];
+    ChanceCard[] cards ;
 
-    public Deck() {
-        this.cards = initCards();
+    public Deck(GameBoard gameBoard) {
+        this.cards = initCards(gameBoard);
     }
-    public ChanceCard[] initCards(){
+
+    public ChanceCard[] initCards(GameBoard gameBoard) {
         ArrayList<ChanceCard> cards = new ArrayList<>();
-        cards.add(new PickStreetChanceCard(new int[]{1,2,4,5}));
+//        cards.add(new PickStreetChanceCard(new Street[]{gameBoard.getStreet(1), gameBoard.getStreet(2)}));
+        var c1 = new GotoStreetAndBuyCard(gameBoard.getStreet(1));
+        var c2 = new GotoStreetAndBuyCard(gameBoard.getStreet(2));
+        var pickCard = new PickStreetChanceCard(new GotoStreetAndBuyCard[]{
+            c1, c2
+        });
+        cards.add(pickCard);
         return cards.toArray(new ChanceCard[0]);
     }
 
     public ChanceCard pullCard() {
         return cards[(int) (Math.random() * cards.length)];
     }
-    public void removeCard(ChanceCard c){
-        List<ChanceCard> temp = new ArrayList<>(Arrays.asList(cards));
-        temp.remove(c);
-        if (temp.size()==0)  cards = initCards();
-        else cards = temp.toArray(new ChanceCard[0]);
+
+    public void removeCard(ChanceCard c) {
+//        List<ChanceCard> temp = new ArrayList<>(Arrays.asList(cards));
+//        temp.remove(c);
+//        if (temp.size() == 0) cards = initCards();
+//        else cards = temp.toArray(new ChanceCard[0]);
     }
 }
 

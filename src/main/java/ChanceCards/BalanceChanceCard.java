@@ -1,6 +1,5 @@
 package ChanceCards;
 
-import View.*;
 import Enities.*;
 
 /**
@@ -13,12 +12,11 @@ public class BalanceChanceCard extends ChanceCard {
     public BalanceChanceCard(int amount) {
         this.amount = amount;
         this.desc = "test";
-
     }
 
     @Override
-    public void executeCardAction(Player[] players,Player p) {
-        p.addBalance(amount);
+    public void executeCardAction(GameBoard gameBoard) {
+        gameBoard.getCurrentPlayer().addBalance(amount);
 
     }
 

@@ -1,5 +1,6 @@
 package ChanceCards;
 
+import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
 
@@ -14,7 +15,8 @@ public class GetOutOfJailChanceCard extends ChanceCard {
     }
 
     @Override
-    public void executeCardAction(Player[] players, Player p) {
-        p.setGetOutOfJailCards(p.getGetOutOfJailCards()+1);
+    public void executeCardAction(GameBoard gameBoard) {
+        Player currentPlayer = gameBoard.getCurrentPlayer();
+        currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards() + 1);
     }
 }

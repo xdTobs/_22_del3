@@ -3,6 +3,7 @@ package View;
 import Enities.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
+import Language.LanguageHandler;
 import gui_fields.*;
 import gui_main.GUI;
 
@@ -85,13 +86,15 @@ public class GUI_View {
         gui.showMessage(string);
     }
 
-    public void update(DiceCup diceCup, Player[] players, Field[] fields) {
+    public void update(DiceCup diceCup, Player[] players) {
         updatePlayerLocations(players);
         updatePlayerBalances(players);
         updateDie(diceCup);
     }
 
-    public GUI getGui() {
-        return gui;
+    public String promptPlayer(String[] choices, String playerName) {
+        String message = playerName + " " + LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
+        return this.gui.getUserSelection(message, choices);
     }
+
 }

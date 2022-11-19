@@ -1,14 +1,13 @@
 package ChanceCards;
 
-import Enities.Player;
+import Enities.GameBoard;
 import Language.LanguageHandler;
-import gui_fields.GUI_Field;
 
 // MoveChance card allows you to move to a field, or choose between several different fields.
 // TODO first implement move to one field.
 
 /**
- * Chance card to move to a given field.
+ * Chance card to move to a given field. Don't pay rent and don't buy.
  */
 public class MoveChanceCard extends ChanceCard {
     int position;
@@ -19,12 +18,7 @@ public class MoveChanceCard extends ChanceCard {
     }
 
     @Override
-    public void executeCardAction(Player[] players, Player p) {
-
-            p.setPosition(position);
-
-
-
-        // TODO Update GUI. Solution could be to give ChanceCard to GUI_Controller from GameHandler.
+    public void executeCardAction(GameBoard gameBoard) {
+            gameBoard.getCurrentPlayer().setPosition(position);
     }
 }

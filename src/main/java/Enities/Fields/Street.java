@@ -21,11 +21,6 @@ public class Street extends Field {
     }
 
     @Override
-    public String getDescription() {
-        return null;
-    }
-
-    @Override
     public void executeFieldAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         Player[] players = gameBoard.getPlayers();

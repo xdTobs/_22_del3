@@ -9,7 +9,7 @@ public class GoToJail extends Field {
     private String description;
 
 
-    public GoToJail(int position) {
+    public GoToJail() {
         super(18);
         name = LanguageHandler.getFieldName(this.getPosition());
         description = LanguageHandler.getFieldName(this.getPosition());
@@ -24,7 +24,7 @@ public class GoToJail extends Field {
     }
     public void executeFieldAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.setPosition(this.getPosition());
+        currentPlayer.setPosition(getPosition());
         currentPlayer.setJailed(true);
     }
 }

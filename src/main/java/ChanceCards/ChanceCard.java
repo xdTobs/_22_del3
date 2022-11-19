@@ -1,22 +1,13 @@
 package ChanceCards;
 
-import Enities.Player;
-import View.*;
+import Enities.GameBoard;
 
 public abstract class ChanceCard {
 
     protected String desc;
-    protected GUI_Controller gui_controller;
 
-    public abstract void executeCardAction(Player[] players, Player p);
+    public abstract void executeCardAction(GameBoard gameBoard);
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
 }
 
 

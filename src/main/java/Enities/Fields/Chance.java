@@ -1,8 +1,6 @@
 package Enities.Fields;
 
-import ChanceCards.BalanceChanceCard;
 import ChanceCards.ChanceCard;
-import ChanceCards.Deck;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 
@@ -21,17 +19,13 @@ public class Chance extends Field {
         return name;
     }
 
-    @Override
-    public String getDescription() {
-        return description;
-    }
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
-        Deck deck =gameBoard.getCards();
-        ChanceCard chance = deck.pullCard();
-        chance.executeCardAction(gameBoard.getPlayers(), gameBoard.getCurrentPlayer());
-        deck.removeCard(chance);
+        ChanceCard chanceCard = gameBoard.getLatestChanceCard();
+        chanceCard.executeCardAction(gameBoard);
+        // Todo implement that the cards get put back at the bottom of the queue.
+//        deck.removeCard(chanceCard);
     }
 
 }

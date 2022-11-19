@@ -1,10 +1,7 @@
 package Controller;
 
 import ChanceCards.ChanceCard;
-import ChanceCards.Deck;
 import ChanceCards.PickStreetChanceCard;
-import Enities.Fields.Chance;
-import Enities.Fields.Street;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
@@ -23,13 +20,6 @@ public class GameHandler {
         // Remember to give the car a color, so p1 and p2 don't have same colors.
         this.view = view;
         this.gameBoard = gameBoard;
-//        GUI_Car car1 = new GUI_Car();
-//        car1.setPrimaryColor(Color.black);
-//        GUI_Car car2 = new GUI_Car();
-//        car2.setPrimaryColor(Color.white);
-//        this.gui_controller = new GUI_Controller(new GUI_Player[]{this.players[0].getGuiPlayer(), this.players[1].getGuiPlayer()}, gameBoard.getGuiFields());
-
-
     }
 
     /**
@@ -66,30 +56,21 @@ public class GameHandler {
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
 
-        // We make an action according to what field the player landed on.
-
-        //unoptimal way to get acces to GUI in chance card, but gui is the only way to get user input, which we need
-        if (gameBoard.getFields()[gameBoard.getCurrentPlayer().getPosition()] instanceof Chance chanceCard){
-            Deck deck =gameBoard.getCards();
-            ChanceCard chance = deck.pullCard();
-            if (chance instanceof PickStreetChanceCard pickStreetChanceCard){
-                int choice = pickStreetChanceCard.chooseStreet(view.getGui(),currentPlayer, gameBoard.getFields());
-                pickStreetChanceCard.setStreet((Street) gameBoard.getFields()[choice]);
-                pickStreetChanceCard.executeCardAction(gameBoard.getPlayers(), currentPlayer);
+        if (gameBoard.currentPlayerIsOnChanceField()) {
+            gameBoard.pullNewChanceCard();
+            ChanceCard chanceCard = gameBoard.getLatestChanceCard();
+            if (chanceCard instanceof PickStreetChanceCard pickStreetChanceCard) {
+                pickStreetChanceCard.promptPlayerForStreet(view);
             }
         }
-        else{
-            gameBoard.fieldAction(currentPlayer);
-
-        }
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
-
-
+        gameBoard.fieldAction(currentPlayer);
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
     }
+
 
     private void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
     }
 }
 

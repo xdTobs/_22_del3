@@ -22,14 +22,6 @@ public class DiceCup {
         }
     }
 
-    public int[] getFaceValueArray() {
-        int[] res = new int[diceArray.length];
-        for (int i = 0; i < diceArray.length; i++) {
-            res[i] = diceArray[i].getFaceValue();
-        }
-        return res;
-    }
-
     //int dice defined in Main as the total number of dice in a cup
     public DiceCup() {
         diceArray = new Die[1];

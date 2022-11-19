@@ -6,12 +6,13 @@ import Enities.Fields.*;
 import Language.LanguageHandler;
 
 public class GameBoard {
-    private int playerCount = 2;
-    private Player[] players = new Player[playerCount];
+    private final int playerCount = 2;
+    private final Player[] players = new Player[playerCount];
     private int playerTurn;
-    private DiceCup diceCup = new DiceCup();
-    private Field[] fields = new Field[24];
-    private Deck cards = new Deck();
+    private final DiceCup diceCup = new DiceCup();
+    private final Field[] fields = new Field[24];
+    private final Deck deck;
+    private ChanceCard latestChanceCard;
 
     /**
      * The Cards, chance.
@@ -32,7 +33,7 @@ public class GameBoard {
                 this.fields[i] = new Parking();
             } else if (i == 18) {
                 // Go to jail
-                this.fields[i] = new GoToJail(i);
+                this.fields[i] = new GoToJail();
             } else {
                 this.fields[i] = new Street(i);
             }
@@ -40,34 +41,14 @@ public class GameBoard {
 
         this.players[0] = new Player(LanguageHandler.getPlayerName1(), 20);
         this.players[1] = new Player(LanguageHandler.getPlayerName2(), 20);
+        this.deck = new Deck(this);
     }
 
     public Field getField(int position) {
         return fields[position];
     }
 
-    /**
-     * We have landed on chance, we get a card.
-     *
-     * @param currentPlayer the current player
-     */
-    // TODO implement action is an abstract method in chance, that is called here.
-    public void onChance(Player currentPlayer) {
-        ChanceCard chanceCard = cards.pullCard();
-        chanceCard.executeCardAction(players, currentPlayer);
-//        gui_controller.displayText(currentPlayer.getName() + " " + LanguageHandler.chanceCardMsg() + chanceCard.getDesc());
-    }
 
-    /**
-     * We have landed on jail, we need to pay money next turn, unless we have special card.
-     *
-     * @param currentPlayer the current player
-     */
-    public void onJail(Player currentPlayer) {
-        currentPlayer.setJailed(true);
-    }
-
-    // When the player lands on a field, we find out which one here, and then we take action according to field type.
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
@@ -76,10 +57,6 @@ public class GameBoard {
 
     public Field[] getFields() {
         return fields;
-    }
-
-    public void movePlayer(int pos, Player currentPlayer) {
-        currentPlayer.setPosition(pos);
     }
 
     public void resetPlayerPositions() {
@@ -99,6 +76,16 @@ public class GameBoard {
     /**
      * @return Returns true if player has passed go.
      */
+    public boolean currentPlayerIsOnChanceField() {
+        return getFieldOfCurrentPlayer() instanceof Chance;
+    }
+
+    private Field getFieldOfCurrentPlayer() {
+        Player currentPlayer = getCurrentPlayer();
+        int position = currentPlayer.getPosition();
+        return getField(position);
+    }
+
     public boolean rollDieMovePlayer() {
         diceCup.roll();
         Player currentPlayer = getCurrentPlayer();
@@ -128,13 +115,10 @@ public class GameBoard {
         return players;
     }
 
-    public Deck getCards() {
-        return cards;
+    public void pullNewChanceCard() {
+        latestChanceCard = deck.pullCard();
     }
 
-    public void setCards(Deck cards) {
-        this.cards = cards;
-    }
 
     public void nextPlayer() {
         if (playerTurn >= players.length - 1) {
@@ -151,5 +135,18 @@ public class GameBoard {
             }
         }
         return false;
+    }
+
+    public ChanceCard getLatestChanceCard() {
+        return latestChanceCard;
+    }
+
+
+    public Street getStreet(int i) {
+        Field field = getField(i);
+        if (field instanceof Street street) {
+            return street;
+        }
+        throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
     }
 }

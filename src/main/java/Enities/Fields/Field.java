@@ -15,6 +15,5 @@ public abstract class Field {
 
     public abstract String getName();
 
-    public abstract String getDescription();
     public abstract void executeFieldAction(GameBoard gameBoard);
 }

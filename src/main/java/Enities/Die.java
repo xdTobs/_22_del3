@@ -30,11 +30,4 @@ public class Die {
         return faceValue;
     }
 
-    //Set-metode til ændre værdien af faceValue1 og faceValue2
-    public int setFaceValue(int x) {
-        faceValue = x;
-        return x;
-    }
-
-
 }
