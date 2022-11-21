@@ -2,11 +2,12 @@ package Enities;
 
 import ChanceCards.ChanceCard;
 import ChanceCards.Deck;
+import Controller.GameHandler;
 import Enities.Fields.*;
 import Language.LanguageHandler;
 
 public class GameBoard {
-    private final int playerCount = 2;
+    private final int playerCount = 4;
     private Player[] players = new Player[playerCount];
     private int playerTurn;
     private final DiceCup diceCup = new DiceCup();
@@ -143,10 +144,11 @@ public class GameBoard {
         return false;
     }
 
-    public String findWinner(){
+    public String findWinner(int numberOfPlayers){
         String winner = players[0].getName();
         int winnerBalance = players[0].getBalance();
-        for (int i = 1; i < playerCount; i++) {
+        for (int i = 1; i < numberOfPlayers; i++) {
+
             if (players[i].getBalance()==winnerBalance){
                 winner = winner +" & " +players[i].getName();
             }
@@ -157,10 +159,10 @@ public class GameBoard {
         }
         return winner;
     }
-    public String findLoser(){
+    public String findLoser(int numberOfPlayers){
         String loser = players[0].getName();
         int loserBalance = players[0].getBalance();
-        for (int i = 1; i < playerCount; i++) {
+        for (int i = 1; i < numberOfPlayers; i++) {
             if (players[i].getBalance()<loserBalance){
                 loser=players[i].getName();
                 loserBalance = players[i].getBalance();
