@@ -15,7 +15,7 @@ public class EnglishTranslation implements Translation {
         return " has won the game!";
     }
 
-    public String gameLostMsg() { return " has won the game!";}
+    public String gameLostMsg() { return " has lost the game!";}
 
     public String getPlayerName1() {
         return "Player 1";
