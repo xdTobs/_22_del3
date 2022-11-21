@@ -13,7 +13,7 @@ public class LanguageHandler {
     }
 
     public static String gameLostMsg() {
-        return translation.gameWonMsg();
+        return translation.gameLostMsg();
     }
 
 

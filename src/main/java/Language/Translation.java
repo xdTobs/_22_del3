@@ -5,6 +5,8 @@ public interface Translation {
 
     String gameWonMsg();
 
+    String gameLostMsg();
+
     String getPlayerName1();
 
     String getPlayerName2();
