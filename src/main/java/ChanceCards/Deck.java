@@ -36,6 +36,7 @@ public class Deck {
 //        temp.remove(c);
 //        if (temp.size() == 0) cards = initCards();
 //        else cards = temp.toArray(new ChanceCard[0]);
+        //TODO hvorfor er den fjernet??
     }
 }
 
