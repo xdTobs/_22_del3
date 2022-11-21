@@ -122,6 +122,7 @@ public class GameBoard {
 
     public void pullNewChanceCard() {
         latestChanceCard = deck.pullCard();
+        deck.removeCard(latestChanceCard);
     }
 
 

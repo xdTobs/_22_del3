@@ -24,8 +24,7 @@ public class Chance extends Field {
     public void executeFieldAction(GameBoard gameBoard) {
         ChanceCard chanceCard = gameBoard.getLatestChanceCard();
         chanceCard.executeCardAction(gameBoard);
-        // Todo implement that the cards get put back at the bottom of the queue.
-//        deck.removeCard(chanceCard);
+
     }
 
 }
