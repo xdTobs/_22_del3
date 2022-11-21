@@ -137,6 +137,32 @@ public class GameBoard {
         return false;
     }
 
+    public String findWinner(){
+        String winner = players[0].getName();
+        int winnerBalance = players[0].getBalance();
+        for (int i = 1; i < playerCount; i++) {
+            if (players[i].getBalance()==winnerBalance){
+                winner = winner +" & " +players[i].getName();
+            }
+            if (players[i].getBalance()>winnerBalance){
+                winner=players[i].getName();
+                winnerBalance = players[i].getBalance();
+            }
+        }
+        return winner;
+    }
+    public String findLoser(){
+        String loser = players[0].getName();
+        int loserBalance = players[0].getBalance();
+        for (int i = 1; i < playerCount; i++) {
+            if (players[i].getBalance()<loserBalance){
+                loser=players[i].getName();
+                loserBalance = players[i].getBalance();
+            }
+        }
+        return loser;
+    }
+
     public ChanceCard getLatestChanceCard() {
         return latestChanceCard;
     }
