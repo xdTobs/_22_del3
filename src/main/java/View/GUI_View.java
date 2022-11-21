@@ -81,15 +81,26 @@ public class GUI_View {
             guiPlayer.getCar().setPosition(guiFields[players[i].getPosition()]);
         }
     }
+    public void updateFields(Field[] fields){
+        for (int i = 0; i < fields.length; i++) {
+            GUI_Field gui_field = guiFields[i];
+            Field field = fields[i];
+            if (field instanceof Street street && !street.getOwner().equals("Bank")){
+                gui_field.setSubText(street.getOwner() + "\n "+ street.getRent());
+
+            }
+        }
+    }
 
     public void showMessage(String string) {
         gui.showMessage(string);
     }
 
-    public void update(DiceCup diceCup, Player[] players) {
+    public void update(DiceCup diceCup, Player[] players,Field[] fields) {
         updatePlayerLocations(players);
         updatePlayerBalances(players);
         updateDie(diceCup);
+        updateFields(fields);
     }
 
     public String promptPlayer(String[] choices, String playerName) {

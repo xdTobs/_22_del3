@@ -73,13 +73,13 @@ public class GameHandler {
             }
         }
         gameBoard.fieldAction(currentPlayer);
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
 
     private void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 }
 
