@@ -14,7 +14,7 @@ public class GUI_View {
     private GUI_Player[] guiPlayers;
     private GUI_Field[] guiFields = new GUI_Field[24];
 
-    public GUI_View(Player[] players, Field[] fields) {
+    public GUI_View(Field[] fields) {
         super();
 
 
@@ -45,11 +45,11 @@ public class GUI_View {
 
         }
         this.gui = new GUI(guiFields);
-        addPlayersToGui(players);
+
     }
 
 
-    private void addPlayersToGui(Player[] players) {
+    public void addPlayersToGui(Player[] players) {
         // Player colors. Red player 1, blue player 2, green player 3, yellow player 4.
         Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
 
@@ -95,6 +95,9 @@ public class GUI_View {
     public String promptPlayer(String[] choices, String playerName) {
         String message = playerName + " " + LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
         return this.gui.getUserSelection(message, choices);
+    }
+    public int promptPlayerCount(){
+        return gui.getUserInteger(LanguageHandler.promptPlayerCount(),2,4);
     }
 
 }

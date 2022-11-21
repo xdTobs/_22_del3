@@ -26,4 +26,6 @@ public interface Translation {
     String parkingMsg();
     String startMsg();
     String onGetOutOfJail();
+
+    String promptPlayerCount();
 }

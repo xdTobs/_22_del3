@@ -26,6 +26,15 @@ public class GameHandler {
      * Play game.
      */
     public void playGame() {
+        int playerCount  = view.promptPlayerCount();
+
+        Player[] players = new Player[playerCount];
+        for (int j = 0; j < playerCount; j++) {
+
+            players[j] = new Player("Player"+ Math.addExact(j,1),20);
+        }
+        gameBoard.setPlayers(players);
+        view.addPlayersToGui(gameBoard.getPlayers());
         // Moves all player to the start position.
         resetPlayerPositions();
         while (true) {

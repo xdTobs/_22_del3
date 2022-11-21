@@ -7,7 +7,7 @@ import Language.LanguageHandler;
 
 public class GameBoard {
     private final int playerCount = 2;
-    private final Player[] players = new Player[playerCount];
+    private Player[] players = new Player[playerCount];
     private int playerTurn;
     private final DiceCup diceCup = new DiceCup();
     private final Field[] fields = new Field[24];
@@ -29,6 +29,7 @@ public class GameBoard {
                 // Jail field
                 this.fields[i] = new Jail();
             } else if (i == 12) {
+
                 // Parking
                 this.fields[i] = new Parking();
             } else if (i == 18) {
@@ -115,6 +116,10 @@ public class GameBoard {
         return players;
     }
 
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
     public void pullNewChanceCard() {
         latestChanceCard = deck.pullCard();
     }
@@ -175,4 +180,6 @@ public class GameBoard {
         }
         throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
     }
+
+
 }
