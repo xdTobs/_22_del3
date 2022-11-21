@@ -16,8 +16,8 @@ class LanguageHandlerTest {
 
     @Test
     void gameWonMsg() {
-        String expected = "TEST PLAYER has won the game!";
-        String actual = LanguageHandler.gameWonMsg("TEST PLAYER");
+        String expected = " has won the game!";
+        String actual = LanguageHandler.gameWonMsg();
         assertEquals(expected, actual);
     }
 

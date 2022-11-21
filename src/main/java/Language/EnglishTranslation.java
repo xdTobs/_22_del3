@@ -11,9 +11,11 @@ public class EnglishTranslation implements Translation {
         return fieldNames[i];
     }
 
-    public String gameWonMsg(String playerName) {
-        return playerName + " has won the game!";
+    public String gameWonMsg() {
+        return " has won the game!";
     }
+
+    public String gameLostMsg() { return " has won the game!";}
 
     public String getPlayerName1() {
         return "Player 1";
