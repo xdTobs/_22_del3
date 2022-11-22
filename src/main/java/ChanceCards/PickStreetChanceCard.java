@@ -1,9 +1,8 @@
 package ChanceCards;
 
+import Enities.Fields.Field;
 import Enities.Fields.Street;
 import Enities.GameBoard;
-import Language.LanguageHandler;
-import View.GUI_View;
 
 /**
  * Chance card to pick a street to move to.
@@ -11,10 +10,10 @@ import View.GUI_View;
  * We create two seperate GoToStreetCards in here and let the player select the one they prefer.
  */
 public class PickStreetChanceCard extends ChanceCard {
-    private Street[] streetsToPickFrom;
-    private Street pickedStreet;
+    private Field[] streetsToPickFrom;
+    private Field pickedStreet;
 
-    public PickStreetChanceCard(Street[] streetsToPickFrom) {
+    public PickStreetChanceCard(Field[] streetsToPickFrom) {
         if (streetsToPickFrom.length != 2) {
             throw new IllegalArgumentException("There should be 2 gotoStreetAndBuyCards.");
         }
@@ -22,7 +21,7 @@ public class PickStreetChanceCard extends ChanceCard {
     }
 
     public void goToSelectedStreet(String selectedStreetName, GameBoard gameBoard) {
-        for (Street street : streetsToPickFrom) {
+        for (Field street : streetsToPickFrom) {
             if (street.getName().equals(selectedStreetName)) {
                 pickedStreet = gameBoard.getStreet(street.getPosition());
 
@@ -45,7 +44,7 @@ public class PickStreetChanceCard extends ChanceCard {
 
     @Override
     public void executeCardAction(GameBoard gameBoard) {
-        GotoStreetAndBuyCard goToStreetAndBuyCard = new GotoStreetAndBuyCard(pickedStreet);
+        GotoFieldAndExecuteActionCard goToStreetAndBuyCard = new GotoFieldAndExecuteActionCard(pickedStreet);
         goToStreetAndBuyCard.executeCardAction(gameBoard);
     }
 }

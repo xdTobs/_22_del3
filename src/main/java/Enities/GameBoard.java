@@ -37,7 +37,7 @@ public class GameBoard {
             }
         }
 
-        this.deck = new Deck(this);
+        this.deck = new Deck(fields);
     }
 
     public Field getField(int position) {
