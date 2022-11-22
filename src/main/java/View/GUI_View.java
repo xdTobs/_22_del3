@@ -77,18 +77,27 @@ public class GUI_View {
         }
     }
 
-    public void announceWinner(Player currentPlayer) {
-        this.showMessage(currentPlayer.getName() + " has lost!!!");
-    }
-
     public void showMessage(String string) {
         gui.showMessage(string);
     }
 
-    public void update(DiceCup diceCup, Player[] players) {
+    public void update(DiceCup diceCup, Player[] players, Field[] fields) {
         updatePlayerLocations(players);
+        updateHouses(fields);
         updatePlayerBalances(players);
         updateDie(diceCup);
+    }
+
+    private void updateHouses(Field[] fields) {
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i] instanceof Street street) {
+                if (!street.getOwner().equals("Bank")) {
+                    GUI_Street guiStreet = (GUI_Street) guiFields[i];
+                    guiStreet.setHouses(1);
+                }
+            }
+        }
+
     }
 
     public String promptPlayer(String[] choices, String playerName) {
