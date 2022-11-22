@@ -1,5 +1,6 @@
 package ChanceCards;
 
+import Enities.Fields.Street;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 import View.GUI_View;
@@ -10,38 +11,41 @@ import View.GUI_View;
  * We create two seperate GoToStreetCards in here and let the player select the one they prefer.
  */
 public class PickStreetChanceCard extends ChanceCard {
-    private GotoStreetAndBuyCard[] gotoStreetCards;
-    private GotoStreetAndBuyCard selectedCard = null;
+    private Street[] streetsToPickFrom;
+    private Street pickedStreet;
 
-    public PickStreetChanceCard(GotoStreetAndBuyCard[] gotoStreetAndBuyCards) {
-        if (gotoStreetAndBuyCards.length != 2) {
+    public PickStreetChanceCard(Street[] streetsToPickFrom) {
+        if (streetsToPickFrom.length != 2) {
             throw new IllegalArgumentException("There should be 2 gotoStreetAndBuyCards.");
         }
-        this.gotoStreetCards = gotoStreetAndBuyCards;
+        this.streetsToPickFrom = streetsToPickFrom;
     }
 
-    public void promptPlayerForStreet(GUI_View view) {
-        String message = LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
-        String[] choices = getStreetChoiceNames();
-        String answer = view.promptPlayer(choices, message);
-        for (GotoStreetAndBuyCard gotoStreetCard :
-                gotoStreetCards) {
-            if (gotoStreetCard.getStreetName().equals(answer)) {
-                selectedCard = gotoStreetCard;
+    public void goToSelectedStreet(String selectedStreetName, GameBoard gameBoard) {
+        for (Street street : streetsToPickFrom) {
+            if (street.getName().equals(selectedStreetName)) {
+                pickedStreet = gameBoard.getStreet(street.getPosition());
+
             }
         }
-    }
-
-    public void executeCardAction(GameBoard gameBoard) {
-        selectedCard.executeCardAction(gameBoard);
-        selectedCard = null;
+        if (pickedStreet == null) {
+            throw new IllegalArgumentException("The street name was not found.");
+        }
+        executeCardAction(gameBoard);
+        pickedStreet = null;
     }
 
     public String[] getStreetChoiceNames() {
-        String[] choices = new String[gotoStreetCards.length];
-        for (int i = 0; i < gotoStreetCards.length; i++) {
-            choices[i] = gotoStreetCards[i].getStreetName();
+        String[] choices = new String[streetsToPickFrom.length];
+        for (int i = 0; i < streetsToPickFrom.length; i++) {
+            choices[i] = streetsToPickFrom[i].getName();
         }
         return choices;
+    }
+
+    @Override
+    public void executeCardAction(GameBoard gameBoard) {
+        GotoStreetAndBuyCard goToStreetAndBuyCard = new GotoStreetAndBuyCard(pickedStreet);
+        goToStreetAndBuyCard.executeCardAction(gameBoard);
     }
 }

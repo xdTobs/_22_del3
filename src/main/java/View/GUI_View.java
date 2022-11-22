@@ -15,9 +15,6 @@ public class GUI_View {
     private GUI_Field[] guiFields = new GUI_Field[24];
 
     public GUI_View(Player[] players, Field[] fields) {
-        super();
-
-
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start) {
                 guiFields[i] = new GUI_Start();
@@ -80,6 +77,10 @@ public class GUI_View {
             GUI_Player guiPlayer = guiPlayers[i];
             guiPlayer.getCar().setPosition(guiFields[players[i].getPosition()]);
         }
+    }
+
+    public void announceWinner(Player currentPlayer) {
+        this.showMessage(currentPlayer.getName() + " has lost!!!");
     }
 
     public void showMessage(String string) {

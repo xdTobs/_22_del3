@@ -1,5 +1,6 @@
 package ChanceCards;
 
+import Enities.Fields.Street;
 import Enities.GameBoard;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Deck {
     // Let's do 4 cards for now. All movechance cards.
-    ChanceCard[] cards ;
+    ChanceCard[] cards;
 
     public Deck(GameBoard gameBoard) {
         this.cards = initCards(gameBoard);
@@ -18,11 +19,9 @@ public class Deck {
     public ChanceCard[] initCards(GameBoard gameBoard) {
         ArrayList<ChanceCard> cards = new ArrayList<>();
 //        cards.add(new PickStreetChanceCard(new Street[]{gameBoard.getStreet(1), gameBoard.getStreet(2)}));
-        var c1 = new GotoStreetAndBuyCard(gameBoard.getStreet(1));
-        var c2 = new GotoStreetAndBuyCard(gameBoard.getStreet(2));
-        var pickCard = new PickStreetChanceCard(new GotoStreetAndBuyCard[]{
-            c1, c2
-        });
+        var s1 = gameBoard.getStreet(1);
+        var s2 = gameBoard.getStreet(2);
+        var pickCard = new PickStreetChanceCard(new Street[]{s1, s2});
         cards.add(pickCard);
         return cards.toArray(new ChanceCard[0]);
     }

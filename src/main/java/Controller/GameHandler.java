@@ -47,7 +47,6 @@ public class GameHandler {
             view.showMessage(currentPlayer.getName() + LanguageHandler.jailMsg(currentPlayer.getName()));
         }
 
-        // We roll our dice.
         boolean hasPassedStart = gameBoard.rollDieMovePlayer();
         view.showMessage(currentPlayer.getName() + " " + LanguageHandler.rollDiceMsg());
         if (hasPassedStart) {
@@ -56,15 +55,27 @@ public class GameHandler {
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
 
+        // This is the chance card where the player gets to pick a street to go to and then gets it for free or has to pay rent.
+        // We need a special case for it, because we need to let the player choose the street first and then run the card.
+        // All other cards need no special case, because they are executed directly.
         if (gameBoard.currentPlayerIsOnChanceField()) {
             gameBoard.pullNewChanceCard();
             ChanceCard chanceCard = gameBoard.getLatestChanceCard();
             if (chanceCard instanceof PickStreetChanceCard pickStreetChanceCard) {
-                pickStreetChanceCard.promptPlayerForStreet(view);
+                playerPicksStreetChanceCard(pickStreetChanceCard);
+                view.updatePlayerLocations(gameBoard.getPlayers());
+                view.updatePlayerBalances(gameBoard.getPlayers());
             }
         }
         gameBoard.fieldAction(currentPlayer);
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
+    }
+
+    private void playerPicksStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
+        String message = LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
+        String[] choices = pickStreetChanceCard.getStreetChoiceNames();
+        String answer = view.promptPlayer(choices, message);
+        pickStreetChanceCard.goToSelectedStreet(answer, gameBoard);
     }
 
 
