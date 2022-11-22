@@ -30,8 +30,20 @@ public class GameHandler {
 
         Player[] players = new Player[playerCount];
         for (int j = 0; j < playerCount; j++) {
+            int bal = 0;
+            switch (playerCount){
+                case(2):
+                    bal = 20;
+                    break;
+                case(3):
+                    bal = 18;
+                    break;
+                case(4):
+                    bal = 16;
+                    break;
+            }
 
-            players[j] = new Player("Player"+ Math.addExact(j,1),20);
+            players[j] = new Player("Player"+ Math.addExact(j,1),bal);
         }
         gameBoard.setPlayers(players);
         view.addPlayersToGui(gameBoard.getPlayers());
