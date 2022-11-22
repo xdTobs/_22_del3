@@ -1,6 +1,6 @@
-# Iaktagelser angående junior monopol programmering
+# Iakttagelser angående junior monopol programmering
 
-## viktiga regler
+## Viktiga regler
 
 - Tolv sålt skyltar
 - 20 chancekort
@@ -51,6 +51,7 @@ sammanfattning
 
 - Tag det översta chanskortet
   Lägg det tillbaka underst
+- MoveChanceCard
 
 ### Gratis parkering
 

@@ -29,5 +29,5 @@ public interface Translation {
     String startMsg();
     String onGetOutOfJail();
 
-    String promptPlayerCount();
+    String playerCountMsg();
 }

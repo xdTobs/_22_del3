@@ -12,41 +12,24 @@ import View.GUI_View;
  * The type Game handler.
  */
 public class GameHandler {
-    private View.GUI_View view;
+    final private View.GUI_View view;
 
-    private GameBoard gameBoard;
+    final private GameBoard gameBoard;
 
     public GameHandler(GUI_View view, GameBoard gameBoard) {
         // Remember to give the car a color, so p1 and p2 don't have same colors.
         this.view = view;
         this.gameBoard = gameBoard;
+        int playerCount = view.promptPlayerCount();
+        gameBoard.createPlayers(playerCount);
+        view.addPlayersToGui(gameBoard.getPlayers());
     }
 
     /**
      * Play game.
      */
     public void playGame() {
-        int playerCount  = view.promptPlayerCount();
 
-        Player[] players = new Player[playerCount];
-        for (int j = 0; j < playerCount; j++) {
-            int bal = 0;
-            switch (playerCount){
-                case(2):
-                    bal = 20;
-                    break;
-                case(3):
-                    bal = 18;
-                    break;
-                case(4):
-                    bal = 16;
-                    break;
-            }
-
-            players[j] = new Player("Player"+ Math.addExact(j,1),bal);
-        }
-        gameBoard.setPlayers(players);
-        view.addPlayersToGui(gameBoard.getPlayers());
         // Moves all player to the start position.
         resetPlayerPositions();
         while (true) {
@@ -54,8 +37,8 @@ public class GameHandler {
             playTurn(currentPlayer);
             if (gameBoard.isGameover()) {
 
-                view.showMessage(gameBoard.findLoser(playerCount) + LanguageHandler.gameLostMsg());
-                view.showMessage(gameBoard.findWinner(playerCount) + LanguageHandler.gameWonMsg());
+                view.showMessage(gameBoard.findLoser() + LanguageHandler.gameLostMsg());
+                view.showMessage(gameBoard.findWinner() + LanguageHandler.gameWonMsg());
                 break;
             }
             gameBoard.nextPlayer();
@@ -90,7 +73,7 @@ public class GameHandler {
             }
         }
         gameBoard.fieldAction(currentPlayer);
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
     }
 
     private void playerPicksStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
@@ -103,7 +86,7 @@ public class GameHandler {
 
     private void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers());
     }
 }
 

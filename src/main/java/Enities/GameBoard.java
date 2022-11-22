@@ -2,13 +2,10 @@ package Enities;
 
 import ChanceCards.ChanceCard;
 import ChanceCards.Deck;
-import Controller.GameHandler;
 import Enities.Fields.*;
-import Language.LanguageHandler;
 
 public class GameBoard {
-    private final int playerCount = 4;
-    private Player[] players = new Player[playerCount];
+    private Player[] players;
     private int playerTurn;
     private final DiceCup diceCup = new DiceCup();
     private final Field[] fields = new Field[24];
@@ -30,7 +27,6 @@ public class GameBoard {
                 // Jail field
                 this.fields[i] = new Jail();
             } else if (i == 12) {
-
                 // Parking
                 this.fields[i] = new Parking();
             } else if (i == 18) {
@@ -41,8 +37,6 @@ public class GameBoard {
             }
         }
 
-        this.players[0] = new Player(LanguageHandler.getPlayerName1(), 20);
-        this.players[1] = new Player(LanguageHandler.getPlayerName2(), 20);
         this.deck = new Deck(this);
     }
 
@@ -116,10 +110,6 @@ public class GameBoard {
         return players;
     }
 
-    public void setPlayers(Player[] players) {
-        this.players = players;
-    }
-
     public void pullNewChanceCard() {
         latestChanceCard = deck.pullCard();
         deck.removeCard(latestChanceCard);
@@ -143,27 +133,28 @@ public class GameBoard {
         return false;
     }
 
-    public String findWinner(int numberOfPlayers){
+    public String findWinner() {
         String winner = players[0].getName();
         int winnerBalance = players[0].getBalance();
-        for (int i = 1; i < numberOfPlayers; i++) {
+        for (int i = 1; i < players.length; i++) {
 
-            if (players[i].getBalance()==winnerBalance){
-                winner = winner +" & " +players[i].getName();
+            if (players[i].getBalance() == winnerBalance) {
+                winner = winner + " & " + players[i].getName();
             }
-            if (players[i].getBalance()>winnerBalance){
-                winner=players[i].getName();
+            if (players[i].getBalance() > winnerBalance) {
+                winner = players[i].getName();
                 winnerBalance = players[i].getBalance();
             }
         }
         return winner;
     }
-    public String findLoser(int numberOfPlayers){
+
+    public String findLoser() {
         String loser = players[0].getName();
         int loserBalance = players[0].getBalance();
-        for (int i = 1; i < numberOfPlayers; i++) {
-            if (players[i].getBalance()<loserBalance){
-                loser=players[i].getName();
+        for (int i = 1; i < players.length; i++) {
+            if (players[i].getBalance() < loserBalance) {
+                loser = players[i].getName();
                 loserBalance = players[i].getBalance();
             }
         }
@@ -184,4 +175,28 @@ public class GameBoard {
     }
 
 
+    public void createPlayers(int playerCount) {
+        Player[] players = new Player[playerCount];
+        for (int j = 0; j < playerCount; j++) {
+            int bal = 0;
+            switch (playerCount) {
+                case (2):
+                    bal = 20;
+                    break;
+                case (3):
+                    bal = 18;
+                    break;
+                case (4):
+                    bal = 16;
+                    break;
+            }
+
+            players[j] = new Player("Player" + Math.addExact(j, 1), bal);
+        }
+        setPlayers(players);
+    }
+
+    private void setPlayers(Player[] players) {
+        this.players = players;
+    }
 }

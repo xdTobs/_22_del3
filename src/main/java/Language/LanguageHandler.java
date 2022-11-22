@@ -60,7 +60,7 @@ public class LanguageHandler {
     public static String onGetOutOfJail() {
         return translation.onGetOutOfJail();
     }
-    public static String promptPlayerCount(){
-        return translation.promptPlayerCount();
+    public static String playerCountMsg() {
+        return translation.playerCountMsg();
     }
 }

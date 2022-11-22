@@ -67,7 +67,7 @@ public class EnglishTranslation implements Translation {
     public String onGetOutOfJail() {
         return "Recieve a get out of jail free card. This will automatically be used when you go to jail";
     }
-    public String promptPlayerCount(){
+    public String playerCountMsg(){
         return "How many players will be playing?";
     }
 }
