@@ -5,7 +5,7 @@ import Enities.Player;
 import Language.LanguageHandler;
 
 public class Street extends Field {
-    private int rent;
+    final private int rent;
     private String owner = "Bank";
     String name;
 
@@ -67,6 +67,20 @@ public class Street extends Field {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public int findPositionOfPairStreet() {
+        // If we are on street 1, position 2 is sibling.
+        // There are always 2 streets, then a chance or a corner square.
+        // So we can just use modulo to calculate the position of the sibling.
+        // This won't work in real monopoly, but we don't have to worry about that.
+        if ((this.getPosition() - 1) % 3 == 0) {
+            return this.getPosition() + 1;
+        } else if ((this.getPosition() - 2) % 3 == 0) {
+            return this.getPosition() - 1;
+        } else {
+            throw new IllegalArgumentException("This is not a pair position, and probably not a street");
+        }
     }
 
 }
