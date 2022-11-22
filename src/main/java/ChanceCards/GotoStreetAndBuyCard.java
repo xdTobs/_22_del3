@@ -9,7 +9,7 @@ import Enities.*;
  * Get the street for free or pay rent when landed on.
  */
 public class GotoStreetAndBuyCard extends ChanceCard {
-    private Street street;
+    final private Street street;
 
     public GotoStreetAndBuyCard(Street street) {
         this.street = street;
@@ -21,13 +21,13 @@ public class GotoStreetAndBuyCard extends ChanceCard {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         Player[] players = gameBoard.getPlayers();
         currentPlayer.setPosition(street.getPosition());
-        if (street.getOwner().equals("Bank")) {
+        if (street.getOwnerName().equals("Bank")) {
             currentPlayer.addBalance(-street.getRent());
-            street.setOwner(currentPlayer.getName());
+            street.setOwnerName(currentPlayer.getName());
         } else {
             Player owner = null;
             for (Player p : players) {
-                if (p.getName().equals(street.getOwner())) {
+                if (p.getName().equals(street.getOwnerName())) {
                     owner = p;
                 }
             }
@@ -38,9 +38,5 @@ public class GotoStreetAndBuyCard extends ChanceCard {
                 throw new NullPointerException("Owner of street is null");
             }
         }
-    }
-
-    public String getStreetName() {
-        return street.getName();
     }
 }

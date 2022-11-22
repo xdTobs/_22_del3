@@ -8,16 +8,12 @@ import Language.LanguageHandler;
 import View.GUI_View;
 
 
-/**
- * The type Game handler.
- */
 public class GameHandler {
     final private View.GUI_View view;
 
     final private GameBoard gameBoard;
 
     public GameHandler(GUI_View view, GameBoard gameBoard) {
-        // Remember to give the car a color, so p1 and p2 don't have same colors.
         this.view = view;
         this.gameBoard = gameBoard;
         int playerCount = view.promptPlayerCount();
@@ -25,9 +21,6 @@ public class GameHandler {
         view.addPlayersToGui(gameBoard.getPlayers());
     }
 
-    /**
-     * Play game.
-     */
     public void playGame() {
 
         // Moves all player to the start position.

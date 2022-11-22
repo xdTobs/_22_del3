@@ -27,23 +27,23 @@ class StreetTest {
 
     @Test
     void getOwner() {
-        assertEquals("Bank", street1.getOwner());
-        assertEquals("Bank", street2.getOwner());
+        assertEquals("Bank", street1.getOwnerName());
+        assertEquals("Bank", street2.getOwnerName());
     }
 
     @Test
     void setOwner() {
-        street1.setOwner("Player 1");
-        street2.setOwner("Player 2");
-        assertEquals("Player 1", street1.getOwner());
-        assertEquals("Player 2", street2.getOwner());
+        street1.setOwnerName("Player 1");
+        street2.setOwnerName("Player 2");
+        assertEquals("Player 1", street1.getOwnerName());
+        assertEquals("Player 2", street2.getOwnerName());
     }
 
     @Test
     void findPositionOfPairStreet() {
-        int position1 = street1.findPositionOfPairStreet();
+        int position1 = street1.getPositionOfPairStreet();
         assertEquals(5, position1);
-        int position2 = street2.findPositionOfPairStreet();
+        int position2 = street2.getPositionOfPairStreet();
         assertEquals(4, position2);
     }
 }

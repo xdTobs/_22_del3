@@ -91,7 +91,7 @@ public class GUI_View {
     private void updateHouses(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Street street) {
-                if (!street.getOwner().equals("Bank")) {
+                if (!street.getOwnerName().equals("Bank")) {
                     GUI_Street guiStreet = (GUI_Street) guiFields[i];
                     guiStreet.setHouses(1);
                 }
