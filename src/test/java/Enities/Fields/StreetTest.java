@@ -1,5 +1,7 @@
 package Enities.Fields;
 
+import Enities.GameBoard;
+import Enities.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,5 +47,19 @@ class StreetTest {
         assertEquals(5, position1);
         int position2 = street2.getPositionOfPairStreet();
         assertEquals(4, position2);
+    }
+
+    @Test
+    void doubleRentForPairStreets() {
+        GameBoard gameBoard = new GameBoard();
+        gameBoard.createPlayers(4);
+        Street s1 = (Street) gameBoard.getField(4);
+        Street s2 = (Street) gameBoard.getField(5);
+        s1.setOwnerName("Player4");
+        s2.setOwnerName("Player4");
+        Player player1 = gameBoard.getCurrentPlayer();
+        player1.setPosition(4);
+        s1.executeFieldAction(gameBoard);
+        assertEquals(14, player1.getBalance());
     }
 }
