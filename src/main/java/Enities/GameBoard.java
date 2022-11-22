@@ -106,11 +106,10 @@ public class GameBoard {
     public void payFine(Player currentPlayer) {
         if (currentPlayer.getGetOutOfJailCards() > 0) {
             currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards() - 1);
-            currentPlayer.setJailed(false);
         } else {
             currentPlayer.addBalance(-1);
-            currentPlayer.setJailed(false);
         }
+        currentPlayer.setJailed(false);
     }
 
     public Player[] getPlayers() {

@@ -14,10 +14,7 @@ public class GUI_View {
     private GUI_Player[] guiPlayers;
     private GUI_Field[] guiFields = new GUI_Field[24];
 
-    public GUI_View(Field[] fields) {
-        super();
-
-
+    public GUI_View(Player[] players, Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start) {
                 guiFields[i] = new GUI_Start();
@@ -45,11 +42,11 @@ public class GUI_View {
 
         }
         this.gui = new GUI(guiFields);
-
+        addPlayersToGui(players);
     }
 
 
-    public void addPlayersToGui(Player[] players) {
+    private void addPlayersToGui(Player[] players) {
         // Player colors. Red player 1, blue player 2, green player 3, yellow player 4.
         Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
 
@@ -81,34 +78,24 @@ public class GUI_View {
             guiPlayer.getCar().setPosition(guiFields[players[i].getPosition()]);
         }
     }
-    public void updateFields(Field[] fields){
-        for (int i = 0; i < fields.length; i++) {
-            GUI_Field gui_field = guiFields[i];
-            Field field = fields[i];
-            if (field instanceof Street street && !street.getOwner().equals("Bank")){
-                gui_field.setSubText(street.getOwner() + "\n "+ street.getRent());
 
-            }
-        }
+    public void announceWinner(Player currentPlayer) {
+        this.showMessage(currentPlayer.getName() + " has lost!!!");
     }
 
     public void showMessage(String string) {
         gui.showMessage(string);
     }
 
-    public void update(DiceCup diceCup, Player[] players,Field[] fields) {
+    public void update(DiceCup diceCup, Player[] players) {
         updatePlayerLocations(players);
         updatePlayerBalances(players);
         updateDie(diceCup);
-        updateFields(fields);
     }
 
     public String promptPlayer(String[] choices, String playerName) {
         String message = playerName + " " + LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
         return this.gui.getUserSelection(message, choices);
-    }
-    public int promptPlayerCount(){
-        return gui.getUserInteger(LanguageHandler.promptPlayerCount(),2,4);
     }
 
 }

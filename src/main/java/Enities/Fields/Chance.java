@@ -6,7 +6,6 @@ import Language.LanguageHandler;
 
 public class Chance extends Field {
     private String name;
-    private String description;
 
 
     public Chance(int position) {
@@ -22,6 +21,7 @@ public class Chance extends Field {
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
+        gameBoard.pullNewChanceCard();
         ChanceCard chanceCard = gameBoard.getLatestChanceCard();
         chanceCard.executeCardAction(gameBoard);
 

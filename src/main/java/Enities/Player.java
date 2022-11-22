@@ -13,7 +13,7 @@ public class Player {
         this.balance = balance;
         this.position = 0;
         this.jailed = false;
-        this.name=name;
+        this.name = name;
 
     }
 
@@ -39,10 +39,6 @@ public class Player {
 
     public int getPosition() {
         return position;
-    }
-
-    public void moveForwards(int steps) {
-        this.position += steps;
     }
 
     public void setPosition(int position) {
