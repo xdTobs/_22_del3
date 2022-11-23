@@ -28,6 +28,7 @@ public class GameHandler {
             if (gameBoard.isGameover()) {
                 view.showMessage(gameBoard.findLoser() + LanguageHandler.gameLostMsg());
                 view.showMessage(gameBoard.findWinner() + LanguageHandler.gameWonMsg());
+                break;
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 playTurn(currentPlayer);
