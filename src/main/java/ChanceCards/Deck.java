@@ -12,8 +12,8 @@ public class Deck {
 
     public Deck(Field[] fields) {
         addPickStreetCards(fields);
-        addGotoFieldCards(fields);
-        addGetOutOfJailCards();
+        //addGotoFieldCards(fields);
+        //addGetOutOfJailCards();
         shuffleCards();
     }
 
@@ -29,13 +29,27 @@ public class Deck {
         // This adds a pick street chance card for all the streets just after corners.
         // When I get a card I can pick between going street in position 1 & 2 or 7 & 8, etc, depending on card.
         // This is for simplicity. If someone wants to add the exact cards in the specification, they can do that.
-        // TODO: Add the exact cards from the specification.
+        /* temp cards
         for (int i = 0; i < 4; i++) {
             Field s1 = fields[i * 6 + 1];
             Field s2 = fields[i * 6 + 2];
             ChanceCard pickCard = new PickStreetChanceCard(new Field[]{s1, s2});
             cards.add(pickCard);
-        }
+        }*/
+        //cards from spec
+        cards.add( new PickStreetChanceCard(new Field[]{fields[1], fields[2],fields[7],fields[8]}));
+        cards.add( new PickStreetChanceCard(new Field[]{fields[13], fields[14]}));
+        cards.add( new PickStreetChanceCard(new Field[]{fields[16], fields[17]}));
+        cards.add( new PickStreetChanceCard(new Field[]{fields[19], fields[20],fields[10],fields[11]}));
+        cards.add( new PickStreetChanceCard(new Field[]{fields[1], fields[2]}));
+        cards.add( new PickStreetChanceCard(new Field[]{fields[1], fields[2],fields[10],fields[11]}));
+        cards.add( new PickStreetChanceCard(new Field[]{fields[4], fields[5],fields[22],fields[23]}));
+
+
+
+
+
+
     }
 
     private void addGotoFieldCards(Field[] fields) {

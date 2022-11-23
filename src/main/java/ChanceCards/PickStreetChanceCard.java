@@ -13,9 +13,10 @@ public class PickStreetChanceCard extends ChanceCard {
     private Field pickedStreet;
 
     public PickStreetChanceCard(Field[] streetsToPickFrom) {
-        if (streetsToPickFrom.length != 2) {
+        //TODO where did this come from? we need more than two options on some cards right?
+        /*if (streetsToPickFrom.length != 2) {
             throw new IllegalArgumentException("There should be 2 gotoStreetAndBuyCards.");
-        }
+        }*/
         this.streetsToPickFrom = streetsToPickFrom;
     }
 
