@@ -17,9 +17,15 @@ public class GotoFieldAndExecuteActionCard extends ChanceCard {
         this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(field.getPosition());
     }
 
+    // Since the field should be given to the player for free we need to give the player money when he lands on it that then gets subtracted in executeFieldAction.
     @Override
     public void executeCardAction(GameBoard gameBoard) {
         gameBoard.getCurrentPlayer().setPosition(field.getPosition());
+        if (field instanceof Street street) {
+            if (street.getOwnerName() == "Bank") {
+                gameBoard.getCurrentPlayer().addBalance(street.getRent());
+            }
+        }
         field.executeFieldAction(gameBoard);
     }
 }

@@ -4,11 +4,11 @@ import ChanceCards.ChanceCard;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 
-public class Chance extends Field {
+public class ChanceField extends Field {
     private String name;
 
 
-    public Chance(int position) {
+    public ChanceField(int position) {
         super(position);
         this.name = LanguageHandler.getFieldName(position);
     }
@@ -21,8 +21,7 @@ public class Chance extends Field {
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
-        gameBoard.pullNewChanceCard();
-        ChanceCard chanceCard = gameBoard.getLatestChanceCard();
+        ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
         chanceCard.executeCardAction(gameBoard);
 
     }

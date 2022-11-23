@@ -50,6 +50,12 @@ public class Player {
         return getOutOfJailCards;
     }
 
+    public void addGetOutOfJailCard() {
+        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+    }
+    public void removeGetOutOfJailCard() {
+        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+    }
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
     }

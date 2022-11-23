@@ -1,7 +1,6 @@
 package ChanceCards;
 
 import Enities.Fields.Field;
-import Enities.Fields.Street;
 import Enities.GameBoard;
 
 /**
@@ -20,18 +19,15 @@ public class PickStreetChanceCard extends ChanceCard {
         this.streetsToPickFrom = streetsToPickFrom;
     }
 
-    public void goToSelectedStreet(String selectedStreetName, GameBoard gameBoard) {
+    public void setPickedStreet(String selectedStreetName, GameBoard gameBoard) {
         for (Field street : streetsToPickFrom) {
             if (street.getName().equals(selectedStreetName)) {
                 pickedStreet = gameBoard.getStreet(street.getPosition());
-
             }
         }
         if (pickedStreet == null) {
             throw new IllegalArgumentException("The street name was not found.");
         }
-        executeCardAction(gameBoard);
-        pickedStreet = null;
     }
 
     public String[] getStreetChoiceNames() {
@@ -42,9 +38,13 @@ public class PickStreetChanceCard extends ChanceCard {
         return choices;
     }
 
+    // Once the card has been executed it goes back to the bottom of the deck.
+    // We don't have to set the picked street to null, because the card the player will be prompted again when this card comes up again.
+    // But we do that anyway for future proofing.
     @Override
     public void executeCardAction(GameBoard gameBoard) {
         GotoFieldAndExecuteActionCard goToStreetAndBuyCard = new GotoFieldAndExecuteActionCard(pickedStreet);
         goToStreetAndBuyCard.executeCardAction(gameBoard);
+        pickedStreet = null;
     }
 }

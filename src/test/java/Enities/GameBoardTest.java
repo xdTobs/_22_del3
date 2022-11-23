@@ -1,7 +1,6 @@
 package Enities;
 
 import ChanceCards.ChanceCard;
-import Enities.Fields.Chance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -87,8 +86,8 @@ class GameBoardTest {
 
     @Test
     void getLatestChanceCard() {
-        board.pullNewChanceCard();
-        ChanceCard card = board.getLatestChanceCard();
+        board.getDeck().pullCard();
+        ChanceCard card = board.getDeck().getLatestChanceCard();
         assertTrue(card != null);
     }
 

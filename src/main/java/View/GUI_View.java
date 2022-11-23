@@ -24,7 +24,7 @@ public class GUI_View {
                 guiFields[i].setTitle(street.getName());
                 guiFields[i].setSubText(street.getRent() + "");
             }
-            if (fields[i] instanceof Chance) {
+            if (fields[i] instanceof ChanceField) {
                 guiFields[i] = new GUI_Chance();
             }
             if (fields[i] instanceof Jail jail) {

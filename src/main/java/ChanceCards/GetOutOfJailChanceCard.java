@@ -17,6 +17,6 @@ public class GetOutOfJailChanceCard extends ChanceCard {
     @Override
     public void executeCardAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards() + 1);
+        currentPlayer.addGetOutOfJailCard();
     }
 }

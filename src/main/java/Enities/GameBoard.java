@@ -22,7 +22,7 @@ public class GameBoard {
                 this.fields[i] = new Start();
             } else if ((i + 3) % 6 == 0) {
                 // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
-                this.fields[i] = new Chance(i);
+                this.fields[i] = new ChanceField(i);
             } else if (i == 6) {
                 // Jail field
                 this.fields[i] = new Jail();
@@ -73,7 +73,7 @@ public class GameBoard {
      * @return Returns true if player has passed go.
      */
     public boolean currentPlayerIsOnChanceField() {
-        return getFieldOfCurrentPlayer() instanceof Chance;
+        return getFieldOfCurrentPlayer() instanceof ChanceField;
     }
 
     private Field getFieldOfCurrentPlayer() {
@@ -99,7 +99,7 @@ public class GameBoard {
 
     public void payFine(Player currentPlayer) {
         if (currentPlayer.getGetOutOfJailCards() > 0) {
-            currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards() - 1);
+            currentPlayer.removeGetOutOfJailCard();
         } else {
             currentPlayer.addBalance(-1);
         }
@@ -108,11 +108,6 @@ public class GameBoard {
 
     public Player[] getPlayers() {
         return players;
-    }
-
-    public void pullNewChanceCard() {
-        latestChanceCard = deck.pullCard();
-        deck.removeCard(latestChanceCard);
     }
 
 
@@ -161,10 +156,6 @@ public class GameBoard {
         return loser;
     }
 
-    public ChanceCard getLatestChanceCard() {
-        return latestChanceCard;
-    }
-
 
     public Street getStreet(int i) {
         Field field = getField(i);
@@ -198,5 +189,9 @@ public class GameBoard {
 
     private void setPlayers(Player[] players) {
         this.players = players;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 }

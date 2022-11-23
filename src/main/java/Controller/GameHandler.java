@@ -22,19 +22,17 @@ public class GameHandler {
     }
 
     public void playGame() {
-
         // Moves all player to the start position.
         resetPlayerPositions();
         while (true) {
-            Player currentPlayer = gameBoard.getCurrentPlayer();
-            playTurn(currentPlayer);
             if (gameBoard.isGameover()) {
-
                 view.showMessage(gameBoard.findLoser() + LanguageHandler.gameLostMsg());
                 view.showMessage(gameBoard.findWinner() + LanguageHandler.gameWonMsg());
-                break;
+            } else {
+                Player currentPlayer = gameBoard.getCurrentPlayer();
+                playTurn(currentPlayer);
+                gameBoard.nextPlayer();
             }
-            gameBoard.nextPlayer();
         }
     }
 
@@ -57,23 +55,21 @@ public class GameHandler {
         // We need a special case for it, because we need to let the player choose the street first and then run the card.
         // All other cards need no special case, because they are executed directly.
         if (gameBoard.currentPlayerIsOnChanceField()) {
-            gameBoard.pullNewChanceCard();
-            ChanceCard chanceCard = gameBoard.getLatestChanceCard();
-            if (chanceCard instanceof PickStreetChanceCard pickStreetChanceCard) {
-                playerPicksStreetChanceCard(pickStreetChanceCard);
-                view.updatePlayerLocations(gameBoard.getPlayers());
-                view.updatePlayerBalances(gameBoard.getPlayers());
+            gameBoard.getDeck().pullCard();
+            ChanceCard card = gameBoard.getDeck().getLatestChanceCard();
+            if (card instanceof PickStreetChanceCard pickStreetChanceCard) {
+                getPlayerChoicePickStreetChanceCard(pickStreetChanceCard);
             }
         }
         gameBoard.fieldAction(currentPlayer);
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
-    private void playerPicksStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
+    private void getPlayerChoicePickStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
         String message = LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
         String[] choices = pickStreetChanceCard.getStreetChoiceNames();
         String answer = view.promptPlayer(choices, message);
-        pickStreetChanceCard.goToSelectedStreet(answer, gameBoard);
+        pickStreetChanceCard.setPickedStreet(answer, gameBoard);
     }
 
 

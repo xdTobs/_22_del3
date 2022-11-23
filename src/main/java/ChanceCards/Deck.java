@@ -5,53 +5,56 @@ import Enities.Fields.Street;
 import Enities.GameBoard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-/**
- * Deck of chance cards
- */
 public class Deck {
-    // Let's do 4 cards for now. All movechance cards.
-    ChanceCard[] cards = new ChanceCard[7];
-
-    public Deck(GameBoard gameBoard) {
-        this.cards = initCards(gameBoard);
-    }
+    ArrayList<ChanceCard> cards = new ArrayList<>();
 
     public Deck(Field[] fields) {
-        // I add a pick street chance for all the streets just after corners.
+        addPickStreetCards(fields);
+        addGotoFieldCards(fields);
+        addGetOutOfJailCards();
+        shuffleCards();
+    }
+
+    private void shuffleCards() {
+        Collections.shuffle(cards);
+    }
+
+    private void addGetOutOfJailCards() {
+        cards.add(new GetOutOfJailChanceCard());
+    }
+
+    private void addPickStreetCards(Field[] fields) {
+        // This adds a pick street chance card for all the streets just after corners.
+        // When I get a card I can pick between going street in position 1 & 2 or 7 & 8, etc, depending on card.
+        // This is for simplicity. If someone wants to add the exact cards in the specification, they can do that.
+        // TODO: Add the exact cards from the specification.
         for (int i = 0; i < 4; i++) {
-            Field s1 = fields[i * 6];
-            Field s2 = fields[i * 6 + 1];
+            Field s1 = fields[i * 6 + 1];
+            Field s2 = fields[i * 6 + 2];
             ChanceCard pickCard = new PickStreetChanceCard(new Field[]{s1, s2});
-            cards[i] = pickCard;
+            cards.add(pickCard);
         }
-        cards[4] = new GotoFieldAndExecuteActionCard(fields[0]);
-        cards[5] = new GotoFieldAndExecuteActionCard(fields[10]);
-        cards[6] = new GotoFieldAndExecuteActionCard(fields[23]);
     }
 
-    public ChanceCard[] initCards(GameBoard gameBoard) {
-        ArrayList<ChanceCard> cards = new ArrayList<>();
-//        cards.add(new PickStreetChanceCard(new Street[]{gameBoard.getStreet(1), gameBoard.getStreet(2)}));
-        var s1 = gameBoard.getStreet(1);
-        var s2 = gameBoard.getStreet(2);
-        var pickCard = new PickStreetChanceCard(new Street[]{s1, s2});
-        cards.add(pickCard);
-        return cards.toArray(new ChanceCard[0]);
+    private void addGotoFieldCards(Field[] fields) {
+        // Add chance card for going to start.
+        cards.add(new GotoFieldAndExecuteActionCard(fields[0]));
+        // Add chance card for going to skaterpark.
+        cards.add(new GotoFieldAndExecuteActionCard(fields[10]));
+        // Add chance card for going to strandpromenaden.
+        cards.add(new GotoFieldAndExecuteActionCard(fields[23]));
     }
 
-    public ChanceCard pullCard() {
-        return cards[(int) (Math.random() * cards.length)];
+    public void pullCard() {
+        ChanceCard card = cards.remove(0);
+        cards.add(card);
+    }
+    public ChanceCard getLatestChanceCard() {
+        return cards.get(0);
     }
 
-    public void removeCard(ChanceCard c) {
-//        List<ChanceCard> temp = new ArrayList<>(Arrays.asList(cards));
-//        temp.remove(c);
-//        if (temp.size() == 0) cards = initCards();
-//        else cards = temp.toArray(new ChanceCard[0]);
-        //TODO hvorfor er den fjernet?? Troede ikke vi brugte den.
-
-    }
 }
 
 
