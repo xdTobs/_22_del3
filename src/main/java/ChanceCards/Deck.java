@@ -12,15 +12,20 @@ public class Deck {
 
     public Deck(Field[] fields) {
         addPickStreetCards(fields);
-        //addGotoFieldCards(fields);
-        //addGetOutOfJailCards();
+        addGotoFieldCards(fields);
+        addGetOutOfJailCards();
+        addBalanceChanceCards();
         shuffleCards();
     }
 
     private void shuffleCards() {
         Collections.shuffle(cards);
     }
+    private void addBalanceChanceCards(){
+        cards.add(new BalanceChanceCard(2));
+        cards.add(new BalanceChanceCard(-2));
 
+    }
     private void addGetOutOfJailCards() {
         cards.add(new GetOutOfJailChanceCard());
     }
