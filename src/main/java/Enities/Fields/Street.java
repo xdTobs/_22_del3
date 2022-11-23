@@ -28,7 +28,6 @@ public class Street extends Field {
         } else {
             payRentToOwner(gameBoard);
         }
-        // No matter what happens, you pay money. Either you pay rent or you buy the house.
     }
 
     private void buyEmptyStreet(GameBoard gameBoard) {
@@ -55,6 +54,7 @@ public class Street extends Field {
         Street pairStreet = gameBoard.getStreet(positionOfPairStreet);
         // Added this to make intellij stop complaining. It should never be null, because we are only checking for the pair street if the street is owned.
         if (houseOwner != null) {
+            // We double the rent if the house owner owns both streets.
             if (houseOwner.getName().equals(pairStreet.getOwnerName())) {
                 rent *= 2;
             }
