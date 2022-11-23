@@ -23,7 +23,7 @@ public class Street extends Field {
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
         // If the street is owned by the bank, the player can buy it.
-        if (getOwnerName().equals("Bank")) {
+        if (getOwner().equals("Bank")) {
             buyEmptyStreet(gameBoard);
         } else {
             payRentToOwner(gameBoard);
@@ -41,7 +41,7 @@ public class Street extends Field {
         // If the street is owned by another player, the player has to pay rent.
         // We need to find the owner, not just the name, so we can add the rent to him.
         Player[] players = gameBoard.getPlayers();
-        String houseOwnerName = getOwnerName();
+        String houseOwnerName = getOwner();
         Player houseOwner = null;
         int rent = getRent();
         for (Player player : players) {
@@ -55,7 +55,7 @@ public class Street extends Field {
         // Added this to make intellij stop complaining. It should never be null, because we are only checking for the pair street if the street is owned.
         if (houseOwner != null) {
             // We double the rent if the house owner owns both streets.
-            if (houseOwner.getName().equals(pairStreet.getOwnerName())) {
+            if (houseOwner.getName().equals(pairStreet.getOwner())) {
                 rent *= 2;
             }
         } else {
@@ -85,7 +85,7 @@ public class Street extends Field {
         return rent;
     }
 
-    public String getOwnerName() {
+    public String getOwner() {
         return ownerName;
     }
 

@@ -29,16 +29,16 @@ class StreetTest {
 
     @Test
     void getOwner() {
-        assertEquals("Bank", street1.getOwnerName());
-        assertEquals("Bank", street2.getOwnerName());
+        assertEquals("Bank", street1.getOwner());
+        assertEquals("Bank", street2.getOwner());
     }
 
     @Test
     void setOwner() {
         street1.setOwnerName("Player 1");
         street2.setOwnerName("Player 2");
-        assertEquals("Player 1", street1.getOwnerName());
-        assertEquals("Player 2", street2.getOwnerName());
+        assertEquals("Player 1", street1.getOwner());
+        assertEquals("Player 2", street2.getOwner());
     }
 
     @Test
