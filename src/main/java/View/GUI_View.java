@@ -91,9 +91,11 @@ public class GUI_View {
     private void updateHouses(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Street street) {
-                if (!street.getOwnerName().equals("Bank")) {
+                if (!street.getOwner().equals("Bank")) {
+                    int value = Integer.parseInt(street.getOwner().replaceAll("[^0-9]",""));
                     GUI_Street guiStreet = (GUI_Street) guiFields[i];
-                    guiStreet.setHouses(1);
+
+                    guiStreet.setHouses(value);
                 }
             }
         }
