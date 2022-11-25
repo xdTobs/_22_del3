@@ -11,7 +11,7 @@ import View.GUI_View;
 /**
  * The controller.
  */
-public class GameController {
+public class GameHandler {
     final private View.GUI_View view;
 
     final private GameBoard gameBoard;
@@ -22,7 +22,7 @@ public class GameController {
      * @param view      the view
      * @param gameBoard the gameBoard, our model
      */
-    public GameController(GUI_View view, GameBoard gameBoard) {
+    public GameHandler(GUI_View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
         int playerCount = view.promptPlayerCount();

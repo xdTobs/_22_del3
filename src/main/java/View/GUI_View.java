@@ -138,6 +138,7 @@ public class GUI_View {
     }
 
     public int promptPlayerCount() {
+        //TODO add min max players again
         return this.gui.getUserInteger(LanguageHandler.playerCountMsg());
     }
 }
