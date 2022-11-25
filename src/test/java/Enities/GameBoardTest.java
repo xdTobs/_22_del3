@@ -1,6 +1,6 @@
 package Enities;
 
-import ChanceCards.ChanceCard;
+import Enities.ChanceCards.ChanceCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +13,7 @@ class GameBoardTest {
     @BeforeEach
     void setUp() {
         this.board = new GameBoard();
+        board.createPlayers(2);
     }
 
     @Test
@@ -39,7 +40,7 @@ class GameBoardTest {
 
     @Test
     void getCurrentPlayer() {
-        assertEquals("Player 1", board.getCurrentPlayer().getName());
+        assertEquals("Player1", board.getCurrentPlayer().getName());
     }
 
     @Test
@@ -68,14 +69,14 @@ class GameBoardTest {
     @Test
     void getPlayers() {
         assertEquals(2, board.getPlayers().length);
-        assertEquals("Player 1", board.getPlayers()[0].getName());
-        assertEquals("Player 2", board.getPlayers()[1].getName());
+        assertEquals("Player1", board.getPlayers()[0].getName());
+        assertEquals("Player2", board.getPlayers()[1].getName());
     }
 
     @Test
     void nextPlayer() {
         board.nextPlayer();
-        assertEquals("Player 2", board.getCurrentPlayer().getName());
+        assertEquals("Player2", board.getCurrentPlayer().getName());
     }
 
     @Test
@@ -88,7 +89,7 @@ class GameBoardTest {
     void getLatestChanceCard() {
         board.getDeck().pullCard();
         ChanceCard card = board.getDeck().getLatestChanceCard();
-        assertTrue(card != null);
+        assertNotNull(card != null);
     }
 
     @Test

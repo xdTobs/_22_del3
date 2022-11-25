@@ -1,4 +1,4 @@
-package ChanceCards;
+package Enities.ChanceCards;
 
 import Enities.Fields.Field;
 import Enities.GameBoard;
@@ -9,7 +9,7 @@ import Enities.GameBoard;
  * We create two seperate GoToStreetCards in here and let the player select the one they prefer.
  */
 public class PickStreetChanceCard extends ChanceCard {
-    private Field[] streetsToPickFrom;
+    final private Field[] streetsToPickFrom;
     private Field pickedStreet;
 
     public PickStreetChanceCard(Field[] streetsToPickFrom) {

@@ -1,11 +1,11 @@
 package Enities.Fields;
 
-import ChanceCards.ChanceCard;
+import Enities.ChanceCards.ChanceCard;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 
 public class ChanceField extends Field {
-    private String name;
+    final private String name;
 
 
     public ChanceField(int position) {

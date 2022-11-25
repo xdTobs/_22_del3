@@ -1,7 +1,6 @@
 package Enities;
 
-import ChanceCards.ChanceCard;
-import ChanceCards.Deck;
+import Enities.ChanceCards.Deck;
 import Enities.Fields.*;
 
 public class GameBoard {
@@ -10,7 +9,6 @@ public class GameBoard {
     private final DiceCup diceCup = new DiceCup();
     private final Field[] fields = new Field[24];
     private final Deck deck;
-    private ChanceCard latestChanceCard;
 
     /**
      * The Cards, chance.

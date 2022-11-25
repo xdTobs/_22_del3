@@ -13,7 +13,6 @@ public interface Translation {
 
     String rollDiceMsg();
 
-    String gotoJailMsg(String playerName);
     String leaveJailMsg(String playerName);
 
     // TODO implement i in moveToMsg

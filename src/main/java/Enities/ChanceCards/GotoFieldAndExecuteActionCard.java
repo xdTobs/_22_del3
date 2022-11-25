@@ -1,4 +1,4 @@
-package ChanceCards;
+package Enities.ChanceCards;
 
 import Enities.Fields.Field;
 import Enities.Fields.Street;

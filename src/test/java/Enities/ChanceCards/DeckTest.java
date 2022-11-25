@@ -1,8 +1,6 @@
-package ChanceCards;
+package Enities.ChanceCards;
 
-import Enities.Fields.Field;
 import Enities.GameBoard;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +12,7 @@ class DeckTest {
     // TODO: Add 20 chance cards.
     @Test
     void testCorrectCardsAdded() {
-        assertEquals(8, deck.cards.size());
+        assertEquals(13, deck.getSize());
     }
 
     @Test

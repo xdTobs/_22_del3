@@ -1,4 +1,4 @@
-import Controller.GameHandler;
+import Controller.GameController;
 import Enities.GameBoard;
 import View.*;
 
@@ -14,7 +14,7 @@ public class Main {
         GameBoard gameBoard = new GameBoard();
         GUI_View view = new GUI_View(gameBoard.getFields());
 
-        GameHandler game = new GameHandler(view, gameBoard);
+        GameController game = new GameController(view, gameBoard);
         game.playGame();
     }
 }

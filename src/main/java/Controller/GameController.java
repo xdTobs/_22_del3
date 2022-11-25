@@ -1,19 +1,19 @@
 package Controller;
 
-import ChanceCards.ChanceCard;
-import ChanceCards.PickStreetChanceCard;
+import Enities.ChanceCards.ChanceCard;
+import Enities.ChanceCards.PickStreetChanceCard;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
 import View.GUI_View;
 
 
-public class GameHandler {
+public class GameController {
     final private View.GUI_View view;
 
     final private GameBoard gameBoard;
 
-    public GameHandler(GUI_View view, GameBoard gameBoard) {
+    public GameController(GUI_View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
         int playerCount = view.promptPlayerCount();
