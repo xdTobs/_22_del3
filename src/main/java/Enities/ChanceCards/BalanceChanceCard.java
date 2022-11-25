@@ -1,4 +1,4 @@
-package ChanceCards;
+package Enities.ChanceCards;
 
 import Enities.*;
 
@@ -6,7 +6,7 @@ import Enities.*;
  * Chance card that inpacts the current players balance, such as "The bank pays you 2$"
  */
 public class BalanceChanceCard extends ChanceCard {
-    private int amount;
+    final private int amount;
 
 
     public BalanceChanceCard(int amount) {

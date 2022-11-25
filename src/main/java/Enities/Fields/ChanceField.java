@@ -1,15 +1,14 @@
 package Enities.Fields;
 
-import ChanceCards.ChanceCard;
+import Enities.ChanceCards.ChanceCard;
 import Enities.GameBoard;
 import Language.LanguageHandler;
 
-public class Chance extends Field {
-    private String name;
-    private String description;
+public class ChanceField extends Field {
+    final private String name;
 
 
-    public Chance(int position) {
+    public ChanceField(int position) {
         super(position);
         this.name = LanguageHandler.getFieldName(position);
     }
@@ -22,10 +21,9 @@ public class Chance extends Field {
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
-        ChanceCard chanceCard = gameBoard.getLatestChanceCard();
+        ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
         chanceCard.executeCardAction(gameBoard);
-        // Todo implement that the cards get put back at the bottom of the queue.
-//        deck.removeCard(chanceCard);
+
     }
 
 }

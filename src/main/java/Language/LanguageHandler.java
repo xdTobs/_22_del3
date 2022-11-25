@@ -8,9 +8,14 @@ public class LanguageHandler {
         return translation.getFieldName(i);
     }
 
-    public static String gameWonMsg(String playerName) {
-        return translation.gameWonMsg(playerName);
+    public static String gameWonMsg() {
+        return translation.gameWonMsg();
     }
+
+    public static String gameLostMsg() {
+        return translation.gameLostMsg();
+    }
+
 
     public static String getPlayerName1() {
         return translation.getPlayerName1();
@@ -54,5 +59,8 @@ public class LanguageHandler {
 
     public static String onGetOutOfJail() {
         return translation.onGetOutOfJail();
+    }
+    public static String playerCountMsg() {
+        return translation.playerCountMsg();
     }
 }

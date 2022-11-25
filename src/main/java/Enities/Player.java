@@ -13,7 +13,7 @@ public class Player {
         this.balance = balance;
         this.position = 0;
         this.jailed = false;
-        this.name=name;
+        this.name = name;
 
     }
 
@@ -41,10 +41,6 @@ public class Player {
         return position;
     }
 
-    public void moveForwards(int steps) {
-        this.position += steps;
-    }
-
     public void setPosition(int position) {
         this.position = position;
         assert position >= 0 && position <= 23;
@@ -54,6 +50,12 @@ public class Player {
         return getOutOfJailCards;
     }
 
+    public void addGetOutOfJailCard() {
+        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+    }
+    public void removeGetOutOfJailCard() {
+        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+    }
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
     }

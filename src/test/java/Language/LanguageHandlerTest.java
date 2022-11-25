@@ -1,9 +1,12 @@
-import Language.LanguageHandler;
+package Language;
+
 import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// This test needs to be rewritten if we want to implement another language.
+// In the future we could refactor LanguageHandler, so we instead pass in a language to it.
 class LanguageHandlerTest {
 
     @Test
@@ -16,21 +19,21 @@ class LanguageHandlerTest {
 
     @Test
     void gameWonMsg() {
-        String expected = "TEST PLAYER has won the game!";
-        String actual = LanguageHandler.gameWonMsg("TEST PLAYER");
+        String expected = " has won the game!";
+        String actual = LanguageHandler.gameWonMsg();
         assertEquals(expected, actual);
     }
 
     @Test
     void getPlayerName1() {
-        String expected = "Enities.Player 1";
+        String expected = "Player 1";
         String actual = LanguageHandler.getPlayerName1();
         assertEquals(expected, actual);
     }
 
     @Test
     void getPlayerName2() {
-        String expected = "Enities.Player 2";
+        String expected = "Player 2";
         String actual = LanguageHandler.getPlayerName2();
         assertEquals(expected, actual);
     }

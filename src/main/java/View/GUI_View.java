@@ -10,14 +10,18 @@ import gui_main.GUI;
 import java.awt.*;
 
 public class GUI_View {
-    private GUI gui;
+    final private GUI gui;
     private GUI_Player[] guiPlayers;
-    private GUI_Field[] guiFields = new GUI_Field[24];
+    final private GUI_Field[] guiFields = new GUI_Field[24];
 
-    public GUI_View(Player[] players, Field[] fields) {
-        super();
-
-
+    /**
+     * Constructor for the GUI_View class.
+     * We create GUI_Fields corresponing to the fields in the gameboard.
+     * We use the GUI_Fields created to create our GUI.
+     *
+     * @param fields The fields in the game.
+     */
+    public GUI_View(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start) {
                 guiFields[i] = new GUI_Start();
@@ -27,7 +31,7 @@ public class GUI_View {
                 guiFields[i].setTitle(street.getName());
                 guiFields[i].setSubText(street.getRent() + "");
             }
-            if (fields[i] instanceof Chance) {
+            if (fields[i] instanceof ChanceField) {
                 guiFields[i] = new GUI_Chance();
             }
             if (fields[i] instanceof Jail jail) {
@@ -45,11 +49,15 @@ public class GUI_View {
 
         }
         this.gui = new GUI(guiFields);
-        addPlayersToGui(players);
     }
 
 
-    private void addPlayersToGui(Player[] players) {
+    /**
+     * Method to create the players in the GUI.
+     *
+     * @param players The players in the game
+     */
+    public void addPlayersToGui(Player[] players) {
         // Player colors. Red player 1, blue player 2, green player 3, yellow player 4.
         Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
 
@@ -60,7 +68,6 @@ public class GUI_View {
             guiCar.setPrimaryColor(colors[i]);
             guiPlayers[i] = new GUI_Player(players[i].getName(), players[i].getBalance(), guiCar);
             gui.addPlayer(guiPlayers[i]);
-
         }
     }
 
@@ -86,10 +93,43 @@ public class GUI_View {
         gui.showMessage(string);
     }
 
-    public void update(DiceCup diceCup, Player[] players) {
+    /**
+     * Updates all the fields, dices and players in the GUI.
+     * The view should be in sync with the model after this method has run.
+     *
+     * @param diceCup the cup of dices
+     * @param players the players in the game
+     * @param fields the fields in the game
+     */
+    public void update(DiceCup diceCup, Player[] players, Field[] fields) {
         updatePlayerLocations(players);
+        updateHouses(fields);
         updatePlayerBalances(players);
         updateDie(diceCup);
+    }
+
+    /**
+     * Updates the houses on the GUI.
+     * We set the number of houses equal to the player number.
+     *
+     * @param fields The fields in the game.
+     */
+    private void updateHouses(Field[] fields) {
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i] instanceof Street street) {
+                if (!street.getOwner().equals("Bank")) {
+                    // We get the player number from the owner name and sets the number of houses on the field equal to the player number.
+                    // player1 => one house.
+                    // player2 => two houses.
+                    // etc.
+                    int value = Integer.parseInt(street.getOwner().replaceAll("[^0-9]", ""));
+                    GUI_Street guiStreet = (GUI_Street) guiFields[i];
+
+                    guiStreet.setHouses(value);
+                }
+            }
+        }
+
     }
 
     public String promptPlayer(String[] choices, String playerName) {
@@ -97,4 +137,8 @@ public class GUI_View {
         return this.gui.getUserSelection(message, choices);
     }
 
+    public int promptPlayerCount() {
+        //TODO add min max players again
+        return this.gui.getUserInteger(LanguageHandler.playerCountMsg());
+    }
 }

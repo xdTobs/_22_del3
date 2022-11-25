@@ -11,9 +11,11 @@ public class EnglishTranslation implements Translation {
         return fieldNames[i];
     }
 
-    public String gameWonMsg(String playerName) {
-        return playerName + " has won the game!";
+    public String gameWonMsg() {
+        return " has won the game!";
     }
+
+    public String gameLostMsg() { return " has lost the game!";}
 
     public String getPlayerName1() {
         return "Player 1";
@@ -27,13 +29,8 @@ public class EnglishTranslation implements Translation {
         return "It is your turn. Roll the Dice";
     }
 
-    @Override
-    public String gotoJailMsg(String playerName) {
-        return "Go to jail " + playerName;
-    }
-
     public String leaveJailMsg(String playerName) {
-        return playerName + " , you are in Jail, you lose 1$";
+        return playerName + ", you are in Jail, you lose 1$";
     }
 
     // TODO implement i in moveToMsg
@@ -64,5 +61,8 @@ public class EnglishTranslation implements Translation {
 
     public String onGetOutOfJail() {
         return "Recieve a get out of jail free card. This will automatically be used when you go to jail";
+    }
+    public String playerCountMsg(){
+        return "How many players will be playing?";
     }
 }

@@ -25,6 +25,7 @@ public class Start extends Field {
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.addBalance(2);
+        //TODO should it update balce if you land on start? shouldnt it just be when passed?
+        //currentPlayer.addBalance(2);
     }
 }

@@ -1,30 +1,30 @@
 package Enities;
 
-import ChanceCards.ChanceCard;
-import ChanceCards.Deck;
+import Enities.ChanceCards.Deck;
 import Enities.Fields.*;
-import Language.LanguageHandler;
 
+/**
+ * Class for the game board.
+ * Contains all the fields and the chance deck and diceCup.
+ * This is the model.
+ */
 public class GameBoard {
-    private final int playerCount = 2;
-    private final Player[] players = new Player[playerCount];
+    private Player[] players;
     private int playerTurn;
     private final DiceCup diceCup = new DiceCup();
     private final Field[] fields = new Field[24];
     private final Deck deck;
-    private ChanceCard latestChanceCard;
 
     /**
-     * The Cards, chance.
+     * Instantiates a new Game board.
      */
-
     public GameBoard() {
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
                 this.fields[i] = new Start();
             } else if ((i + 3) % 6 == 0) {
-                // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
-                this.fields[i] = new Chance(i);
+                // Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
+                this.fields[i] = new ChanceField(i);
             } else if (i == 6) {
                 // Jail field
                 this.fields[i] = new Jail();
@@ -39,16 +39,25 @@ public class GameBoard {
             }
         }
 
-        this.players[0] = new Player(LanguageHandler.getPlayerName1(), 20);
-        this.players[1] = new Player(LanguageHandler.getPlayerName2(), 20);
-        this.deck = new Deck(this);
+        this.deck = new Deck(fields);
     }
 
+    /**
+     * Gets field.
+     *
+     * @param position the position
+     * @return the field
+     */
     public Field getField(int position) {
         return fields[position];
     }
 
 
+    /**
+     * Makes whatever action the field supports.
+     *
+     * @param currentPlayer the current player
+     */
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
@@ -73,11 +82,8 @@ public class GameBoard {
         return diceCup;
     }
 
-    /**
-     * @return Returns true if player has passed go.
-     */
     public boolean currentPlayerIsOnChanceField() {
-        return getFieldOfCurrentPlayer() instanceof Chance;
+        return getFieldOfCurrentPlayer() instanceof ChanceField;
     }
 
     private Field getFieldOfCurrentPlayer() {
@@ -86,6 +92,11 @@ public class GameBoard {
         return getField(position);
     }
 
+    /**
+     * Roll die move player boolean.
+     *
+     * @return is true if the player has passed start.
+     */
     public boolean rollDieMovePlayer() {
         diceCup.roll();
         Player currentPlayer = getCurrentPlayer();
@@ -101,25 +112,33 @@ public class GameBoard {
         return hasPassedStart;
     }
 
+    /**
+     * Pay fine when you are in jail.
+     *
+     * @param currentPlayer the current player
+     */
     public void payFine(Player currentPlayer) {
         if (currentPlayer.getGetOutOfJailCards() > 0) {
-            currentPlayer.setGetOutOfJailCards(currentPlayer.getGetOutOfJailCards() - 1);
-            currentPlayer.setJailed(false);
+            currentPlayer.removeGetOutOfJailCard();
         } else {
             currentPlayer.addBalance(-1);
-            currentPlayer.setJailed(false);
         }
+        currentPlayer.setJailed(false);
     }
 
+    /**
+     * Get players player [ ].
+     *
+     * @return the player [ ]
+     */
     public Player[] getPlayers() {
         return players;
     }
 
-    public void pullNewChanceCard() {
-        latestChanceCard = deck.pullCard();
-    }
 
-
+    /**
+     * Next player.
+     */
     public void nextPlayer() {
         if (playerTurn >= players.length - 1) {
             playerTurn = 0;
@@ -128,6 +147,11 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Is gameover boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGameover() {
         for (Player player : players) {
             if (player.getBalance() <= 0) {
@@ -137,8 +161,32 @@ public class GameBoard {
         return false;
     }
 
-    public ChanceCard getLatestChanceCard() {
-        return latestChanceCard;
+    public String findWinner() {
+        String winner = players[0].getName();
+        int winnerBalance = players[0].getBalance();
+        for (int i = 1; i < players.length; i++) {
+
+            if (players[i].getBalance() == winnerBalance) {
+                winner = winner + " & " + players[i].getName();
+            }
+            if (players[i].getBalance() > winnerBalance) {
+                winner = players[i].getName();
+                winnerBalance = players[i].getBalance();
+            }
+        }
+        return winner;
+    }
+
+    public String findLoser() {
+        String loser = players[0].getName();
+        int loserBalance = players[0].getBalance();
+        for (int i = 1; i < players.length; i++) {
+            if (players[i].getBalance() < loserBalance) {
+                loser = players[i].getName();
+                loserBalance = players[i].getBalance();
+            }
+        }
+        return loser;
     }
 
 
@@ -148,5 +196,35 @@ public class GameBoard {
             return street;
         }
         throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
+    }
+
+
+    public void createPlayers(int playerCount) {
+        Player[] players = new Player[playerCount];
+        for (int j = 0; j < playerCount; j++) {
+            int bal = 0;
+            switch (playerCount) {
+                case (2):
+                    bal = 20;
+                    break;
+                case (3):
+                    bal = 18;
+                    break;
+                case (4):
+                    bal = 16;
+                    break;
+            }
+
+            players[j] = new Player("Player" + Math.addExact(j, 1), bal);
+        }
+        setPlayers(players);
+    }
+
+    private void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 }

@@ -1,11 +1,7 @@
-package ChanceCards;
+package Enities.ChanceCards;
 
 import Enities.GameBoard;
 import Language.LanguageHandler;
-
-// MoveChance card allows you to move to a field, or choose between several different fields.
-// TODO first implement move to one field.
-
 /**
  * Chance card to move to a given field. Don't pay rent and don't buy.
  */
