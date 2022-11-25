@@ -2,9 +2,6 @@ import Controller.GameController;
 import Enities.GameBoard;
 import View.*;
 
-/**
- * The type Main.
- */
 public class Main {
 
     /**

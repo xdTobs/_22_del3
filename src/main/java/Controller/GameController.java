@@ -8,11 +8,20 @@ import Language.LanguageHandler;
 import View.GUI_View;
 
 
+/**
+ * The controller.
+ */
 public class GameController {
     final private View.GUI_View view;
 
     final private GameBoard gameBoard;
 
+    /**
+     * Instantiates a new Game controller.
+     *
+     * @param view      the view
+     * @param gameBoard the gameBoard, our model
+     */
     public GameController(GUI_View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
@@ -37,7 +46,7 @@ public class GameController {
         }
     }
 
-    public void playTurn(Player currentPlayer) {
+    private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
         if (currentPlayer.isJailed()) {
             gameBoard.payFine(currentPlayer);

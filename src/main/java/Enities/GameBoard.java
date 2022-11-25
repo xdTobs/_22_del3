@@ -3,6 +3,11 @@ package Enities;
 import Enities.ChanceCards.Deck;
 import Enities.Fields.*;
 
+/**
+ * Class for the game board.
+ * Contains all the fields and the chance deck and diceCup.
+ * This is the model.
+ */
 public class GameBoard {
     private Player[] players;
     private int playerTurn;
@@ -11,15 +16,14 @@ public class GameBoard {
     private final Deck deck;
 
     /**
-     * The Cards, chance.
+     * Instantiates a new Game board.
      */
-
     public GameBoard() {
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
                 this.fields[i] = new Start();
             } else if ((i + 3) % 6 == 0) {
-                // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
+                // Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
                 this.fields[i] = new ChanceField(i);
             } else if (i == 6) {
                 // Jail field
@@ -38,11 +42,22 @@ public class GameBoard {
         this.deck = new Deck(fields);
     }
 
+    /**
+     * Gets field.
+     *
+     * @param position the position
+     * @return the field
+     */
     public Field getField(int position) {
         return fields[position];
     }
 
 
+    /**
+     * Makes whatever action the field supports.
+     *
+     * @param currentPlayer the current player
+     */
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
@@ -67,9 +82,6 @@ public class GameBoard {
         return diceCup;
     }
 
-    /**
-     * @return Returns true if player has passed go.
-     */
     public boolean currentPlayerIsOnChanceField() {
         return getFieldOfCurrentPlayer() instanceof ChanceField;
     }
@@ -80,6 +92,11 @@ public class GameBoard {
         return getField(position);
     }
 
+    /**
+     * Roll die move player boolean.
+     *
+     * @return is true if the player has passed start.
+     */
     public boolean rollDieMovePlayer() {
         diceCup.roll();
         Player currentPlayer = getCurrentPlayer();
@@ -95,6 +112,11 @@ public class GameBoard {
         return hasPassedStart;
     }
 
+    /**
+     * Pay fine when you are in jail.
+     *
+     * @param currentPlayer the current player
+     */
     public void payFine(Player currentPlayer) {
         if (currentPlayer.getGetOutOfJailCards() > 0) {
             currentPlayer.removeGetOutOfJailCard();
@@ -104,11 +126,19 @@ public class GameBoard {
         currentPlayer.setJailed(false);
     }
 
+    /**
+     * Get players player [ ].
+     *
+     * @return the player [ ]
+     */
     public Player[] getPlayers() {
         return players;
     }
 
 
+    /**
+     * Next player.
+     */
     public void nextPlayer() {
         if (playerTurn >= players.length - 1) {
             playerTurn = 0;
@@ -117,6 +147,11 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Is gameover boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGameover() {
         for (Player player : players) {
             if (player.getBalance() <= 0) {

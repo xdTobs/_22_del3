@@ -14,6 +14,13 @@ public class GUI_View {
     private GUI_Player[] guiPlayers;
     final private GUI_Field[] guiFields = new GUI_Field[24];
 
+    /**
+     * Constructor for the GUI_View class.
+     * We create GUI_Fields corresponing to the fields in the gameboard.
+     * We use the GUI_Fields created to create our GUI.
+     *
+     * @param fields The fields in the game.
+     */
     public GUI_View(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start) {
@@ -45,6 +52,11 @@ public class GUI_View {
     }
 
 
+    /**
+     * Method to create the players in the GUI.
+     *
+     * @param players The players in the game
+     */
     public void addPlayersToGui(Player[] players) {
         // Player colors. Red player 1, blue player 2, green player 3, yellow player 4.
         Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
@@ -81,6 +93,14 @@ public class GUI_View {
         gui.showMessage(string);
     }
 
+    /**
+     * Updates all the fields, dices and players in the GUI.
+     * The view should be in sync with the model after this method has run.
+     *
+     * @param diceCup the cup of dices
+     * @param players the players in the game
+     * @param fields the fields in the game
+     */
     public void update(DiceCup diceCup, Player[] players, Field[] fields) {
         updatePlayerLocations(players);
         updateHouses(fields);
@@ -88,11 +108,21 @@ public class GUI_View {
         updateDie(diceCup);
     }
 
+    /**
+     * Updates the houses on the GUI.
+     * We set the number of houses equal to the player number.
+     *
+     * @param fields The fields in the game.
+     */
     private void updateHouses(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Street street) {
                 if (!street.getOwner().equals("Bank")) {
-                    int value = Integer.parseInt(street.getOwner().replaceAll("[^0-9]",""));
+                    // We get the player number from the owner name and sets the number of houses on the field equal to the player number.
+                    // player1 => one house.
+                    // player2 => two houses.
+                    // etc.
+                    int value = Integer.parseInt(street.getOwner().replaceAll("[^0-9]", ""));
                     GUI_Street guiStreet = (GUI_Street) guiFields[i];
 
                     guiStreet.setHouses(value);
