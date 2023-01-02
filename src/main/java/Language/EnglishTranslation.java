@@ -2,7 +2,7 @@ package Language;
 
 // TODO Translations for chance cards
 public class EnglishTranslation implements Translation {
-    private final String[] fieldNames = {"Start", "Burgerbaren", "Pizzeriaet", "Chans", "Slikbutikken", "Iskiosken", "Fængsel", "Museet", "Biblioteket", "Chans", "Skaterparken", "Swimmingpoolen", "Parkering", "Spillehallen", "Biografen", "Chans", "Legetøjsbutikken", "Dyrehandlen", "Gå i fængsel", "Bowlinghallen", "Zoo", "Chans", "Vandlandet", "Strandpromenaden"};
+    private final String[] fieldNames = {"Start", "Burgerbaren", "Pizzeriaet", "Chance", "Slikbutikken", "Iskiosken", "Fængsel", "Museet", "Biblioteket", "Chans", "Skaterparken", "Swimmingpoolen", "Parkering", "Spillehallen", "Biografen", "Chans", "Legetøjsbutikken", "Dyrehandlen", "Gå i fængsel", "Bowlinghallen", "Zoo", "Chans", "Vandlandet", "Strandpromenaden"};
 
     private final String moveTo = "Move to";
     public final String onPickFieldChance = "Pick a field to move to. If it is available you get it for free. Otherwise you pay rent";

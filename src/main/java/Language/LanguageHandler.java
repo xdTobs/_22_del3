@@ -1,7 +1,23 @@
 package Language;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+
 // We can use this class to implement different languages. For example, we can make translation variable be an array and then we can loop through it and print out the different translations, so the game is multi-lingual.
 public class LanguageHandler {
+    HashMap<String,String> languageMap = new HashMap<>();
+
+    public LanguageHandler() throws IOException {
+        List<String> content = Files.readAllLines(Path.of("src/main/java/Language/LanguageEnglish"));
+        for (String s : content){
+            String[]keyValue = s.split(":",1);
+            languageMap.put(keyValue[0],keyValue[1]);
+        }
+    }
+
     private final static Translation translation = new EnglishTranslation();
 
     public static String getFieldName(int i) {
