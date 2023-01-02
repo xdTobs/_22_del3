@@ -8,6 +8,7 @@ public class ChanceField extends Field {
     final private String name;
 
 
+
     public ChanceField(int position) {
         super(position);
         this.name = LanguageHandler.getFieldName(position);

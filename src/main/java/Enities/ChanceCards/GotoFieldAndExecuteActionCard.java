@@ -23,7 +23,7 @@ public class GotoFieldAndExecuteActionCard extends ChanceCard {
         gameBoard.getCurrentPlayer().setPosition(field.getPosition());
         if (field instanceof Street street) {
             if (street.getOwner().equals("Bank")) {
-                gameBoard.getCurrentPlayer().addBalance(street.getRent());
+                gameBoard.getCurrentPlayer().addBalance(street.getRent(0));
             }
         }
         field.executeFieldAction(gameBoard);

@@ -41,7 +41,7 @@ public class GUI_View {
             if (fields[i] instanceof Street street) {
                 guiFields[i] = new GUI_Street();
                 guiFields[i].setTitle(street.getName());
-                guiFields[i].setSubText(street.getRent() + "");
+                guiFields[i].setSubText(street.getRent(0) + "");
             }
             if (fields[i] instanceof ChanceField) {
                 guiFields[i] = new GUI_Chance();

@@ -5,19 +5,21 @@ import Enities.Player;
 import Language.LanguageHandler;
 
 public class Street extends Field {
-    final private int[] rent;
+     private int[] rent = new int[6];
     private String ownerName = "Bank";
-    final private String name;
 
-    public Street(int position,int rent[]) {
-        super(position);
-        this.rent = calculateRent(position);
-        name = LanguageHandler.getFieldName(position);
+    public Street(String s) {
+        super(s);
+        String[] split = s.split(",");
+        for (int i = 0; i < 6; i++) {
+            this.rent[i] = Integer.parseInt(split[i + 5]);
+        }
+
     }
 
     @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Street extends Field {
     private void buyEmptyStreet(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         setOwnerName(currentPlayer.getName());
-        currentPlayer.addBalance(-getRent());
+        currentPlayer.addBalance(-getRent(0));
     }
 
     private void payRentToOwner(GameBoard gameBoard) {
@@ -43,7 +45,7 @@ public class Street extends Field {
         Player[] players = gameBoard.getPlayers();
         String houseOwnerName = getOwner();
         Player houseOwner = null;
-        int rent = getRent();
+        int rent = getRent(0);
         for (Player player : players) {
             if (player.getName().equals(houseOwnerName)) {
                 houseOwner = player;
@@ -81,8 +83,8 @@ public class Street extends Field {
         }
     }
 
-    public int getRent() {
-        return rent;
+    public int getRent(int i) {
+        return rent[i];
     }
 
     public String getOwner() {

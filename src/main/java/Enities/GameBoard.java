@@ -15,11 +15,11 @@ import java.util.List;
  * This is the model.
  */
 public class GameBoard {
-    private Player[] players;
-    private int playerTurn;
     private final DiceCup diceCup = new DiceCup();
     private final Field[] fields = new Field[24];
     private final Deck deck;
+    private Player[] players;
+    private int playerTurn;
 
     /**
      * Instantiates a new Game board.
@@ -28,41 +28,19 @@ public class GameBoard {
         List<Field> temp = new ArrayList<>();
         List<String> content;
         try {
-             content = Files.readAllLines(Path.of("docs/fields.csv"));
+            content = Files.readAllLines(Path.of("docs/fields.csv"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        for (String s : content){
+        for (String s : content) {
             String[] key = s.split(",");
-            switch (key[2]){
-                case("street"):
-                    temp.add(new Street("s"));
+            switch (key[2].trim()) {
+                case ("street") -> temp.add(new Street(s));
+                case ("tax") -> temp.add(new Tax(s));
+                case ("jail") -> temp.add(new Jail());
             }
         }
-
-
-
-        for (int i = 0; i < fields.length; i++) {
-            if (i == 0) {
-                this.fields[i] = new Start();
-            } else if ((i + 3) % 6 == 0) {
-                // Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
-                this.fields[i] = new ChanceField(i);
-            } else if (i == 6) {
-                // Jail field
-                this.fields[i] = new Jail();
-            } else if (i == 12) {
-                // Parking
-                this.fields[i] = new Parking();
-            } else if (i == 18) {
-                // Go to jail
-                this.fields[i] = new GoToJail();
-            } else {
-                this.fields[i] = new Street(i);
-            }
-        }
-
         this.deck = new Deck(fields);
     }
 
@@ -159,6 +137,9 @@ public class GameBoard {
         return players;
     }
 
+    private void setPlayers(Player[] players) {
+        this.players = players;
+    }
 
     /**
      * Next player.
@@ -213,7 +194,6 @@ public class GameBoard {
         return loser;
     }
 
-
     public Street getStreet(int i) {
         Field field = getField(i);
         if (field instanceof Street street) {
@@ -221,7 +201,6 @@ public class GameBoard {
         }
         throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
     }
-
 
     public void createPlayers(int playerCount) {
         Player[] players = new Player[playerCount];
@@ -242,10 +221,6 @@ public class GameBoard {
             players[j] = new Player("Player" + Math.addExact(j, 1), bal);
         }
         setPlayers(players);
-    }
-
-    private void setPlayers(Player[] players) {
-        this.players = players;
     }
 
     public Deck getDeck() {
