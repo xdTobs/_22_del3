@@ -11,7 +11,7 @@ public class GetOutOfJailChanceCard extends ChanceCard {
 
 
     public GetOutOfJailChanceCard() {
-        this.desc = LanguageHandler.onGetOutOfJail();
+        this.desc = language.languageMap.get("onGetOutOfJail");
     }
 
     @Override

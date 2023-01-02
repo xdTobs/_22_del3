@@ -6,6 +6,9 @@ import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
 import View.GUI_View;
+import org.codehaus.plexus.i18n.Language;
+
+import java.io.IOException;
 
 
 /**
@@ -13,6 +16,16 @@ import View.GUI_View;
  */
 public class GameHandler {
     final private View.GUI_View view;
+    
+    private LanguageHandler language;
+
+    {
+        try {
+            language = new LanguageHandler();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     final private GameBoard gameBoard;
 
@@ -35,8 +48,8 @@ public class GameHandler {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-                view.showMessage(gameBoard.findLoser() + LanguageHandler.gameLostMsg());
-                view.showMessage(gameBoard.findWinner() + LanguageHandler.gameWonMsg());
+                view.showMessage(gameBoard.findLoser() + language.languageMap.get("gameLostMsg"));
+                view.showMessage(gameBoard.findWinner() + language.languageMap.get("gameWonMsg"));
                 break;
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
@@ -50,13 +63,13 @@ public class GameHandler {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
         if (currentPlayer.isJailed()) {
             gameBoard.payFine(currentPlayer);
-            view.showMessage(currentPlayer.getName() + LanguageHandler.jailMsg(currentPlayer.getName()));
+            view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
         }
 
         boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-        view.showMessage(currentPlayer.getName() + " " + LanguageHandler.rollDiceMsg());
+        view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
         if (hasPassedStart) {
-            view.showMessage(LanguageHandler.passedStartMsg());
+            view.showMessage(language.languageMap.get("passedStartMsg"));
         }
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
@@ -76,7 +89,7 @@ public class GameHandler {
     }
 
     private void getPlayerChoicePickStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
-        String message = LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
+        String message = language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
         String[] choices = pickStreetChanceCard.getStreetChoiceNames();
         String answer = view.promptPlayer(choices, message);
         pickStreetChanceCard.setPickedStreet(answer, gameBoard);

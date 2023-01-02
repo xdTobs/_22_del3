@@ -8,8 +8,20 @@ import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GUI_View {
+
+    LanguageHandler language;
+
+    {
+        try {
+            language = new LanguageHandler();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     final private GUI gui;
     private GUI_Player[] guiPlayers;
     final private GUI_Field[] guiFields = new GUI_Field[24];
@@ -133,12 +145,12 @@ public class GUI_View {
     }
 
     public String promptPlayer(String[] choices, String playerName) {
-        String message = playerName + " " + LanguageHandler.chanceCardMsg() + " " + LanguageHandler.onPickFieldChance();
+        String message = playerName + " " + language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
         return this.gui.getUserSelection(message, choices);
     }
 
     public int promptPlayerCount() {
         //TODO add min max players again
-        return this.gui.getUserInteger(LanguageHandler.playerCountMsg());
+        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"));
     }
 }

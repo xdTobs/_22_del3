@@ -14,7 +14,7 @@ public class GotoFieldAndExecuteActionCard extends ChanceCard {
 
     public GotoFieldAndExecuteActionCard(Field field) {
         this.field = field;
-        this.desc = LanguageHandler.moveTo() + " " + LanguageHandler.getFieldName(field.getPosition());
+        this.desc = language.languageMap.get("moveTo") + " " + field.getName();
     }
 
     // Since the field should be given to the player for free we need to give the player money when he lands on it that then gets subtracted in executeFieldAction.
