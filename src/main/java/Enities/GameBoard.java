@@ -3,6 +3,12 @@ package Enities;
 import Enities.ChanceCards.Deck;
 import Enities.Fields.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class for the game board.
  * Contains all the fields and the chance deck and diceCup.
@@ -19,6 +25,24 @@ public class GameBoard {
      * Instantiates a new Game board.
      */
     public GameBoard() {
+        List<Field> temp = new ArrayList<>();
+        List<String> content;
+        try {
+             content = Files.readAllLines(Path.of("docs/fields.csv"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (String s : content){
+            String[] key = s.split(",");
+            switch (key[2]){
+                case("street"):
+                    temp.add(new Street("s"));
+            }
+        }
+
+
+
         for (int i = 0; i < fields.length; i++) {
             if (i == 0) {
                 this.fields[i] = new Start();

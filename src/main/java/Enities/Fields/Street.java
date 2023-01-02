@@ -5,11 +5,11 @@ import Enities.Player;
 import Language.LanguageHandler;
 
 public class Street extends Field {
-    final private int rent;
+    final private int[] rent;
     private String ownerName = "Bank";
     final private String name;
 
-    public Street(int position) {
+    public Street(int position,int rent[]) {
         super(position);
         this.rent = calculateRent(position);
         name = LanguageHandler.getFieldName(position);
