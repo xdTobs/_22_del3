@@ -14,7 +14,6 @@ public class Street extends Field {
         for (int i = 0; i < 6; i++) {
             this.rent[i] = Integer.parseInt(split[i + 5]);
         }
-
     }
 
     @Override
