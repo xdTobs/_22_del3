@@ -16,7 +16,15 @@ public class Ferry extends RentableField{
     public String getName() {
         return super.getName();
     }
+    @Override
+    public int getPrice() {
+        return super.getPrice();
+    }
 
+    @Override
+    public int getHousePrice() {
+        return super.getHousePrice();
+    }
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
