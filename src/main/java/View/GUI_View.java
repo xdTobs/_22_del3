@@ -56,7 +56,6 @@ public class GUI_View {
             }
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();
-                guiFields[i].setSubText(goToJail.getDescription());
             }
             if (fields[i] instanceof Ferry ferry) {
                 guiFields[i] = new GUI_Shipping();
