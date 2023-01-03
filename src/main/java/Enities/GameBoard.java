@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class GameBoard {
     private final DiceCup diceCup = new DiceCup();
+    private final HashMap<Player, List<Field>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
     private final Deck deck;
     private Player[] players;
