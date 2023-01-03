@@ -24,6 +24,12 @@ public class GameBoard {
     private Player[] players;
     private int playerTurn;
 
+    public ActualChanceCard getAcc() {
+        return acc;
+    }
+
+    private ActualChanceCard acc = new ActualChanceCard(this);
+
     /**
      * Instantiates a new Game board.
      */
@@ -35,9 +41,7 @@ public class GameBoard {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        ActualChanceCard acc = new ActualChanceCard(this);
-        GetOutOfJailChanceCard jailcard = new GetOutOfJailChanceCard();
-        jailcard.executeCardAction(acc);
+
 
         for (String s : content) {
             String[] key = s.split(",");
@@ -54,7 +58,7 @@ public class GameBoard {
             }
         }
         temp.toArray(fields);
-        this.deck = new Deck(fields);
+        this.deck = new Deck();
     }
 
     /**

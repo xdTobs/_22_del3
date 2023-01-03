@@ -10,16 +10,6 @@ import Language.LanguageHandler;
 public class GetOutOfJailChanceCard extends ChanceCard {
 
 
-    public GetOutOfJailChanceCard() {
-        this.desc = language.languageMap.get("onGetOutOfJail");
-    }
-
-    @Override
-    public void executeCardAction(GameBoard gameBoard) {
-        Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.addGetOutOfJailCard();
-    }
-
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
         chanceAction.getOutOfJail();

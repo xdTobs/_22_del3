@@ -1,12 +1,9 @@
 package Controller;
 
-import Enities.ChanceCards.ChanceCard;
-import Enities.ChanceCards.PickStreetChanceCard;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
 import View.GUI_View;
-import org.codehaus.plexus.i18n.Language;
 
 import java.io.IOException;
 
@@ -74,26 +71,11 @@ public class GameHandler {
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
 
-        // This is the chance card where the player gets to pick a street to go to and then gets it for free or has to pay rent.
-        // We need a special case for it, because we need to let the player choose the street first and then run the card.
-        // All other cards need no special case, because they are executed directly.
-        if (gameBoard.currentPlayerIsOnChanceField()) {
-            gameBoard.getDeck().pullCard();
-            ChanceCard card = gameBoard.getDeck().getLatestChanceCard();
-            if (card instanceof PickStreetChanceCard pickStreetChanceCard) {
-                getPlayerChoicePickStreetChanceCard(pickStreetChanceCard);
-            }
-        }
         gameBoard.fieldAction(currentPlayer);
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
-    private void getPlayerChoicePickStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
-        String message = language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
-        String[] choices = pickStreetChanceCard.getStreetChoiceNames();
-        String answer = view.promptPlayer(choices, message);
-        pickStreetChanceCard.setPickedStreet(answer, gameBoard);
-    }
+
 
 
     private void resetPlayerPositions() {
