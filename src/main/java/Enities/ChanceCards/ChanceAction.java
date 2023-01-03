@@ -1,4 +1,8 @@
 package Enities.ChanceCards;
 
-public class ChanceAction {
+import Enities.GameBoard;
+import Enities.Player;
+
+public interface ChanceAction {
+    void getOutOfJail();
 }

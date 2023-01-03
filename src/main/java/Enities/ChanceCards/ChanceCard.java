@@ -19,6 +19,7 @@ public abstract class ChanceCard {
     protected String desc;
 
     public abstract void executeCardAction(GameBoard gameBoard);
+    public abstract void executeCardAction(ChanceAction chanceAction);
 
 }
 

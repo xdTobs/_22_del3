@@ -20,5 +20,10 @@ public class BalanceChanceCard extends ChanceCard {
 
     }
 
+    @Override
+    public void executeCardAction(ChanceAction chanceAction) {
+
+    }
+
 
 }

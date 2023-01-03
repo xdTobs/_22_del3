@@ -48,4 +48,9 @@ public class PickStreetChanceCard extends ChanceCard {
         goToStreetAndBuyCard.executeCardAction(gameBoard);
         pickedStreet = null;
     }
+
+    @Override
+    public void executeCardAction(ChanceAction chanceAction) {
+
+    }
 }

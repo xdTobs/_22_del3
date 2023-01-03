@@ -28,4 +28,9 @@ public class GotoFieldAndExecuteActionCard extends ChanceCard {
         }
         field.executeFieldAction(gameBoard);
     }
+
+    @Override
+    public void executeCardAction(ChanceAction chanceAction) {
+
+    }
 }
