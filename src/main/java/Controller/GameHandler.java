@@ -68,9 +68,9 @@ public class GameHandler {
             // gameBoard.payFine(currentPlayer);
             currentPlayer.addToJailedCounter();
             int jailedCounter = currentPlayer.getJailedCounter();
-                if (jailedCounter == 2) {
-                    currentPlayer.setJailed(false);
-                    currentPlayer.setJailedCounter(0);
+            if (jailedCounter == 2) {
+                currentPlayer.setJailed(false);
+                currentPlayer.setJailedCounter(0);
             }
             view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
         } else {
@@ -86,7 +86,6 @@ public class GameHandler {
         gameBoard.fieldAction(currentPlayer);
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
-
 
 
     private void resetPlayerPositions() {

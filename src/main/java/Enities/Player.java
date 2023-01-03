@@ -6,7 +6,6 @@ public class Player {
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
-
     private int jailedCounter;
     private String name;
 
