@@ -9,8 +9,48 @@ public class ActualChanceCard implements ChanceAction {
     }
     @Override
     public void getOutOfJail() {
-        System.out.println("test");
-            /*Player currentPlayer = gameBoard.getCurrentPlayer();
-            currentPlayer.addGetOutOfJailCard();*/
+
+            Player currentPlayer = gameBoard.getCurrentPlayer();
+            currentPlayer.addGetOutOfJailCard();
+    }
+
+    @Override
+    public void changeBal(int i) {
+
+    }
+
+    @Override
+    public void changeBalConditional(int amout, int condition) {
+
+    }
+
+    @Override
+    public void changeBalFromPlayers(int amout) {
+
+    }
+
+    @Override
+    public void moveToField(int index) {
+
+    }
+
+    @Override
+    public void moveSpaces(int spaces) {
+
+    }
+
+    @Override
+    public void moveToFerry() {
+
+    }
+
+    @Override
+    public void payPerProperty(int perHouse, int perHotel) {
+
+    }
+
+    @Override
+    public void goToJail() {
+
     }
 }
