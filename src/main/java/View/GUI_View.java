@@ -48,11 +48,11 @@ public class GUI_View {
             }
             if (fields[i] instanceof Jail jail) {
                 guiFields[i] = new GUI_Jail();
-                guiFields[i].setSubText(jail.getDescription());
+
             }
             if (fields[i] instanceof Parking parking) {
                 guiFields[i] = new GUI_Refuge();
-                guiFields[i].setSubText(parking.getDescription());
+
             }
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();

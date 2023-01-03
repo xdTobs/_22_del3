@@ -4,23 +4,18 @@ import Enities.GameBoard;
 import Enities.Player;
 
 public class Start extends Field {
-    private String name;
-    private String description;
 
 
-    public Start() {
-        super(0);
-        name = "Start";
-        description = "This is start";
+
+    public Start(String s) {
+        super(s);
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
-    public String getDescription() {
-        return description;
-    }
+
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {

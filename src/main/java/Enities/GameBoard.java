@@ -38,7 +38,11 @@ public class GameBoard {
             switch (key[2].trim()) {
                 case ("street") -> temp.add(new Street(s));
                 case ("tax") -> temp.add(new Tax(s));
-                case ("jail") -> temp.add(new Jail());
+                case ("jail") -> temp.add(new Jail(s));
+                case ("chance") -> temp.add(new ChanceField(s));
+                case ("refugee") ->temp.add(new Parking (s));
+                case ("start") -> temp.add(new Start(s));
+
             }
         }
         this.deck = new Deck(fields);

@@ -5,18 +5,13 @@ import Enities.GameBoard;
 import Language.LanguageHandler;
 
 public class ChanceField extends Field {
-    final private String name;
-
-
-
-    public ChanceField(int position) {
-        super(position);
-        this.name = LanguageHandler.getFieldName(position);
+    public ChanceField(String s) {
+        super(s);
     }
 
     @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
 

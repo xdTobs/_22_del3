@@ -4,23 +4,16 @@ import Enities.GameBoard;
 import Language.LanguageHandler;
 
 public class Parking extends Field {
-    private String name;
-    private String description;
 
 
-    public Parking() {
-        super(12);
-        name = LanguageHandler.getFieldName(this.getPosition());
-        description = LanguageHandler.getFieldName(this.getPosition());
+    public Parking(String s) {
+        super(s);
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
