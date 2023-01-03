@@ -43,6 +43,7 @@ public class GameHandler {
         view.addPlayersToGui(gameBoard.getPlayers());
     }
 
+
     public void playGame() {
         // Moves all player to the start position.
         resetPlayerPositions();
@@ -65,9 +66,9 @@ public class GameHandler {
             // gameBoard.payFine(currentPlayer);
             currentPlayer.addToJailedCounter();
             int jailedCounter = currentPlayer.getJailedCounter();
-                if (jailedCounter == 2) {
-                    currentPlayer.setJailed(false);
-                    currentPlayer.setJailedCounter(0);
+            if (jailedCounter == 2) {
+                currentPlayer.setJailed(false);
+                currentPlayer.setJailedCounter(0);
             }
             view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
         } else {
@@ -100,7 +101,6 @@ public class GameHandler {
         String answer = view.promptPlayer(choices, message);
         pickStreetChanceCard.setPickedStreet(answer, gameBoard);
     }
-
 
     private void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
