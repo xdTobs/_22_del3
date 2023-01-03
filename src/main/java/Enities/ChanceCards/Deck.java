@@ -13,36 +13,56 @@ import java.util.regex.Pattern;
 
 public class Deck {
     private ArrayList<ChanceCard> cards = new ArrayList<>();
+    //reads numbers from string
+    public Integer[] numberReader(String s){
+        StringBuilder numberBuilder = new StringBuilder();
+        List<Integer>numbers = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)){
+                numberBuilder.append(c);
+            }
+            else if(numberBuilder.length()>0){
+                numbers.add(Integer.parseInt(numberBuilder.toString()));
+                numberBuilder = new StringBuilder();
+            }
+        }
+        if(numberBuilder.length()>0){
+            numbers.add(Integer.parseInt(numberBuilder.toString()));
+        }
+        Integer[]numbersAsInt = new Integer[numbers.size()];
+        numbers.toArray(numbersAsInt);
 
+        return numbersAsInt;
+    }
     public Deck() {
         cards = new ArrayList<>();
         List<String> content;
         try {
-            content = Files.readAllLines(Path.of("docs/chancecards.txt"));
+            content = Files.readAllLines(Path.of("src/main/java/Language/ChanceCardsEnglish"));
         } catch (IOException e) {
             throw new RuntimeException(e);
 
         }
-        Matcher matcher;
+
 
         for (int i = 0; i < 2; i++) {
 
-            matcher = Pattern.compile("\\d+").matcher(content.get(i));
+            Integer[] numbers = numberReader(content.get(i));
 
-            cards.add(new PayPerPropertyChanceCard(Integer.parseInt(matcher.group()),Integer.parseInt(matcher.group()),content.get(i)));
+            cards.add(new PayPerPropertyChanceCard(numbers[0],numbers[1],content.get(i)));
         }
         for (int i = 2; i <24 ; i++) {
-            String numberOnly= content.get(i).replaceAll("[^0-9]", "");
-            cards.add(new ChangeBalChanceCard(Integer.parseInt(numberOnly), content.get(i)));
+            Integer[] numbers = numberReader(content.get(i));
+            cards.add(new ChangeBalChanceCard(numbers[0], content.get(i)));
         }
         for (int i = 24; i < 25; i++) {
-            String numberOnly= content.get(i).replaceAll("[^0-9]", ",");
-            String[]prices = numberOnly.split(",");
-            cards.add(new ChangeBalConditionalChanceCard(Integer.parseInt(prices[0]), Integer.parseInt(prices[1]), content.get(i)));
+            Integer[] numbers = numberReader(content.get(i));
+            cards.add(new ChangeBalConditionalChanceCard(numbers[0],numbers[1], content.get(i)));
         }
         for (int i = 25; i < 28; i++) {
-            String numberOnly= content.get(i).replaceAll("[^0-9]", "");
-            cards.add(new ChangeBalFromPlayersChanceCard(Integer.parseInt(numberOnly),content.get(i)));
+            Integer[] numbers = numberReader(content.get(i));
+            cards.add(new ChangeBalFromPlayersChanceCard(numbers[0],content.get(i)));
         }
         for (int i = 28; i < 31; i++) {
             String[] words = content.get(i).split(" ");
@@ -72,7 +92,7 @@ public class Deck {
         for (int i = 44; i < 46; i++) {
             cards.add(new GoToJailChanceCard(content.get(i)));
         }
-
+        System.out.println(2);
 
 
     }
