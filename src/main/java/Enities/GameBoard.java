@@ -165,14 +165,20 @@ public class GameBoard {
      *
      * @return the boolean
      */
-    public boolean isGameover() {
-        for (Player player : players) {
-            if (player.getBalance() <= 0) {
+
+    public boolean isGameover(){
+        int alivePlayers = players.length;
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getBalance() < 0){
+                alivePlayers -= 1;
+            }
+            if (alivePlayers ==1){
                 return true;
             }
         }
         return false;
     }
+
 
     public String findWinner() {
         String winner = players[0].getName();
