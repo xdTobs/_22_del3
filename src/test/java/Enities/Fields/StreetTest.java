@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StreetTest {
 
-    Street street1 = new Street(4);
-    Street street2 = new Street(5);
+    Street street1 = new Street("4");
+    Street street2 = new Street("5");
 
     @Test
     void getName() {
@@ -23,8 +23,8 @@ class StreetTest {
 
     @Test
     void getRent() {
-        assertEquals(1, street1.getRent());
-        assertEquals(1, street2.getRent());
+        assertEquals(1, street1.getRent(0));
+        assertEquals(1, street2.getRent(0));
     }
 
     @Test

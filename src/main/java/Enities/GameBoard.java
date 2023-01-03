@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class GameBoard {
     private final DiceCup diceCup = new DiceCup();
-    private final Field[] fields = new Field[24];
+    private final Field[] fields = new Field[40];
     private final Deck deck;
     private Player[] players;
     private int playerTurn;
@@ -42,9 +42,11 @@ public class GameBoard {
                 case ("chance") -> temp.add(new ChanceField(s));
                 case ("refugee") ->temp.add(new Parking (s));
                 case ("start") -> temp.add(new Start(s));
-
+                case("brewery")-> temp.add(new Brewery(s));
+                case("ferry") -> temp.add(new Ferry(s));
             }
         }
+        temp.toArray(fields);
         this.deck = new Deck(fields);
     }
 

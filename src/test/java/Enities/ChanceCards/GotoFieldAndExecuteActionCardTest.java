@@ -44,7 +44,7 @@ class GotoFieldAndExecuteActionCardTest {
         // p1 lands on field through card that is already owned.
         int p2PrevBalance = p2.getBalance();
         gameBoard.nextPlayer();
-        int rent = street.getRent();
+        int rent = street.getRent(0);
         int p1PrevBalance = p1.getBalance();
         card.executeCardAction(gameBoard);
         int p1CurrBalance = p1.getBalance();

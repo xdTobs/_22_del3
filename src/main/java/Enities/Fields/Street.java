@@ -4,21 +4,21 @@ import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
 
-public class Street extends Field {
-     private int[] rent = new int[6];
-    private String ownerName = "Bank";
+public class Street extends RentableField {
+
 
     public Street(String s) {
         super(s);
-        String[] split = s.split(",");
-        for (int i = 0; i < 6; i++) {
-            this.rent[i] = Integer.parseInt(split[i + 5]);
-        }
     }
 
     @Override
     public String getName() {
         return super.getName();
+    }
+
+    @Override
+    public int getRent(int i) {
+        return super.getRent(i);
     }
 
     @Override
@@ -82,17 +82,9 @@ public class Street extends Field {
         }
     }
 
-    public int getRent(int i) {
-        return rent[i];
-    }
 
-    public String getOwner() {
-        return ownerName;
-    }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
+
 
     public int getPositionOfPairStreet() {
         // If we are on street 1, position 2 is sibling.
@@ -107,5 +99,6 @@ public class Street extends Field {
             throw new IllegalArgumentException("This is not a pair position, and probably not a street");
         }
     }
+
 
 }

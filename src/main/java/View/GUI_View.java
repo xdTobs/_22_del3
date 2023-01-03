@@ -24,7 +24,7 @@ public class GUI_View {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    final private GUI_Field[] guiFields = new GUI_Field[24];
+    final private GUI_Field[] guiFields = new GUI_Field[40];
 
     /**
      * Constructor for the GUI_View class.
@@ -57,6 +57,15 @@ public class GUI_View {
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();
                 guiFields[i].setSubText(goToJail.getDescription());
+            }
+            if (fields[i] instanceof Ferry ferry) {
+                guiFields[i] = new GUI_Shipping();
+            }
+            if (fields[i] instanceof Tax tax) {
+                guiFields[i] = new GUI_Tax();
+            }
+            if (fields[i] instanceof Brewery brewery) {
+                guiFields[i] = new GUI_Brewery();
             }
 
         }
