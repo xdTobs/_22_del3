@@ -5,8 +5,7 @@ import Enities.ChanceCards.PickStreetChanceCard;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
-import View.GUI_View;
-import org.codehaus.plexus.i18n.Language;
+import View.*;
 
 import java.io.IOException;
 
@@ -15,7 +14,7 @@ import java.io.IOException;
  * The controller.
  */
 public class GameHandler {
-    final private View.GUI_View view;
+    final private View view;
     
     private LanguageHandler language;
 
@@ -35,7 +34,7 @@ public class GameHandler {
      * @param view      the view
      * @param gameBoard the gameBoard, our model
      */
-    public GameHandler(GUI_View view, GameBoard gameBoard) {
+    public GameHandler(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
         int playerCount = view.promptPlayerCount();

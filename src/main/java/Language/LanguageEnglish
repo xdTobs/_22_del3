@@ -11,8 +11,6 @@ onGetOutOfJail:Recieve a get out of jail free card. This will automatically be u
 playerCountMsg:How many players will be playing?
 playerName2:Player 2
 playerName1:Player 1
-
-//chancekortEngelsk
 CD1:Oil prices have risen, and you have to pay DKK 500 per house and DKK 2000 per hotel
 CD2:The property tax has increased. The extra expenses are: DKK 800 per house, DKK 2300 per hotel.
 CD3:They have driven ahead of a "full stop", Pay a fine of DKK 1,000
