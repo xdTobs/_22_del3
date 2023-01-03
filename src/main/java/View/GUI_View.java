@@ -35,13 +35,14 @@ public class GUI_View {
      */
     public GUI_View(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
-            if (fields[i] instanceof Start) {
+            if (fields[i] instanceof Start start) {
                 guiFields[i] = new GUI_Start();
+                guiFields[i].setTitle(start.getName());
             }
             if (fields[i] instanceof Street street) {
                 guiFields[i] = new GUI_Street();
                 guiFields[i].setTitle(street.getName());
-                guiFields[i].setSubText(street.getRent(0) + "");
+                guiFields[i].setSubText(street.getPrice() + "");
             }
             if (fields[i] instanceof ChanceField) {
                 guiFields[i] = new GUI_Chance();
@@ -60,12 +61,17 @@ public class GUI_View {
             }
             if (fields[i] instanceof Ferry ferry) {
                 guiFields[i] = new GUI_Shipping();
+                guiFields[i].setTitle(ferry.getName());
+                guiFields[i].setSubText(ferry.getPrice()+"");
             }
             if (fields[i] instanceof Tax tax) {
                 guiFields[i] = new GUI_Tax();
+                guiFields[i].setTitle(tax.getName());
             }
             if (fields[i] instanceof Brewery brewery) {
                 guiFields[i] = new GUI_Brewery();
+                guiFields[i].setTitle(brewery.getName());
+                guiFields[i].setSubText(brewery.getPrice()+"");
             }
 
         }

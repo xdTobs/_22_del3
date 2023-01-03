@@ -12,6 +12,16 @@ public class Street extends RentableField {
     }
 
     @Override
+    public int getPrice() {
+        return super.getPrice();
+    }
+
+    @Override
+    public int getHousePrice() {
+        return super.getHousePrice();
+    }
+
+    @Override
     public String getName() {
         return super.getName();
     }
@@ -81,9 +91,6 @@ public class Street extends RentableField {
             return 5;
         }
     }
-
-
-
 
 
     public int getPositionOfPairStreet() {
