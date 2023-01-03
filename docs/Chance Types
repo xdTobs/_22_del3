@@ -3,6 +3,7 @@ chanceBalConditional
 changeBalFromPlayers
 moveToField
 moveSpaces
+moveToBrewery
 moveToFerry
 payPerProperty
 goToJail

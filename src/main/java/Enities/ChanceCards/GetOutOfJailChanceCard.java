@@ -9,6 +9,9 @@ import Language.LanguageHandler;
  */
 public class GetOutOfJailChanceCard extends ChanceCard {
 
+    public GetOutOfJailChanceCard(String desc) {
+        this.desc = desc;
+    }
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
