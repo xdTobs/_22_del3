@@ -65,17 +65,22 @@ public class GameHandler {
     private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
         if (currentPlayer.isJailed()) {
-            gameBoard.payFine(currentPlayer);
+            // gameBoard.payFine(currentPlayer);
+            currentPlayer.addToJailedCounter();
+            int jailedCounter = currentPlayer.getJailedCounter();
+                if (jailedCounter == 2) {
+                    currentPlayer.setJailed(false);
+                    currentPlayer.setJailedCounter(0);
+            }
             view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
-        }
-
-        boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-        view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
-        if (hasPassedStart) {
-            view.showMessage(language.languageMap.get("passedStartMsg"));
-        }
-        view.updatePlayerLocations(gameBoard.getPlayers());
-        view.updateDie(gameBoard.getDiceCup());
+        } else {
+            boolean hasPassedStart = gameBoard.rollDieMovePlayer();
+            view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
+            if (hasPassedStart) {
+                view.showMessage(language.languageMap.get("passedStartMsg"));
+            }
+            view.updatePlayerLocations(gameBoard.getPlayers());
+            view.updateDie(gameBoard.getDiceCup());
 
 
         gameBoard.fieldAction(currentPlayer);
