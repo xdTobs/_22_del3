@@ -3,11 +3,32 @@ package Enities.Fields;
 import Enities.GameBoard;
 import Enities.Player;
 
-public class Street extends RentableField {
+import java.awt.*;
 
+public class Street extends RentableField {
+    Color color;
+    int[] pairIndexes;
+    int houses = 0;
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
 
     public Street(String s) {
         super(s);
+
     }
 
     @Override
@@ -56,7 +77,7 @@ public class Street extends RentableField {
         Player[] players = gameBoard.getPlayers();
         String houseOwnerName = getOwner();
         Player houseOwner = null;
-        int rent = getRent(0);
+        int rent = getRent(houses);
         for (Player player : players) {
             if (player.getName().equals(houseOwnerName)) {
                 houseOwner = player;
@@ -64,6 +85,11 @@ public class Street extends RentableField {
         }
         // If you land on your own house, you don't have to pay rent. But we can ignore handling that, because paying yourself $2 dollars makes no difference. The gameover check comes much later.
         assert houseOwner != null;
+
+        if(houses == 0 &&playerOwnsPair(gameBoard)){
+            rent*=2;
+        }
+
         houseOwner.addBalance(rent);
         gameBoard.getCurrentPlayer().addBalance(-rent);
     }
@@ -82,6 +108,16 @@ public class Street extends RentableField {
         }
     }
 
+    public boolean playerOwnsPair(GameBoard gameBoard){
+        boolean playerOwnsPair = true;
+        for (int i : pairIndexes){
+            Street street = (Street) gameBoard.getFields()[i];
+            if (!street.getOwner().equals(getOwner())){
+                playerOwnsPair = false;
+            }
+        }
+        return playerOwnsPair;
+    }
 
     public int getPositionOfPairStreet() {
         // If we are on street 1, position 2 is sibling.

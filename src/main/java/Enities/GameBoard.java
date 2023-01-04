@@ -4,6 +4,7 @@ import Enities.ChanceCards.Deck;
 import Enities.ChanceCards.GetOutOfJailChanceCard;
 import Enities.Fields.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +18,9 @@ import java.util.List;
  * This is the model.
  */
 public class GameBoard {
+
     private final DiceCup diceCup = new DiceCup();
+    private final HashMap<Color,int[]> pairs = new HashMap<>();
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
     private final Deck deck;
@@ -62,6 +65,24 @@ public class GameBoard {
             }
         }
         temp.toArray(fields);
+        List<int[]>streetPairs = new ArrayList<>();
+        streetPairs.add(new int[]{1,3});
+        streetPairs.add(new int[]{6,8,9});
+        streetPairs.add(new int[]{11,13,14});
+        streetPairs.add(new int[]{16,18,19});
+        streetPairs.add(new int[]{21,23,24});
+        streetPairs.add(new int[]{26,27,29});
+        streetPairs.add(new int[]{31,32,34});
+        streetPairs.add(new int[]{37,39});
+
+
+
+        for (int i = 0; i < streetPairs.size(); i++) {
+            for(int j : streetPairs.get(i)){
+                Street street = (Street) fields[j];
+                street.setPairIndexes(streetPairs.get(i));
+            }
+        }
         this.deck = new Deck();
     }
 
