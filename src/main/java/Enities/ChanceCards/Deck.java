@@ -97,7 +97,7 @@ public class Deck {
 
     }
 
-    private void shuffleCards() {
+    public void shuffleCards() {
         Collections.shuffle(cards);
     }
     public void pullCard() {

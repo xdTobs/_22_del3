@@ -18,8 +18,8 @@ public class ChanceField extends Field {
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
         ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
+        gameBoard.getDeck().shuffleCards();
         chanceCard.executeCardAction(gameBoard.getAcc());
-
     }
 
 }
