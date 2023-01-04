@@ -42,6 +42,7 @@ public class GameHandler {
         view.addPlayersToGui(gameBoard.getPlayers());
     }
 
+
     public void playGame() {
         // Moves all player to the start position.
         resetPlayerPositions();
@@ -61,39 +62,44 @@ public class GameHandler {
     private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
         if (currentPlayer.isJailed()) {
-            gameBoard.payFine(currentPlayer);
-            view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
-        }
-
-        boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-        view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
-        if (hasPassedStart) {
-            view.showMessage(language.languageMap.get("passedStartMsg"));
-        }
-        view.updatePlayerLocations(gameBoard.getPlayers());
-        view.updateDie(gameBoard.getDiceCup());
-
-        // This is the chance card where the player gets to pick a street to go to and then gets it for free or has to pay rent.
-        // We need a special case for it, because we need to let the player choose the street first and then run the card.
-        // All other cards need no special case, because they are executed directly.
-        if (gameBoard.currentPlayerIsOnChanceField()) {
-            gameBoard.getDeck().pullCard();
-            ChanceCard card = gameBoard.getDeck().getLatestChanceCard();
-            if (card instanceof PickStreetChanceCard pickStreetChanceCard) {
-                getPlayerChoicePickStreetChanceCard(pickStreetChanceCard);
+            // gameBoard.payFine(currentPlayer);
+            currentPlayer.addToJailedCounter();
+            int jailedCounter = currentPlayer.getJailedCounter();
+            if (jailedCounter == 2) {
+                currentPlayer.setJailed(false);
+                currentPlayer.setJailedCounter(0);
             }
+            view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
+        } else {
+            boolean hasPassedStart = gameBoard.rollDieMovePlayer();
+            view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
+            if (hasPassedStart) {
+                view.showMessage(language.languageMap.get("passedStartMsg"));
+            }
+            view.updatePlayerLocations(gameBoard.getPlayers());
+            view.updateDie(gameBoard.getDiceCup());
+
+            // This is the chance card where the player gets to pick a street to go to and then gets it for free or has to pay rent.
+            // We need a special case for it, because we need to let the player choose the street first and then run the card.
+            // All other cards need no special case, because they are executed directly.
+            if (gameBoard.currentPlayerIsOnChanceField()) {
+                gameBoard.getDeck().pullCard();
+                ChanceCard card = gameBoard.getDeck().getLatestChanceCard();
+                if (card instanceof PickStreetChanceCard pickStreetChanceCard) {
+                    getPlayerChoicePickStreetChanceCard(pickStreetChanceCard);
+                }
+            }
+            gameBoard.fieldAction(currentPlayer);
+            view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
         }
-        gameBoard.fieldAction(currentPlayer);
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
     private void getPlayerChoicePickStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
-        String message = language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
+        String message = language.languageMap.get("chanceCardMsg") + " " + language.languageMap.get("onPickFieldChance");
         String[] choices = pickStreetChanceCard.getStreetChoiceNames();
         String answer = view.promptPlayer(choices, message);
         pickStreetChanceCard.setPickedStreet(answer, gameBoard);
     }
-
 
     private void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
