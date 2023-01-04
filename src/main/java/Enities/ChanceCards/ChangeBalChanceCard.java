@@ -9,6 +9,7 @@ public class ChangeBalChanceCard extends ChanceCard{
     int amount;
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-        chanceAction.changeBal(amount,desc);
+        chanceAction.changeBal(amount);
+        chanceAction.printDesc(desc);
     }
 }

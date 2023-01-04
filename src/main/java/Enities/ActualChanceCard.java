@@ -12,54 +12,61 @@ public class ActualChanceCard implements ChanceAction {
         this.view = view;
 
     }
+
     @Override
-    public void getOutOfJail(String desc) {
+    public void getOutOfJail() {
             Player currentPlayer = gameBoard.getCurrentPlayer();
             currentPlayer.addGetOutOfJailCard();
     }
 
     @Override
-    public void changeBal(int i, String desc) {
+    public void changeBal(int i) {
 
     }
 
     @Override
-    public void changeBalConditional(int amount, int condition, String desc) {
+    public void changeBalConditional(int amount, int condition) {
 
     }
 
     @Override
-    public void changeBalFromPlayers(int amount, String desc) {
+    public void changeBalFromPlayers(int amount) {
 
     }
 
     @Override
-    public void moveToField(int index, String desc) {
+    public void moveToField(int index) {
 
     }
 
     @Override
-    public void moveSpaces(int spaces, String desc) {
+    public void moveSpaces(int spaces) {
 
     }
 
     @Override
-    public void moveToFerry(String desc) {
+    public void moveToFerry() {
 
     }
 
     @Override
-    public void payPerProperty(int perHouse, int perHotel, String desc) {
+    public void payPerProperty(int perHouse, int perHotel) {
 
     }
 
     @Override
-    public void goToJail(String desc) {
+    public void goToJail() {
 
     }
 
     @Override
-    public void moveToBrewery(String desc) {
+    public void moveToBrewery() {
 
     }
+
+    @Override
+    public void printDesc(String desc) {
+        view.showMessage(desc);
+    }
+
 }

@@ -61,6 +61,10 @@ public class GameHandler {
             }
         }
     }
+    public void resetPlayerPositions() {
+        gameBoard.resetPlayerPositions();
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+    }
 
     private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
@@ -87,10 +91,7 @@ public class GameHandler {
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
+}
 
-    private void resetPlayerPositions() {
-        gameBoard.resetPlayerPositions();
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
-    }
 }
 
