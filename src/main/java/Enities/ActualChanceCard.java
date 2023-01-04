@@ -1,12 +1,13 @@
 package Enities;
 
 import Enities.ChanceCards.ChanceAction;
-import View.GUI_View;
+
+import View.View;
 
 public class ActualChanceCard implements ChanceAction {
     GameBoard gameBoard;
-    GUI_View view;
-    public ActualChanceCard(GameBoard gameBoard,GUI_View view){
+    View view;
+    public ActualChanceCard(GameBoard gameBoard,View view){
         this.gameBoard = gameBoard;
         this.view = view;
 

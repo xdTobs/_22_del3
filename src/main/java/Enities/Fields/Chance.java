@@ -13,6 +13,7 @@ public class Chance extends Field {
     @Override
     public void executeFieldAction(GameBoard gameBoard) {
         ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
-        chanceCard.executeCardAction(gameBoard);
+        gameBoard.getDeck().shuffleCards();
+        chanceCard.executeCardAction(gameBoard.getAcc());
     }
 }
