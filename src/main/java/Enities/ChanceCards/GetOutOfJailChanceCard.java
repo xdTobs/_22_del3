@@ -15,6 +15,7 @@ public class GetOutOfJailChanceCard extends ChanceCard {
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-        chanceAction.getOutOfJail(desc);
+        chanceAction.getOutOfJail();
+        chanceAction.printDesc(desc);
     }
 }

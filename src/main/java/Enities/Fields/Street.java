@@ -44,7 +44,7 @@ public class Street extends RentableField {
     private void buyEmptyStreet(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         setOwnerName(currentPlayer.getName());
-        currentPlayer.addBalance(-getRent(0));
+        currentPlayer.addBalance(-getPrice());
     }
 
     private void payRentToOwner(GameBoard gameBoard) {
@@ -60,20 +60,8 @@ public class Street extends RentableField {
                 houseOwner = player;
             }
         }
-        // We need to check if the house owner owns both streets. If he does you have to pay double rent.
-        int positionOfPairStreet = this.getPositionOfPairStreet();
-        Street pairStreet = gameBoard.getStreet(positionOfPairStreet);
-        // Added this to make intellij stop complaining. It should never be null, because we are only checking for the pair street if the street is owned.
-        if (houseOwner != null) {
-            // We double the rent if the house owner owns both streets.
-            if (houseOwner.getName().equals(pairStreet.getOwner())) {
-                rent *= 2;
-            }
-        } else {
-            throw new IllegalStateException("House owner is null");
-        }
-
         // If you land on your own house, you don't have to pay rent. But we can ignore handling that, because paying yourself $2 dollars makes no difference. The gameover check comes much later.
+        assert houseOwner != null;
         houseOwner.addBalance(rent);
         gameBoard.getCurrentPlayer().addBalance(-rent);
     }
@@ -91,9 +79,6 @@ public class Street extends RentableField {
             return 5;
         }
     }
-
-
-
 
 
     public int getPositionOfPairStreet() {

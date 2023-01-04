@@ -13,3 +13,5 @@ playerName4:Player 4
 playerName3:Player 3
 playerName2:Player 2
 playerName1:Player 1
+succesfulConditionChanceCard: Your values have been tallied under the requirement, you have recieved
+unSuccesfulConditionChanceCard: Your values have been talliet over the requiremnt, you do not revieve anything.

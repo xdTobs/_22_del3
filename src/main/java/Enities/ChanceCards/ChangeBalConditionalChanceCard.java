@@ -12,6 +12,8 @@ public class ChangeBalConditionalChanceCard extends ChanceCard{
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-        chanceAction.changeBalConditional(amount,condition,desc);
+        chanceAction.printDesc(desc);
+        chanceAction.changeBalConditional(amount,condition);
+
     }
 }
