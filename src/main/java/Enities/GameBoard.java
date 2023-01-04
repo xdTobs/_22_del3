@@ -28,7 +28,11 @@ public class GameBoard {
         return acc;
     }
 
-    private ActualChanceCard acc = new ActualChanceCard(this);
+    private ActualChanceCard acc;
+
+    public void setAcc(ActualChanceCard acc) {
+        this.acc = acc;
+    }
 
     /**
      * Instantiates a new Game board.

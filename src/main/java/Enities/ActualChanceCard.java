@@ -1,17 +1,21 @@
 package Enities;
 
 import Enities.ChanceCards.ChanceAction;
+import View.GUI_View;
 
 public class ActualChanceCard implements ChanceAction {
     GameBoard gameBoard;
-    public ActualChanceCard(GameBoard gameBoard){
+    GUI_View view;
+    public ActualChanceCard(GameBoard gameBoard,GUI_View view){
         this.gameBoard = gameBoard;
+        this.view = view;
+
     }
     @Override
     public void getOutOfJail(String desc) {
-
             Player currentPlayer = gameBoard.getCurrentPlayer();
             currentPlayer.addGetOutOfJailCard();
+
     }
 
     @Override
@@ -51,6 +55,11 @@ public class ActualChanceCard implements ChanceAction {
 
     @Override
     public void goToJail(String desc) {
+
+    }
+
+    @Override
+    public void moveToBrewery(String desc) {
 
     }
 }

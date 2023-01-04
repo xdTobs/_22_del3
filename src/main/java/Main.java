@@ -1,12 +1,8 @@
 import Controller.GameHandler;
-import Enities.Fields.Field;
 import Enities.GameBoard;
-import Language.LanguageHandler;
 import View.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
 public class Main {
 

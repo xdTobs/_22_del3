@@ -1,5 +1,6 @@
 package Controller;
 
+import Enities.ActualChanceCard;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
@@ -26,11 +27,14 @@ public class GameHandler {
 
     final private GameBoard gameBoard;
 
+    private ActualChanceCard acc;
+
     /**
      * Instantiates a new Game controller.
      *
      * @param view      the view
      * @param gameBoard the gameBoard, our model
+     * @param acc
      */
     public GameHandler(GUI_View view, GameBoard gameBoard) {
         this.view = view;
@@ -38,7 +42,10 @@ public class GameHandler {
         int playerCount = view.promptPlayerCount();
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
+        acc = new ActualChanceCard(gameBoard,view);
+        gameBoard.setAcc(acc);
     }
+
 
     public void playGame() {
         // Moves all player to the start position.
