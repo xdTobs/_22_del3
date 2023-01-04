@@ -2,11 +2,14 @@ package Enities;
 
 import Enities.ChanceCards.ChanceCard;
 import Enities.Fields.*;
+import Language.LanguageHandler;
 import View.View;
 
 public class ActualFields implements FieldAction {
     GameBoard gameBoard;
     View view;
+
+
 
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
@@ -18,6 +21,7 @@ public class ActualFields implements FieldAction {
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
         if (street.getOwner().equals("Bank")) {
+           //TODO Prompt player here, need to get a reference to LanguageHandler.
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
