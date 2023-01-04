@@ -92,7 +92,6 @@ public class Deck {
         for (int i = 44; i < 46; i++) {
             cards.add(new GoToJailChanceCard(content.get(i)));
         }
-        System.out.println(2);
 
 
     }

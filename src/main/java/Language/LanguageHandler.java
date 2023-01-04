@@ -16,7 +16,6 @@ public class LanguageHandler {
 
         List<String> content = Files.readAllLines(Path.of("src/main/java/Language/LanguageEnglish"));
         for (String s : content){
-            System.out.println(s);
             String[]keyValue = s.split(":",2);
             if(keyValue.length>1)
                 languageMap.put(keyValue[0],keyValue[1]);
