@@ -7,6 +7,8 @@ public class Player {
     private boolean jailed;
     private int getOutOfJailCards = 0;
     private int jailedCounter;
+
+    private int extraTurnCounter;
     private String name;
 
 
@@ -69,6 +71,16 @@ public class Player {
     public void addToJailedCounter() { jailedCounter++; }
     public int getJailedCounter() { return jailedCounter; }
     public void setJailedCounter(int jailedCounter) { this.jailedCounter = jailedCounter; }
+
+    public void addToExtraTurnCounter(int[] array) {
+        if (array[0] == array[1]) {
+            extraTurnCounter++;
+        }
+    }
+    public int getExtraTurnCounter() { return extraTurnCounter; }
+    public void setExtraTurnCounter(int extraTurnCounter) { this.extraTurnCounter = extraTurnCounter; }
+
+
 
     public String getName() {
         return name;

@@ -1,9 +1,6 @@
 package Controller;
 
-import Enities.ActualChanceCard;
-import Enities.DiceCup;
-import Enities.GameBoard;
-import Enities.Player;
+import Enities.*;
 import Language.LanguageHandler;
 import View.*;
 import jdk.jshell.execution.JdiExecutionControl;
@@ -30,8 +27,6 @@ public class GameHandler {
     final private GameBoard gameBoard;
 
     private ActualChanceCard acc;
-
-    private DiceCup diceCup;
 
     /**
      * Instantiates a new Game controller.
@@ -93,12 +88,15 @@ public class GameHandler {
             view.updatePlayerLocations(gameBoard.getPlayers());
             view.updateDie(gameBoard.getDiceCup());
 
-
             gameBoard.fieldAction(currentPlayer);
             view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+
         }
 
     }
 
+
 }
+
+
 

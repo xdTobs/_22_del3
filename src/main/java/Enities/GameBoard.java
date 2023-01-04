@@ -138,10 +138,8 @@ public class GameBoard {
         currentPlayer.setPosition(newPosition);
         return hasPassedStart;
     }
-    public int doubleTurn() {
 
-        return 0;
-    }
+
     /**
      * Pay fine when you are in jail.
      *
