@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class GameBoard {
     private final DiceCup diceCup = new DiceCup();
-    private final HashMap<Player, List<Field>> ownershipMap = new HashMap<>();
+    private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
     private final Deck deck;
     private Player[] players;
@@ -242,6 +242,9 @@ public class GameBoard {
             players[j] = new Player("Player" + Math.addExact(j, 1), bal);
         }
         setPlayers(players);
+        for (Player p : players){
+            ownershipMap.put(p,new ArrayList<>());
+        }
     }
 
     public Deck getDeck() {

@@ -93,9 +93,6 @@ public class Street extends RentableField {
     }
 
 
-
-
-
     public int getPositionOfPairStreet() {
         // If we are on street 1, position 2 is sibling.
         // There are always 2 streets, then a chance or a corner square.
