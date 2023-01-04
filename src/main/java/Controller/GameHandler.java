@@ -1,7 +1,6 @@
 package Controller;
 
-import Enities.ChanceCards.ChanceCard;
-import Enities.ChanceCards.PickStreetChanceCard;
+import Enities.ActualChanceCard;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
@@ -28,6 +27,8 @@ public class GameHandler {
 
     final private GameBoard gameBoard;
 
+    private ActualChanceCard acc;
+
     /**
      * Instantiates a new Game controller.
      *
@@ -40,7 +41,10 @@ public class GameHandler {
         int playerCount = view.promptPlayerCount();
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
+        acc = new ActualChanceCard(gameBoard,view);
+        gameBoard.setAcc(acc);
     }
+
 
     public void playGame() {
         // Moves all player to the start position.
@@ -73,26 +77,11 @@ public class GameHandler {
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
 
-        // This is the chance card where the player gets to pick a street to go to and then gets it for free or has to pay rent.
-        // We need a special case for it, because we need to let the player choose the street first and then run the card.
-        // All other cards need no special case, because they are executed directly.
-        if (gameBoard.currentPlayerIsOnChanceField()) {
-            gameBoard.getDeck().pullCard();
-            ChanceCard card = gameBoard.getDeck().getLatestChanceCard();
-            if (card instanceof PickStreetChanceCard pickStreetChanceCard) {
-                getPlayerChoicePickStreetChanceCard(pickStreetChanceCard);
-            }
-        }
+
         gameBoard.fieldAction(currentPlayer);
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
-    private void getPlayerChoicePickStreetChanceCard(PickStreetChanceCard pickStreetChanceCard) {
-        String message = language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
-        String[] choices = pickStreetChanceCard.getStreetChoiceNames();
-        String answer = view.promptPlayer(choices, message);
-        pickStreetChanceCard.setPickedStreet(answer, gameBoard);
-    }
 
 
     private void resetPlayerPositions() {

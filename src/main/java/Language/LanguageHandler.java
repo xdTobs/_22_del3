@@ -18,7 +18,8 @@ public class LanguageHandler {
         for (String s : content){
             System.out.println(s);
             String[]keyValue = s.split(":",2);
-            languageMap.put(keyValue[0],keyValue[1]);
+            if(keyValue.length>1)
+                languageMap.put(keyValue[0],keyValue[1]);
         }
     }
 

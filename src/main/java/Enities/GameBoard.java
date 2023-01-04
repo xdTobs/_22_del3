@@ -1,6 +1,7 @@
 package Enities;
 
 import Enities.ChanceCards.Deck;
+import Enities.ChanceCards.GetOutOfJailChanceCard;
 import Enities.Fields.*;
 
 import java.io.IOException;
@@ -23,6 +24,16 @@ public class GameBoard {
     private Player[] players;
     private int playerTurn;
 
+    public ActualChanceCard getAcc() {
+        return acc;
+    }
+
+    private ActualChanceCard acc;
+
+    public void setAcc(ActualChanceCard acc) {
+        this.acc = acc;
+    }
+
     /**
      * Instantiates a new Game board.
      */
@@ -34,6 +45,7 @@ public class GameBoard {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
 
         for (String s : content) {
             String[] key = s.split(",");
@@ -50,7 +62,7 @@ public class GameBoard {
             }
         }
         temp.toArray(fields);
-        this.deck = new Deck(fields);
+        this.deck = new Deck();
     }
 
     /**
@@ -167,13 +179,13 @@ public class GameBoard {
      * @return the boolean
      */
 
-    public boolean isGameover(){
+    public boolean isGameover() {
         int alivePlayers = players.length;
         for (int i = 0; i < players.length; i++) {
-            if (players[i].getBalance() < 0){
+            if (players[i].getBalance() < 0) {
                 alivePlayers -= 1;
             }
-            if (alivePlayers ==1){
+            if (alivePlayers == 1) {
                 return true;
             }
         }
@@ -184,7 +196,7 @@ public class GameBoard {
     public String findWinner() {
         String winner = players[0].getName();
         for (int i = 1; i < players.length; i++) {
-            if (players[i].getBalance()>0){
+            if (players[i].getBalance() > 0) {
                 winner = players[i].getName();
             }
         }

@@ -22,7 +22,7 @@ Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.
 Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.
 De har solg nogle gamle møbler på auktion. Modtag 1000 kr af banken.
 Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken
-De modtager “Matador-legatet” på kr 40.000, men kun hvis værdier ikke overstiger 15.000 kr
+De modtager “Matador-legatet” på kr 40000, men kun hvis værdier ikke overstiger 15000 kr
 Det er deres fødselsdag. Modtag af hver medspiller 200 kr.
 De har lagt penge ud til et sammenskudsgilde. Mærkværdigvis betaler alle straks. Modtag fra hver medspiller 500 kr.
 De skal holde familiefest og får et tilskud fra hver medspiller på 500 kr.
@@ -30,7 +30,7 @@ Ryk frem til START
 Ryk frem til START
 Ryk tre felter frem
 Ryk tre felter tilbage
-Ryk tre felter tilbage 
+Ryk tre felter tilbage
 Ryk frem til Frederiksberg Allé. Hvis De passere START, indkasser da 4000 kr.
 Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.
 Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.
