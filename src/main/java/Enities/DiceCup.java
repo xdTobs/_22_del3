@@ -14,6 +14,14 @@ public class DiceCup {
         return sum;
     }
 
+    public int[] getArray() {
+        int[] result = new int[diceArray.length];
+        for (int i = 0; i < diceArray.length; i++) {
+            result[i] = diceArray[i].getFaceValue();
+        }
+        return result;
+    }
+
     // Rolls all dice
     public void roll() {
         for (Die d : diceArray) {
@@ -23,8 +31,8 @@ public class DiceCup {
 
     // int dice defined in Main as the total number of dice in a cup
     public DiceCup() {
-        diceArray = new Die[1];
-        for (int i = 0; i < 1; i++) {
+        diceArray = new Die[2];
+        for (int i = 0; i < diceArray.length; i++) {
             diceArray[i] = new Die();
         }
     }

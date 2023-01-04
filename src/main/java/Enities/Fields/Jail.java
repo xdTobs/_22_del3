@@ -1,7 +1,6 @@
 package Enities.Fields;
 
 import Enities.GameBoard;
-import Language.LanguageHandler;
 
 public class Jail extends Field {
 
@@ -16,7 +15,7 @@ public class Jail extends Field {
     }
 
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
-        return;
+    public Field executeFieldAction(GameBoard gameBoard) {
+        return null;
     }
 }

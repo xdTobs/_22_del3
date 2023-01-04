@@ -17,8 +17,8 @@ public class Brewery extends RentableField {
         return super.getHousePrice();
     }
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
-        return;
+    public Field executeFieldAction(GameBoard gameBoard) {
+        return null;
     }
 
     @Override

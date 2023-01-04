@@ -27,7 +27,8 @@ public class Ferry extends RentableField{
     }
 
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(GameBoard gameBoard) {
 
+        return null;
     }
 }

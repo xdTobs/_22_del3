@@ -2,7 +2,6 @@ package Enities.Fields;
 
 import Enities.ChanceCards.ChanceCard;
 import Enities.GameBoard;
-import Language.LanguageHandler;
 
 public class ChanceField extends Field {
     public ChanceField(String s) {
@@ -16,10 +15,11 @@ public class ChanceField extends Field {
 
 
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(GameBoard gameBoard) {
         ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
         gameBoard.getDeck().shuffleCards();
         chanceCard.executeCardAction(gameBoard.getAcc());
+        return null;
     }
 
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class GameHandler {
     final private View view;
-    
+
     private LanguageHandler language;
 
     {
@@ -41,7 +41,7 @@ public class GameHandler {
         int playerCount = view.promptPlayerCount();
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
-        acc = new ActualChanceCard(gameBoard,view);
+        acc = new ActualChanceCard(gameBoard, view);
         gameBoard.setAcc(acc);
     }
 
@@ -61,6 +61,7 @@ public class GameHandler {
             }
         }
     }
+
     public void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
@@ -68,6 +69,7 @@ public class GameHandler {
 
     private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
+
         if (currentPlayer.isJailed()) {
             // gameBoard.payFine(currentPlayer);
             currentPlayer.addToJailedCounter();
@@ -87,11 +89,11 @@ public class GameHandler {
             view.updateDie(gameBoard.getDiceCup());
 
 
-        gameBoard.fieldAction(currentPlayer);
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
-    }
+            gameBoard.fieldAction(currentPlayer);
+            view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+        }
 
-}
+    }
 
 }
 

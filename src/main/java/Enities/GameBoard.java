@@ -84,7 +84,10 @@ public class GameBoard {
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
-        field.executeFieldAction(this);
+        Field boughtField = field.executeFieldAction(this);
+        if(boughtField instanceof RentableField rentableBoughtField){
+            ownershipMap.get(currentPlayer).add(rentableBoughtField);
+        }
     }
 
     public Field[] getFields() {
@@ -126,9 +129,9 @@ public class GameBoard {
         int playerPosition = currentPlayer.getPosition();
         int newPosition = playerPosition + diceCup.getSum();
         boolean hasPassedStart = false;
-        if (newPosition > 23) {
-            newPosition = newPosition - 24;
-            currentPlayer.addBalance(2);
+        if (newPosition > 39) {
+            newPosition = newPosition - 40;
+            currentPlayer.addBalance(4000);
             hasPassedStart = true;
         }
         currentPlayer.setPosition(newPosition);
@@ -215,13 +218,6 @@ public class GameBoard {
         return loser;
     }
 
-    public Street getStreet(int i) {
-        Field field = getField(i);
-        if (field instanceof Street street) {
-            return street;
-        }
-        throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
-    }
 
     public void createPlayers(int playerCount) {
         Player[] players = new Player[playerCount];

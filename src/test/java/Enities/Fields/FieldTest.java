@@ -10,7 +10,7 @@ class FieldTest {
 
     @BeforeEach
     void setUp() {
-        field = new Start();
+        field = new Start("Start,0, start,,,,,,,,");
     }
 
 

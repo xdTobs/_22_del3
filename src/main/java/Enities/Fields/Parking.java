@@ -1,7 +1,6 @@
 package Enities.Fields;
 
 import Enities.GameBoard;
-import Language.LanguageHandler;
 
 public class Parking extends Field {
 
@@ -16,8 +15,8 @@ public class Parking extends Field {
 
 
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(GameBoard gameBoard) {
         // If you land on parking field nothing happens.
-        return;
+        return null;
     }
 }
