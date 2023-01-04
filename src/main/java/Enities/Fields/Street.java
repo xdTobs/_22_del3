@@ -44,7 +44,7 @@ public class Street extends RentableField {
     private void buyEmptyStreet(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         setOwnerName(currentPlayer.getName());
-        currentPlayer.addBalance(-getRent(0));
+        currentPlayer.addBalance(-getPrice());
     }
 
     private void payRentToOwner(GameBoard gameBoard) {
