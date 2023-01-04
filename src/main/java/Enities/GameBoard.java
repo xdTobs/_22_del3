@@ -136,9 +136,6 @@ public class GameBoard {
             hasPassedStart = true;
         }
         currentPlayer.setPosition(newPosition);
-        if (diceCup.getEqual()) {
-            this.rollDieMovePlayer();
-        }
         return hasPassedStart;
     }
     public int doubleTurn() {
