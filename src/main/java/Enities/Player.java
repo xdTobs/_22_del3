@@ -6,7 +6,13 @@ public class Player {
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
+    private int jailedCounter;
     private String name;
+
+
+    public Player(String name) {
+        this(name, 30000);
+    }
 
 
     public Player(String name, int balance) {
@@ -14,6 +20,7 @@ public class Player {
         this.position = 0;
         this.jailed = false;
         this.name = name;
+        this.jailedCounter = 0;
 
     }
 
@@ -59,6 +66,9 @@ public class Player {
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
     }
+    public void addToJailedCounter() { jailedCounter++; }
+    public int getJailedCounter() { return jailedCounter; }
+    public void setJailedCounter(int jailedCounter) { this.jailedCounter = jailedCounter; }
 
     public String getName() {
         return name;
