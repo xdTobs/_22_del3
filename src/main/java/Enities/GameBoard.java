@@ -86,7 +86,7 @@ public class GameBoard {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
         Field boughtField = field.executeFieldAction(this);
-        if(boughtField instanceof RentableField rentableBoughtField){
+        if (boughtField instanceof RentableField rentableBoughtField) {
             ownershipMap.get(currentPlayer).add(rentableBoughtField);
         }
     }
@@ -138,7 +138,6 @@ public class GameBoard {
         currentPlayer.setPosition(newPosition);
         return hasPassedStart;
     }
-
 
     /**
      * Pay fine when you are in jail.
@@ -197,7 +196,6 @@ public class GameBoard {
         return false;
     }
 
-
     public String findWinner() {
         String winner = players[0].getName();
         for (int i = 1; i < players.length; i++) {
@@ -220,7 +218,6 @@ public class GameBoard {
         return loser;
     }
 
-
     public void createPlayers(int playerCount) {
         Player[] players = new Player[playerCount];
         for (int j = 0; j < playerCount; j++) {
@@ -228,8 +225,8 @@ public class GameBoard {
             players[j] = new Player("Player" + Math.addExact(j, 1));
         }
         setPlayers(players);
-        for (Player p : players){
-            ownershipMap.put(p,new ArrayList<>());
+        for (Player p : players) {
+            ownershipMap.put(p, new ArrayList<>());
         }
     }
 

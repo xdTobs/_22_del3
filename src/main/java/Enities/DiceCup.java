@@ -13,14 +13,6 @@ public class DiceCup {
         }
         return sum;
     }
-    public boolean getEqual() {
-        boolean equal;
-        if (diceArray[0] == (diceArray[1])) {
-            equal = true;
-        } else { equal = false;}
-        return equal;
-    }
-
 
     public int[] getArray() {
         int[] result = new int[diceArray.length];
@@ -44,7 +36,6 @@ public class DiceCup {
             diceArray[i] = new Die();
         }
     }
-
 
     public DiceCup(int max) {
         diceArray = new Die[2];
