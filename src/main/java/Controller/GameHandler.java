@@ -1,6 +1,7 @@
 package Controller;
 
 import Enities.ActualChanceCard;
+import Enities.ActualFields;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
@@ -43,6 +44,7 @@ public class GameHandler {
         view.addPlayersToGui(gameBoard.getPlayers());
         acc = new ActualChanceCard(gameBoard, view);
         gameBoard.setAcc(acc);
+        gameBoard.setActualFields(new ActualFields(gameBoard,view));
     }
 
 
