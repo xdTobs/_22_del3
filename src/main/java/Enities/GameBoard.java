@@ -32,6 +32,15 @@ public class GameBoard {
     }
 
     private ActualChanceCard acc;
+    private ActualFields actualFields;
+
+    public ActualFields getActualFields() {
+        return actualFields;
+    }
+
+    public void setActualFields(ActualFields actualFields) {
+        this.actualFields = actualFields;
+    }
 
     public void setAcc(ActualChanceCard acc) {
         this.acc = acc;
@@ -105,7 +114,7 @@ public class GameBoard {
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
-        Field boughtField = field.executeFieldAction(this);
+        Field boughtField = field.executeFieldAction(this.getActualFields());
         if(boughtField instanceof RentableField rentableBoughtField){
             ownershipMap.get(currentPlayer).add(rentableBoughtField);
         }

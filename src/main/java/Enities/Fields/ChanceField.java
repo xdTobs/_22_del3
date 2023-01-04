@@ -15,10 +15,11 @@ public class ChanceField extends Field {
 
 
     @Override
-    public Field executeFieldAction(GameBoard gameBoard) {
-        ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
-        gameBoard.getDeck().shuffleCards();
-        chanceCard.executeCardAction(gameBoard.getAcc());
+    public Field executeFieldAction(FieldAction fieldAction) {
+        fieldAction.chanceFieldAction(this);
+
+
+
         return null;
     }
 

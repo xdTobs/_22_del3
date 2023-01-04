@@ -15,7 +15,8 @@ public class Jail extends Field {
     }
 
     @Override
-    public Field executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(FieldAction fieldAction) {
+
         return null;
     }
 }
