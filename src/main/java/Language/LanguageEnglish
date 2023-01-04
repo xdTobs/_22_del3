@@ -1,0 +1,15 @@
+moveTo:Move To
+onPickFieldChance:Pick a field to move to. If it is available you get it for free. Otherwise you pay rent
+gameWonMsg: has won the game!
+gameLostMsg: has lost the game!
+rollDiceMsg:It is your turn. Roll the Dice
+leaveJailMsg:you are in Jail, you lose 1$
+chanceCardMsg: pulled a chance card. It tells you to:
+parkingMsg: You are on parking. There is not much happening here.
+startMsg: You get two dollars for landing or passing through start
+onGetOutOfJail:Recieve a get out of jail free card. This will automatically be used when you go to jail
+playerCountMsg:How many players will be playing?
+playerName4:Player 4
+playerName3:Player 3
+playerName2:Player 2
+playerName1:Player 1

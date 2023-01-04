@@ -1,54 +1,29 @@
 package Language;
-// Singleton
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+
+// We can use this class to implement different languages. For example, we can make translation variable be an array and then we can loop through it and print out the different translations, so the game is multi-lingual.
 public class LanguageHandler {
-    private static Translation translation;
-    private static LanguageHandler instance;
-    private LanguageHandler() {
-        translation = new EnglishTranslation();
-    }
-    public static LanguageHandler getInstance() {
-        if (LanguageHandler.instance == null) {
-            LanguageHandler.instance = new LanguageHandler();
+    private static String[] fieldNames=new String[]{"Start", "Burgerbaren", "Pizzeriaet", "Chance", "Slikbutikken", "Iskiosken", "Fængsel", "Museet", "Biblioteket", "Chans", "Skaterparken", "Swimmingpoolen", "Parkering", "Spillehallen", "Biografen", "Chans", "Legetøjsbutikken", "Dyrehandlen", "Gå i fængsel", "Bowlinghallen", "Zoo", "Chans", "Vandlandet", "Strandpromenaden"};
+    public HashMap<String,String> languageMap = new HashMap<>();
+
+
+    public LanguageHandler() throws IOException {
+
+        List<String> content = Files.readAllLines(Path.of("src/main/java/Language/LanguageEnglish"));
+        for (String s : content){
+            System.out.println(s);
+            String[]keyValue = s.split(":",2);
+            if(keyValue.length>1)
+                languageMap.put(keyValue[0],keyValue[1]);
         }
-        return LanguageHandler.instance;
     }
 
     public static String getFieldName(int i) {
-        return getInstance().translation.getFieldName(i);
-    }
-
-    public static String gameWonMsg() {
-        return getInstance().translation.gameWonMsg();
-    }
-
-    public static String getPlayerName1() {
-        return getInstance().translation.getPlayerName1();
-    }
-
-    public static String getPlayerName2() {
-        return getInstance().translation.getPlayerName2();
-    }
-
-    public static String rollDiceMsg() {
-        return getInstance().translation.rollDiceMsg();
-    }
-
-    public static String jailMsg() {
-        return getInstance().translation.jailMsg();
-    }
-
-    public static String moveToMsg(int i) {
-        return getInstance().translation.moveToMsg(i);
-    }
-
-    public static String moveTo() {
-        return getInstance().translation.moveTo();
-    }
-
-    public static String chanceCardMsg() {
-        return getInstance().translation.chanceCardMsg();
-    }
-    public static String onPickFieldChance() {
-        return getInstance().translation.onPickFieldChance();
+        return fieldNames[i];
     }
 }

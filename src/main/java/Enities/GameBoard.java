@@ -1,45 +1,250 @@
 package Enities;
 
-import Language.LanguageHandler;
-import gui_fields.*;
+import Enities.ChanceCards.Deck;
+import Enities.ChanceCards.GetOutOfJailChanceCard;
+import Enities.Fields.*;
 
-import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+/**
+ * Class for the game board.
+ * Contains all the fields and the chance deck and diceCup.
+ * This is the model.
+ */
 public class GameBoard {
-    final private GUI_Field[] fields = new GUI_Field[24];
-    private final int[] fieldValues = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5};
+    private final DiceCup diceCup = new DiceCup();
+    private final HashMap<Player, List<Field>> ownershipMap = new HashMap<>();
+    private final Field[] fields = new Field[40];
+    private final Deck deck;
+    private Player[] players;
+    private int playerTurn;
 
+    public ActualChanceCard getAcc() {
+        return acc;
+    }
+
+    private ActualChanceCard acc;
+
+    public void setAcc(ActualChanceCard acc) {
+        this.acc = acc;
+    }
+
+    /**
+     * Instantiates a new Game board.
+     */
     public GameBoard() {
-        int streetIndex = 0;
-        for (int i = 0; i < fields.length; i++) {
-            if (i == 0) {
-                fields[i] = new GUI_Start("Start", "Start", "Start", Color.white, Color.black);
-            } else if ((i + 3) % 6 == 0) {
-                // ChanceCards.Chance field. 3, 9, 15, 21. Every sixth with an offset of three is chance field.
-                fields[i] = new GUI_Chance();
-            } else if (i == 6) {
-                // Jail field
-                fields[i] = new GUI_Jail();
-            } else if (i == 12) {
-                // Parking
-                fields[i] = new GUI_Refuge();
-            } else if (i == 18) {
-                // Go to jail
-                fields[i] = new GUI_Jail();
-            } else {
-                fields[i] = createStreet(streetIndex);
-                streetIndex++;
+        List<Field> temp = new ArrayList<>();
+        List<String> content;
+        try {
+            content = Files.readAllLines(Path.of("docs/fields.csv"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        for (String s : content) {
+            String[] key = s.split(",");
+            switch (key[2].trim()) {
+                case ("street") -> temp.add(new Street(s));
+                case ("tax") -> temp.add(new Tax(s));
+                case ("jail") -> temp.add(new Jail(s));
+                case ("gotoJail") -> temp.add(new GoToJail(s));
+                case ("chance") -> temp.add(new ChanceField(s));
+                case ("refugee") -> temp.add(new Parking(s));
+                case ("start") -> temp.add(new Start(s));
+                case ("brewery") -> temp.add(new Brewery(s));
+                case ("ferry") -> temp.add(new Ferry(s));
             }
+        }
+        temp.toArray(fields);
+        this.deck = new Deck();
+    }
+
+    /**
+     * Gets field.
+     *
+     * @param position the position
+     * @return the field
+     */
+    public Field getField(int position) {
+        return fields[position];
+    }
+
+
+    /**
+     * Makes whatever action the field supports.
+     *
+     * @param currentPlayer the current player
+     */
+    public void fieldAction(Player currentPlayer) {
+        int playerPosition = currentPlayer.getPosition();
+        Field field = getField(playerPosition);
+        field.executeFieldAction(this);
+    }
+
+    public Field[] getFields() {
+        return fields;
+    }
+
+    public void resetPlayerPositions() {
+        for (Player player : players) {
+            player.setPosition(0);
         }
     }
 
-    private GUI_Street createStreet(int streetIndex) {
-        GUI_Street street = new GUI_Street(LanguageHandler.getFieldName(streetIndex), "" + fieldValues[streetIndex], "This is a street.", "" + fieldValues[streetIndex], Color.white, Color.BLACK);
-        street.setOwnerName("Bank");
-        return street;
+    public Player getCurrentPlayer() {
+        return players[playerTurn];
     }
 
-    public GUI_Field[] getFields() {
-        return fields;
+    public DiceCup getDiceCup() {
+        return diceCup;
+    }
+
+    public boolean currentPlayerIsOnChanceField() {
+        return getFieldOfCurrentPlayer() instanceof ChanceField;
+    }
+
+    private Field getFieldOfCurrentPlayer() {
+        Player currentPlayer = getCurrentPlayer();
+        int position = currentPlayer.getPosition();
+        return getField(position);
+    }
+
+    /**
+     * Roll die move player boolean.
+     *
+     * @return is true if the player has passed start.
+     */
+    public boolean rollDieMovePlayer() {
+        diceCup.roll();
+        Player currentPlayer = getCurrentPlayer();
+        int playerPosition = currentPlayer.getPosition();
+        int newPosition = playerPosition + diceCup.getSum();
+        boolean hasPassedStart = false;
+        if (newPosition > 23) {
+            newPosition = newPosition - 24;
+            currentPlayer.addBalance(2);
+            hasPassedStart = true;
+        }
+        currentPlayer.setPosition(newPosition);
+        return hasPassedStart;
+    }
+
+    /**
+     * Pay fine when you are in jail.
+     *
+     * @param currentPlayer the current player
+     */
+    public void payFine(Player currentPlayer) {
+        if (currentPlayer.getGetOutOfJailCards() > 0) {
+            currentPlayer.removeGetOutOfJailCard();
+        } else {
+            currentPlayer.addBalance(-1);
+        }
+        currentPlayer.setJailed(false);
+    }
+
+    /**
+     * Get players player [ ].
+     *
+     * @return the player [ ]
+     */
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    private void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    /**
+     * Next player.
+     */
+    public void nextPlayer() {
+        if (playerTurn >= players.length - 1) {
+            playerTurn = 0;
+        } else {
+            playerTurn++;
+        }
+    }
+
+    /**
+     * Is gameover boolean.
+     *
+     * @return the boolean
+     */
+
+    public boolean isGameover() {
+        int alivePlayers = players.length;
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getBalance() < 0) {
+                alivePlayers -= 1;
+            }
+            if (alivePlayers == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public String findWinner() {
+        String winner = players[0].getName();
+        for (int i = 1; i < players.length; i++) {
+            if (players[i].getBalance() > 0) {
+                winner = players[i].getName();
+            }
+        }
+        return winner;
+    }
+
+    public String findLoser() {
+        String loser = players[0].getName();
+        int loserBalance = players[0].getBalance();
+        for (int i = 1; i < players.length; i++) {
+            if (players[i].getBalance() < loserBalance) {
+                loser = players[i].getName();
+                loserBalance = players[i].getBalance();
+            }
+        }
+        return loser;
+    }
+
+    public Street getStreet(int i) {
+        Field field = getField(i);
+        if (field instanceof Street street) {
+            return street;
+        }
+        throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
+    }
+
+    public void createPlayers(int playerCount) {
+        Player[] players = new Player[playerCount];
+        for (int j = 0; j < playerCount; j++) {
+            int bal = 0;
+            switch (playerCount) {
+                case (2):
+                    bal = 20;
+                    break;
+                case (3):
+                    bal = 18;
+                    break;
+                case (4):
+                    bal = 16;
+                    break;
+            }
+
+            players[j] = new Player("Player" + Math.addExact(j, 1), bal);
+        }
+        setPlayers(players);
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 }
