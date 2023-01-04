@@ -1,10 +1,12 @@
 package Controller;
 
 import Enities.ActualChanceCard;
+import Enities.DiceCup;
 import Enities.GameBoard;
 import Enities.Player;
 import Language.LanguageHandler;
 import View.*;
+import jdk.jshell.execution.JdiExecutionControl;
 
 import java.io.IOException;
 
@@ -28,6 +30,8 @@ public class GameHandler {
     final private GameBoard gameBoard;
 
     private ActualChanceCard acc;
+
+    private DiceCup diceCup;
 
     /**
      * Instantiates a new Game controller.
@@ -54,6 +58,7 @@ public class GameHandler {
                 view.showMessage(gameBoard.findLoser() + language.languageMap.get("gameLostMsg"));
                 view.showMessage(gameBoard.findWinner() + language.languageMap.get("gameWonMsg"));
                 break;
+
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 playTurn(currentPlayer);
@@ -69,7 +74,7 @@ public class GameHandler {
 
     private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
-
+        // The above is not implemented yet.
         if (currentPlayer.isJailed()) {
             // gameBoard.payFine(currentPlayer);
             currentPlayer.addToJailedCounter();

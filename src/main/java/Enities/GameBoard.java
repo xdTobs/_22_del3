@@ -17,6 +17,7 @@ import java.util.List;
  * This is the model.
  */
 public class GameBoard {
+
     private final DiceCup diceCup = new DiceCup();
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
@@ -135,9 +136,15 @@ public class GameBoard {
             hasPassedStart = true;
         }
         currentPlayer.setPosition(newPosition);
+        if (diceCup.getEqual()) {
+            this.rollDieMovePlayer();
+        }
         return hasPassedStart;
     }
+    public int doubleTurn() {
 
+        return 0;
+    }
     /**
      * Pay fine when you are in jail.
      *
