@@ -126,9 +126,9 @@ public class GameBoard {
         int playerPosition = currentPlayer.getPosition();
         int newPosition = playerPosition + diceCup.getSum();
         boolean hasPassedStart = false;
-        if (newPosition > 23) {
-            newPosition = newPosition - 24;
-            currentPlayer.addBalance(2);
+        if (newPosition > 39) {
+            newPosition = newPosition - 40;
+            currentPlayer.addBalance(4000);
             hasPassedStart = true;
         }
         currentPlayer.setPosition(newPosition);

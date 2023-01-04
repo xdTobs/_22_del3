@@ -100,7 +100,8 @@ public class GuiView implements View {
 
     @Override
     public void updateDie(DiceCup diceCup) {
-        gui.setDie(diceCup.getSum());
+        int[] diceValues = diceCup.getArray();
+        gui.setDice(diceValues[0], diceValues[1]);
     }
 
     @Override
