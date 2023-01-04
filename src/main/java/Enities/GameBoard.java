@@ -128,7 +128,7 @@ public class GameBoard {
         boolean hasPassedStart = false;
         if (newPosition > 23) {
             newPosition = newPosition - 24;
-            currentPlayer.addBalance(2);
+            currentPlayer.addBalance(4000);
             hasPassedStart = true;
         }
         currentPlayer.setPosition(newPosition);
