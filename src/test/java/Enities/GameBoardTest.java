@@ -19,7 +19,7 @@ class GameBoardTest {
     @Test
     void getField() {
         assertEquals("Start", board.getField(0).getName());
-        assertEquals("Parkering", board.getField(12).getName());
+        assertEquals("Prøv Lykken", board.getField(2).getName());
     }
 
     @Test
@@ -28,7 +28,7 @@ class GameBoardTest {
 
     @Test
     void getFields() {
-        assertEquals(24, board.getFields().length);
+        assertEquals(40, board.getFields().length);
     }
 
     @Test
@@ -49,7 +49,7 @@ class GameBoardTest {
 
     @Test
     void currentPlayerIsOnChanceField() {
-        board.getCurrentPlayer().setPosition(3);
+        board.getCurrentPlayer().setPosition(2);
         assertTrue(board.currentPlayerIsOnChanceField());
     }
 
@@ -92,9 +92,5 @@ class GameBoardTest {
         assertNotNull(card != null);*/
     }
 
-    @Test
-    void getStreet() {
-        assertEquals("Burgerbaren", board.getStreet(1).getName());
-        assertEquals("Pizzeriaet", board.getStreet(2).getName());
-    }
+
 }

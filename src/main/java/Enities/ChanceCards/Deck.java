@@ -92,8 +92,7 @@ public class Deck {
         for (int i = 44; i < 46; i++) {
             cards.add(new GoToJailChanceCard(content.get(i)));
         }
-
-
+        shuffleCards();
     }
 
     public void shuffleCards() {
@@ -110,6 +109,10 @@ public class Deck {
 
     public int getSize() {
         return cards.size();
+    }
+
+    public ArrayList<ChanceCard> getCards() {
+        return cards;
     }
 }
 

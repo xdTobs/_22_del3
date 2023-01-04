@@ -215,13 +215,6 @@ public class GameBoard {
         return loser;
     }
 
-    public Street getStreet(int i) {
-        Field field = getField(i);
-        if (field instanceof Street street) {
-            return street;
-        }
-        throw new IllegalArgumentException("You can not call this method with a position that is not the position of a street.");
-    }
 
     public void createPlayers(int playerCount) {
         Player[] players = new Player[playerCount];

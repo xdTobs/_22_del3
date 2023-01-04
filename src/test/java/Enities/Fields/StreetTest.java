@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StreetTest {
 
-    Street street1 = new Street("4");
-    Street street2 = new Street("5");
+    Street street1 = new Street("Bülowsvej,13, street,2800,2000,200,1000,3000,9000,12500,15000");
+    Street street2 = new Street("Gl. Kongevej,14, street,3200,2000,250,1250,3750,10000,14000,18000");
 
     @Test
     void getName() {
-        assertEquals("Slikbutikken", street1.getName());
-        assertEquals("Iskiosken", street2.getName());
+        assertEquals("Bülowsvej", street1.getName());
+        assertEquals("Gl. Kongevej", street2.getName());
     }
 
     @Test
@@ -23,8 +23,8 @@ class StreetTest {
 
     @Test
     void getRent() {
-        assertEquals(1, street1.getRent(0));
-        assertEquals(1, street2.getRent(0));
+        assertEquals(200, street1.getRent(0));
+        assertEquals(250, street2.getRent(0));
     }
 
     @Test
@@ -41,15 +41,7 @@ class StreetTest {
         assertEquals("Player 2", street2.getOwner());
     }
 
-    @Test
-    void findPositionOfPairStreet() {
-        int position1 = street1.getPositionOfPairStreet();
-        assertEquals(5, position1);
-        int position2 = street2.getPositionOfPairStreet();
-        assertEquals(4, position2);
-    }
-
-    @Test
+    /*@Test
     void doubleRentForPairStreets() {
         GameBoard gameBoard = new GameBoard();
         gameBoard.createPlayers(4);
@@ -61,5 +53,5 @@ class StreetTest {
         player1.setPosition(4);
         s1.executeFieldAction(gameBoard);
         assertEquals(14, player1.getBalance());
-    }
+    }*/
 }

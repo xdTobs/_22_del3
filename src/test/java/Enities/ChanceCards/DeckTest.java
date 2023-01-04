@@ -1,36 +1,39 @@
 package Enities.ChanceCards;
 
 import Enities.GameBoard;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
+
 class DeckTest {
-    Deck deck = new Deck((new GameBoard()).getFields());
-
-    // This will need to be changed when we add more chance cards. Final goal is 20.
-    // TODO: Add 20 chance cards.
-    @Test
-    void testCorrectCardsAdded() {
-        assertEquals(13, deck.getSize());
+    Deck deck;
+    @BeforeEach
+    void setUp() {
+        deck = new Deck();
     }
 
     @Test
-    void pullCard() {
-        deck.pullCard();
-        ChanceCard card = deck.getLatestChanceCard();
-        assertNotNull(card);
+    void deckShouldContainCards() {
+
+    assert deck.getSize()>0;
     }
 
     @Test
-    void removeCard() {
+    void deckSizeShouldNotChange() {
+        int deckSize = deck.getSize();
         deck.pullCard();
-        ChanceCard prevCard = deck.getLatestChanceCard();
-        ChanceCard prevCard2 = deck.getLatestChanceCard();
-        assertEquals(prevCard, prevCard2);
         deck.pullCard();
-        ChanceCard currentCard = deck.getLatestChanceCard();
-        assertNotEquals(prevCard, currentCard);
+        deck.pullCard();
+        deck.pullCard();
+        assert deckSize == deck.getSize();
     }
-}*/
+
+    @Test
+    void deckShouldReturnObject() {
+        assert (deck.getLatestChanceCard() != null);
+    }
+
+    
+}
