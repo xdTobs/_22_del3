@@ -85,11 +85,11 @@ public class GameBoard {
         streetPairs.add(new int[]{37,39});
 
 
-
         for (int i = 0; i < streetPairs.size(); i++) {
             for(int j : streetPairs.get(i)){
                 Street street = (Street) fields[j];
                 street.setPairIndexes(streetPairs.get(i));
+
             }
         }
         this.deck = new Deck();
