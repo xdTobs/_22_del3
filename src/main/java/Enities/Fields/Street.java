@@ -2,7 +2,6 @@ package Enities.Fields;
 
 import Enities.GameBoard;
 import Enities.Player;
-import Language.LanguageHandler;
 
 public class Street extends RentableField {
 
@@ -32,19 +31,22 @@ public class Street extends RentableField {
     }
 
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(GameBoard gameBoard) {
         // If the street is owned by the bank, the player can buy it.
+        Field boughtField = null;
         if (getOwner().equals("Bank")) {
-            buyEmptyStreet(gameBoard);
+            boughtField = buyEmptyStreet(gameBoard);
         } else {
             payRentToOwner(gameBoard);
         }
+        return boughtField;
     }
 
-    private void buyEmptyStreet(GameBoard gameBoard) {
+    private RentableField buyEmptyStreet(GameBoard gameBoard) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         setOwnerName(currentPlayer.getName());
         currentPlayer.addBalance(-getPrice());
+        return this;
     }
 
     private void payRentToOwner(GameBoard gameBoard) {

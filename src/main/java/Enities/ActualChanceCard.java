@@ -80,6 +80,7 @@ public class ActualChanceCard implements ChanceAction {
         int pos = gameBoard.getCurrentPlayer().getPosition();
        while(!(fields[pos] instanceof Ferry)){
            pos++;
+           if(pos==40) pos=0;
        }
        gameBoard.getCurrentPlayer().setPosition(pos);
     }
@@ -106,6 +107,7 @@ public class ActualChanceCard implements ChanceAction {
         int pos = gameBoard.getCurrentPlayer().getPosition();
         while(!(fields[pos] instanceof Brewery)){
             pos++;
+            if(pos==40) pos=0;
         }
         gameBoard.getCurrentPlayer().setPosition(pos);
     }

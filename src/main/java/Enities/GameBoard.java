@@ -84,7 +84,10 @@ public class GameBoard {
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
-        field.executeFieldAction(this);
+        Field boughtField = field.executeFieldAction(this);
+        if(boughtField instanceof RentableField rentableBoughtField){
+            ownershipMap.get(currentPlayer).add(rentableBoughtField);
+        }
     }
 
     public Field[] getFields() {

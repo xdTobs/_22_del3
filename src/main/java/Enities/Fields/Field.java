@@ -2,8 +2,6 @@ package Enities.Fields;
 
 import Enities.GameBoard;
 
-import java.util.ArrayList;
-
 public abstract class Field {
     private int position;
     private String name;
@@ -26,7 +24,7 @@ public abstract class Field {
         this.name = split[0];
     }
 
-    public abstract void executeFieldAction(GameBoard gameBoard);
+    public abstract Field executeFieldAction(GameBoard gameBoard);
 
     public String getName() {
         return name;

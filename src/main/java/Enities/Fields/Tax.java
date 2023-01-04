@@ -8,7 +8,8 @@ public class Tax extends Field {
     }
 
     @Override
-    public void executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(GameBoard gameBoard) {
 
+        return null;
     }
 }
