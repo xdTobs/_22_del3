@@ -225,7 +225,6 @@ public class GameBoard {
         return false;
     }
 
-
     public String findWinner() {
         String winner = players[0].getName();
         for (int i = 1; i < players.length; i++) {
@@ -256,8 +255,8 @@ public class GameBoard {
             players[j] = new Player("Player" + Math.addExact(j, 1));
         }
         setPlayers(players);
-        for (Player p : players){
-            ownershipMap.put(p,new ArrayList<>());
+        for (Player p : players) {
+            ownershipMap.put(p, new ArrayList<>());
         }
     }
 
