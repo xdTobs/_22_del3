@@ -15,7 +15,6 @@ public class ActualChanceCard implements ChanceAction {
     public void getOutOfJail(String desc) {
             Player currentPlayer = gameBoard.getCurrentPlayer();
             currentPlayer.addGetOutOfJailCard();
-
     }
 
     @Override
@@ -24,12 +23,12 @@ public class ActualChanceCard implements ChanceAction {
     }
 
     @Override
-    public void changeBalConditional(int amout, int condition, String desc) {
+    public void changeBalConditional(int amount, int condition, String desc) {
 
     }
 
     @Override
-    public void changeBalFromPlayers(int amout, String desc) {
+    public void changeBalFromPlayers(int amount, String desc) {
 
     }
 
