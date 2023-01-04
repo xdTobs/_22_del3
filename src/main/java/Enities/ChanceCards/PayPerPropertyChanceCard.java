@@ -12,6 +12,6 @@ public class PayPerPropertyChanceCard extends ChanceCard{
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-
+        chanceAction.payPerProperty(perHouse,perHotel,desc);
     }
 }
