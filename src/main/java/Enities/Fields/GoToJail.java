@@ -9,10 +9,10 @@ public class GoToJail extends Field {
         super(s);
     }
 
-    public Field executeFieldAction(GameBoard gameBoard) {
-        Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.setPosition(10);
-        currentPlayer.setJailed(true);
+    public Field executeFieldAction(FieldAction fieldAction) {
+        fieldAction.goToJailAction(this);
         return null;
     }
+
+
 }

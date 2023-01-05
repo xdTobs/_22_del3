@@ -24,7 +24,7 @@ public abstract class Field {
         this.name = split[0];
     }
 
-    public abstract Field executeFieldAction(GameBoard gameBoard);
+    public abstract Field executeFieldAction(FieldAction fieldAction);
 
     public String getName() {
         return name;

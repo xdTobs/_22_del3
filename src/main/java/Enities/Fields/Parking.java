@@ -15,7 +15,7 @@ public class Parking extends Field {
 
 
     @Override
-    public Field executeFieldAction(GameBoard gameBoard) {
+    public Field executeFieldAction(FieldAction fieldAction) {
         // If you land on parking field nothing happens.
         return null;
     }
