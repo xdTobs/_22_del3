@@ -12,6 +12,22 @@ public class Tax extends Field {
         //TODO actual values here
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getPercentPrice() {
+        return percentPrice;
+    }
+
+    public void setPercentPrice(int percentPrice) {
+        this.percentPrice = percentPrice;
+    }
+
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
         fieldAction.taxAction(this);
