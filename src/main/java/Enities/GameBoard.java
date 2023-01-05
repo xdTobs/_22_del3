@@ -134,6 +134,19 @@ public class GameBoard {
         }
     }
 
+    public int totalPlayerValue(Player p){
+        int res =0;
+        List<RentableField>playerOwnedFields = ownershipMap.get(p);
+        for(RentableField field : playerOwnedFields){
+            res+= field.getPrice();
+            int housesprice = field.getHousePrice();
+            int houses = field.getHouses();
+            res += houses*housesprice;
+        }
+        res+=p.getBalance();
+        return res;
+    }
+
     public Field[] getFields() {
         return fields;
     }

@@ -75,14 +75,11 @@ public class Player {
         return name;
     }
 
-    public int totalValue() {
-        return 10;
-        //TODO implement
-    }
 
     public int getHouses() {
         return 0;
         //TODO implement
+
     }
     public int getHotels(){
         return 0;
