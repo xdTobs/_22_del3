@@ -1,16 +1,16 @@
 package Enities.ChanceCards;
 
-public class MoveToFieldChanceCard extends ChanceCard{
+public class MoveToFieldChanceCard extends ChanceCard {
     int fieldIndex;
 
-    public MoveToFieldChanceCard(int fieldIndex,String desc) {
+    public MoveToFieldChanceCard(int fieldIndex, String desc) {
         this.fieldIndex = fieldIndex;
         this.desc = desc;
     }
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-chanceAction.moveToField(fieldIndex);
+        chanceAction.moveToField(fieldIndex);
         chanceAction.printDesc(desc);
     }
 }

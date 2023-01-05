@@ -1,28 +1,13 @@
 package Enities.Fields;
 
+import java.util.Arrays;
+
 public abstract class RentableField extends Field {
-    private int[] rent = new int[6];
-    private String ownerName = "Bank";
     int price;
     int housePrice;
     int houses = 0;
-
-    public int getHouses() {
-        return houses;
-    }
-
-    public void setHouses(int houses) {
-        this.houses = houses;
-    }
-
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getHousePrice() {
-        return housePrice;
-    }
+    private int[] rent = new int[6];
+    private String ownerName = "Bank";
 
     public RentableField(String s) {
         super(s);
@@ -32,6 +17,26 @@ public abstract class RentableField extends Field {
         }
         price = Integer.parseInt(split[3]);
         housePrice = Integer.parseInt(split[4]);
+    }
+
+    public int getHouses() {
+        return houses;
+    }
+
+    public void setHouses(int houses) {
+        this.houses = houses;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getHousePrice() {
+        return housePrice;
+    }
+
+    public void BuyProperty(){
+
     }
 
     public int getRent(int i) {
@@ -45,4 +50,5 @@ public abstract class RentableField extends Field {
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
+
 }

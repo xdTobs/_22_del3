@@ -37,6 +37,7 @@ public class Street extends RentableField {
         this.houses = houses;
     }
 
+
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
         return fieldAction.streetAction(this);
