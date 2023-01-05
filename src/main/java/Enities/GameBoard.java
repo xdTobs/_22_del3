@@ -52,10 +52,6 @@ public class GameBoard {
         this.acc = acc;
     }
 
-    public LanguageController getLanguageController() {
-        return languageController;
-    }
-
     /**
      * Instantiates a new Game board.
      */
@@ -281,5 +277,9 @@ public class GameBoard {
 
     public Deck getDeck() {
         return deck;
+    }
+
+    public String getMessage(String key) {
+        return languageController.getMessage(key);
     }
 }

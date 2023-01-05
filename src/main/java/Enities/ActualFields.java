@@ -3,7 +3,6 @@ package Enities;
 import Enities.ChanceCards.ChanceCard;
 import Enities.Fields.*;
 import Language.LanguageController;
-import Language.LanguageHandler;
 import View.View;
 
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import java.util.List;
 public class ActualFields implements FieldAction {
     GameBoard gameBoard;
     View view;
-    LanguageController lc = gameBoard.getLanguageController();
-
 
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
@@ -22,9 +19,8 @@ public class ActualFields implements FieldAction {
     }
 
     private boolean wantToBuyPrompt(RentableField field) {
-        LanguageController lc = gameBoard.getLanguageController();
-        String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"), lc.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + lc.getMessage("wantToBuyPrompt1") + " " + field.getName() + lc.getMessage("wantToBuyPrompt2"));
-        return yesOrNo.equals(lc.getMessage("yes"));
+        String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));
+        return yesOrNo.equals(gameBoard.getMessage("yes"));
     }
 
     @Override
@@ -34,34 +30,34 @@ public class ActualFields implements FieldAction {
         Field boughtField = null;
         if (street.getOwner().equals("Bank") && wantToBuyPrompt(street)) {
             boughtField = buyEmptyStreet(street);
-        }
-        else {
+        } else {
             streetPayRentToOwner(street);
         }
         return boughtField;
     }
+
     //TODO figure out where this goes
-    private void buyHouseProcess(){
-        while(wantToBuyHouse()){
+    private void buyHouseProcess() {
+        while (wantToBuyHouse()) {
             List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
-            List<Street>ownedStreets = new ArrayList<>();
-            for (int i = 0; i < ownedFields.size(); i++) {
-                if (ownedFields.get(i) instanceof Street street&&street.getHouses()<6)
-                        ownedStreets.add(street);
+            List<Street> ownedStreets = new ArrayList<>();
+            for (RentableField ownedField : ownedFields) {
+                if (ownedField instanceof Street street && street.getHouses() < 6)
+                    ownedStreets.add(street);
             }
 
-            String[] choices = new String[ownedStreets.size()+1];
+            String[] choices = new String[ownedStreets.size() + 1];
             for (int i = 0; i < ownedStreets.size(); i++) {
-                choices[i+1]=ownedStreets.get(i).getName()+" "+ownedStreets.get(i).getHousePrice()+" "+lc.getMessage("DKK per");
+                choices[i + 1] = ownedStreets.get(i).getName() + " " + ownedStreets.get(i).getHousePrice() + " " + gameBoard.getMessage("DKK per");
             }
-            choices[0] = lc.getMessage("noMoreHouses");
-            String message = lc.getMessage("selectHouse");
-            String selection = view.promptPlayer(choices,message);
-            if (selection.equals(lc.getMessage("noMoreHouses")))
+            choices[0] = gameBoard.getMessage("noMoreHouses");
+            String message = gameBoard.getMessage("selectHouse");
+            String selection = view.promptPlayer(choices, message);
+            if (selection.equals(gameBoard.getMessage("noMoreHouses")))
                 return;
-            for (int i = 0; i < ownedStreets.size(); i++) {
-                if (selection.equals(ownedStreets.get(i).getName()+" "+ownedStreets.get(i).getHousePrice()+" "+lc.getMessage("DKK per"))){
-                    buyHouse(ownedStreets.get(i));
+            for (Street ownedStreet : ownedStreets) {
+                if (selection.equals(ownedStreet.getName() + " " + ownedStreet.getHousePrice() + " " + gameBoard.getMessage("DKK per"))) {
+                    buyHouse(ownedStreet);
                     break;
                 }
             }
@@ -69,15 +65,15 @@ public class ActualFields implements FieldAction {
     }
 
     private void buyHouse(Street street) {
-        street.setHouses(street.getHouses()+1);
+        street.setHouses(street.getHouses() + 1);
         gameBoard.getCurrentPlayer().addBalance(-street.getHousePrice());
     }
 
-    private boolean wantToBuyHouse(){
-        String[]choices = new String[]{lc.getMessage("yes"),lc.getMessage("no")};
-        String message = lc.getMessage("wantToBuyHouse");
-        String wantToBuyHouse = view.promptPlayer(choices,message);
-        return (wantToBuyHouse.equals(lc.getMessage("yes")));
+    private boolean wantToBuyHouse() {
+        String[] choices = new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")};
+        String message = gameBoard.getMessage("wantToBuyHouse");
+        String wantToBuyHouse = view.promptPlayer(choices, message);
+        return (wantToBuyHouse.equals(gameBoard.getMessage("yes")));
     }
 
     public RentableField buyEmptyStreet(RentableField street) {
@@ -135,8 +131,7 @@ public class ActualFields implements FieldAction {
     }
 
     private boolean payPercentPrompt(Tax tax) {
-        LanguageController lc = gameBoard.getLanguageController();
-        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + lc.getMessage("playerTotalValue")}, lc.getMessage("taxPrompt"));
+        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt"));
         return valOrPercent.equals(String.valueOf(tax.getPrice()));
     }
 
@@ -145,7 +140,6 @@ public class ActualFields implements FieldAction {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         currentPlayer.setPosition(10);
         currentPlayer.setJailed(true);
-        return;
     }
 
     @Override
@@ -199,7 +193,6 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field breweryAction(Brewery brewery) {
-        LanguageController lc = gameBoard.getLanguageController();
         Field boughtField = null;
         if (brewery.getOwner().equals("Bank") && wantToBuyPrompt(brewery)) {
             boughtField = buyEmptyStreet(brewery);

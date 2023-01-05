@@ -3,24 +3,12 @@ package View;
 import Enities.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
-import Language.LanguageHandler;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class GuiView implements View {
-
-    LanguageHandler language;
-
-    {
-        try {
-            language = new LanguageHandler();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
@@ -67,7 +55,7 @@ public class GuiView implements View {
             if (fields[i] instanceof Ferry ferry) {
                 guiFields[i] = new GUI_Shipping();
                 guiFields[i].setTitle(ferry.getName());
-                guiFields[i].setSubText(ferry.getPrice()+"");
+                guiFields[i].setSubText(ferry.getPrice() + "");
                 guiFields[i].setBackGroundColor(ferry.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Tax tax) {
@@ -78,7 +66,7 @@ public class GuiView implements View {
             if (fields[i] instanceof Brewery brewery) {
                 guiFields[i] = new GUI_Brewery();
                 guiFields[i].setTitle(brewery.getName());
-                guiFields[i].setSubText(brewery.getPrice()+"");
+                guiFields[i].setSubText(brewery.getPrice() + "");
                 guiFields[i].setBackGroundColor(brewery.getPair().getBackgroundColor());
             }
 
@@ -140,7 +128,7 @@ public class GuiView implements View {
      *
      * @param diceCup the cup of dices
      * @param players the players in the game
-     * @param fields the fields in the game
+     * @param fields  the fields in the game
      */
     @Override
     public void update(DiceCup diceCup, Player[] players, Field[] fields) {
@@ -182,8 +170,7 @@ public class GuiView implements View {
     }
 
     @Override
-    public int promptPlayerCount(int min,int max) {
-        //TODO add min max players again
-        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"),min,max);
+    public int promptPlayerCount(String msg, int min, int max) {
+        return this.gui.getUserInteger(msg, min, max);
     }
 }

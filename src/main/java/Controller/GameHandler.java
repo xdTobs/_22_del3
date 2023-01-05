@@ -4,10 +4,8 @@ import Enities.ActualChanceCard;
 import Enities.ActualFields;
 import Enities.GameBoard;
 import Enities.Player;
-import Language.LanguageHandler;
 import View.*;
 
-import java.io.IOException;
 
 
 /**
@@ -16,16 +14,7 @@ import java.io.IOException;
 public class GameHandler {
     final private View view;
     final private GameBoard gameBoard;
-    private LanguageHandler language;
     private ActualChanceCard acc;
-
-    {
-        try {
-            language = new LanguageHandler();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Instantiates a new Game controller.
@@ -36,7 +25,7 @@ public class GameHandler {
     public GameHandler(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        int playerCount = view.promptPlayerCount(2, 4);
+        int playerCount = view.promptPlayerCount(gameBoard.getMessage("playerCountMsg"), 2, 4);
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
         acc = new ActualChanceCard(gameBoard, view);
@@ -49,8 +38,8 @@ public class GameHandler {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-                view.showMessage(gameBoard.findLoser() + language.languageMap.get("gameLostMsg"));
-                view.showMessage(gameBoard.findWinner() + language.languageMap.get("gameWonMsg"));
+                view.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
+                view.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
 
             } else {
@@ -78,23 +67,23 @@ public class GameHandler {
                 currentPlayer.setJailed(false);
                 currentPlayer.setJailedCounter(0);
             }
-            view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
+            view.showMessage(currentPlayer.getName() + gameBoard.getMessage("leaveJailMsg"));
             return;
         }
         boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-        view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
+        view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
         gameBoard.fieldAction(currentPlayer);
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
 
         if (hasPassedStart) {
-            view.showMessage(language.languageMap.get("passedStartMsg"));
+            view.showMessage(gameBoard.getMessage("passedStartMsg"));
         }
         // Checks if player gets an extra turn
         int[] extraTurn = gameBoard.getDiceCup().getArray();
         if (extraTurn[0] == extraTurn[1]) {
-            view.showMessage(currentPlayer.getName() + language.languageMap.get("extraTurn"));
+            view.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
             playTurn(currentPlayer);
         }
 
