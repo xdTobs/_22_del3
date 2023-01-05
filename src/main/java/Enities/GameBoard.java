@@ -97,7 +97,7 @@ public class GameBoard {
         fieldPairs.add(new FieldPair(Color.BLACK, new int[]{10}));
         fieldPairs.add(new FieldPair(Color.WHITE, Color.BLACK, new int[]{30}));
         fieldPairs.add(new FieldPair(Color.RED, new int[]{28, 12}));
-
+        fieldPairs.add(new FieldPair(Color.RED, new int[]{0}));
         int i = 0;
         for (FieldPair f :
                 fieldPairs) {

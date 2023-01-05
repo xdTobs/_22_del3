@@ -38,40 +38,48 @@ public class GuiView implements View {
             if (fields[i] instanceof Start start) {
                 guiFields[i] = new GUI_Start();
                 guiFields[i].setTitle(start.getName());
+                guiFields[i].setBackGroundColor(start.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Street street) {
                 guiFields[i] = new GUI_Street();
                 guiFields[i].setTitle(street.getName());
-                guiFields[i].setBackGroundColor(Color.RED);
+                guiFields[i].setBackGroundColor(street.getPair().getBackgroundColor());
                 guiFields[i].setSubText(street.getPrice() + "");
             }
-            if (fields[i] instanceof ChanceField) {
+            if (fields[i] instanceof ChanceField cf) {
                 guiFields[i] = new GUI_Chance();
+                guiFields[i].setBackGroundColor(cf.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Jail jail) {
                 guiFields[i] = new GUI_Jail();
+                guiFields[i].setBackGroundColor(jail.getPair().getBackgroundColor());
 
             }
             if (fields[i] instanceof Parking parking) {
                 guiFields[i] = new GUI_Refuge();
+                guiFields[i].setBackGroundColor(parking.getPair().getBackgroundColor());
 
             }
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();
+                guiFields[i].setBackGroundColor(goToJail.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Ferry ferry) {
                 guiFields[i] = new GUI_Shipping();
                 guiFields[i].setTitle(ferry.getName());
                 guiFields[i].setSubText(ferry.getPrice()+"");
+                guiFields[i].setBackGroundColor(ferry.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Tax tax) {
                 guiFields[i] = new GUI_Tax();
                 guiFields[i].setTitle(tax.getName());
+                guiFields[i].setBackGroundColor(tax.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Brewery brewery) {
                 guiFields[i] = new GUI_Brewery();
                 guiFields[i].setTitle(brewery.getName());
                 guiFields[i].setSubText(brewery.getPrice()+"");
+                guiFields[i].setBackGroundColor(brewery.getPair().getBackgroundColor());
             }
 
         }
