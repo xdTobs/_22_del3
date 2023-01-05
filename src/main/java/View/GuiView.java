@@ -37,6 +37,7 @@ public class GuiView implements View {
             if (fields[i] instanceof ChanceField cf) {
                 guiFields[i] = new GUI_Chance();
                 guiFields[i].setBackGroundColor(cf.getPair().getBackgroundColor());
+                guiFields[i].setForeGroundColor(cf.getPair().getForegroundColor());
             }
             if (fields[i] instanceof Jail jail) {
                 guiFields[i] = new GUI_Jail();
@@ -46,7 +47,6 @@ public class GuiView implements View {
             if (fields[i] instanceof Parking parking) {
                 guiFields[i] = new GUI_Refuge();
                 guiFields[i].setBackGroundColor(parking.getPair().getBackgroundColor());
-
             }
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();
