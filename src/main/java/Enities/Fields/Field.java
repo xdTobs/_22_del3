@@ -5,7 +5,15 @@ import Enities.GameBoard;
 public abstract class Field {
     private int position;
     private String name;
+    protected int[] pairIndexes;
 
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
 
     public Field(int position) {
         this.position = position;

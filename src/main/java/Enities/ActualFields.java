@@ -14,6 +14,7 @@ public class ActualFields implements FieldAction {
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
         this.view = view;
+
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ActualFields implements FieldAction {
                 houseOwner = player;
             }
         }
-        // If you land on your own house, you don't have to pay rent. But we can ignore handling that, because paying yourself $2 dollars makes no difference. The gameover check comes much later.
+
         assert houseOwner != null;
 
         if(street.getHouses() == 0 &&streetPlayerOwnsPair(street)){
@@ -91,6 +92,16 @@ public class ActualFields implements FieldAction {
     public Field ferryAction(Ferry ferry) {
         return null;
     }
+    public int ferryPlayerOwns(Ferry ferry){
+        int count=0;
+        for (int i : ferry.getPairIndexes()){
+            Ferry ferryCounter = (Ferry)gameBoard.getFields()[i];
+            if(ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
+                count++;
+        }
+        return count;
+
+    }
 
     @Override
     public void chanceFieldAction(ChanceField chanceField) {
@@ -99,12 +110,6 @@ public class ActualFields implements FieldAction {
         chanceCard.executeCardAction(gameBoard.getAcc());
     }
 
-    @Override
-    public void chanceAction(Chance chance) {
-        ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
-        gameBoard.getDeck().shuffleCards();
-        chanceCard.executeCardAction(gameBoard.getAcc());
-    }
 
     @Override
     public Field breweryAction(Brewery brewery) {

@@ -21,4 +21,12 @@ public class Start extends Field {
     public Field executeFieldAction(FieldAction fieldAction) {
         return null;
     }
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
+
 }

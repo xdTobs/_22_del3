@@ -83,12 +83,20 @@ public class GameBoard {
         streetPairs.add(new int[]{26,27,29});
         streetPairs.add(new int[]{31,32,34});
         streetPairs.add(new int[]{37,39});
+        streetPairs.add(new int[]{2,7,17,22,33,36});
+        streetPairs.add(new int[]{4,38});
+        streetPairs.add(new int[]{5,15,25,35});
+        streetPairs.add(new int[]{20});
+        streetPairs.add(new int[]{10});
+        streetPairs.add(new int[]{30});
+        streetPairs.add(new int[]{28,12});
+
 
 
         for (int i = 0; i < streetPairs.size(); i++) {
             for(int j : streetPairs.get(i)){
-                Street street = (Street) fields[j];
-                street.setPairIndexes(streetPairs.get(i));
+                Field field = fields[j];
+                field.setPairIndexes(streetPairs.get(i));
 
             }
         }

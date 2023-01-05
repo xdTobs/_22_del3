@@ -14,7 +14,5 @@ public interface FieldAction {
 
     void chanceFieldAction(ChanceField chanceField);
 
-    void chanceAction(Chance chance);
-
     Field breweryAction(Brewery brewery);
 }

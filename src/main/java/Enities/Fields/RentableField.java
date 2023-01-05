@@ -6,6 +6,13 @@ public abstract class RentableField extends Field{
     int price;
     int housePrice;
 
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
     public int getPrice() {
         return price;
     }
