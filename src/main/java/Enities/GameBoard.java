@@ -36,6 +36,10 @@ public class GameBoard {
     private ActualChanceCard acc;
     private ActualFields actualFields;
 
+    public HashMap<Player, List<RentableField>> getOwnershipMap() {
+        return ownershipMap;
+    }
+
     public ActualFields getActualFields() {
         return actualFields;
     }

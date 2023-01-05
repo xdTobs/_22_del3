@@ -6,9 +6,13 @@ import Language.LanguageController;
 import Language.LanguageHandler;
 import View.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActualFields implements FieldAction {
     GameBoard gameBoard;
     View view;
+    LanguageController lc = gameBoard.getLanguageController();
 
 
     public ActualFields(GameBoard gameBoard, View view) {
@@ -25,16 +29,55 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field streetAction(Street street) {
-        LanguageController lc = gameBoard.getLanguageController();
 
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
         if (street.getOwner().equals("Bank") && wantToBuyPrompt(street)) {
             boughtField = buyEmptyStreet(street);
-        } else {
+        }
+        else {
             streetPayRentToOwner(street);
         }
         return boughtField;
+    }
+    //TODO figure out where this goes
+    private void buyHouseProcess(){
+        while(wantToBuyHouse()){
+            List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
+            List<Street>ownedStreets = new ArrayList<>();
+            for (int i = 0; i < ownedFields.size(); i++) {
+                if (ownedFields.get(i) instanceof Street street&&street.getHouses()<6)
+                        ownedStreets.add(street);
+            }
+
+            String[] choices = new String[ownedStreets.size()+1];
+            for (int i = 0; i < ownedStreets.size(); i++) {
+                choices[i+1]=ownedStreets.get(i).getName()+" "+ownedStreets.get(i).getHousePrice()+" "+lc.getMessage("DKK per");
+            }
+            choices[0] = lc.getMessage("noMoreHouses");
+            String message = lc.getMessage("selectHouse");
+            String selection = view.promptPlayer(choices,message);
+            if (selection.equals(lc.getMessage("noMoreHouses")))
+                return;
+            for (int i = 0; i < ownedStreets.size(); i++) {
+                if (selection.equals(ownedStreets.get(i).getName()+" "+ownedStreets.get(i).getHousePrice()+" "+lc.getMessage("DKK per"))){
+                    buyHouse(ownedStreets.get(i));
+                    break;
+                }
+            }
+        }
+    }
+
+    private void buyHouse(Street street) {
+        street.setHouses(street.getHouses()+1);
+        gameBoard.getCurrentPlayer().addBalance(-street.getHousePrice());
+    }
+
+    private boolean wantToBuyHouse(){
+        String[]choices = new String[]{lc.getMessage("yes"),lc.getMessage("no")};
+        String message = lc.getMessage("wantToBuyHouse");
+        String wantToBuyHouse = view.promptPlayer(choices,message);
+        return (wantToBuyHouse.equals(lc.getMessage("yes")));
     }
 
     public RentableField buyEmptyStreet(RentableField street) {

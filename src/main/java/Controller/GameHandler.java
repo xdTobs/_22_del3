@@ -15,8 +15,9 @@ import java.io.IOException;
  */
 public class GameHandler {
     final private View view;
-
+    final private GameBoard gameBoard;
     private LanguageHandler language;
+    private ActualChanceCard acc;
 
     {
         try {
@@ -25,10 +26,6 @@ public class GameHandler {
             throw new RuntimeException(e);
         }
     }
-
-    final private GameBoard gameBoard;
-
-    private ActualChanceCard acc;
 
     /**
      * Instantiates a new Game controller.
@@ -39,7 +36,7 @@ public class GameHandler {
     public GameHandler(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        int playerCount = view.promptPlayerCount(2,4);
+        int playerCount = view.promptPlayerCount(2, 4);
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
         acc = new ActualChanceCard(gameBoard, view);
@@ -82,26 +79,25 @@ public class GameHandler {
                 currentPlayer.setJailedCounter(0);
             }
             view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
-
-        } else {
-            boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-            view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
-            view.updatePlayerLocations(gameBoard.getPlayers());
-            view.updateDie(gameBoard.getDiceCup());
-            gameBoard.fieldAction(currentPlayer);
-            view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
-
-            if (hasPassedStart) {
-                view.showMessage(language.languageMap.get("passedStartMsg"));
-            }
-            // Checks if player gets an extra turn
-            int[] extraTurn = gameBoard.getDiceCup().getArray();
-            if (extraTurn[0] == extraTurn[1]) {
-                view.showMessage(currentPlayer.getName() + language.languageMap.get("extraTurn"));
-                playTurn(currentPlayer);
-            }
-
+            return;
         }
+        boolean hasPassedStart = gameBoard.rollDieMovePlayer();
+        view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
+        view.updatePlayerLocations(gameBoard.getPlayers());
+        view.updateDie(gameBoard.getDiceCup());
+        gameBoard.fieldAction(currentPlayer);
+        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+
+        if (hasPassedStart) {
+            view.showMessage(language.languageMap.get("passedStartMsg"));
+        }
+        // Checks if player gets an extra turn
+        int[] extraTurn = gameBoard.getDiceCup().getArray();
+        if (extraTurn[0] == extraTurn[1]) {
+            view.showMessage(currentPlayer.getName() + language.languageMap.get("extraTurn"));
+            playTurn(currentPlayer);
+        }
+
 
     }
 }
