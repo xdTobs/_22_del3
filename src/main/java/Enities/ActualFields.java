@@ -85,10 +85,10 @@ public class ActualFields implements FieldAction {
     public void taxAction(Tax tax) {
 
         if (tax.getPercentPrice() > 0 && payPercentPrompt(tax)) {
-            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) * 0.1));
+            gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
             return;
         }
-        gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
+        gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) * 0.1));
     }
 
     private boolean payPercentPrompt(Tax tax) {
