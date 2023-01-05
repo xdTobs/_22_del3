@@ -39,7 +39,7 @@ public class GameHandler {
     public GameHandler(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        int playerCount = view.promptPlayerCount();
+        int playerCount = view.promptPlayerCount(2,4);
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
         acc = new ActualChanceCard(gameBoard, view);

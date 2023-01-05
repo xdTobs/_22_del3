@@ -21,5 +21,5 @@ public interface View {
 
     String promptPlayer(String[] choices, String playerName);
 
-    int promptPlayerCount();
+    int promptPlayerCount(int min,int max);
 }

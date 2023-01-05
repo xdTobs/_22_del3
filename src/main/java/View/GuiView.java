@@ -167,14 +167,14 @@ public class GuiView implements View {
     }
 
     @Override
-    public String promptPlayer(String[] choices, String playerName) {
-        String message = playerName + " " + language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
+    public String promptPlayer(String[] choices, String message) {
+
         return this.gui.getUserSelection(message, choices);
     }
 
     @Override
-    public int promptPlayerCount() {
+    public int promptPlayerCount(int min,int max) {
         //TODO add min max players again
-        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"));
+        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"),min,max);
     }
 }
