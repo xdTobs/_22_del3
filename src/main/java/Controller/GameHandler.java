@@ -86,12 +86,11 @@ public class GameHandler {
         } else {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
             view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
-
-
             view.updatePlayerLocations(gameBoard.getPlayers());
             view.updateDie(gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
             view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+
             if (hasPassedStart) {
                 view.showMessage(language.languageMap.get("passedStartMsg"));
             }
