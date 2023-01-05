@@ -109,14 +109,6 @@ public class GameHandler {
         }
 
     }
-
-
-    public void test(GameHandler game) {
-        System.out.println("this: " + this);
-        System.out.println("game: " + game);
-    }
-
-
 }
 
 
