@@ -1,7 +1,5 @@
 package Enities.Fields;
 
-import Enities.GameBoard;
-
 public class Ferry extends RentableField{
 
 
@@ -31,13 +29,6 @@ public class Ferry extends RentableField{
     public Field executeFieldAction(FieldAction fieldAction) {
         fieldAction.ferryAction(this);
         return null;
-    }
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
-
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
     }
 
 }

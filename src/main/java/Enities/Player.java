@@ -99,6 +99,7 @@ public class Player {
         //TODO implement
     }
 
+    // TODO implement, used in tax field.
     public double totalValue() {
         return 2.0;
     }

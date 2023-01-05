@@ -9,7 +9,7 @@ import java.util.List;
 // We can use this class to implement different languages. For example, we can make translation variable be an array and then we can loop through it and print out the different translations, so the game is multi-lingual.
 // TODO use this instead of LanguageHandler
 public class LanguageController {
-    private HashMap<String, String> languageMap=new HashMap<>();
+    private HashMap<String, String> languageMap = new HashMap<>();
 
     public LanguageController(String s) {
         Path filepath = Path.of("src/main/java/Language/" + s + "FnVarNames.txt");

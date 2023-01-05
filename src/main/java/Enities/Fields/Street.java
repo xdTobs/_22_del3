@@ -1,33 +1,12 @@
 package Enities.Fields;
 
-import Enities.GameBoard;
-import Enities.Player;
-
 import java.awt.*;
 
 public class Street extends RentableField {
     Color color;
 
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
-
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
-    }
-
     public Street(String s) {
         super(s);
-
     }
 
     @Override
@@ -57,8 +36,9 @@ public class Street extends RentableField {
     public void setHouses(int houses) {
         this.houses = houses;
     }
+
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
-       return fieldAction.streetAction(this);
+        return fieldAction.streetAction(this);
     }
 }

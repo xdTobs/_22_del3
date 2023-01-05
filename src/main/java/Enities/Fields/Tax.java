@@ -1,7 +1,5 @@
 package Enities.Fields;
 
-import Enities.GameBoard;
-
 public class Tax extends Field {
     int price;
     int percentPrice;
@@ -34,11 +32,5 @@ public class Tax extends Field {
         return null;
     }
 
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
 
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
-    }
 }

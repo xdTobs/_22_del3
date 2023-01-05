@@ -1,11 +1,11 @@
 package Enities.Fields;
 
-public abstract class RentableField extends Field{
+public abstract class RentableField extends Field {
     private int[] rent = new int[6];
     private String ownerName = "Bank";
     int price;
     int housePrice;
-    int houses=0;
+    int houses = 0;
 
     public int getHouses() {
         return houses;
@@ -16,14 +16,6 @@ public abstract class RentableField extends Field{
     }
 
 
-
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
-
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
-    }
     public int getPrice() {
         return price;
     }
@@ -35,12 +27,13 @@ public abstract class RentableField extends Field{
     public RentableField(String s) {
         super(s);
         String[] split = s.split(",");
-        for (int i = 0; i < split.length-6; i++) {
+        for (int i = 0; i < split.length - 6; i++) {
             this.rent[i] = Integer.parseInt(split[i + 5]);
         }
         price = Integer.parseInt(split[3]);
         housePrice = Integer.parseInt(split[4]);
     }
+
     public int getRent(int i) {
         return rent[i];
     }

@@ -1,7 +1,5 @@
 package Enities.Fields;
 
-import Enities.GameBoard;
-
 public class Parking extends Field {
 
 
@@ -19,11 +17,5 @@ public class Parking extends Field {
         // If you land on parking field nothing happens.
         return null;
     }
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
 
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
-    }
 }

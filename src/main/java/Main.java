@@ -9,7 +9,7 @@ public class Main {
     /**
      * The entry point of application.
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         GameBoard gameBoard = new GameBoard(new LanguageController("english"));
         View view = new GuiView(gameBoard.getFields());

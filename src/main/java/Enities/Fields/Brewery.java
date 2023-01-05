@@ -1,7 +1,5 @@
 package Enities.Fields;
 
-import Enities.GameBoard;
-
 public class Brewery extends RentableField {
 
     public Brewery(String s) {
@@ -21,13 +19,7 @@ public class Brewery extends RentableField {
         fieldAction.breweryAction(this);
         return null;
     }
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
 
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
-    }
     @Override
     public int getRent(int i) {
         return super.getRent(i);

@@ -42,6 +42,7 @@ public class GuiView implements View {
             if (fields[i] instanceof Street street) {
                 guiFields[i] = new GUI_Street();
                 guiFields[i].setTitle(street.getName());
+                guiFields[i].setBackGroundColor(Color.RED);
                 guiFields[i].setSubText(street.getPrice() + "");
             }
             if (fields[i] instanceof ChanceField) {

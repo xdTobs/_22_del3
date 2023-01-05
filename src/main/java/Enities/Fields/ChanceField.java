@@ -1,8 +1,5 @@
 package Enities.Fields;
 
-import Enities.ChanceCards.ChanceCard;
-import Enities.GameBoard;
-
 public class ChanceField extends Field {
     public ChanceField(String s) {
         super(s);
@@ -21,13 +18,6 @@ public class ChanceField extends Field {
 
 
         return null;
-    }
-    public int[] getPairIndexes() {
-        return pairIndexes;
-    }
-
-    public void setPairIndexes(int[] pairIndexes) {
-        this.pairIndexes = pairIndexes;
     }
 
 }
