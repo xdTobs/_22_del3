@@ -2,6 +2,7 @@ package Enities;
 
 import Enities.ChanceCards.ChanceCard;
 import Enities.Fields.*;
+import Language.LanguageController;
 import Language.LanguageHandler;
 import View.View;
 
@@ -10,20 +11,27 @@ public class ActualFields implements FieldAction {
     View view;
 
 
+
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
         this.view = view;
 
     }
 
+    private boolean wantToBuyPrompt(RentableField field){
+        LanguageController lc = gameBoard.getLanguageController();
+        String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},gameBoard.getCurrentPlayer().getName()+lc.getMessage("wantToBuyPrompt1")+" "+field.getName()+lc.getMessage("wantToBuyPrompt2"));
+        return yesOrNo.equals(lc.getMessage("yes"));
+    }
 
     @Override
     public Field streetAction(Street street) {
+        LanguageController lc = gameBoard.getLanguageController();
+
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
-        if (street.getOwner().equals("Bank")) {
-            //TODO Prompt player here, need to get a reference to LanguageHandler.
-            boughtField = buyEmptyStreet(street);
+        if (street.getOwner().equals("Bank")&&wantToBuyPrompt(street)) {
+                boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
         }
@@ -51,23 +59,23 @@ public class ActualFields implements FieldAction {
             }
         }
 
-        assert houseOwner != null;
+        if (houseOwner!=null) {
 
-        if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
-            rent *= 2;
+            if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
+                rent *= 2;
+            }
+
+            houseOwner.addBalance(rent);
+            gameBoard.getCurrentPlayer().addBalance(-rent);
         }
-
-        houseOwner.addBalance(rent);
-        gameBoard.getCurrentPlayer().addBalance(-rent);
-
     }
 
     @Override
     public boolean streetPlayerOwnsPair(Street street) {
         boolean playerOwnsPair = true;
-        for (int i : street.getPairIndexes()) {
+        for (int i : street.getPairIndexes()){
             Street pairStreet = (Street) gameBoard.getFields()[i];
-            if (!pairStreet.getOwner().equals(street.getOwner())) {
+            if (!pairStreet.getOwner().equals(street.getOwner())){
                 playerOwnsPair = false;
             }
         }
@@ -78,15 +86,14 @@ public class ActualFields implements FieldAction {
     public void taxAction(Tax tax) {
 
         //TODO prompt player for price or percent price
-        if (tax.getPercentPrice() > 0 && payPercentPrompt()) {
+        if(tax.getPercentPrice()>0 && payPercentPrompt()){
             //TODO need player wealth to implement this
-            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.getCurrentPlayer().totalValue() * 0.1));
+            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.getCurrentPlayer().totalValue()*0.1));
             return;
         }
         gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
     }
-
-    private boolean payPercentPrompt() {
+    private boolean payPercentPrompt(){
         //TODO player prompt here
         return false;
     }
@@ -101,10 +108,10 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field ferryAction(Ferry ferry) {
+        LanguageController lc = gameBoard.getLanguageController();
         Field boughtField = null;
-        if (ferry.getOwner().equals("Bank")) {
-            //TODO Prompt player here, need to get a reference to LanguageHandler.
-            boughtField = buyEmptyStreet(ferry);
+        if (ferry.getOwner().equals("Bank")&&wantToBuyPrompt(ferry)) {
+                boughtField = buyEmptyStreet(ferry);
         } else {
             ferryPayRent(ferry);
         }
@@ -122,17 +129,17 @@ public class ActualFields implements FieldAction {
             }
         }
 
-        assert houseOwner != null;
-        int rent = ferry.getRent(ferrysOwned - 1);
+        if (houseOwner!=null) {
+        int rent = ferry.getRent(ferrysOwned);
         houseOwner.addBalance(rent);
         gameBoard.getCurrentPlayer().addBalance(-rent);
-    }
+    }}
 
-    public int ferryPlayerOwns(Ferry ferry) {
-        int count = 0;
-        for (int i : ferry.getPairIndexes()) {
-            Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
-            if (ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
+    public int ferryPlayerOwns(Ferry ferry){
+        int count=0;
+        for (int i : ferry.getPairIndexes()){
+            Ferry ferryCounter = (Ferry)gameBoard.getFields()[i];
+            if(ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
                 count++;
         }
         return count;
@@ -149,17 +156,16 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field breweryAction(Brewery brewery) {
+        LanguageController lc = gameBoard.getLanguageController();
         Field boughtField = null;
-        if (brewery.getOwner().equals("Bank")) {
-            //TODO Prompt player here, need to get a reference to LanguageHandler.
-            boughtField = buyEmptyStreet(brewery);
+        if (brewery.getOwner().equals("Bank")&&wantToBuyPrompt(brewery)) {
+                boughtField = buyEmptyStreet(brewery);
         } else {
             breweryPayRent(brewery);
         }
         return boughtField;
     }
-
-    public void breweryPayRent(Brewery brewery) {
+    public void breweryPayRent(Brewery brewery){
         int diceSum = gameBoard.getDiceCup().getSum();
         Player[] players = gameBoard.getPlayers();
         String houseOwnerName = brewery.getOwner();
@@ -170,10 +176,14 @@ public class ActualFields implements FieldAction {
             }
         }
 
-        assert houseOwner != null;
+
         int rent = brewery.getRent(brewery.getHouses());
-        houseOwner.addBalance(rent * diceSum);
-        gameBoard.getCurrentPlayer().addBalance(-rent * diceSum);
+        if (houseOwner!=null) {
+
+
+            houseOwner.addBalance(rent * diceSum);
+            gameBoard.getCurrentPlayer().addBalance(-rent * diceSum);
+        }
     }
 
 }
