@@ -47,6 +47,10 @@ public class GameBoard {
         this.acc = acc;
     }
 
+    public LanguageController getLanguageController() {
+        return languageController;
+    }
+
     /**
      * Instantiates a new Game board.
      */
