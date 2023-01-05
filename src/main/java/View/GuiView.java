@@ -24,54 +24,47 @@ public class GuiView implements View {
     public GuiView(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start start) {
-                guiFields[i] = new GUI_Start();
-                guiFields[i].setTitle(start.getName());
-                guiFields[i].setBackGroundColor(start.getPair().getBackgroundColor());
+                guiFields[i] = createGuiField(new GUI_Start(), start);
             }
             if (fields[i] instanceof Street street) {
-                guiFields[i] = new GUI_Street();
-                guiFields[i].setTitle(street.getName());
-                guiFields[i].setBackGroundColor(street.getPair().getBackgroundColor());
-                guiFields[i].setSubText(street.getPrice() + "");
+                guiFields[i] = createGuiField(new GUI_Street(), street, street.getPrice() + "");
             }
-            if (fields[i] instanceof ChanceField cf) {
-                guiFields[i] = new GUI_Chance();
-                guiFields[i].setBackGroundColor(cf.getPair().getBackgroundColor());
-                guiFields[i].setForeGroundColor(cf.getPair().getForegroundColor());
+            if (fields[i] instanceof ChanceField chanceField) {
+                guiFields[i] = createGuiField(new GUI_Chance(), chanceField);
             }
             if (fields[i] instanceof Jail jail) {
-                guiFields[i] = new GUI_Jail();
-                guiFields[i].setBackGroundColor(jail.getPair().getBackgroundColor());
-
+                guiFields[i] = createGuiField(new GUI_Jail(), jail);
             }
             if (fields[i] instanceof Parking parking) {
-                guiFields[i] = new GUI_Refuge();
-                guiFields[i].setBackGroundColor(parking.getPair().getBackgroundColor());
+                guiFields[i] = createGuiField(new GUI_Refuge(), parking);
             }
             if (fields[i] instanceof GoToJail goToJail) {
-                guiFields[i] = new GUI_Jail();
-                guiFields[i].setBackGroundColor(goToJail.getPair().getBackgroundColor());
+                guiFields[i] = createGuiField(new GUI_Jail(), goToJail);
             }
             if (fields[i] instanceof Ferry ferry) {
-                guiFields[i] = new GUI_Shipping();
-                guiFields[i].setTitle(ferry.getName());
-                guiFields[i].setSubText(ferry.getPrice() + "");
-                guiFields[i].setBackGroundColor(ferry.getPair().getBackgroundColor());
+                guiFields[i] = createGuiField(new GUI_Shipping(), ferry, ferry.getPrice() + "");
             }
             if (fields[i] instanceof Tax tax) {
-                guiFields[i] = new GUI_Tax();
-                guiFields[i].setTitle(tax.getName());
-                guiFields[i].setBackGroundColor(tax.getPair().getBackgroundColor());
+                guiFields[i] = createGuiField(new GUI_Tax(), tax);
             }
             if (fields[i] instanceof Brewery brewery) {
-                guiFields[i] = new GUI_Brewery();
-                guiFields[i].setTitle(brewery.getName());
-                guiFields[i].setSubText(brewery.getPrice() + "");
-                guiFields[i].setBackGroundColor(brewery.getPair().getBackgroundColor());
+                guiFields[i] = createGuiField(new GUI_Brewery(), brewery, brewery.getPrice() + "");
             }
 
         }
         this.gui = new GUI(guiFields);
+    }
+
+    private GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
+        gf.setTitle(field.getName());
+        gf.setBackGroundColor(field.getPair().getBackgroundColor());
+        gf.setForeGroundColor(field.getPair().getForegroundColor());
+        gf.setSubText(subtext);
+        return gf;
+    }
+
+    private GUI_Field createGuiField(GUI_Field gf, Field field) {
+        return createGuiField(gf, field, "");
     }
 
 
