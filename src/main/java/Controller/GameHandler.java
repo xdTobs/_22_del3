@@ -39,7 +39,7 @@ public class GameHandler {
     public GameHandler(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        int playerCount = view.promptPlayerCount();
+        int playerCount = view.promptPlayerCount(2,4);
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
         acc = new ActualChanceCard(gameBoard, view);
@@ -69,10 +69,6 @@ public class GameHandler {
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
     }
 
-    private void playTurn() {
-        Player player = this.gameBoard.getCurrentPlayer();
-        this.resetPlayerPositions();
-    }
 
     private void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
@@ -90,15 +86,15 @@ public class GameHandler {
         } else {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
             view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
-            if (hasPassedStart) {
-                view.showMessage(language.languageMap.get("passedStartMsg"));
-            }
+
 
             view.updatePlayerLocations(gameBoard.getPlayers());
             view.updateDie(gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
             view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
-
+            if (hasPassedStart) {
+                view.showMessage(language.languageMap.get("passedStartMsg"));
+            }
             // Checks if player gets an extra turn
             int[] extraTurn = gameBoard.getDiceCup().getArray();
             if (extraTurn[0] == extraTurn[1]) {
@@ -109,14 +105,6 @@ public class GameHandler {
         }
 
     }
-
-
-    public void test(GameHandler game) {
-        System.out.println("this: " + this);
-        System.out.println("game: " + game);
-    }
-
-
 }
 
 

@@ -49,7 +49,11 @@ public class Deck {
 
             cards.add(new PayPerPropertyChanceCard(numbers[0],numbers[1],content.get(i)));
         }
-        for (int i = 2; i <24 ; i++) {
+        for (int i = 2; i < 12 ; i++) {
+            Integer[] numbers = numberReader(content.get(i));
+            cards.add(new ChangeBalChanceCard(-numbers[0], content.get(i)));
+        }
+        for (int i = 12; i < 24 ; i++) {
             Integer[] numbers = numberReader(content.get(i));
             cards.add(new ChangeBalChanceCard(numbers[0], content.get(i)));
         }

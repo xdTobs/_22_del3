@@ -5,9 +5,15 @@ public class Tax extends Field {
     int percentPrice;
     public Tax(String s) {
         super(s);
-        price = 2000;
-        percentPrice = 10;
-        //TODO actual values here
+        String[] split = s.split(",");
+        if (Integer.parseInt(split[3])== 2000) {
+            price = 2000;
+            percentPrice = 0;
+        }
+       else{
+            price = 2000;
+            percentPrice = 10;
+        }
     }
 
     public int getPrice() {
