@@ -47,6 +47,10 @@ public class GameBoard {
         this.acc = acc;
     }
 
+    public LanguageController getLanguageController() {
+        return languageController;
+    }
+
     /**
      * Instantiates a new Game board.
      */
@@ -76,21 +80,29 @@ public class GameBoard {
             }
         }
         temp.toArray(fields);
-        List<int[]> streetPairs = new ArrayList<>();
-        streetPairs.add(new int[]{1, 3});
-        streetPairs.add(new int[]{6, 8, 9});
-        streetPairs.add(new int[]{11, 13, 14});
-        streetPairs.add(new int[]{16, 18, 19});
-        streetPairs.add(new int[]{21, 23, 24});
-        streetPairs.add(new int[]{26, 27, 29});
-        streetPairs.add(new int[]{31, 32, 34});
-        streetPairs.add(new int[]{37, 39});
+        List<int[]>streetPairs = new ArrayList<>();
+        streetPairs.add(new int[]{1,3});
+        streetPairs.add(new int[]{6,8,9});
+        streetPairs.add(new int[]{11,13,14});
+        streetPairs.add(new int[]{16,18,19});
+        streetPairs.add(new int[]{21,23,24});
+        streetPairs.add(new int[]{26,27,29});
+        streetPairs.add(new int[]{31,32,34});
+        streetPairs.add(new int[]{37,39});
+        streetPairs.add(new int[]{2,7,17,22,33,36});
+        streetPairs.add(new int[]{4,38});
+        streetPairs.add(new int[]{5,15,25,35});
+        streetPairs.add(new int[]{20});
+        streetPairs.add(new int[]{10});
+        streetPairs.add(new int[]{30});
+        streetPairs.add(new int[]{28,12});
 
 
-        for (int[] streetPair : streetPairs) {
-            for (int j : streetPair) {
-                Street street = (Street) fields[j];
-                street.setPairIndexes(streetPair);
+
+        for (int i = 0; i < streetPairs.size(); i++) {
+            for(int j : streetPairs.get(i)){
+                Field field = fields[j];
+                field.setPairIndexes(streetPairs.get(i));
 
             }
         }

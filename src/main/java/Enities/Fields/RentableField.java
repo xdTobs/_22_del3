@@ -5,7 +5,25 @@ public abstract class RentableField extends Field{
     private String ownerName = "Bank";
     int price;
     int housePrice;
+    int houses=0;
 
+    public int getHouses() {
+        return houses;
+    }
+
+    public void setHouses(int houses) {
+        this.houses = houses;
+    }
+
+
+
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
     public int getPrice() {
         return price;
     }

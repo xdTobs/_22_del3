@@ -27,6 +27,7 @@ public class LanguageController {
 
     private HashMap<String, String> initLanguageHandler(Path filepath) throws IOException {
         List<String> content = Files.readAllLines(filepath);
+        languageMap = new HashMap<>();
         for (String s : content) {
             String[] keyValue = s.split(":", 2);
             if (keyValue.length > 1) {

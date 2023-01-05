@@ -4,7 +4,6 @@ import Enities.GameBoard;
 
 public interface FieldAction {
     Field streetAction(Street street);
-    RentableField buyEmptyStreet(Street street);
     void streetPayRentToOwner(Street street);
     boolean streetPlayerOwnsPair(Street street);
     void taxAction(Tax tax);
@@ -13,8 +12,6 @@ public interface FieldAction {
     Field ferryAction(Ferry ferry);
 
     void chanceFieldAction(ChanceField chanceField);
-
-    void chanceAction(Chance chance);
 
     Field breweryAction(Brewery brewery);
 }

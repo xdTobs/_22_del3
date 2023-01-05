@@ -13,6 +13,12 @@ public class GoToJail extends Field {
         fieldAction.goToJailAction(this);
         return null;
     }
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
 
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
 
 }

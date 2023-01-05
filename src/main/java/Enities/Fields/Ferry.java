@@ -8,6 +8,7 @@ public class Ferry extends RentableField{
     public Ferry(String s) {
         super(s);
     }
+
     @Override
     public int getRent(int i) {
         return super.getRent(i);
@@ -31,4 +32,12 @@ public class Ferry extends RentableField{
         fieldAction.ferryAction(this);
         return null;
     }
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
+
 }

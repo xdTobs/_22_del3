@@ -15,4 +15,8 @@ playerName2:Player 2
 playerName1:Player 1
 succesfulConditionChanceCard: Your values have been tallied under the requirement, you have recieved
 unSuccesfulConditionChanceCard: Your values have been talliet over the requiremnt, you do not revieve anything.
+wantToBuyPrompt1: You have landed on
+wantToBuyPrompt2:, would you like to buy
+yes:Yes
+no:No
 extraTurn: you rolled double, you get an extra turn.

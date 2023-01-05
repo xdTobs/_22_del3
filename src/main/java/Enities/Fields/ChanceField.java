@@ -22,5 +22,12 @@ public class ChanceField extends Field {
 
         return null;
     }
+    public int[] getPairIndexes() {
+        return pairIndexes;
+    }
+
+    public void setPairIndexes(int[] pairIndexes) {
+        this.pairIndexes = pairIndexes;
+    }
 
 }

@@ -2,31 +2,40 @@ package Enities;
 
 import Enities.ChanceCards.ChanceCard;
 import Enities.Fields.*;
+import Language.LanguageController;
+import Language.LanguageHandler;
 import View.View;
 
 public class ActualFields implements FieldAction {
     GameBoard gameBoard;
     View view;
 
+
+
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
         this.view = view;
+
     }
+
 
     @Override
     public Field streetAction(Street street) {
+        LanguageController lc = gameBoard.getLanguageController();
+
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
         if (street.getOwner().equals("Bank")) {
-            boughtField = buyEmptyStreet(street);
+           String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},lc.getMessage("wantToBuyPrompt"));
+           if(yesOrNo.equals(lc.getMessage("yes")))
+                boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
         }
         return boughtField;
     }
 
-    @Override
-    public RentableField buyEmptyStreet(Street street) {
+    public RentableField buyEmptyStreet(RentableField street) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         street.setOwnerName(currentPlayer.getName());
         currentPlayer.addBalance(-street.getPrice());
@@ -46,7 +55,7 @@ public class ActualFields implements FieldAction {
                 houseOwner = player;
             }
         }
-        // If you land on your own house, you don't have to pay rent. But we can ignore handling that, because paying yourself $2 dollars makes no difference. The gameover check comes much later.
+
         assert houseOwner != null;
 
         if(street.getHouses() == 0 &&streetPlayerOwnsPair(street)){
@@ -73,6 +82,17 @@ public class ActualFields implements FieldAction {
     @Override
     public void taxAction(Tax tax) {
 
+        //TODO prompt player for price or percent price
+        if(tax.getPercentPrice()>0 && payPercentPrompt()){
+            //TODO need player wealth to implement this
+            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.getCurrentPlayer().totalValue()*0.1));
+            return;
+        }
+        gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
+    }
+    private boolean payPercentPrompt(){
+        //TODO player prompt here
+        return false;
     }
 
     @Override
@@ -85,7 +105,44 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field ferryAction(Ferry ferry) {
-        return null;
+        LanguageController lc = gameBoard.getLanguageController();
+        Field boughtField = null;
+        if (ferry.getOwner().equals("Bank")) {
+            String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},lc.getMessage("wantToBuyPrompt"));
+            if(yesOrNo.equals(lc.getMessage("yes")))
+                boughtField = buyEmptyStreet(ferry);
+        } else {
+            ferryPayRent(ferry);
+        }
+        return boughtField;
+    }
+
+    private void ferryPayRent(Ferry ferry) {
+        int ferrysOwned = ferryPlayerOwns(ferry);
+        Player[] players = gameBoard.getPlayers();
+        String houseOwnerName = ferry.getOwner();
+        Player houseOwner = null;
+        for (Player player : players) {
+            if (player.getName().equals(houseOwnerName)) {
+                houseOwner = player;
+            }
+        }
+
+        assert houseOwner != null;
+        int rent = ferry.getRent(ferrysOwned-1);
+        houseOwner.addBalance(rent);
+        gameBoard.getCurrentPlayer().addBalance(-rent);
+    }
+
+    public int ferryPlayerOwns(Ferry ferry){
+        int count=0;
+        for (int i : ferry.getPairIndexes()){
+            Ferry ferryCounter = (Ferry)gameBoard.getFields()[i];
+            if(ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
+                count++;
+        }
+        return count;
+
     }
 
     @Override
@@ -95,16 +152,35 @@ public class ActualFields implements FieldAction {
         chanceCard.executeCardAction(gameBoard.getAcc());
     }
 
-    @Override
-    public void chanceAction(Chance chance) {
-        ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
-        gameBoard.getDeck().shuffleCards();
-        chanceCard.executeCardAction(gameBoard.getAcc());
-    }
 
     @Override
     public Field breweryAction(Brewery brewery) {
-        return null;
+        LanguageController lc = gameBoard.getLanguageController();
+        Field boughtField = null;
+        if (brewery.getOwner().equals("Bank")) {
+            String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},lc.getMessage("wantToBuyPrompt"));
+            if(yesOrNo.equals(lc.getMessage("yes")))
+                boughtField = buyEmptyStreet(brewery);
+        } else {
+            breweryPayRent(brewery);
+        }
+        return boughtField;
+    }
+    public void breweryPayRent(Brewery brewery){
+        int diceSum = gameBoard.getDiceCup().getSum();
+        Player[] players = gameBoard.getPlayers();
+        String houseOwnerName = brewery.getOwner();
+        Player houseOwner = null;
+        for (Player player : players) {
+            if (player.getName().equals(houseOwnerName)) {
+                houseOwner = player;
+            }
+        }
+
+        assert houseOwner != null;
+        int rent = brewery.getRent(brewery.getHouses());
+        houseOwner.addBalance(rent*diceSum);
+        gameBoard.getCurrentPlayer().addBalance(-rent*diceSum);
     }
 
 }

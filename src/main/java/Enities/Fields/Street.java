@@ -7,8 +7,7 @@ import java.awt.*;
 
 public class Street extends RentableField {
     Color color;
-    int[] pairIndexes;
-    int houses = 0;
+
 
     public Color getColor() {
         return color;
