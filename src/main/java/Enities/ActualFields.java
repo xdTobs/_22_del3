@@ -85,17 +85,16 @@ public class ActualFields implements FieldAction {
     @Override
     public void taxAction(Tax tax) {
 
-        //TODO prompt player for price or percent price
-        if(tax.getPercentPrice()>0 && payPercentPrompt()){
-            //TODO need player wealth to implement this
-            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.getCurrentPlayer().totalValue()*0.1));
+        if(tax.getPercentPrice()>0 && payPercentPrompt(tax)){
+            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer())*0.1));
             return;
         }
         gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
     }
-    private boolean payPercentPrompt(){
-        //TODO player prompt here
-        return false;
+    private boolean payPercentPrompt(Tax tax){
+        LanguageController lc = gameBoard.getLanguageController();
+        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() +"%"+lc.getMessage("playerTotalValue")},lc.getMessage("taxPrompt"));
+        return valOrPercent.equals(String.valueOf(tax.getPrice()));
     }
 
     @Override
