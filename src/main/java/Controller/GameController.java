@@ -10,7 +10,7 @@ import View.*;
 /**
  * The controller.
  */
-public class GameHandler {
+public class GameController {
     final private View view;
     final private GameBoard gameBoard;
     private ActualChanceCard acc;
@@ -21,7 +21,7 @@ public class GameHandler {
      * @param view      the view
      * @param gameBoard the gameBoard, our model
      */
-    public GameHandler(View view, GameBoard gameBoard) {
+    public GameController(View view, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
         int playerCount = view.promptPlayerCount(gameBoard.getMessage("playerCountMsg"), 2, 4);
@@ -45,7 +45,6 @@ public class GameHandler {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 playTurn(currentPlayer);
                 gameBoard.nextPlayer();
-
             }
         }
     }
@@ -56,7 +55,7 @@ public class GameHandler {
     }
 
 
-    private void playTurn(Player currentPlayer) {
+    public void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
 
         if (currentPlayer.isJailed()) {

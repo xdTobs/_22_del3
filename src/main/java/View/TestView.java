@@ -27,6 +27,7 @@ public class TestView implements View {
 
     @Override
     public void showMessage(String string) {
+        System.out.println(string);
     }
 
     @Override
@@ -41,11 +42,11 @@ public class TestView implements View {
 
     @Override
     public String promptPlayer(String[] choices, String playerName) {
-        return null;
+        return "yes";
     }
 
     @Override
     public int promptPlayerCount(String msg, int min, int max) {
-        return 0;
+        return 2;
     }
 }

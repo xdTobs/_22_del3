@@ -157,7 +157,6 @@ public class GuiView implements View {
 
     @Override
     public String promptPlayer(String[] choices, String message) {
-
         return this.gui.getUserSelection(message, choices);
     }
 

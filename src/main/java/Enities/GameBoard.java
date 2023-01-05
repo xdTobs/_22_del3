@@ -23,7 +23,7 @@ public class GameBoard {
 
     private final DiceCup diceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
-    private final Field[] fields = new Field[40];
+    private final Field[] fields;
     private final LanguageController languageController;
     private Deck deck;
     private Player[] players;
@@ -38,8 +38,11 @@ public class GameBoard {
         this(new LanguageController("english"), new DiceCup());
     }
 
-
     public GameBoard(LanguageController languageController, DiceCup diceCup) {
+        this(languageController, diceCup, "src/main/java/csv/fields.csv");
+    }
+
+    public GameBoard(LanguageController languageController, DiceCup diceCup, String csvPath) {
         this.deck = new Deck();
         this.diceCup = diceCup;
 
@@ -47,11 +50,10 @@ public class GameBoard {
         List<Field> temp = new ArrayList<>();
         List<String> content;
         try {
-            content = Files.readAllLines(Path.of("docs/fields.csv"));
+            content = Files.readAllLines(Path.of(csvPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
         for (String s : content) {
             String[] key = s.split(",");
@@ -68,6 +70,7 @@ public class GameBoard {
             }
         }
 
+        fields = new Field[temp.size()];
         temp.toArray(fields);
         // TODO
         //  we need to figure out some way to make simpler tests.
@@ -75,11 +78,10 @@ public class GameBoard {
         //  Can we do that without changing current code to much?
         // We only make fieldPairs if it is the size of the original matador board.
         // We do this so we can run tests with other board sizes.
-        if (temp.size() == 40) {
-            initFieldPairs();
-        }
+        initFieldPairs();
 
     }
+
 
     private void initFieldPairs() {
         List<FieldPair> fieldPairs = new ArrayList<>();
@@ -103,8 +105,12 @@ public class GameBoard {
         int i = 0;
         for (FieldPair f : fieldPairs) {
             for (int id : f.getFieldIds()) {
-                Field field = fields[id];
-                field.setPair(fieldPairs.get(i));
+                try {
+                    Field field = fields[id];
+                    field.setPair(fieldPairs.get(i));
+                } catch (RuntimeException e) {
+                    System.err.println(e);
+                }
             }
             i++;
         }
@@ -208,8 +214,8 @@ public class GameBoard {
         int playerPosition = currentPlayer.getPosition();
         int newPosition = playerPosition + diceCup.getSum();
         boolean hasPassedStart = false;
-        if (newPosition > 39) {
-            newPosition = newPosition - 40;
+        if (newPosition > fields.length - 1) {
+            newPosition = newPosition - fields.length;
             currentPlayer.addBalance(4000);
             hasPassedStart = true;
         }

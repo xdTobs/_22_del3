@@ -23,6 +23,7 @@ public class ActualFields implements FieldAction {
         return yesOrNo.equals(gameBoard.getMessage("yes"));
     }
 
+
     @Override
     public Field streetAction(Street street) {
 

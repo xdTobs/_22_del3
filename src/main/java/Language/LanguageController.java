@@ -11,6 +11,10 @@ import java.util.List;
 public class LanguageController {
     private HashMap<String, String> languageMap = new HashMap<>();
 
+    public LanguageController(){
+        this("english");
+    }
+
     public LanguageController(String s) {
         Path filepath = Path.of("src/main/java/Language/" + s + "FnVarNames.txt");
         try {

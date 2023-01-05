@@ -3,7 +3,7 @@ onPickFieldChance:Pick a field to move to. If it is available you get it for fre
 gameWonMsg: has won the game!
 gameLostMsg: has lost the game!
 rollDiceMsg:It is your turn. Roll the Dice
-leaveJailMsg:you are in Jail, you lose 1$
+leaveJailMsg: , you are in Jail. Pay a fine or roll equal dice to get out.
 chanceCardMsg: pulled a chance card. It tells you to:
 parkingMsg: You are on parking. There is not much happening here.
 startMsg: You get two dollars for landing or passing through start
