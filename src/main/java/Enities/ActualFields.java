@@ -72,7 +72,7 @@ public class ActualFields implements FieldAction {
     @Override
     public boolean streetPlayerOwnsPair(Street street) {
         boolean playerOwnsPair = true;
-        for (int i : street.getPairIndexes()) {
+        for (int i : street.getPair().getFieldIds()) {
             Street pairStreet = (Street) gameBoard.getFields()[i];
             if (!pairStreet.getOwner().equals(street.getOwner())) {
                 playerOwnsPair = false;
@@ -137,7 +137,7 @@ public class ActualFields implements FieldAction {
 
     public int ferryPlayerOwns(Ferry ferry) {
         int count = 0;
-        for (int i : ferry.getPairIndexes()) {
+        for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
             if (ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
                 count++;
