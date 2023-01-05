@@ -60,13 +60,6 @@ class GameBoardTest {
     }
 
     @Test
-    void payFine() {
-        board.getCurrentPlayer().setJailed(true);
-        board.payFine(board.getCurrentPlayer());
-        assertFalse(board.getCurrentPlayer().isJailed());
-    }
-
-    @Test
     void getPlayers() {
         assertEquals(2, board.getPlayers().length);
         assertEquals("Player1", board.getPlayers()[0].getName());

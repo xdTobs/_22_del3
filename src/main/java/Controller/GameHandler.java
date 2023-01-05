@@ -44,7 +44,7 @@ public class GameHandler {
         view.addPlayersToGui(gameBoard.getPlayers());
         acc = new ActualChanceCard(gameBoard, view);
         gameBoard.setAcc(acc);
-        gameBoard.setActualFields(new ActualFields(gameBoard,view));
+        gameBoard.setActualFields(new ActualFields(gameBoard, view));
     }
 
     public void playGame() {
@@ -67,6 +67,11 @@ public class GameHandler {
     public void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
         view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+    }
+
+    private void playTurn() {
+        Player player = this.gameBoard.getCurrentPlayer();
+        this.resetPlayerPositions();
     }
 
     private void playTurn(Player currentPlayer) {
@@ -103,6 +108,12 @@ public class GameHandler {
 
         }
 
+    }
+
+
+    public void test(GameHandler game) {
+        System.out.println("this: " + this);
+        System.out.println("game: " + game);
     }
 
 

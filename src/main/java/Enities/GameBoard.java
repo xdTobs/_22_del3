@@ -195,19 +195,6 @@ public class GameBoard {
         return hasPassedStart;
     }
 
-    /**
-     * Pay fine when you are in jail.
-     *
-     * @param currentPlayer the current player
-     */
-    public void payFine(Player currentPlayer) {
-        if (currentPlayer.getGetOutOfJailCards() > 0) {
-            currentPlayer.removeGetOutOfJailCard();
-        } else {
-            currentPlayer.addBalance(-1);
-        }
-        currentPlayer.setJailed(false);
-    }
 
     /**
      * Get players player [ ].

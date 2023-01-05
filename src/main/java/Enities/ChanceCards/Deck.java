@@ -67,7 +67,6 @@ public class Deck {
                 cards.add(new MoveSpacesChanceCard(3, content.get(i)));
             }else{
                 cards.add(new MoveSpacesChanceCard(-3, content.get(i)));
-                //TODO make sure you can go below 0. Also maybe better way to see if it moves forward or backward
             }
         }
         for (int i = 31; i < 33; i++) {
