@@ -86,15 +86,15 @@ public class GameHandler {
         } else {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
             view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
-            if (hasPassedStart) {
-                view.showMessage(language.languageMap.get("passedStartMsg"));
-            }
+
 
             view.updatePlayerLocations(gameBoard.getPlayers());
             view.updateDie(gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
             view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
-
+            if (hasPassedStart) {
+                view.showMessage(language.languageMap.get("passedStartMsg"));
+            }
             // Checks if player gets an extra turn
             int[] extraTurn = gameBoard.getDiceCup().getArray();
             if (extraTurn[0] == extraTurn[1]) {
