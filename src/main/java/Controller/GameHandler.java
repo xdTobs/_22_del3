@@ -7,7 +7,6 @@ import Enities.Player;
 import View.*;
 
 
-
 /**
  * The controller.
  */
@@ -73,18 +72,18 @@ public class GameHandler {
         }
         boolean hasPassedStart = gameBoard.rollDieMovePlayer();
         view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
-        view.updatePlayerLocations(gameBoard.getPlayers());
-        view.updateDie(gameBoard.getDiceCup());
+        view.update(gameBoard.getPlayers(), gameBoard.getFields());
         gameBoard.fieldAction(currentPlayer);
         //gameBoard.isPlayerBankrupt();
-        view.update( gameBoard.getPlayers(), gameBoard.getFields());
+        view.update(gameBoard.getPlayers(), gameBoard.getFields());
 
         if (hasPassedStart) {
             view.showMessage(gameBoard.getMessage("passedStartMsg"));
         }
         // Checks if player gets an extra turn
-        int[] extraTurn = gameBoard.getDiceCup().getArray();
-        if (extraTurn[0] == extraTurn[1]) {
+        // TODO Should you get extra turn if you land on goToJail?
+
+        if (gameBoard.getDiceCup().diceAreEqual()) {
             view.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
             playTurn(currentPlayer);
         }

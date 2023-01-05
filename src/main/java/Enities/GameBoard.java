@@ -1,6 +1,7 @@
 package Enities;
 
 import Enities.ChanceCards.Deck;
+import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
 import Language.LanguageController;
 

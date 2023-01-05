@@ -1,6 +1,6 @@
 package View;
 
-import Enities.DiceCup;
+import Enities.DiceCup.DiceCup;
 import Enities.Fields.Field;
 import Enities.Player;
 

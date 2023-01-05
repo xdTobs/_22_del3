@@ -1,6 +1,6 @@
 package View;
 
-import Enities.DiceCup;
+import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
 import gui_fields.*;
@@ -97,7 +97,7 @@ public class GuiView implements View {
 
     @Override
     public void updateDie(DiceCup diceCup) {
-        int[] diceValues = diceCup.getArray();
+        int[] diceValues = diceCup.getDiceValues();
         gui.setDice(diceValues[0], diceValues[1]);
     }
 
@@ -126,12 +126,11 @@ public class GuiView implements View {
      * Updates all the fields, dices and players in the GUI.
      * The view should be in sync with the model after this method has run.
      *
-     * @param diceCup the cup of dices
      * @param players the players in the game
      * @param fields  the fields in the game
      */
     @Override
-    public void update( Player[] players, Field[] fields) {
+    public void update(Player[] players, Field[] fields) {
         updatePlayerLocations(players);
         updateHouses(fields);
         updatePlayerBalances(players);
