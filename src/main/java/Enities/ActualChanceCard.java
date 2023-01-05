@@ -33,12 +33,11 @@ public class ActualChanceCard implements ChanceAction {
     @Override
     public void changeBal(int i) {
         gameBoard.getCurrentPlayer().addBalance(i);
-        //TODO i is always positive, maybe split the chance cards in pos / neg
     }
 
     @Override
     public void changeBalConditional(int amount, int condition) {
-        if(gameBoard.getCurrentPlayer().totalValue() <condition){
+        if(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer())<condition){
             view.showMessage(gameBoard.getCurrentPlayer().getName()+language.languageMap.get("succesfulConditionChanceCard")+amount+" DKK");
         }
         else{
