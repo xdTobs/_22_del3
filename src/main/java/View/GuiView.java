@@ -37,53 +37,59 @@ public class GuiView implements View {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start start) {
                 guiFields[i] = new GUI_Start();
-                guiFields[i].setTitle(start.getName());
-                guiFields[i].setBackGroundColor(start.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], start);
             }
             if (fields[i] instanceof Street street) {
                 guiFields[i] = new GUI_Street();
-                guiFields[i].setTitle(street.getName());
-                guiFields[i].setBackGroundColor(street.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], street);
                 guiFields[i].setSubText(street.getPrice() + "");
             }
-            if (fields[i] instanceof ChanceField cf) {
+            if (fields[i] instanceof ChanceField chanceField) {
                 guiFields[i] = new GUI_Chance();
-                guiFields[i].setBackGroundColor(cf.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], chanceField);
             }
             if (fields[i] instanceof Jail jail) {
                 guiFields[i] = new GUI_Jail();
-                guiFields[i].setBackGroundColor(jail.getPair().getBackgroundColor());
-
+                setGuiFieldData(guiFields[i], jail);
             }
             if (fields[i] instanceof Parking parking) {
                 guiFields[i] = new GUI_Refuge();
-                guiFields[i].setBackGroundColor(parking.getPair().getBackgroundColor());
-
+                setGuiFieldData(guiFields[i], parking);
             }
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();
-                guiFields[i].setBackGroundColor(goToJail.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], goToJail);
             }
             if (fields[i] instanceof Ferry ferry) {
                 guiFields[i] = new GUI_Shipping();
-                guiFields[i].setTitle(ferry.getName());
-                guiFields[i].setSubText(ferry.getPrice()+"");
-                guiFields[i].setBackGroundColor(ferry.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], ferry);
+                guiFields[i].setSubText(ferry.getPrice() + "");
             }
             if (fields[i] instanceof Tax tax) {
                 guiFields[i] = new GUI_Tax();
-                guiFields[i].setTitle(tax.getName());
-                guiFields[i].setBackGroundColor(tax.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], tax);
             }
             if (fields[i] instanceof Brewery brewery) {
                 guiFields[i] = new GUI_Brewery();
-                guiFields[i].setTitle(brewery.getName());
-                guiFields[i].setSubText(brewery.getPrice()+"");
-                guiFields[i].setBackGroundColor(brewery.getPair().getBackgroundColor());
+                setGuiFieldData(guiFields[i], brewery);
             }
 
         }
         this.gui = new GUI(guiFields);
+    }
+
+    private void setGuiFieldData(GUI_Field gf, Field field) {
+        setTitle(gf, field);
+        setColors(gf, field);
+    }
+
+    private void setTitle(GUI_Field gf, Field field) {
+        gf.setTitle(field.getName());
+    }
+
+    private void setColors(GUI_Field gf, Field field) {
+        gf.setForeGroundColor(field.getPair().getForegroundColor());
+        gf.setBackGroundColor(field.getPair().getBackgroundColor());
     }
 
 
@@ -140,7 +146,7 @@ public class GuiView implements View {
      *
      * @param diceCup the cup of dices
      * @param players the players in the game
-     * @param fields the fields in the game
+     * @param fields  the fields in the game
      */
     @Override
     public void update(DiceCup diceCup, Player[] players, Field[] fields) {
@@ -182,8 +188,8 @@ public class GuiView implements View {
     }
 
     @Override
-    public int promptPlayerCount(int min,int max) {
+    public int promptPlayerCount(int min, int max) {
         //TODO add min max players again
-        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"),min,max);
+        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"), min, max);
     }
 }

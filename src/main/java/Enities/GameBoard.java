@@ -19,9 +19,7 @@ import java.util.List;
  */
 public class GameBoard {
 
-
     private final DiceCup diceCup = new DiceCup();
-    private final HashMap<Color, int[]> pairs = new HashMap<>();
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
     private final LanguageController languageController;
@@ -29,32 +27,8 @@ public class GameBoard {
     private Player[] players;
     private int playerTurn;
 
-    public ActualChanceCard getAcc() {
-        return acc;
-    }
-
     private ActualChanceCard acc;
     private ActualFields actualFields;
-
-    public HashMap<Player, List<RentableField>> getOwnershipMap() {
-        return ownershipMap;
-    }
-
-    public ActualFields getActualFields() {
-        return actualFields;
-    }
-
-    public void setActualFields(ActualFields actualFields) {
-        this.actualFields = actualFields;
-    }
-
-    public void setAcc(ActualChanceCard acc) {
-        this.acc = acc;
-    }
-
-    public LanguageController getLanguageController() {
-        return languageController;
-    }
 
     /**
      * Instantiates a new Game board.
@@ -86,25 +60,24 @@ public class GameBoard {
         }
         temp.toArray(fields);
         List<FieldPair> fieldPairs = new ArrayList<>();
-        fieldPairs.add(new FieldPair(Color.BLUE, new int[]{1, 3}));
+        fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{1, 3}));
         fieldPairs.add(new FieldPair(Color.ORANGE, new int[]{6, 8, 9}));
         fieldPairs.add(new FieldPair(Color.YELLOW, new int[]{11, 13, 14}));
         fieldPairs.add(new FieldPair(Color.GRAY, new int[]{16, 18, 19}));
-        fieldPairs.add(new FieldPair(Color.RED, new int[]{21, 23, 24}));
+        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{21, 23, 24}));
         fieldPairs.add(new FieldPair(Color.WHITE, new int[]{26, 27, 29}));
         fieldPairs.add(new FieldPair(Color.YELLOW, new int[]{31, 32, 34}));
         fieldPairs.add(new FieldPair(Color.MAGENTA, new int[]{37, 39}));
         fieldPairs.add(new FieldPair(Color.BLACK, Color.GREEN, new int[]{2, 7, 17, 22, 33, 36}));
         fieldPairs.add(new FieldPair(Color.LIGHT_GRAY, new int[]{4, 38}));
-        fieldPairs.add(new FieldPair(Color.BLUE, new int[]{5, 15, 25, 35}));
+        fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{5, 15, 25, 35}));
         fieldPairs.add(new FieldPair(Color.GRAY, new int[]{20}));
         fieldPairs.add(new FieldPair(Color.BLACK, new int[]{10}));
         fieldPairs.add(new FieldPair(Color.WHITE, Color.BLACK, new int[]{30}));
-        fieldPairs.add(new FieldPair(Color.RED, new int[]{28, 12}));
-        fieldPairs.add(new FieldPair(Color.RED, new int[]{0}));
+        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{28, 12}));
+        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{0}));
         int i = 0;
-        for (FieldPair f :
-                fieldPairs) {
+        for (FieldPair f : fieldPairs) {
             for (int id : f.getFieldIds()) {
                 Field field = fields[id];
                 field.setPair(fieldPairs.get(i));
@@ -113,6 +86,31 @@ public class GameBoard {
         }
         this.deck = new Deck();
     }
+
+    public ActualChanceCard getAcc() {
+        return acc;
+    }
+
+    public HashMap<Player, List<RentableField>> getOwnershipMap() {
+        return ownershipMap;
+    }
+
+    public ActualFields getActualFields() {
+        return actualFields;
+    }
+
+    public void setActualFields(ActualFields actualFields) {
+        this.actualFields = actualFields;
+    }
+
+    public void setAcc(ActualChanceCard acc) {
+        this.acc = acc;
+    }
+
+    public LanguageController getLanguageController() {
+        return languageController;
+    }
+
 
     /**
      * Gets field.
