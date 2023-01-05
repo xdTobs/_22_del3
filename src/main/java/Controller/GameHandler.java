@@ -97,6 +97,7 @@ public class GameHandler {
             // Checks if player gets an extra turn
             int[] extraTurn = gameBoard.getDiceCup().getArray();
             if (extraTurn[0] == extraTurn[1]) {
+                view.showMessage(currentPlayer.getName() + language.languageMap.get("extraTurn"));
                 playTurn(currentPlayer);
             }
 
