@@ -46,13 +46,14 @@ public class GameHandler {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 playTurn(currentPlayer);
                 gameBoard.nextPlayer();
+
             }
         }
     }
 
     public void resetPlayerPositions() {
         gameBoard.resetPlayerPositions();
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+        view.updatePlayerLocations(gameBoard.getPlayers());
     }
 
 
@@ -75,7 +76,8 @@ public class GameHandler {
         view.updatePlayerLocations(gameBoard.getPlayers());
         view.updateDie(gameBoard.getDiceCup());
         gameBoard.fieldAction(currentPlayer);
-        view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+        //gameBoard.isPlayerBankrupt();
+        view.update( gameBoard.getPlayers(), gameBoard.getFields());
 
         if (hasPassedStart) {
             view.showMessage(gameBoard.getMessage("passedStartMsg"));

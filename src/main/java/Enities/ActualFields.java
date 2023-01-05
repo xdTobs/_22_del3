@@ -166,7 +166,7 @@ public class ActualFields implements FieldAction {
 
         if (houseOwner != null) {
             int ferrysOwned = ferryPlayerOwns(ferry);
-            int rent = ferry.getRent(ferrysOwned - 1);
+            int rent = ferry.getRent(ferrysOwned);
             houseOwner.addBalance(rent);
             gameBoard.getCurrentPlayer().addBalance(-rent);
         }

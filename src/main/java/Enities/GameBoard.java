@@ -228,16 +228,7 @@ public class GameBoard {
      */
 
     public boolean isGameover() {
-        int alivePlayers = players.length;
-        for (Player player : players) {
-            if (player.getBalance() < 0) {
-                alivePlayers -= 1;
-            }
-            if (alivePlayers == 1) {
-                return true;
-            }
-        }
-        return false;
+        return players.length==1;
     }
 
     public String findWinner() {
@@ -281,5 +272,28 @@ public class GameBoard {
 
     public String getMessage(String key) {
         return languageController.getMessage(key);
+    }
+
+    public void isPlayerBankrupt() {
+        int i=0;
+        while(i<players.length) {
+            if(players[i].getBalance()<0){
+                removePlayer(i);
+                break;
+            }
+            i++;
+        }
+    }
+
+    private void removePlayer(int i) {
+        List<Player>newPlayerArray = new ArrayList<>();
+        for (int j = 0; j < players.length; j++) {
+            if (!(i==j))
+                newPlayerArray.add(players[j]);
+            else
+                players[j].setBalance(-99999);
+        }
+        players = newPlayerArray.toArray(new Player[3]);
+        int l = players[0].getBalance();
     }
 }

@@ -52,7 +52,7 @@ public class Player {
 
     public void setPosition(int position) {
         this.position = position;
-        assert position >= 0 && position <= 23;
+        assert position >= 0 && position <= 39;
     }
 
     public int getGetOutOfJailCards() {

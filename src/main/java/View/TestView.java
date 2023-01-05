@@ -30,7 +30,7 @@ public class TestView implements View {
     }
 
     @Override
-    public void update(DiceCup diceCup, Player[] players, Field[] fields) {
+    public void update(Player[] players, Field[] fields) {
 
     }
 

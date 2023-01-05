@@ -15,7 +15,7 @@ public interface View {
 
     void showMessage(String string);
 
-    void update(DiceCup diceCup, Player[] players, Field[] fields);
+    void update(Player[] players, Field[] fields);
 
     void updateHouses(Field[] fields);
 
