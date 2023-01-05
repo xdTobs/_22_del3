@@ -62,15 +62,27 @@ public class Player {
     public void addGetOutOfJailCard() {
         setGetOutOfJailCards(getGetOutOfJailCards() + 1);
     }
+
     public void removeGetOutOfJailCard() {
         setGetOutOfJailCards(getGetOutOfJailCards() + 1);
     }
+
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
     }
-    public void addToJailedCounter() { jailedCounter++; }
-    public int getJailedCounter() { return jailedCounter; }
-    public void setJailedCounter(int jailedCounter) { this.jailedCounter = jailedCounter; }
+
+    public void addToJailedCounter() {
+        jailedCounter++;
+    }
+
+    public int getJailedCounter() {
+        return jailedCounter;
+    }
+
+    public void setJailedCounter(int jailedCounter) {
+        this.jailedCounter = jailedCounter;
+    }
+
     public String getName() {
         return name;
     }
@@ -81,8 +93,13 @@ public class Player {
         //TODO implement
 
     }
-    public int getHotels(){
+
+    public int getHotels() {
         return 0;
         //TODO implement
+    }
+
+    public double totalValue() {
+        return 2.0;
     }
 }

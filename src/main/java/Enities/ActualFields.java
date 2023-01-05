@@ -10,7 +10,6 @@ public class ActualFields implements FieldAction {
     View view;
 
 
-
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
         this.view = view;
@@ -23,7 +22,7 @@ public class ActualFields implements FieldAction {
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
         if (street.getOwner().equals("Bank")) {
-           //TODO Prompt player here, need to get a reference to LanguageHandler.
+            //TODO Prompt player here, need to get a reference to LanguageHandler.
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
@@ -54,8 +53,8 @@ public class ActualFields implements FieldAction {
 
         assert houseOwner != null;
 
-        if(street.getHouses() == 0 &&streetPlayerOwnsPair(street)){
-            rent*=2;
+        if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
+            rent *= 2;
         }
 
         houseOwner.addBalance(rent);
@@ -66,9 +65,9 @@ public class ActualFields implements FieldAction {
     @Override
     public boolean streetPlayerOwnsPair(Street street) {
         boolean playerOwnsPair = true;
-        for (int i : street.getPairIndexes()){
+        for (int i : street.getPairIndexes()) {
             Street pairStreet = (Street) gameBoard.getFields()[i];
-            if (!pairStreet.getOwner().equals(street.getOwner())){
+            if (!pairStreet.getOwner().equals(street.getOwner())) {
                 playerOwnsPair = false;
             }
         }
@@ -79,14 +78,15 @@ public class ActualFields implements FieldAction {
     public void taxAction(Tax tax) {
 
         //TODO prompt player for price or percent price
-        if(tax.getPercentPrice()>0 && payPercentPrompt()){
+        if (tax.getPercentPrice() > 0 && payPercentPrompt()) {
             //TODO need player wealth to implement this
-            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.getCurrentPlayer().totalValue()*0.1));
+            gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.getCurrentPlayer().totalValue() * 0.1));
             return;
         }
         gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
     }
-    private boolean payPercentPrompt(){
+
+    private boolean payPercentPrompt() {
         //TODO player prompt here
         return false;
     }
@@ -123,16 +123,16 @@ public class ActualFields implements FieldAction {
         }
 
         assert houseOwner != null;
-        int rent = ferry.getRent(ferrysOwned-1);
+        int rent = ferry.getRent(ferrysOwned - 1);
         houseOwner.addBalance(rent);
         gameBoard.getCurrentPlayer().addBalance(-rent);
     }
 
-    public int ferryPlayerOwns(Ferry ferry){
-        int count=0;
-        for (int i : ferry.getPairIndexes()){
-            Ferry ferryCounter = (Ferry)gameBoard.getFields()[i];
-            if(ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
+    public int ferryPlayerOwns(Ferry ferry) {
+        int count = 0;
+        for (int i : ferry.getPairIndexes()) {
+            Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
+            if (ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
                 count++;
         }
         return count;
@@ -158,7 +158,8 @@ public class ActualFields implements FieldAction {
         }
         return boughtField;
     }
-    public void breweryPayRent(Brewery brewery){
+
+    public void breweryPayRent(Brewery brewery) {
         int diceSum = gameBoard.getDiceCup().getSum();
         Player[] players = gameBoard.getPlayers();
         String houseOwnerName = brewery.getOwner();
@@ -171,8 +172,8 @@ public class ActualFields implements FieldAction {
 
         assert houseOwner != null;
         int rent = brewery.getRent(brewery.getHouses());
-        houseOwner.addBalance(rent*diceSum);
-        gameBoard.getCurrentPlayer().addBalance(-rent*diceSum);
+        houseOwner.addBalance(rent * diceSum);
+        gameBoard.getCurrentPlayer().addBalance(-rent * diceSum);
     }
 
 }
