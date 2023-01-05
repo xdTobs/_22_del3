@@ -22,3 +22,4 @@ no:No
 extraTurn: you rolled double, you get an extra turn.
 taxPrompt: You have to pay tax, you have the choice between:
 playerTotalValue: of all wealth
+passedStartMsg: You passed start. You receive 4000 DKK.
