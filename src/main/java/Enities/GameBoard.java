@@ -1,8 +1,8 @@
 package Enities;
 
 import Enities.ChanceCards.Deck;
-import Enities.ChanceCards.GetOutOfJailChanceCard;
 import Enities.Fields.*;
+import Language.LanguageController;
 
 import java.awt.*;
 import java.io.IOException;
@@ -20,10 +20,11 @@ import java.util.List;
 public class GameBoard {
 
     private final DiceCup diceCup = new DiceCup();
-    private final HashMap<Color,int[]> pairs = new HashMap<>();
+    private final HashMap<Color, int[]> pairs = new HashMap<>();
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
-    private final Deck deck;
+    private final LanguageController languageController;
+    private Deck deck;
     private Player[] players;
     private int playerTurn;
 
@@ -49,7 +50,8 @@ public class GameBoard {
     /**
      * Instantiates a new Game board.
      */
-    public GameBoard() {
+    public GameBoard(LanguageController languageController) {
+        this.languageController = languageController;
         List<Field> temp = new ArrayList<>();
         List<String> content;
         try {
@@ -74,21 +76,21 @@ public class GameBoard {
             }
         }
         temp.toArray(fields);
-        List<int[]>streetPairs = new ArrayList<>();
-        streetPairs.add(new int[]{1,3});
-        streetPairs.add(new int[]{6,8,9});
-        streetPairs.add(new int[]{11,13,14});
-        streetPairs.add(new int[]{16,18,19});
-        streetPairs.add(new int[]{21,23,24});
-        streetPairs.add(new int[]{26,27,29});
-        streetPairs.add(new int[]{31,32,34});
-        streetPairs.add(new int[]{37,39});
+        List<int[]> streetPairs = new ArrayList<>();
+        streetPairs.add(new int[]{1, 3});
+        streetPairs.add(new int[]{6, 8, 9});
+        streetPairs.add(new int[]{11, 13, 14});
+        streetPairs.add(new int[]{16, 18, 19});
+        streetPairs.add(new int[]{21, 23, 24});
+        streetPairs.add(new int[]{26, 27, 29});
+        streetPairs.add(new int[]{31, 32, 34});
+        streetPairs.add(new int[]{37, 39});
 
 
-        for (int i = 0; i < streetPairs.size(); i++) {
-            for(int j : streetPairs.get(i)){
+        for (int[] streetPair : streetPairs) {
+            for (int j : streetPair) {
                 Street street = (Street) fields[j];
-                street.setPairIndexes(streetPairs.get(i));
+                street.setPairIndexes(streetPair);
 
             }
         }
@@ -115,7 +117,7 @@ public class GameBoard {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
         Field boughtField = field.executeFieldAction(this.getActualFields());
-        if(boughtField instanceof RentableField rentableBoughtField){
+        if (boughtField instanceof RentableField rentableBoughtField) {
             ownershipMap.get(currentPlayer).add(rentableBoughtField);
         }
     }
@@ -214,8 +216,8 @@ public class GameBoard {
 
     public boolean isGameover() {
         int alivePlayers = players.length;
-        for (int i = 0; i < players.length; i++) {
-            if (players[i].getBalance() < 0) {
+        for (Player player : players) {
+            if (player.getBalance() < 0) {
                 alivePlayers -= 1;
             }
             if (alivePlayers == 1) {

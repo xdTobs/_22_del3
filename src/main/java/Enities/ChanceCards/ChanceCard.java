@@ -1,6 +1,5 @@
 package Enities.ChanceCards;
 
-import Enities.GameBoard;
 import Language.LanguageHandler;
 
 import java.io.IOException;

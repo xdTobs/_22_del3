@@ -1,3 +1,4 @@
+moveTo:Gå til
 gameWonMsg:Har vundet spillet! Tillykke.
 gameLostMsg:Har tabt spillet!
 rollDiceMsg:Det er din tur. Rol med terningerne.

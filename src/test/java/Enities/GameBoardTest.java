@@ -1,6 +1,6 @@
 package Enities;
 
-import Enities.ChanceCards.ChanceCard;
+import Language.LanguageController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameBoardTest {
 
-    GameBoard board = new GameBoard();
+    GameBoard board;
 
     @BeforeEach
     void setUp() {
-        this.board = new GameBoard();
+        GameBoard board = new GameBoard(new LanguageController("english"));
         board.createPlayers(2);
     }
 
