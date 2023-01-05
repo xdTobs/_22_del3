@@ -18,3 +18,4 @@ unSuccesfulConditionChanceCard: Your values have been talliet over the requiremn
 wantToBuyPrompt: You have landed on a street, would you like to buy
 yes:Yes
 no:No
+extraTurn: you rolled double, you get an extra turn.

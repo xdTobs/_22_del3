@@ -47,7 +47,6 @@ public class GameHandler {
         gameBoard.setActualFields(new ActualFields(gameBoard,view));
     }
 
-
     public void playGame() {
         // Moves all player to the start position.
         resetPlayerPositions();
@@ -56,6 +55,7 @@ public class GameHandler {
                 view.showMessage(gameBoard.findLoser() + language.languageMap.get("gameLostMsg"));
                 view.showMessage(gameBoard.findWinner() + language.languageMap.get("gameWonMsg"));
                 break;
+
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 playTurn(currentPlayer);
@@ -81,21 +81,32 @@ public class GameHandler {
                 currentPlayer.setJailedCounter(0);
             }
             view.showMessage(currentPlayer.getName() + language.languageMap.get("leaveJailMsg"));
+
         } else {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
             view.showMessage(currentPlayer.getName() + " " + language.languageMap.get("rollDiceMsg"));
             if (hasPassedStart) {
                 view.showMessage(language.languageMap.get("passedStartMsg"));
             }
+
             view.updatePlayerLocations(gameBoard.getPlayers());
             view.updateDie(gameBoard.getDiceCup());
-
-
             gameBoard.fieldAction(currentPlayer);
             view.update(gameBoard.getDiceCup(), gameBoard.getPlayers(), gameBoard.getFields());
+
+            // Checks if player gets an extra turn
+            int[] extraTurn = gameBoard.getDiceCup().getArray();
+            if (extraTurn[0] == extraTurn[1]) {
+                view.showMessage(currentPlayer.getName() + language.languageMap.get("extraTurn"));
+                playTurn(currentPlayer);
+            }
+
         }
 
     }
 
+
 }
+
+
 

@@ -1,6 +1,5 @@
 package Enities.ChanceCards;
 
-import Enities.Fields.Field;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,11 +7,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Deck {
-    private ArrayList<ChanceCard> cards = new ArrayList<>();
+    private ArrayList<ChanceCard> cards;
     //reads numbers from string
     public Integer[] numberReader(String s){
         StringBuilder numberBuilder = new StringBuilder();
@@ -79,7 +76,7 @@ public class Deck {
         int[] indexes = new int[]{0,0,0,0,0,0,0,0};
         for (int i = 33; i < 41; i++) {
 
-            //TODO find the right indexes from line 49-56 in LanguageEnglish
+            //TODO find the right indexes from line 49-56 in englishFnVarNames.txt
             cards.add(new MoveToFieldChanceCard(indexes[i-33],content.get(i)));
         }
         for (int i = 41; i < 42; i++) {

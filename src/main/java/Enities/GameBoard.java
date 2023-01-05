@@ -1,8 +1,8 @@
 package Enities;
 
 import Enities.ChanceCards.Deck;
-import Enities.ChanceCards.GetOutOfJailChanceCard;
 import Enities.Fields.*;
+import Language.LanguageController;
 
 import java.awt.*;
 import java.io.IOException;
@@ -20,10 +20,11 @@ import java.util.List;
 public class GameBoard {
 
     private final DiceCup diceCup = new DiceCup();
-    private final HashMap<Color,int[]> pairs = new HashMap<>();
+    private final HashMap<Color, int[]> pairs = new HashMap<>();
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
-    private final Deck deck;
+    private final LanguageController languageController;
+    private Deck deck;
     private Player[] players;
     private int playerTurn;
 
@@ -49,7 +50,8 @@ public class GameBoard {
     /**
      * Instantiates a new Game board.
      */
-    public GameBoard() {
+    public GameBoard(LanguageController languageController) {
+        this.languageController = languageController;
         List<Field> temp = new ArrayList<>();
         List<String> content;
         try {
@@ -123,7 +125,7 @@ public class GameBoard {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
         Field boughtField = field.executeFieldAction(this.getActualFields());
-        if(boughtField instanceof RentableField rentableBoughtField){
+        if (boughtField instanceof RentableField rentableBoughtField) {
             ownershipMap.get(currentPlayer).add(rentableBoughtField);
         }
     }
@@ -222,8 +224,8 @@ public class GameBoard {
 
     public boolean isGameover() {
         int alivePlayers = players.length;
-        for (int i = 0; i < players.length; i++) {
-            if (players[i].getBalance() < 0) {
+        for (Player player : players) {
+            if (player.getBalance() < 0) {
                 alivePlayers -= 1;
             }
             if (alivePlayers == 1) {
@@ -232,7 +234,6 @@ public class GameBoard {
         }
         return false;
     }
-
 
     public String findWinner() {
         String winner = players[0].getName();
@@ -264,8 +265,8 @@ public class GameBoard {
             players[j] = new Player("Player" + Math.addExact(j, 1));
         }
         setPlayers(players);
-        for (Player p : players){
-            ownershipMap.put(p,new ArrayList<>());
+        for (Player p : players) {
+            ownershipMap.put(p, new ArrayList<>());
         }
     }
 

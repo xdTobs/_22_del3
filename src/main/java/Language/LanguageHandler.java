@@ -14,7 +14,7 @@ public class LanguageHandler {
 
     public LanguageHandler() throws IOException {
 
-        List<String> content = Files.readAllLines(Path.of("src/main/java/Language/LanguageEnglish"));
+        List<String> content = Files.readAllLines(Path.of("src/main/java/Language/englishFnVarNames.txt"));
         for (String s : content){
             String[]keyValue = s.split(":",2);
             if(keyValue.length>1)
@@ -22,8 +22,4 @@ public class LanguageHandler {
         }
     }
 
-
-    public static String getFieldName(int i) {
-        return fieldNames[i];
-    }
 }
