@@ -1,6 +1,5 @@
 import Controller.GameHandler;
 import Enities.GameBoard;
-import Language.LanguageController;
 import View.*;
 
 
@@ -11,7 +10,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        GameBoard gameBoard = new GameBoard(new LanguageController("english"));
+        GameBoard gameBoard = new GameBoard();
         View view = new GuiView(gameBoard.getFields());
 
         GameHandler game = new GameHandler(view, gameBoard);

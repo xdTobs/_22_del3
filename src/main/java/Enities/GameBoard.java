@@ -21,42 +21,28 @@ import java.util.List;
 public class GameBoard {
 
 
-    private final DiceCup diceCup = new DiceCup();
-    private final HashMap<Color, int[]> pairs = new HashMap<>();
+    private final DiceCup diceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private final Field[] fields = new Field[40];
     private final LanguageController languageController;
     private Deck deck;
     private Player[] players;
     private int playerTurn;
-
-    public ActualChanceCard getAcc() {
-        return acc;
-    }
-
     private ActualChanceCard acc;
     private ActualFields actualFields;
-
-    public HashMap<Player, List<RentableField>> getOwnershipMap() {
-        return ownershipMap;
-    }
-
-    public ActualFields getActualFields() {
-        return actualFields;
-    }
-
-    public void setActualFields(ActualFields actualFields) {
-        this.actualFields = actualFields;
-    }
-
-    public void setAcc(ActualChanceCard acc) {
-        this.acc = acc;
-    }
 
     /**
      * Instantiates a new Game board.
      */
-    public GameBoard(LanguageController languageController) {
+    public GameBoard() {
+        this(new LanguageController("english"), new DiceCup());
+    }
+
+
+    public GameBoard(LanguageController languageController, DiceCup diceCup) {
+        this.deck = new Deck();
+        this.diceCup = diceCup;
+
         this.languageController = languageController;
         List<Field> temp = new ArrayList<>();
         List<String> content;
@@ -81,34 +67,68 @@ public class GameBoard {
                 case ("ferry") -> temp.add(new Ferry(s));
             }
         }
+
         temp.toArray(fields);
+        // TODO
+        //  we need to figure out some way to make simpler tests.
+        //  Can we find a way to make the board only 5 square and then test jail on that board?
+        //  Can we do that without changing current code to much?
+        // We only make fieldPairs if it is the size of the original matador board.
+        // We do this so we can run tests with other board sizes.
+        if (temp.size() == 40) {
+            initFieldPairs();
+        }
+
+    }
+
+    private void initFieldPairs() {
         List<FieldPair> fieldPairs = new ArrayList<>();
-        fieldPairs.add(new FieldPair(Color.BLUE, new int[]{1, 3}));
+        fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{1, 3}));
         fieldPairs.add(new FieldPair(Color.ORANGE, new int[]{6, 8, 9}));
         fieldPairs.add(new FieldPair(Color.YELLOW, new int[]{11, 13, 14}));
-        fieldPairs.add(new FieldPair(Color.GRAY, new int[]{16, 18, 19}));
-        fieldPairs.add(new FieldPair(Color.RED, new int[]{21, 23, 24}));
+        fieldPairs.add(new FieldPair(Color.GRAY, Color.WHITE, new int[]{16, 18, 19}));
+        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{21, 23, 24}));
         fieldPairs.add(new FieldPair(Color.WHITE, new int[]{26, 27, 29}));
         fieldPairs.add(new FieldPair(Color.YELLOW, new int[]{31, 32, 34}));
         fieldPairs.add(new FieldPair(Color.MAGENTA, new int[]{37, 39}));
         fieldPairs.add(new FieldPair(Color.BLACK, Color.GREEN, new int[]{2, 7, 17, 22, 33, 36}));
         fieldPairs.add(new FieldPair(Color.LIGHT_GRAY, new int[]{4, 38}));
-        fieldPairs.add(new FieldPair(Color.BLUE, new int[]{5, 15, 25, 35}));
-        fieldPairs.add(new FieldPair(Color.GRAY, new int[]{20}));
+        fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{5, 15, 25, 35}));
+        fieldPairs.add(new FieldPair(Color.GRAY, Color.WHITE, new int[]{20}));
         fieldPairs.add(new FieldPair(Color.BLACK, new int[]{10}));
         fieldPairs.add(new FieldPair(Color.WHITE, Color.BLACK, new int[]{30}));
-        fieldPairs.add(new FieldPair(Color.RED, new int[]{28, 12}));
-        fieldPairs.add(new FieldPair(Color.RED, new int[]{0}));
+        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{28, 12}));
+        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{0}));
+
         int i = 0;
-        for (FieldPair f :
-                fieldPairs) {
+        for (FieldPair f : fieldPairs) {
             for (int id : f.getFieldIds()) {
                 Field field = fields[id];
                 field.setPair(fieldPairs.get(i));
             }
             i++;
         }
-        this.deck = new Deck();
+    }
+
+
+    public ActualChanceCard getAcc() {
+        return acc;
+    }
+
+    public void setAcc(ActualChanceCard acc) {
+        this.acc = acc;
+    }
+
+    public HashMap<Player, List<RentableField>> getOwnershipMap() {
+        return ownershipMap;
+    }
+
+    public ActualFields getActualFields() {
+        return actualFields;
+    }
+
+    public void setActualFields(ActualFields actualFields) {
+        this.actualFields = actualFields;
     }
 
     /**
@@ -229,7 +249,7 @@ public class GameBoard {
      */
 
     public boolean isGameover() {
-        return players.length==1;
+        return players.length == 1;
     }
 
     public String findWinner() {
@@ -276,9 +296,9 @@ public class GameBoard {
     }
 
     public void isPlayerBankrupt() {
-        int i=0;
-        while(i<players.length) {
-            if(players[i].getBalance()<0){
+        int i = 0;
+        while (i < players.length) {
+            if (players[i].getBalance() < 0) {
                 removePlayer(i);
                 break;
             }
@@ -287,12 +307,10 @@ public class GameBoard {
     }
 
     private void removePlayer(int i) {
-        List<Player>newPlayerArray = new ArrayList<>();
+        List<Player> newPlayerArray = new ArrayList<>();
         for (int j = 0; j < players.length; j++) {
-            if (!(i==j))
-                newPlayerArray.add(players[j]);
-            else
-                players[j].setBalance(-99999);
+            if (!(i == j)) newPlayerArray.add(players[j]);
+            else players[j].setBalance(-99999);
         }
         players = newPlayerArray.toArray(new Player[3]);
         int l = players[0].getBalance();

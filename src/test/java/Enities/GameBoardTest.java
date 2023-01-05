@@ -1,6 +1,5 @@
 package Enities;
 
-import Language.LanguageController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ class GameBoardTest {
 
     @BeforeEach
     void setUp() {
-        GameBoard board = new GameBoard(new LanguageController("english"));
+        GameBoard board = new GameBoard();
         board.createPlayers(2);
     }
 

@@ -2,7 +2,6 @@ package Enities.ChanceCards;
 
 import Enities.ActualChanceCard;
 import Enities.GameBoard;
-import Language.LanguageController;
 import View.TestView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ public class ChanceCardTest {
 
     @BeforeEach
     void setUp() {
-        testBoard = new GameBoard(new LanguageController("english"));
+        testBoard = new GameBoard();
         testBoard.createPlayers(4);
         deck = new Deck();
         acc = new ActualChanceCard(testBoard, new TestView());
