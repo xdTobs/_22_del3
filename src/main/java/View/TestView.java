@@ -45,7 +45,7 @@ public class TestView implements View {
     }
 
     @Override
-    public int promptPlayerCount(int min,int max) {
-        return 3;
+    public int promptPlayerCount(String msg, int min, int max) {
+        return 0;
     }
 }

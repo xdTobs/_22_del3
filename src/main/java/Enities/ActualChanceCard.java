@@ -5,29 +5,22 @@ import Enities.ChanceCards.ChanceAction;
 import Enities.Fields.Brewery;
 import Enities.Fields.Ferry;
 import Enities.Fields.Field;
-import Language.LanguageHandler;
 import View.View;
 
-import java.io.IOException;
 
 public class ActualChanceCard implements ChanceAction {
     GameBoard gameBoard;
     View view;
-    LanguageHandler language;
-    public ActualChanceCard(GameBoard gameBoard,View view){
+
+    public ActualChanceCard(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
         this.view = view;
-        try {
-            this.language = new LanguageHandler();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
     public void getOutOfJail() {
-            Player currentPlayer = gameBoard.getCurrentPlayer();
-            currentPlayer.addGetOutOfJailCard();
+        Player currentPlayer = gameBoard.getCurrentPlayer();
+        currentPlayer.addGetOutOfJailCard();
     }
 
     @Override
@@ -37,17 +30,16 @@ public class ActualChanceCard implements ChanceAction {
 
     @Override
     public void changeBalConditional(int amount, int condition) {
-        if(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer())<condition){
-            view.showMessage(gameBoard.getCurrentPlayer().getName()+language.languageMap.get("succesfulConditionChanceCard")+amount+" DKK");
-        }
-        else{
-            view.showMessage(gameBoard.getCurrentPlayer().getName()+language.languageMap.get("unSuccesfulConditionChanceCard"));
+        if (gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) < condition) {
+            view.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("succesfulConditionChanceCard") + amount + " DKK");
+        } else {
+            view.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("unSuccesfulConditionChanceCard"));
         }
     }
 
     @Override
     public void changeBalFromPlayers(int amount) {
-        for (Player p : gameBoard.getPlayers()){
+        for (Player p : gameBoard.getPlayers()) {
             gameBoard.getCurrentPlayer().addBalance(amount);
             p.addBalance(-amount);
         }
@@ -61,15 +53,13 @@ public class ActualChanceCard implements ChanceAction {
 
     @Override
     public void moveSpaces(int spaces) {
-        int playerPos =gameBoard.getCurrentPlayer().getPosition();
-        if(playerPos+spaces>0&&playerPos+spaces<gameBoard.getFields().length){
-            gameBoard.getCurrentPlayer().setPosition(playerPos+spaces);
-        }
-       else if(playerPos+spaces<0){
-            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length+playerPos+spaces);
-        }
-       else{
-            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length-playerPos+spaces);
+        int playerPos = gameBoard.getCurrentPlayer().getPosition();
+        if (playerPos + spaces > 0 && playerPos + spaces < gameBoard.getFields().length) {
+            gameBoard.getCurrentPlayer().setPosition(playerPos + spaces);
+        } else if (playerPos + spaces < 0) {
+            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length + playerPos + spaces);
+        } else {
+            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
         }
     }
 
@@ -77,11 +67,11 @@ public class ActualChanceCard implements ChanceAction {
     public void moveToFerry() {
         Field[] fields = gameBoard.getFields();
         int pos = gameBoard.getCurrentPlayer().getPosition();
-       while(!(fields[pos] instanceof Ferry)){
-           pos++;
-           if(pos==40) pos=0;
-       }
-       gameBoard.getCurrentPlayer().setPosition(pos);
+        while (!(fields[pos] instanceof Ferry)) {
+            pos++;
+            if (pos == 40) pos = 0;
+        }
+        gameBoard.getCurrentPlayer().setPosition(pos);
     }
 
     @Override
@@ -90,7 +80,7 @@ public class ActualChanceCard implements ChanceAction {
         int houses = gameBoard.getCurrentPlayer().getHouses();
         int hotels = gameBoard.getCurrentPlayer().getHotels();
 
-        gameBoard.getCurrentPlayer().addBalance(-((houses*perHouse)+(hotels*perHotel)));
+        gameBoard.getCurrentPlayer().addBalance(-((houses * perHouse) + (hotels * perHotel)));
     }
 
     @Override
@@ -104,9 +94,9 @@ public class ActualChanceCard implements ChanceAction {
     public void moveToBrewery() {
         Field[] fields = gameBoard.getFields();
         int pos = gameBoard.getCurrentPlayer().getPosition();
-        while(!(fields[pos] instanceof Brewery)){
+        while (!(fields[pos] instanceof Brewery)) {
             pos++;
-            if(pos==40) pos=0;
+            if (pos == 40) pos = 0;
         }
         gameBoard.getCurrentPlayer().setPosition(pos);
     }

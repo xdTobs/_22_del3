@@ -3,24 +3,12 @@ package View;
 import Enities.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
-import Language.LanguageHandler;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class GuiView implements View {
-
-    LanguageHandler language;
-
-    {
-        try {
-            language = new LanguageHandler();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
@@ -37,59 +25,53 @@ public class GuiView implements View {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start start) {
                 guiFields[i] = new GUI_Start();
-                setGuiFieldData(guiFields[i], start);
+                guiFields[i].setTitle(start.getName());
+                guiFields[i].setBackGroundColor(start.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Street street) {
                 guiFields[i] = new GUI_Street();
-                setGuiFieldData(guiFields[i], street);
+                guiFields[i].setTitle(street.getName());
+                guiFields[i].setBackGroundColor(street.getPair().getBackgroundColor());
                 guiFields[i].setSubText(street.getPrice() + "");
             }
-            if (fields[i] instanceof ChanceField chanceField) {
+            if (fields[i] instanceof ChanceField cf) {
                 guiFields[i] = new GUI_Chance();
-                setGuiFieldData(guiFields[i], chanceField);
+                guiFields[i].setBackGroundColor(cf.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Jail jail) {
                 guiFields[i] = new GUI_Jail();
-                setGuiFieldData(guiFields[i], jail);
+                guiFields[i].setBackGroundColor(jail.getPair().getBackgroundColor());
+
             }
             if (fields[i] instanceof Parking parking) {
                 guiFields[i] = new GUI_Refuge();
-                setGuiFieldData(guiFields[i], parking);
+                guiFields[i].setBackGroundColor(parking.getPair().getBackgroundColor());
+
             }
             if (fields[i] instanceof GoToJail goToJail) {
                 guiFields[i] = new GUI_Jail();
-                setGuiFieldData(guiFields[i], goToJail);
+                guiFields[i].setBackGroundColor(goToJail.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Ferry ferry) {
                 guiFields[i] = new GUI_Shipping();
-                setGuiFieldData(guiFields[i], ferry);
+                guiFields[i].setTitle(ferry.getName());
                 guiFields[i].setSubText(ferry.getPrice() + "");
+                guiFields[i].setBackGroundColor(ferry.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Tax tax) {
                 guiFields[i] = new GUI_Tax();
-                setGuiFieldData(guiFields[i], tax);
+                guiFields[i].setTitle(tax.getName());
+                guiFields[i].setBackGroundColor(tax.getPair().getBackgroundColor());
             }
             if (fields[i] instanceof Brewery brewery) {
                 guiFields[i] = new GUI_Brewery();
-                setGuiFieldData(guiFields[i], brewery);
+                guiFields[i].setTitle(brewery.getName());
+                guiFields[i].setSubText(brewery.getPrice() + "");
+                guiFields[i].setBackGroundColor(brewery.getPair().getBackgroundColor());
             }
 
         }
         this.gui = new GUI(guiFields);
-    }
-
-    private void setGuiFieldData(GUI_Field gf, Field field) {
-        setTitle(gf, field);
-        setColors(gf, field);
-    }
-
-    private void setTitle(GUI_Field gf, Field field) {
-        gf.setTitle(field.getName());
-    }
-
-    private void setColors(GUI_Field gf, Field field) {
-        gf.setForeGroundColor(field.getPair().getForegroundColor());
-        gf.setBackGroundColor(field.getPair().getBackgroundColor());
     }
 
 
@@ -188,8 +170,7 @@ public class GuiView implements View {
     }
 
     @Override
-    public int promptPlayerCount(int min, int max) {
-        //TODO add min max players again
-        return this.gui.getUserInteger(language.languageMap.get("playerCountMsg"), min, max);
+    public int promptPlayerCount(String msg, int min, int max) {
+        return this.gui.getUserInteger(msg, min, max);
     }
 }
