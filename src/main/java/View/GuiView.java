@@ -167,7 +167,8 @@ public class GuiView implements View {
     }
 
     @Override
-    public String promptPlayer(String[] choices, String message) {
+    public String promptPlayer(String[] choices, String playerName) {
+        String message = playerName + " " + language.languageMap.get("chanceCardMsg")+ " " + language.languageMap.get("onPickFieldChance");
         return this.gui.getUserSelection(message, choices);
     }
 

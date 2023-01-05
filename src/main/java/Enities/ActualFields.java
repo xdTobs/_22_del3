@@ -2,7 +2,6 @@ package Enities;
 
 import Enities.ChanceCards.ChanceCard;
 import Enities.Fields.*;
-import Language.LanguageController;
 import Language.LanguageHandler;
 import View.View;
 
@@ -21,14 +20,11 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field streetAction(Street street) {
-        LanguageController lc = gameBoard.getLanguageController();
-
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
         if (street.getOwner().equals("Bank")) {
-           String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},lc.getMessage("wantToBuyPrompt"));
-           if(yesOrNo.equals(lc.getMessage("yes")))
-                boughtField = buyEmptyStreet(street);
+           //TODO Prompt player here, need to get a reference to LanguageHandler.
+            boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
         }
@@ -105,12 +101,10 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field ferryAction(Ferry ferry) {
-        LanguageController lc = gameBoard.getLanguageController();
         Field boughtField = null;
         if (ferry.getOwner().equals("Bank")) {
-            String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},lc.getMessage("wantToBuyPrompt"));
-            if(yesOrNo.equals(lc.getMessage("yes")))
-                boughtField = buyEmptyStreet(ferry);
+            //TODO Prompt player here, need to get a reference to LanguageHandler.
+            boughtField = buyEmptyStreet(ferry);
         } else {
             ferryPayRent(ferry);
         }
@@ -155,12 +149,10 @@ public class ActualFields implements FieldAction {
 
     @Override
     public Field breweryAction(Brewery brewery) {
-        LanguageController lc = gameBoard.getLanguageController();
         Field boughtField = null;
         if (brewery.getOwner().equals("Bank")) {
-            String yesOrNo = view.promptPlayer(new String[]{lc.getMessage("yes"),lc.getMessage("no")},lc.getMessage("wantToBuyPrompt"));
-            if(yesOrNo.equals(lc.getMessage("yes")))
-                boughtField = buyEmptyStreet(brewery);
+            //TODO Prompt player here, need to get a reference to LanguageHandler.
+            boughtField = buyEmptyStreet(brewery);
         } else {
             breweryPayRent(brewery);
         }
