@@ -303,6 +303,8 @@ public class GameBoard {
     }
 
 
+    // These methods should not be static, just did it so I can test in main method.
+    // Everything looks ugly because we always use arraylists but our fields are usually arrays.
     public static Player[] removeBankruptPlayers(Player[] players) {
         var list = Arrays.asList(players);
         List<Player> p = list.stream().filter(player -> !player.isBankrupt()).toList();
