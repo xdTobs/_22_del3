@@ -144,6 +144,14 @@ public class ActualFields implements FieldAction {
     }
 
     @Override
+    public void jailAction(Jail jail){
+        Player currentPlayer = gameBoard.getCurrentPlayer();
+        currentPlayer.setJailed(true);
+        return;
+    }
+
+
+    @Override
     public Field ferryAction(Ferry ferry) {
         Field boughtField = null;
         if (ferry.getOwner().equals("Bank") && wantToBuyPrompt(ferry)) {

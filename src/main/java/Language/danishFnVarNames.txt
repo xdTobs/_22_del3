@@ -10,3 +10,4 @@ playerName4:Spiller 4
 playerName3:Spiller 3
 playerName2:Spiller 2
 playerName1:Spiller 1
+wantToBailOut: Vil du betale 1000 DKK for at komme ud af fængsel?

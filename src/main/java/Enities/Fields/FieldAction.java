@@ -9,6 +9,8 @@ public interface FieldAction {
     void taxAction(Tax tax);
     void goToJailAction(GoToJail goToJail);
 
+    void jailAction(Jail jail);
+
     Field ferryAction(Ferry ferry);
 
     void chanceFieldAction(ChanceField chanceField);

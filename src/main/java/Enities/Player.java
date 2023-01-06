@@ -64,7 +64,7 @@ public class Player {
     }
 
     public void removeGetOutOfJailCard() {
-        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+        setGetOutOfJailCards(getGetOutOfJailCards() - 1);
     }
 
     public void setGetOutOfJailCards(int getOutOfJailCards) {

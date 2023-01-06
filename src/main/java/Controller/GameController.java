@@ -57,37 +57,42 @@ public class GameController {
 
     public void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
-
         if (currentPlayer.isJailed()) {
-            // gameBoard.payFine(currentPlayer);
             currentPlayer.addToJailedCounter();
             int jailedCounter = currentPlayer.getJailedCounter();
-            if (jailedCounter == 2) {
+            if (jailedCounter == 3) {
                 currentPlayer.setJailed(false);
                 currentPlayer.setJailedCounter(0);
+            } else if (currentPlayer.getBalance() >= 1000) {
+                String[] choices = new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")};
+                String yesOrNo = view.promptPlayer(choices, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBailOut"));
+                if (yesOrNo.equals(gameBoard.getMessage("yes"))) {
+                    currentPlayer.setJailed(false);
+                    currentPlayer.setJailedCounter(0);
+                    currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
+                }
             }
             view.showMessage(currentPlayer.getName() + gameBoard.getMessage("leaveJailMsg"));
-            return;
         }
-        boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-        view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
-        view.update(gameBoard.getPlayers(), gameBoard.getFields());
-        gameBoard.fieldAction(currentPlayer);
-        //gameBoard.isPlayerBankrupt();
-        view.update(gameBoard.getPlayers(), gameBoard.getFields());
+        if (!currentPlayer.isJailed()) {
+            boolean hasPassedStart = gameBoard.rollDieMovePlayer();
+            view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
+            view.update(gameBoard.getPlayers(), gameBoard.getFields());
+            gameBoard.fieldAction(currentPlayer);
+            //gameBoard.isPlayerBankrupt();
+            view.update(gameBoard.getPlayers(), gameBoard.getFields());
 
-        if (hasPassedStart) {
-            view.showMessage(gameBoard.getMessage("passedStartMsg"));
+            if (hasPassedStart) {
+                view.showMessage(gameBoard.getMessage("passedStartMsg"));
+            }
+            // Checks if player gets an extra turn
+            // TODO Should you get extra turn if you land on goToJail?
+
+            if (gameBoard.getDiceCup().diceAreEqual()) {
+                view.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
+                playTurn(currentPlayer);
+            }
         }
-        // Checks if player gets an extra turn
-        // TODO Should you get extra turn if you land on goToJail?
-
-        if (gameBoard.getDiceCup().diceAreEqual()) {
-            view.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
-            playTurn(currentPlayer);
-        }
-
-
     }
 }
 

@@ -17,6 +17,7 @@ succesfulConditionChanceCard: Your values have been tallied under the requiremen
 unSuccesfulConditionChanceCard: Your values have been talliet over the requiremnt, you do not revieve anything.
 wantToBuyPrompt1: You have landed on
 wantToBuyPrompt2:. Would you like to buy it?
+wantToBailOut: Would you like to pay 1000 DKK to bail out of jail?
 yes:Yes
 no:No
 extraTurn: you rolled double, you get an extra turn.
