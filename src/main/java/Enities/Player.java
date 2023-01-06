@@ -103,4 +103,8 @@ public class Player {
     public double totalValue() {
         return 2.0;
     }
+
+    public boolean isBankrupt() {
+        return this.getBalance() < 0;
+    }
 }

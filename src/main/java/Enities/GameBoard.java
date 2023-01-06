@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -301,16 +302,21 @@ public class GameBoard {
         return languageController.getMessage(key);
     }
 
-    public boolean isPlayerBankrupt(Player p) {
-        return p.getBalance() < 0;
-//        int i = 0;
-//        while (i < players.length) {
-//            if (players[i].getBalance() < 0) {
-//                removePlayer(i);
-//                break;
-//            }
-//            i++;
-//        }
+
+    public static Player[] removeBankruptPlayers(Player[] players) {
+        var list = Arrays.asList(players);
+        List<Player> p = list.stream().filter(player -> !player.isBankrupt()).toList();
+        return p.toArray(new Player[p.size()]);
+    }
+
+    public static void main(String[] args) {
+        Player[] players = new Player[4];
+        for (int j = 0; j < players.length; j++) {
+            players[j] = new Player("p" + j);
+        }
+        players[0].setBalance(-10);
+        players = removeBankruptPlayers(players);
+
     }
 
 //    private void removePlayer(int i) {

@@ -79,7 +79,7 @@ public class GameController {
             view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
             gameBoard.fieldAction(currentPlayer);
-            //gameBoard.isPlayerBankrupt();
+            GameBoard.removeBankruptPlayers(gameBoard.getPlayers());
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
 
             if (hasPassedStart) {
