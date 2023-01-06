@@ -301,24 +301,25 @@ public class GameBoard {
         return languageController.getMessage(key);
     }
 
-    public void isPlayerBankrupt() {
-        int i = 0;
-        while (i < players.length) {
-            if (players[i].getBalance() < 0) {
-                removePlayer(i);
-                break;
-            }
-            i++;
-        }
+    public boolean isPlayerBankrupt(Player p) {
+        return p.getBalance() < 0;
+//        int i = 0;
+//        while (i < players.length) {
+//            if (players[i].getBalance() < 0) {
+//                removePlayer(i);
+//                break;
+//            }
+//            i++;
+//        }
     }
 
-    private void removePlayer(int i) {
-        List<Player> newPlayerArray = new ArrayList<>();
-        for (int j = 0; j < players.length; j++) {
-            if (!(i == j)) newPlayerArray.add(players[j]);
-            else players[j].setBalance(-99999);
-        }
-        players = newPlayerArray.toArray(new Player[3]);
-        int l = players[0].getBalance();
-    }
+//    private void removePlayer(int i) {
+//        List<Player> newPlayerArray = new ArrayList<>();
+//        for (int j = 0; j < players.length; j++) {
+//            if (!(i == j)) newPlayerArray.add(players[j]);
+//            else players[j].setBalance(-99999);
+//        }
+//        players = newPlayerArray.toArray(new Player[3]);
+//        int l = players[0].getBalance();
+//    }
 }
