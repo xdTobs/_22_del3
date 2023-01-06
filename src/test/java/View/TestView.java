@@ -1,5 +1,6 @@
 package View;
 
+import Controller.View;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.Field;
 import Enities.Player;
@@ -37,16 +38,7 @@ public class TestView implements View {
 
     @Override
     public void updateHouses(Field[] fields) {
-
+        System.out.println("updateHouses");
     }
 
-    @Override
-    public String promptPlayer(String[] choices, String playerName) {
-        return "No";
-    }
-
-    @Override
-    public int promptPlayerCount(String msg, int min, int max) {
-        return 2;
-    }
 }

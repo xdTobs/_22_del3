@@ -5,7 +5,7 @@ import Enities.ChanceCards.ChanceAction;
 import Enities.Fields.Brewery;
 import Enities.Fields.Ferry;
 import Enities.Fields.Field;
-import View.View;
+import Controller.View;
 
 
 public class ActualChanceCard implements ChanceAction {

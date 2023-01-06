@@ -1,9 +1,10 @@
 package Enities;
 
+import Controller.UserIO;
 import Enities.ChanceCards.ChanceCard;
 import Enities.Fields.*;
-import Language.LanguageController;
-import View.View;
+import Controller.View;
+import Language.Messages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class ActualFields implements FieldAction {
     GameBoard gameBoard;
     View view;
+    UserIO userIO;
 
     public ActualFields(GameBoard gameBoard, View view) {
         this.gameBoard = gameBoard;
@@ -19,6 +21,9 @@ public class ActualFields implements FieldAction {
     }
 
     private boolean wantToBuyPrompt(RentableField field) {
+        userIO.showMessage(Messages.yes);
+        String question = gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
+        boolean userWantsToBuyProperty = (userIO.promptChoices(question,new String[]{"yes","no"})==0);
         String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));
         return yesOrNo.equals(gameBoard.getMessage("yes"));
     }

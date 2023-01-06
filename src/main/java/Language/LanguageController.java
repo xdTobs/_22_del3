@@ -28,7 +28,9 @@ public class LanguageController {
         return this.languageMap.get(key);
 
     }
-
+    public String getMessage(Messages message) {
+        return getMessage(message.name());
+    }
     private HashMap<String, String> initLanguageHandler(Path filepath) throws IOException {
         List<String> content = Files.readAllLines(filepath);
         for (String s : content) {

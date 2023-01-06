@@ -4,7 +4,6 @@ import Enities.ActualChanceCard;
 import Enities.ActualFields;
 import Enities.GameBoard;
 import Enities.Player;
-import View.*;
 
 
 /**
@@ -13,7 +12,8 @@ import View.*;
 public class GameController {
     final private View view;
     final private GameBoard gameBoard;
-    private ActualChanceCard acc;
+    private final UserIO userIO;
+
 
     /**
      * Instantiates a new Game controller.
@@ -21,16 +21,22 @@ public class GameController {
      * @param view      the view
      * @param gameBoard the gameBoard, our model
      */
-    public GameController(View view, GameBoard gameBoard) {
+    public GameController(View view, UserIO userIO, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        int playerCount = view.promptPlayerCount(gameBoard.getMessage("playerCountMsg"), 2, 4);
+        this.userIO = userIO;
+    }
+    public static GameController setup(View view, UserIO userIO, GameBoard gameBoard){
+        GameController controller = new GameController(view,userIO,gameBoard);
+        int playerCount = userIO.promptRange(gameBoard.getMessage("playerCountMsg"), 2, 4);
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
-        acc = new ActualChanceCard(gameBoard, view);
-        gameBoard.setAcc(acc);
         gameBoard.setActualFields(new ActualFields(gameBoard, view));
+        gameBoard.setAcc(new ActualChanceCard(gameBoard,view));
+        //TODO gameBoard could do this logic
+        return controller;
     }
+
 
     public void playGame() {
         // Moves all player to the start position.
@@ -72,7 +78,7 @@ public class GameController {
                     currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 }
             }
-            view.showMessage(currentPlayer.getName() + gameBoard.getMessage("leaveJailMsg"));
+            userIO.showMessage(Message.YES);
         }
         if (!currentPlayer.isJailed()) {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();

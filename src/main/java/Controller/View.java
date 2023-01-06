@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.Field;
@@ -19,7 +19,5 @@ public interface View {
 
     void updateHouses(Field[] fields);
 
-    String promptPlayer(String[] choices, String playerName);
 
-    int promptPlayerCount(String msg, int min, int max);
 }

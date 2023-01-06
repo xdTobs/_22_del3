@@ -1,5 +1,7 @@
 package View;
 
+import Controller.UserIO;
+import Controller.View;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
@@ -8,7 +10,7 @@ import gui_main.GUI;
 
 import java.awt.*;
 
-public class GuiView implements View {
+public class GuiView implements View, UserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
@@ -155,13 +157,14 @@ public class GuiView implements View {
 
     }
 
+
     @Override
-    public String promptPlayer(String[] choices, String message) {
-        return this.gui.getUserSelection(message, choices);
+    public int promptChoices(String message, String[] choices) {
+
     }
 
     @Override
-    public int promptPlayerCount(String msg, int min, int max) {
+    public int promptRange(String msg, int min, int max) {
         return this.gui.getUserInteger(msg, min, max);
     }
 }

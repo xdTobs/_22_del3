@@ -1,4 +1,5 @@
 import Controller.GameController;
+import Controller.View;
 import Enities.GameBoard;
 import View.*;
 

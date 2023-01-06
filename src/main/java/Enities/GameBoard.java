@@ -7,6 +7,7 @@ import Language.LanguageController;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -39,10 +40,11 @@ public class GameBoard {
     }
 
     public GameBoard(LanguageController languageController, DiceCup diceCup) {
-        this(languageController, diceCup, "src/main/java/csv/fields.csv");
+        this(languageController, diceCup, GameBoard.class.getClassLoader().getResourceAsStream("fields.csv"));
     }
 
-    public GameBoard(LanguageController languageController, DiceCup diceCup, String csvPath) {
+    public GameBoard(LanguageController languageController, DiceCup diceCup, InputStream csvPath) {
+        //TODO make gameboard take List instead of input stream
         this.deck = new Deck();
         this.diceCup = diceCup;
 
@@ -50,7 +52,7 @@ public class GameBoard {
         List<Field> temp = new ArrayList<>();
         List<String> content;
         try {
-            content = Files.readAllLines(Path.of(csvPath));
+            content = Files.readAllLines(csvPath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -296,7 +298,7 @@ public class GameBoard {
     public Deck getDeck() {
         return deck;
     }
-
+// TODO Languagecontroller somewhere else
     public String getMessage(String key) {
         return languageController.getMessage(key);
     }
