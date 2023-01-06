@@ -1,0 +1,113 @@
+@startuml
+left to right direction
+class Enities.Fields.Ferry {
++ int getRent(int)
++ String getName()
++ int getPrice()
++ int getHousePrice()
++ Field executeFieldAction(FieldAction)
+}
+class Enities.Fields.Street {
+~ Color color
++ int getPrice()
++ int getHousePrice()
++ String getName()
++ int getRent(int)
++ int getHouses()
++ void setHouses(int)
++ Field executeFieldAction(FieldAction)
+}
+class Enities.Fields.Tax {
+~ int price
+~ int percentPrice
++ int getPrice()
++ void setPrice(int)
++ int getPercentPrice()
++ void setPercentPrice(int)
++ Field executeFieldAction(FieldAction)
+}
+class Enities.Fields.Start {
++ String getName()
++ Field executeFieldAction(FieldAction)
+}
+class Enities.Fields.ChanceField {
++ String getName()
++ Field executeFieldAction(FieldAction)
+}
+class Enities.Fields.Jail {
++ String getName()
++ Field executeFieldAction(FieldAction)
+}
+class Enities.Fields.Brewery {
++ int getPrice()
++ int getHousePrice()
++ Field executeFieldAction(FieldAction)
++ int getRent(int)
++ String getName()
+}
+abstract class Enities.Fields.Field {
+- int position
+- String name
+# FieldPair pair
++ FieldPair getPair()
++ int getPosition()
+# void parse(String)
++ {abstract}Field executeFieldAction(FieldAction)
++ String getName()
++ String getHTMLDescription()
++ void setPair(FieldPair)
+}
+abstract class Enities.Fields.RentableField {
+~ int price
+~ int housePrice
+~ int houses
+- int[] rent
+- String ownerName
++ int getHouses()
++ void setHouses(int)
++ int getPrice()
++ int getHousePrice()
++ void BuyProperty()
++ int getRent(int)
++ String getOwner()
++ void setOwnerName(String)
+}
+class Enities.Fields.FieldPair {
+- Color backgroundColor
+- Color foregroundColor
+- int[] fieldIds
++ int[] getFieldIds()
++ Color getBackgroundColor()
++ Color getForegroundColor()
+}
+class Enities.Fields.Parking {
++ String getName()
++ Field executeFieldAction(FieldAction)
+}
+interface Enities.Fields.FieldAction {
+~ Field streetAction(Street)
+~ void streetPayRentToOwner(Street)
+~ boolean streetPlayerOwnsPair(Street)
+~ void taxAction(Tax)
+~ void goToJailAction(GoToJail)
+~ Field ferryAction(Ferry)
+~ void chanceFieldAction(ChanceField)
+~ Field breweryAction(Brewery)
+}
+class Enities.Fields.GoToJail {
++ Field executeFieldAction(FieldAction)
+}
+
+
+Enities.Fields.RentableField <|-- Enities.Fields.Ferry
+Enities.Fields.RentableField <|-- Enities.Fields.Street
+Enities.Fields.Field <|-- Enities.Fields.Tax
+Enities.Fields.Field <|-- Enities.Fields.Start
+Enities.Fields.Field <|-- Enities.Fields.ChanceField
+Enities.Fields.Field <|-- Enities.Fields.Jail
+Enities.Fields.RentableField <|-- Enities.Fields.Brewery
+Enities.Fields.Field <|-- Enities.Fields.RentableField
+Enities.Fields.Field <|-- Enities.Fields.Parking
+Enities.Fields.Field <|-- Enities.Fields.GoToJail
+Enities.Fields.FieldAction ..>Enities.Fields.Field
+@enduml

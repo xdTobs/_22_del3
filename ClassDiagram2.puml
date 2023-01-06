@@ -1,0 +1,125 @@
+@startuml
+left to right direction
+
+interface View.View {
+~ void update(Player[],Field[])
+~ String promptPlayer(String[],String)
+}
+
+
+interface Enities.ChanceCards.ChanceAction {
+~ void getOutOfJail()
+~ void changeBal(int)
+~ void moveToField(int)
+~ void payPerProperty(int,int)
+}
+class Enities.GameBoard {
++ void fieldAction(Player)
++ boolean rollDieMovePlayer()
++ boolean isGameover()
+}
+class Enities.Player {
+
+
+
+
+
+
+
++ boolean isJailed()
++ double totalValue()
+}
+
+
+
+
+class Enities.ChanceCards.Deck {
+-ChanceCard[] cards
++ void pullCard()
+}
+
+class Enities.ActualChanceCard {
+~ GameBoard gameBoard
+~ View view
++ void getOutOfJail()
++ void changeBal(int)
++ void moveToField(int)
++ void payPerProperty(int,int)
+}
+
+abstract class Enities.Fields.Field {
+
+
+# FieldPair pair
++ FieldPair getPair()
++ int getPosition()
+# void parse(String)
++ {abstract}Field executeFieldAction(FieldAction)
++ String getName()
+}
+class Language.LanguageController {
++ String getMessage(String)
+}
+class Enities.Fields.FieldPair {
++ int[] getFieldIds()
++ Color getBackgroundColor()
+}
+abstract class Enities.DiceCup.Die {
+~ int faceValue
+~ {abstract}void roll()
+~ int getFaceValue()
+}
+
+
+class Enities.DiceCup.DiceCup {
++ int getSum()
++ boolean diceAreEqual()
++ int[] getDiceValues()
++ void roll()
+}
+class Controller.GameController {
++ void playGame()
++ void playTurn(Player)
+}
+
+
+
+class View.GuiView {
++ void update(Player[],Field[])
++ String promptPlayer(String[],String)
+}
+
+
+
+abstract class Enities.ChanceCards.ChanceCard {
+# String desc
++ {abstract}void executeCardAction(ChanceAction)
+}
+class Enities.ActualFields {
+~ GameBoard gameBoard
+~ View view
++ Field streetAction(Street)
+}
+class Main {
++ {static} void main(String[])
+}
+
+interface Enities.Fields.FieldAction {
+~ Field streetAction(Street)
+}
+
+
+
+
+
+Enities.ChanceCards.ChanceAction <|.up. Enities.ActualChanceCard
+Enities.Fields.FieldAction <|.up. Enities.ActualFields
+View.View <|.. View.GuiView
+Controller.GameController --> View.View
+Controller.GameController --> Enities.GameBoard
+Enities.GameBoard -down-->Enities.DiceCup
+Main -->Controller.GameController
+Enities.GameBoard --->Language.LanguageController
+Enities.Fields.FieldAction<..Enities.Fields.Field
+
+@enduml

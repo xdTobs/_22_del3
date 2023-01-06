@@ -1,0 +1,252 @@
+@startuml
+
+class View.TestView {
++ void addPlayersToGui(Player[])
++ void updateDie(DiceCup)
++ void updatePlayerBalances(Player[])
++ void updatePlayerLocations(Player[])
++ void showMessage(String)
++ void update(Player[],Field[])
++ void updateHouses(Field[])
++ String promptPlayer(String[],String)
++ int promptPlayerCount(String,int,int)
+}
+interface View.View {
+~ void addPlayersToGui(Player[])
+~ void updateDie(DiceCup)
+~ void updatePlayerBalances(Player[])
+~ void updatePlayerLocations(Player[])
+~ void showMessage(String)
+~ void update(Player[],Field[])
+~ void updateHouses(Field[])
+~ String promptPlayer(String[],String)
+~ int promptPlayerCount(String,int,int)
+}
+
+class Enities.DiceCup.DieSixSided {
+- int max
++ void roll()
++ int getFaceValue()
+}
+interface Enities.ChanceCards.ChanceAction {
+~ void getOutOfJail()
+~ void changeBal(int)
+~ void changeBalConditional(int,int)
+~ void changeBalFromPlayers(int)
+~ void moveToField(int)
+~ void moveSpaces(int)
+~ void moveToFerry()
+~ void payPerProperty(int,int)
+~ void goToJail()
+~ void moveToBrewery()
+~ void printDesc(String)
+}
+class Enities.GameBoard {
+- DiceCup diceCup
+- HashMap<Player,List<RentableField>> ownershipMap
+- Field[] fields
+- LanguageController languageController
+- Deck deck
+- Player[] players
+- int playerTurn
+- ActualChanceCard acc
+- ActualFields actualFields
+- void initFieldPairs()
++ void fieldAction(Player)
++ int totalPlayerValue(Player)
++ void resetPlayerPositions()
++ boolean currentPlayerIsOnChanceField()
++ boolean rollDieMovePlayer()
++ void nextPlayer()
++ boolean isGameover()
++ String findWinner()
++ String findLoser()
++ void createPlayers(int)
++ void isPlayerBankrupt()
+- void removePlayer(int)
+}
+class Enities.Player {
+- int balance
+- int position
+- boolean jailed
+- int getOutOfJailCards
+- int jailedCounter
+- int extraTurnCounter
+- String name
++ boolean isJailed()
++ double totalValue()
+}
+
+
+
+
+class Enities.ChanceCards.Deck {
+- ArrayList<ChanceCard> cards
++ Integer[] numberReader(String)
++ void shuffleCards()
++ void pullCard()
++ ChanceCard getLatestChanceCard()
++ int getSize()
++ ArrayList<ChanceCard> getCards()
+}
+
+class Enities.ActualChanceCard {
+~ GameBoard gameBoard
+~ View view
++ void getOutOfJail()
++ void changeBal(int)
++ void changeBalConditional(int,int)
++ void changeBalFromPlayers(int)
++ void moveToField(int)
++ void moveSpaces(int)
++ void moveToFerry()
++ void payPerProperty(int,int)
++ void goToJail()
++ void moveToBrewery()
++ void printDesc(String)
+}
+
+abstract class Enities.Fields.Field {
+- int position
+- String name
+# FieldPair pair
++ FieldPair getPair()
++ int getPosition()
+# void parse(String)
++ {abstract}Field executeFieldAction(FieldAction)
++ String getName()
++ String getHTMLDescription()
++ void setPair(FieldPair)
+}
+class Language.LanguageController {
+- HashMap<String,String> languageMap
++ String getMessage(String)
+- HashMap<String,String> initLanguageHandler(Path)
+}
+class Enities.Fields.FieldPair {
+- Color backgroundColor
+- Color foregroundColor
+- int[] fieldIds
++ int[] getFieldIds()
++ Color getBackgroundColor()
++ Color getForegroundColor()
+}
+abstract class Enities.DiceCup.Die {
+~ int faceValue
+~ {abstract}void roll()
+~ int getFaceValue()
++ boolean equals(Object)
+}
+abstract class Enities.Fields.RentableField {
+~ int price
+~ int housePrice
+~ int houses
+- int[] rent
+- String ownerName
++ int getHouses()
++ void setHouses(int)
++ int getPrice()
++ int getHousePrice()
++ void BuyProperty()
++ int getRent(int)
++ String getOwner()
++ void setOwnerName(String)
+}
+
+
+class Enities.DiceCup.DiceCup {
+- Die[] diceArray
++ int getSum()
++ boolean diceAreEqual()
++ int[] getDiceValues()
++ void roll()
+}
+class Controller.GameController {
+- View view
+- GameBoard gameBoard
+- ActualChanceCard acc
++ void playGame()
++ void resetPlayerPositions()
++ void playTurn(Player)
+}
+
+
+
+class View.GuiView {
+- GUI gui
+- GUI_Player[] guiPlayers
+- GUI_Field[] guiFields
++ void addPlayersToGui(Player[])
++ void updateDie(DiceCup)
++ void updatePlayerBalances(Player[])
++ void updatePlayerLocations(Player[])
++ void showMessage(String)
++ void update(Player[],Field[])
++ void updateHouses(Field[])
++ String promptPlayer(String[],String)
++ int promptPlayerCount(String,int,int)
+}
+
+
+class Enities.DiceCup.TestDie {
+~ void roll()
+}
+abstract class Enities.ChanceCards.ChanceCard {
+# String desc
++ {abstract}void executeCardAction(ChanceAction)
+}
+class Enities.ActualFields {
+~ GameBoard gameBoard
+~ View view
+- boolean wantToBuyPrompt(RentableField)
++ Field streetAction(Street)
+- void buyHouseProcess()
+- void buyHouse(Street)
+- boolean wantToBuyHouse()
++ RentableField buyEmptyStreet(RentableField)
++ void streetPayRentToOwner(Street)
++ boolean streetPlayerOwnsPair(Street)
++ void taxAction(Tax)
+- boolean payPercentPrompt(Tax)
++ void goToJailAction(GoToJail)
++ Field ferryAction(Ferry)
+- void ferryPayRent(Ferry)
++ int ferryPlayerOwns(Ferry)
++ void chanceFieldAction(ChanceField)
++ Field breweryAction(Brewery)
++ void breweryPayRent(Brewery)
+}
+class Main {
++ {static} void main(String[])
+}
+
+interface Enities.Fields.FieldAction {
+~ Field streetAction(Street)
+~ void streetPayRentToOwner(Street)
+~ boolean streetPlayerOwnsPair(Street)
+~ void taxAction(Tax)
+~ void goToJailAction(GoToJail)
+~ Field ferryAction(Ferry)
+~ void chanceFieldAction(ChanceField)
+~ Field breweryAction(Brewery)
+}
+class Enities.Fields.GoToJail {
++ Field executeFieldAction(FieldAction)
+}
+
+
+View.View <.. View.TestView
+
+
+Enities.DiceCup.Die <-- Enities.DiceCup.DieSixSided
+Enities.ChanceCards.ChanceAction <.up. Enities.ActualChanceCard
+Enities.Fields.FieldAction <.up. Enities.ActualFields
+Enities.Fields.Field <-- Enities.Fields.RentableField
+View.View <.. View.GuiView
+Enities.DiceCup.Die <-- Enities.DiceCup.TestDie
+Controller.GameController --> View.View
+Controller.GameController --> Enities.GameBoard
+Enities.GameBoard -->Enities.DiceCup
+Main -->Controller.GameController
+Enities.GameBoard -->Language.LanguageController
+@enduml
