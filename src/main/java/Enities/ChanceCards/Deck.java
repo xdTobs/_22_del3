@@ -79,7 +79,7 @@ public class Deck {
         int[] indexes = new int[]{0,0,0,0,0,0,0,0};
         for (int i = 33; i < 41; i++) {
 
-            //TODO find the right indexes from line 49-56 in englishFnVarNames.txt
+            //TODO find the right indexes from line 49-56 in englishMessages.txt
             // There is no line 49-56 in that file??? /Henrik
             cards.add(new MoveToFieldChanceCard(indexes[i-33],content.get(i)));
         }

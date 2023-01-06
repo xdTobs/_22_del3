@@ -1,4 +1,5 @@
 import Controller.GameController;
+import Controller.UserIO;
 import Controller.View;
 import Enities.GameBoard;
 import View.*;
@@ -13,8 +14,10 @@ public class Main {
 
         GameBoard gameBoard = new GameBoard();
         View view = new GuiView(gameBoard.getFields());
+        UserIO userIO = null;
 
-        GameController game = new GameController(view, gameBoard);
+        GameController game = GameController.setup(view, userIO, gameBoard);
+
         game.playGame();
 
     }

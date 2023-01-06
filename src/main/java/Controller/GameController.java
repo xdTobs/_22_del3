@@ -4,6 +4,7 @@ import Enities.ActualChanceCard;
 import Enities.ActualFields;
 import Enities.GameBoard;
 import Enities.Player;
+import com.google.inject.spi.Message;
 
 
 /**
@@ -26,13 +27,22 @@ public class GameController {
         this.gameBoard = gameBoard;
         this.userIO = userIO;
     }
-    public static GameController setup(View view, UserIO userIO, GameBoard gameBoard){
-        GameController controller = new GameController(view,userIO,gameBoard);
+
+    /**
+     * We use this to create GameController so we can easier test the GameController with custom values and setup.
+     * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
+     * @param view
+     * @param userIO
+     * @param gameBoard
+     * @return
+     */
+    public static GameController setup(View view, UserIO userIO, GameBoard gameBoard) {
+        GameController controller = new GameController(view, userIO, gameBoard);
         int playerCount = userIO.promptRange(gameBoard.getMessage("playerCountMsg"), 2, 4);
         gameBoard.createPlayers(playerCount);
         view.addPlayersToGui(gameBoard.getPlayers());
         gameBoard.setActualFields(new ActualFields(gameBoard, view));
-        gameBoard.setAcc(new ActualChanceCard(gameBoard,view));
+        gameBoard.setAcc(new ActualChanceCard(gameBoard, view));
         //TODO gameBoard could do this logic
         return controller;
     }

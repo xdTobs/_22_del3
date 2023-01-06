@@ -43,7 +43,50 @@ public class GameBoard {
         this(languageController, diceCup, GameBoard.class.getClassLoader().getResourceAsStream("fields.csv"));
     }
 
-    public GameBoard(LanguageController languageController, DiceCup diceCup, InputStream csvPath) {
+    public static GameBoard setup(LanguageController languageController, DiceCup diceCup, InputStream csvPath) {
+        //TODO make gameboard take List instead of input stream
+        List<Field> temp = new ArrayList<>();
+        List<String> content;
+        try {
+            content = Files.readAllLines(csvPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (String s : content) {
+            String[] key = s.split(",");
+            switch (key[2].trim()) {
+                case ("street") -> temp.add(new Street(s));
+                case ("tax") -> temp.add(new Tax(s));
+                case ("jail") -> temp.add(new Jail(s));
+                case ("gotoJail") -> temp.add(new GoToJail(s));
+                case ("chance") -> temp.add(new ChanceField(s));
+                case ("refugee") -> temp.add(new Parking(s));
+                case ("start") -> temp.add(new Start(s));
+                case ("brewery") -> temp.add(new Brewery(s));
+                case ("ferry") -> temp.add(new Ferry(s));
+            }
+        }
+
+        fields = new Field[temp.size()];
+        temp.toArray(fields);
+        // TODO
+        //  we need to figure out some way to make simpler tests.
+        //  Can we find a way to make the board only 5 square and then test jail on that board?
+        //  Can we do that without changing current code to much?
+        // We only make fieldPairs if it is the size of the original matador board.
+        // We do this so we can run tests with other board sizes.
+        initFieldPairs();
+        GameBoard gameBoard = new GameBoard();
+        gameBoard.deck = new Deck();
+        gameBoard.diceCup = diceCup;
+
+        gameBoard.languageController = languageController;
+
+
+    }
+
+    public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields) {
         //TODO make gameboard take List instead of input stream
         this.deck = new Deck();
         this.diceCup = diceCup;
@@ -298,7 +341,8 @@ public class GameBoard {
     public Deck getDeck() {
         return deck;
     }
-// TODO Languagecontroller somewhere else
+
+    // TODO Languagecontroller somewhere else
     public String getMessage(String key) {
         return languageController.getMessage(key);
     }
