@@ -5,6 +5,7 @@ import Controller.View;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
+import Language.Message;
 import gui_fields.*;
 import gui_main.GUI;
 
@@ -114,7 +115,6 @@ public class GuiView implements View, UserIO {
 
     @Override
     public void showMessage(String string) {
-        gui.showMessage(string);
     }
 
     /**
@@ -160,11 +160,22 @@ public class GuiView implements View, UserIO {
 
     @Override
     public int promptChoices(String message, String[] choices) {
-
+        String answer = this.gui.getUserSelection(message, choices);
+        for (int i = 0; i < choices.length; i++) {
+            if(answer == choices[i]){
+                return i;
+            }
+        }
+        throw new RuntimeException("An answer have been given that is not in the choices array");
     }
 
     @Override
     public int promptRange(String msg, int min, int max) {
         return this.gui.getUserInteger(msg, min, max);
+    }
+
+    @Override
+    public void showMessage(Message msg) {
+        gui.showMessage(msg.);
     }
 }

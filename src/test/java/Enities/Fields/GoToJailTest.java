@@ -20,22 +20,22 @@ class GoToJailTest {
         // gotoJail is on square 3 in the test.
         DiceCup dc = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
         GameBoard gameBoard = new GameBoard(new LanguageController(), dc, "src/main/java/csv/prisonTestFields.csv");
-        UserIO userIO = new UserIO() {
-            @Override
-            public int promptChoices(String message, String[] choices) {
-                if(message == "yes"){
-
-                }
-
-                return 0;
-            }
-
-            @Override
-            public int promptRange(String msg, int min, int max) {
-                throw new AssertionError("Prompt range should not be called.");
-
-            }
-        }
+//        UserIO userIO = new UserIO() {
+//            @Override
+//            public int promptChoices(String message, String[] choices) {
+//                if(message == "yes"){
+//
+//                }
+//
+//                return 0;
+//            }
+//
+//            @Override
+//            public int promptRange(String msg, int min, int max) {
+//                throw new AssertionError("Prompt range should not be called.");
+//
+//            }
+//        }
         View view = new TestView();
 
         GameController gameController = new GameController(view, userIO,gameBoard);

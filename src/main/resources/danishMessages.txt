@@ -1,13 +1,13 @@
-moveTo:Gå til
-gameWonMsg:Har vundet spillet! Tillykke.
-gameLostMsg:Har tabt spillet!
-rollDiceMsg:Det er din tur. Rol med terningerne.
-chanceCardMsg:Du trak et chancekort. Det siger:
-parkingMsg:Du er på en parkeringsplads. Her sker der ikke meget..
-startMsg:Du får 4000 kroner for at passere start.
-playerCountMsg:Hvor mange spillere vil spille?
-playerName4:Spiller 4
-playerName3:Spiller 3
-playerName2:Spiller 2
-playerName1:Spiller 1
-wantToBailOut: Vil du betale 1000 DKK for at komme ud af fængsel?
+MOVETO:Gå til
+GAMEWONMSG:Har vundet spillet! Tillykke.
+GAMELOSTMSG:Har tabt spillet!
+ROLLDICEMSG:Det er din tur. Rol med terningerne.
+CHANCECARDMSG:Du trak et chancekort. Det siger:
+PARKINGMSG:Du er på en parkeringsplads. Her sker der ikke meget..
+STARTMSG:Du får 4000 kroner for at passere start.
+PLAYERCOUNTMSG:Hvor mange spillere vil spille?
+PLAYERNAME4:Spiller 4
+PLAYERNAME3:Spiller 3
+PLAYERNAME2:Spiller 2
+PLAYERNAME1:Spiller 1
+WANTTOBAILOUT: Vil du betale 1000 DKK for at komme ud af fængsel?

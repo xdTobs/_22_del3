@@ -21,7 +21,6 @@ public class ActualFields implements FieldAction {
     }
 
     private boolean wantToBuyPrompt(RentableField field) {
-        userIO.showMessage(Message.yes);
         String question = gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
         boolean userWantsToBuyProperty = (userIO.promptChoices(question,new String[]{"yes","no"})==0);
         String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));

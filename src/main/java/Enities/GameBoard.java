@@ -39,8 +39,8 @@ public class GameBoard {
         this.fields = fields;
     }
 
-    public static GameBoard setup(LanguageController languageController, DiceCup diceCup, String csvPath) {
-        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(csvPath);
+    public static GameBoard setup(LanguageController languageController, DiceCup diceCup, String name) {
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(name);
         if (inputStream == null) {
             throw new IllegalStateException("Inputstream should not be null");
         }

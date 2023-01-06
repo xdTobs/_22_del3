@@ -4,7 +4,7 @@ import Enities.ActualChanceCard;
 import Enities.ActualFields;
 import Enities.GameBoard;
 import Enities.Player;
-import com.google.inject.spi.Message;
+import Language.Message;
 
 
 /**
@@ -88,7 +88,6 @@ public class GameController {
                     currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 }
             }
-            userIO.showMessage(Message.YES);
         }
         if (!currentPlayer.isJailed()) {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();

@@ -1,7 +1,9 @@
 import Controller.GameController;
 import Controller.UserIO;
 import Controller.View;
+import Enities.DiceCup.DiceCup;
 import Enities.GameBoard;
+import Language.LanguageController;
 import View.*;
 
 
@@ -12,7 +14,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = GameBoard.setup(new LanguageController(), new DiceCup(), "fields.csv");
         View view = new GuiView(gameBoard.getFields());
         UserIO userIO = null;
 

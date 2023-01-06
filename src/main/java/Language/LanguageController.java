@@ -1,6 +1,10 @@
 package Language;
 
+import Enities.GameBoard;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -16,6 +20,12 @@ public class LanguageController {
     }
 
     public LanguageController(String s) {
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(csvPath);
+        if (inputStream == null) {
+            throw new IllegalStateException("Inputstream should not be null");
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
         Path filepath = Path.of("src/main/java/Language/" + s + "FnVarNames.txt");
         try {
             languageMap = initLanguageHandler(filepath);
