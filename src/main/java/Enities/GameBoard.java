@@ -6,13 +6,13 @@ import Enities.Fields.*;
 import Language.LanguageController;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class for the game board.
@@ -32,90 +32,57 @@ public class GameBoard {
     private ActualChanceCard acc;
     private ActualFields actualFields;
 
-    /**
-     * Instantiates a new Game board.
-     */
-    public GameBoard() {
-        this(new LanguageController("english"), new DiceCup());
-    }
-
-    public GameBoard(LanguageController languageController, DiceCup diceCup) {
-        this(languageController, diceCup, GameBoard.class.getClassLoader().getResourceAsStream("fields.csv"));
-    }
-
-    public static GameBoard setup(LanguageController languageController, DiceCup diceCup, InputStream csvPath) {
-        //TODO make gameboard take List instead of input stream
-        List<Field> temp = new ArrayList<>();
-        List<String> content;
-        try {
-            content = Files.readAllLines(csvPath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (String s : content) {
-            String[] key = s.split(",");
-            switch (key[2].trim()) {
-                case ("street") -> temp.add(new Street(s));
-                case ("tax") -> temp.add(new Tax(s));
-                case ("jail") -> temp.add(new Jail(s));
-                case ("gotoJail") -> temp.add(new GoToJail(s));
-                case ("chance") -> temp.add(new ChanceField(s));
-                case ("refugee") -> temp.add(new Parking(s));
-                case ("start") -> temp.add(new Start(s));
-                case ("brewery") -> temp.add(new Brewery(s));
-                case ("ferry") -> temp.add(new Ferry(s));
-            }
-        }
-
-        fields = new Field[temp.size()];
-        temp.toArray(fields);
-        // TODO
-        //  we need to figure out some way to make simpler tests.
-        //  Can we find a way to make the board only 5 square and then test jail on that board?
-        //  Can we do that without changing current code to much?
-        // We only make fieldPairs if it is the size of the original matador board.
-        // We do this so we can run tests with other board sizes.
-        initFieldPairs();
-        GameBoard gameBoard = new GameBoard();
-        gameBoard.deck = new Deck();
-        gameBoard.diceCup = diceCup;
-
-        gameBoard.languageController = languageController;
-
-
-    }
-
-    public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields) {
-        //TODO make gameboard take List instead of input stream
-        this.deck = new Deck();
+    public GameBoard(LanguageController languageController, Deck deck, DiceCup diceCup, Field[] fields) {
+        this.deck = deck;
         this.diceCup = diceCup;
-
         this.languageController = languageController;
-        List<Field> temp = new ArrayList<>();
-        List<String> content;
-        try {
-            content = Files.readAllLines(csvPath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.fields = fields;
+    }
 
-        for (String s : content) {
-            String[] key = s.split(",");
+    public static GameBoard setup(LanguageController languageController, DiceCup diceCup, String csvPath) {
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(csvPath);
+        if (inputStream == null) {
+            throw new IllegalStateException("Inputstream should not be null");
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        // First row is keys. Type, position, rent etc.
+        Stream<String> iter = bufferedReader.lines().skip(1);
+        List<Field> temp = iter.map(line -> {
+            String[] key = line.split(",");
             switch (key[2].trim()) {
-                case ("street") -> temp.add(new Street(s));
-                case ("tax") -> temp.add(new Tax(s));
-                case ("jail") -> temp.add(new Jail(s));
-                case ("gotoJail") -> temp.add(new GoToJail(s));
-                case ("chance") -> temp.add(new ChanceField(s));
-                case ("refugee") -> temp.add(new Parking(s));
-                case ("start") -> temp.add(new Start(s));
-                case ("brewery") -> temp.add(new Brewery(s));
-                case ("ferry") -> temp.add(new Ferry(s));
+                case ("street") -> {
+                    return new Street(line);
+                }
+                case ("tax") -> {
+                    return new Tax(line);
+                }
+                case ("jail") -> {
+                    return new Jail(line);
+                }
+                case ("gotoJail") -> {
+                    return new GoToJail(line);
+                }
+                case ("chance") -> {
+                    return new ChanceField(line);
+                }
+                case ("refugee") -> {
+                    return new Parking(line);
+                }
+                case ("start") -> {
+                    return new Start(line);
+                }
+                case ("brewery") -> {
+                    return new Brewery(line);
+                }
+                case ("ferry") -> {
+                    return new Ferry(line);
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + key[2].trim());
             }
-        }
+        }).toList();
 
-        fields = new Field[temp.size()];
+        Field[] fields = new Field[temp.size()];
         temp.toArray(fields);
         // TODO
         //  we need to figure out some way to make simpler tests.
@@ -123,12 +90,12 @@ public class GameBoard {
         //  Can we do that without changing current code to much?
         // We only make fieldPairs if it is the size of the original matador board.
         // We do this so we can run tests with other board sizes.
-        initFieldPairs();
-
+        fields = initFieldPairs(fields);
+        GameBoard gameBoard = new GameBoard(new LanguageController("english"), new Deck(), new DiceCup(), fields);
+        return gameBoard;
     }
 
-
-    private void initFieldPairs() {
+    private static Field[] initFieldPairs(Field[] fields) {
         List<FieldPair> fieldPairs = new ArrayList<>();
         fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{1, 3}));
         fieldPairs.add(new FieldPair(Color.ORANGE, new int[]{6, 8, 9}));
@@ -150,15 +117,12 @@ public class GameBoard {
         int i = 0;
         for (FieldPair f : fieldPairs) {
             for (int id : f.getFieldIds()) {
-                try {
-                    Field field = fields[id];
-                    field.setPair(fieldPairs.get(i));
-                } catch (RuntimeException e) {
-                    System.err.println(e);
-                }
+                Field field = fields[id];
+                field.setPair(fieldPairs.get(i));
             }
             i++;
         }
+        return fields;
     }
 
 
