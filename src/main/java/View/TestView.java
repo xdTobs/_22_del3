@@ -42,7 +42,7 @@ public class TestView implements View {
 
     @Override
     public String promptPlayer(String[] choices, String playerName) {
-        return "yes";
+        return "No";
     }
 
     @Override

@@ -30,11 +30,11 @@ class GoToJailTest {
         // turn 2 jail
         // turn 3 jail
         // turn 4 not jail
-        for (int i = 0; i < 4; i++) {
-            gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        for (int i = 0; i < 3; i++) {
             assertTrue(gameBoard.getCurrentPlayer().isJailed());
+            gameController.playTurn(gameBoard.getCurrentPlayer());
         }
         assertFalse(gameBoard.getCurrentPlayer().isJailed());
-
     }
 }
