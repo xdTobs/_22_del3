@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -39,8 +38,8 @@ public class GameBoard {
         this.fields = fields;
     }
 
-    public static GameBoard setup(LanguageController languageController, DiceCup diceCup, String name) {
-        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(name);
+    public static GameBoard setup(String filename) {
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
             throw new IllegalStateException("Inputstream should not be null");
         }
@@ -50,36 +49,18 @@ public class GameBoard {
         Stream<String> iter = bufferedReader.lines().skip(1);
         List<Field> temp = iter.map(line -> {
             String[] key = line.split(",");
-            switch (key[2].trim()) {
-                case ("street") -> {
-                    return new Street(line);
-                }
-                case ("tax") -> {
-                    return new Tax(line);
-                }
-                case ("jail") -> {
-                    return new Jail(line);
-                }
-                case ("gotoJail") -> {
-                    return new GoToJail(line);
-                }
-                case ("chance") -> {
-                    return new ChanceField(line);
-                }
-                case ("refugee") -> {
-                    return new Parking(line);
-                }
-                case ("start") -> {
-                    return new Start(line);
-                }
-                case ("brewery") -> {
-                    return new Brewery(line);
-                }
-                case ("ferry") -> {
-                    return new Ferry(line);
-                }
+            return switch (key[2].trim()) {
+                case ("street") -> new Street(line);
+                case ("tax") -> new Tax(line);
+                case ("jail") -> new Jail(line);
+                case ("gotoJail") -> new GoToJail(line);
+                case ("chance") -> new ChanceField(line);
+                case ("refugee") -> new Parking(line);
+                case ("start") -> new Start(line);
+                case ("brewery") -> new Brewery(line);
+                case ("ferry") -> new Ferry(line);
                 default -> throw new IllegalStateException("Unexpected value: " + key[2].trim());
-            }
+            };
         }).toList();
 
         Field[] fields = new Field[temp.size()];
