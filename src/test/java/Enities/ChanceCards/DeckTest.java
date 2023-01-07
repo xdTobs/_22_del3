@@ -1,10 +1,7 @@
 package Enities.ChanceCards;
 
-import Enities.GameBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class DeckTest {
@@ -32,7 +29,7 @@ class DeckTest {
 
     @Test
     void deckShouldReturnObject() {
-        assert (deck.getLatestChanceCard() != null);
+        assert (deck.takeChanceCard() != null);
     }
 
     

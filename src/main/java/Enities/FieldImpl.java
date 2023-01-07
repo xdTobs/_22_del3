@@ -2,6 +2,7 @@ package Enities;
 
 import Controller.UserIO;
 import Enities.ChanceCards.ChanceCard;
+import Enities.ChanceCards.Deck;
 import Enities.Fields.*;
 import Controller.View;
 import Language.Message;
@@ -9,20 +10,21 @@ import Language.Message;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActualFields implements FieldAction {
+public class FieldImpl implements FieldAction {
     GameBoard gameBoard;
     View view;
     UserIO userIO;
 
-    public ActualFields(GameBoard gameBoard, View view) {
+    public FieldImpl(GameBoard gameBoard, UserIO userIO) {
         this.gameBoard = gameBoard;
-        this.view = view;
+        this.userIO = userIO;
 
     }
 
     private boolean wantToBuyPrompt(RentableField field) {
-        String question = gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
-        boolean userWantsToBuyProperty = (userIO.promptChoices(question,new String[]{"yes","no"})==0);
+        String question = gameBoard.getCurrentPlayer().getName() + userIO.showMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
+        boolean userWantsToBuyProperty = (userIO.promptChoices(question, new String[]{"yes", "no"}) == 0);
+        userIO.promptChoices(Message.wantToBuyField(field));
         String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));
         return yesOrNo.equals(gameBoard.getMessage("yes"));
     }
@@ -128,16 +130,18 @@ public class ActualFields implements FieldAction {
     @Override
     public void taxAction(Tax tax) {
 
-        if (tax.getPercentPrice() > 0 && payPercentPrompt(tax)) {
+        if (tax.getPercentPrice() > 0 && wantToPayPercent(tax)) {
             gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
             return;
         }
         gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) * 0.1));
     }
 
-    private boolean payPercentPrompt(Tax tax) {
-        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt"));
-        return valOrPercent.equals(String.valueOf(tax.getPrice()));
+    private boolean wantToPayPercent(Tax tax) {
+//        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt"));
+//        new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt")
+        int valOrPercent = userIO.promptChoices("taxPrompt", String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%");
+        return valOrPercent == 1;
     }
 
     @Override
@@ -148,7 +152,7 @@ public class ActualFields implements FieldAction {
     }
 
     @Override
-    public void jailAction(Jail jail){
+    public void jailAction(Jail jail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         currentPlayer.setJailed(true);
         return;
@@ -198,9 +202,10 @@ public class ActualFields implements FieldAction {
 
     @Override
     public void chanceFieldAction(ChanceField chanceField) {
-        ChanceCard chanceCard = gameBoard.getDeck().getLatestChanceCard();
-        gameBoard.getDeck().shuffleCards();
-        chanceCard.executeCardAction(gameBoard.getAcc());
+        Deck deck = gameBoard.getDeck();
+        ChanceCard chanceCard = deck.takeChanceCard();
+        chanceCard.executeCardAction(gameBoard.getActualChanceCard());
+        deck.putCardBack(chanceCard);
     }
 
 

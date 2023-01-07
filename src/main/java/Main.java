@@ -14,11 +14,11 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        GameBoard gameBoard = GameBoard.setup(new LanguageController(), new DiceCup(), "fields.csv");
-        View view = new GuiView(gameBoard.getFields());
-        UserIO userIO = null;
+        GuiView guiView = null;
+        GameBoard gameBoard = GameBoard.setup("fields.csv", guiView);
+        GuiView guiView = GuiView.setup(gameBoard.getFields());
 
-        GameController game = GameController.setup(view, userIO, gameBoard);
+        GameController game = GameController.setup(guiView, gameBoard);
 
         game.playGame();
 

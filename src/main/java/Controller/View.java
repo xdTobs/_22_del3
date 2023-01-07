@@ -13,7 +13,6 @@ public interface View {
 
     void updatePlayerLocations(Player[] players);
 
-    void showMessage(String string);
 
     void update(Player[] players, Field[] fields);
 

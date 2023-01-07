@@ -5,9 +5,10 @@ import Controller.View;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
-import Language.Message;
+import Language.LanguageController;
 import gui_fields.*;
 import gui_main.GUI;
+import org.apache.commons.codec.language.bm.Lang;
 
 import java.awt.*;
 
@@ -16,6 +17,7 @@ public class GuiView implements View, UserIO {
     final private GUI gui;
     private GUI_Player[] guiPlayers;
     final private GUI_Field[] guiFields = new GUI_Field[40];
+    private LanguageController languageController;
 
     /**
      * Constructor for the GUI_View class.
@@ -24,7 +26,17 @@ public class GuiView implements View, UserIO {
      *
      * @param fields The fields in the game.
      */
-    public GuiView(Field[] fields) {
+    public GuiView(GUI_Field[] guiFields, LanguageController languageController) {
+        this.languageController = languageController;
+        this.gui = new GUI(guiFields);
+    }
+
+    public static GuiView getReference() {
+        return null;
+    }
+
+    public static GuiView setup(Field[] fields) {
+        GUI_Field[] guiFields = new GUI_Field[40];
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start start) {
                 guiFields[i] = createGuiField(new GUI_Start(), start);
@@ -53,12 +65,11 @@ public class GuiView implements View, UserIO {
             if (fields[i] instanceof Brewery brewery) {
                 guiFields[i] = createGuiField(new GUI_Brewery(), brewery, brewery.getPrice() + "");
             }
-
         }
-        this.gui = new GUI(guiFields);
+        return new GuiView(guiFields, new LanguageController());
     }
 
-    private GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
+    private static GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
         gf.setTitle(field.getName());
         gf.setBackGroundColor(field.getPair().getBackgroundColor());
         gf.setForeGroundColor(field.getPair().getForegroundColor());
@@ -66,7 +77,7 @@ public class GuiView implements View, UserIO {
         return gf;
     }
 
-    private GUI_Field createGuiField(GUI_Field gf, Field field) {
+    private static GUI_Field createGuiField(GUI_Field gf, Field field) {
         return createGuiField(gf, field, "");
     }
 
@@ -113,10 +124,6 @@ public class GuiView implements View, UserIO {
         }
     }
 
-    @Override
-    public void showMessage(String string) {
-    }
-
     /**
      * Updates all the fields, dices and players in the GUI.
      * The view should be in sync with the model after this method has run.
@@ -159,10 +166,10 @@ public class GuiView implements View, UserIO {
 
 
     @Override
-    public int promptChoices(String message, String[] choices) {
+    public int promptChoices(String message, String... choices) {
         String answer = this.gui.getUserSelection(message, choices);
         for (int i = 0; i < choices.length; i++) {
-            if(answer == choices[i]){
+            if (answer == choices[i]) {
                 return i;
             }
         }
@@ -170,12 +177,16 @@ public class GuiView implements View, UserIO {
     }
 
     @Override
-    public int promptRange(String msg, int min, int max) {
-        return this.gui.getUserInteger(msg, min, max);
+    public int promptRange(String key, int min, int max) {
+        return this.gui.getUserInteger(key, min, max);
     }
 
     @Override
-    public void showMessage(Message msg) {
-        gui.showMessage(msg.);
+    public void showMessage(String message, String... args) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String arg : args) {
+            stringBuilder.append(arg);
+        }
+        gui.showMessage(message + " " + stringBuilder);
     }
 }

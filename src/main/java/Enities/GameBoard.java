@@ -1,5 +1,6 @@
 package Enities;
 
+import Controller.UserIO;
 import Enities.ChanceCards.Deck;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
@@ -28,17 +29,19 @@ public class GameBoard {
     private Deck deck;
     private Player[] players;
     private int playerTurn;
-    private ActualChanceCard acc;
-    private ActualFields actualFields;
+    private ChanceCardImpl chanceCardImpl;
+    private FieldImpl fieldImpl;
 
-    public GameBoard(LanguageController languageController, Deck deck, DiceCup diceCup, Field[] fields) {
+    public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields, UserIO userIO, ) {
+        this.chanceCardImpl = new ChanceCardImpl(this, userIO);
+        this.fieldImpl = new FieldImpl(this, userIO);
         this.deck = deck;
         this.diceCup = diceCup;
         this.languageController = languageController;
         this.fields = fields;
     }
 
-    public static GameBoard setup(String filename) {
+    public static GameBoard setup(String filename, UserIO userIO) {
         var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
             throw new IllegalStateException("Inputstream should not be null");
@@ -73,6 +76,9 @@ public class GameBoard {
         // We do this so we can run tests with other board sizes.
         fields = initFieldPairs(fields);
         GameBoard gameBoard = new GameBoard(new LanguageController("english"), new Deck(), new DiceCup(), fields);
+
+        new FieldImpl(gameBoard, userIO);
+        new ChanceCardImpl(gameBoard, userIO);
         return gameBoard;
     }
 
@@ -107,24 +113,24 @@ public class GameBoard {
     }
 
 
-    public ActualChanceCard getAcc() {
-        return acc;
+    public ChanceCardImpl getActualChanceCard() {
+        return chanceCardImpl;
     }
 
-    public void setAcc(ActualChanceCard acc) {
-        this.acc = acc;
+    public void setActualChanceCard(ChanceCardImpl chanceCardImpl) {
+        this.chanceCardImpl = chanceCardImpl;
     }
 
     public HashMap<Player, List<RentableField>> getOwnershipMap() {
         return ownershipMap;
     }
 
-    public ActualFields getActualFields() {
-        return actualFields;
+    public FieldImpl getActualFields() {
+        return fieldImpl;
     }
 
-    public void setActualFields(ActualFields actualFields) {
-        this.actualFields = actualFields;
+    public void setActualFields(FieldImpl fieldImpl) {
+        this.fieldImpl = fieldImpl;
     }
 
     /**
@@ -288,9 +294,9 @@ public class GameBoard {
     }
 
     // TODO Languagecontroller somewhere else
-    public String getMessage(String key) {
-        return languageController.getMessage(key);
-    }
+//    public String getMessage(String key) {
+//        return languageController.getMessage(key);
+//    }
 
     public void isPlayerBankrupt() {
         int i = 0;

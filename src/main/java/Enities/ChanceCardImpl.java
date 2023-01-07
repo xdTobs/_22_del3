@@ -1,20 +1,20 @@
 package Enities;
 
+import Controller.UserIO;
 import Enities.ChanceCards.ChanceAction;
 
 import Enities.Fields.Brewery;
 import Enities.Fields.Ferry;
 import Enities.Fields.Field;
-import Controller.View;
 
 
-public class ActualChanceCard implements ChanceAction {
-    GameBoard gameBoard;
-    View view;
+public class ChanceCardImpl implements ChanceAction {
+    private GameBoard gameBoard;
+    private UserIO userIO;
 
-    public ActualChanceCard(GameBoard gameBoard, View view) {
+    public ChanceCardImpl(GameBoard gameBoard, UserIO userIO) {
         this.gameBoard = gameBoard;
-        this.view = view;
+        this.userIO = userIO;
     }
 
     @Override
@@ -31,9 +31,12 @@ public class ActualChanceCard implements ChanceAction {
     @Override
     public void changeBalConditional(int amount, int condition) {
         if (gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) < condition) {
-            view.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("succesfulConditionChanceCard") + amount + " DKK");
+//            userIO.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("succesfulConditionChanceCard") + amount + " DKK");
+            String playerName = gameBoard.getCurrentPlayer().getName();
+            String key = "SUCCESFULCONDITIONCHANCECARD";
+            userIO.showMessage(key, playerName, amount + "", "DKK");
         } else {
-            view.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("unSuccesfulConditionChanceCard"));
+//            userIO.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("unSuccesfulConditionChanceCard"));
         }
     }
 
@@ -104,7 +107,7 @@ public class ActualChanceCard implements ChanceAction {
 
     @Override
     public void printDesc(String desc) {
-        view.showMessage(desc);
+        userIO.showMessage(desc);
     }
 
 }

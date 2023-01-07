@@ -1,10 +1,10 @@
 package Controller;
 
-import Enities.ActualChanceCard;
-import Enities.ActualFields;
+import Enities.ChanceCardImpl;
+import Enities.FieldImpl;
 import Enities.GameBoard;
 import Enities.Player;
-import Language.Message;
+import View.GuiView;
 
 
 /**
@@ -31,19 +31,24 @@ public class GameController {
     /**
      * We use this to create GameController so we can easier test the GameController with custom values and setup.
      * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
-     * @param view
-     * @param userIO
+     *
+     * @param guiView
      * @param gameBoard
      * @return
      */
-    public static GameController setup(View view, UserIO userIO, GameBoard gameBoard) {
-        GameController controller = new GameController(view, userIO, gameBoard);
-        int playerCount = userIO.promptRange(gameBoard.getMessage("playerCountMsg"), 2, 4);
+    public static GameController setup() {
+        GameBoard gameBoard = GameBoard.setup("fields.csv");
+        GuiView guiView = GuiView.setup(gameBoard.getFields());
+        GameController controller = new GameController(guiView, guiView, gameBoard);
+
+        String key = "PLAYERCOUNTMSG";
+        int playerCount = guiView.promptRange(key, 2, 4);
         gameBoard.createPlayers(playerCount);
-        view.addPlayersToGui(gameBoard.getPlayers());
-        gameBoard.setActualFields(new ActualFields(gameBoard, view));
-        gameBoard.setAcc(new ActualChanceCard(gameBoard, view));
-        //TODO gameBoard could do this logic
+        guiView.addPlayersToGui(gameBoard.getPlayers());
+
+        gameBoard.setActualFields(new FieldImpl(gameBoard, guiView));
+        gameBoard.setActualChanceCard(new ChanceCardImpl(gameBoard, guiView));
+
         return controller;
     }
 
@@ -53,8 +58,8 @@ public class GameController {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-                view.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
-                view.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
+                userIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
+                userIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
 
             } else {
@@ -91,20 +96,20 @@ public class GameController {
         }
         if (!currentPlayer.isJailed()) {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-            view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
+            userIO.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
             gameBoard.fieldAction(currentPlayer);
             //gameBoard.isPlayerBankrupt();
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
 
             if (hasPassedStart) {
-                view.showMessage(gameBoard.getMessage("passedStartMsg"));
+                userIO.showMessage(gameBoard.getMessage("passedStartMsg"));
             }
             // Checks if player gets an extra turn
             // TODO Should you get extra turn if you land on goToJail?
 
             if (gameBoard.getDiceCup().diceAreEqual()) {
-                view.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
+                userIO.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
                 playTurn(currentPlayer);
             }
         }

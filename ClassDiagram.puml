@@ -50,7 +50,7 @@ class Enities.GameBoard {
 - Player[] players
 - int playerTurn
 - ActualChanceCard acc
-- ActualFields actualFields
+- ActualFields fieldImpl
 - void initFieldPairs()
 + void fieldAction(Player)
 + int totalPlayerValue(Player)
@@ -90,7 +90,7 @@ class Enities.ChanceCards.Deck {
 + ArrayList<ChanceCard> getCards()
 }
 
-class Enities.ActualChanceCard {
+class Enities.ChanceCardImpl {
 ~ GameBoard gameBoard
 ~ View view
 + void getOutOfJail()
@@ -195,7 +195,7 @@ abstract class Enities.ChanceCards.ChanceCard {
 # String desc
 + {abstract}void executeCardAction(ChanceAction)
 }
-class Enities.ActualFields {
+class Enities.FieldImpl {
 ~ GameBoard gameBoard
 ~ View view
 - boolean wantToBuyPrompt(RentableField)
@@ -239,8 +239,8 @@ View.View <.. View.TestView
 
 
 Enities.DiceCup.Die <-- Enities.DiceCup.DieSixSided
-Enities.ChanceCards.ChanceAction <.up. Enities.ActualChanceCard
-Enities.Fields.FieldAction <.up. Enities.ActualFields
+Enities.ChanceCards.ChanceAction <.up. Enities.ChanceCardImpl
+Enities.Fields.FieldAction <.up. Enities.FieldImpl
 Enities.Fields.Field <-- Enities.Fields.RentableField
 View.View <.. View.GuiView
 Enities.DiceCup.Die <-- Enities.DiceCup.TestDie

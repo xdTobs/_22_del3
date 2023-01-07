@@ -38,7 +38,7 @@ class Enities.ChanceCards.Deck {
 + void pullCard()
 }
 
-class Enities.ActualChanceCard {
+class Enities.ChanceCardImpl {
 ~ GameBoard gameBoard
 ~ View view
 + void getOutOfJail()
@@ -95,7 +95,7 @@ abstract class Enities.ChanceCards.ChanceCard {
 # String desc
 + {abstract}void executeCardAction(ChanceAction)
 }
-class Enities.ActualFields {
+class Enities.FieldImpl {
 ~ GameBoard gameBoard
 ~ View view
 + Field streetAction(Street)
@@ -112,8 +112,8 @@ interface Enities.Fields.FieldAction {
 
 
 
-Enities.ChanceCards.ChanceAction <|.up. Enities.ActualChanceCard
-Enities.Fields.FieldAction <|.up. Enities.ActualFields
+Enities.ChanceCards.ChanceAction <|.up. Enities.ChanceCardImpl
+Enities.Fields.FieldAction <|.up. Enities.FieldImpl
 View.View <|.. View.GuiView
 Controller.GameController --> View.View
 Controller.GameController --> Enities.GameBoard
