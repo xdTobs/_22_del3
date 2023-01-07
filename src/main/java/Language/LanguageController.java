@@ -40,12 +40,31 @@ public class LanguageController {
         }
     }
 
-    public String getMessage(String key) {
-        return this.languageMap.get(key);
-    }
+    // First arg in message is prepended to message rest of args are appended seperated by ","
+    public String getMessage(Message message) {
+        Iterator<String> args = Arrays.stream(message.getArgs()).iterator();
+        String[] chars = languageMap.get(message.getType()).split("");
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i].equals("$")) {
+                chars[i] = args.next();
+            }
+        }
+        if (args.hasNext()) {
+            throw new IllegalArgumentException("You have more arguments for your message than it uses.");
+        }
+        return String.join("", chars);
 
-    public String getMessage(Message.Type type) {
-        return languageMap.get(type);
+//
+//        StringBuilder sb = new StringBuilder();
+//        if (args.hasNext()) {
+//            sb.append(args.next());
+//        }
+//        sb.append(languageMap.get(message.getType()));
+//
+//        while (args.hasNext()) {
+//            sb.append(" " + args.next());
+//        }
+//        return sb.toString();
     }
 
 }

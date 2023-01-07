@@ -1,12 +1,43 @@
 package Controller;
 
+import Language.Message;
 
-public interface UserIO {
-    int promptChoices(String message, String... choices);
+/**
+ * We use this class to make more advanced prompts for our user.
+ * Instead of just having the three from the interface, we can add QOL methods here.
+ */
+public class UserIO implements BasicUserIO {
+    BasicUserIO basicUserIO;
 
-    int promptRange(String msg, int min, int max);
+    public UserIO(BasicUserIO basicUserIO) {
+        this.basicUserIO = basicUserIO;
+    }
 
-    // TODO This should probably not be string, but instead be an enum Message. Look at christians code.
-    // I don't think we should send the key here. Only temp solution.
-    void showMessage(String messageKey, String... args);
+    @Override
+    public int promptChoice(Message message, Message... choices) {
+        return basicUserIO.promptChoice(message, choices);
+    }
+
+    /**
+     * @param message
+     * @return
+     */
+    public boolean promptYesOrNo(Message message) {
+        return (basicUserIO.promptChoice(message, Message.yes(), Message.no())) == 0;
+    }
+
+    private void buyField(String playerName, String fieldName) {
+        Message message = Message.buyField(playerName, fieldName);
+        promptYesOrNo(message);
+    }
+
+    @Override
+    public int promptRange(Message message, int min, int max) {
+        return basicUserIO.promptRange(message, min, max);
+    }
+
+    @Override
+    public void showMessage(Message message) {
+        basicUserIO.showMessage(message);
+    }
 }

@@ -7,20 +7,26 @@
 //import View.*;
 
 
+import Controller.GameController;
+import Controller.UserIO;
+import Enities.Fields.Field;
+import Enities.GameBoard;
+import View.GuiView;
+
 public class Main {
 
     /**
      * The entry point of application.
      */
     public static void main(String[] args) {
+        Field[] fields = GameBoard.getDefaultFields();
+        GuiView guiView = GuiView.setup(fields);
+        UserIO userIO = new UserIO(guiView);
+        GameBoard gameBoard = GameBoard.setup(fields, userIO);
 
-//        GuiView guiView = null;
-//        GameBoard gameBoard = GameBoard.setup("fields.csv", guiView);
-//        GuiView guiView = GuiView.setup(gameBoard.getFields());
-//
-//        GameController game = GameController.setup(guiView, gameBoard);
-//
-//        game.playGame();
+        GameController game = GameController.setup();
+
+        game.playGame();
 
     }
 }

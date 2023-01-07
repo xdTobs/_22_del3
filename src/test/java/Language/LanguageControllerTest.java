@@ -8,21 +8,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class LanguageControllerTest {
     LanguageController languageController = new LanguageController();
 
+
     @Test
-    @DisplayName("the key moveTo should give Move To as a result, when in english.")
-    void getMessage() {
-        String expected = "Move To";
-        String key = "moveTo";
-        var result = languageController.getMessage(key);
+    @DisplayName("Get message string from LanguageController with Message class")
+    void testGetMessageEnum() {
+        Message buyProperty = Message.buyField("Henrik Zenkert", "Strøget");
+        String expected = "Henrik Zenkert have landed on Strøget. Would you like to buy it?";
+        var result = languageController.getMessage(buyProperty);
         assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Get message with Message.Type enum")
-    void testGetMessageEnum() {
-        Message.Type moveToType = Message.Type.MOVE_TO;
-        String expected = "Move to";
-        var result = languageController.getMessage(moveToType);
+    @DisplayName("Message contains arguments.")
+    void testGetMessage() {
+        Message moveToMessage = Message.of(Message.Type.MOVE_TO, "Mount Doom!");
+        String expected = "Move to Mount Doom!";
+        var result = languageController.getMessage(moveToMessage);
         assertEquals(expected, result);
     }
 }

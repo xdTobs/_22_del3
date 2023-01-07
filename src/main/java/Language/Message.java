@@ -2,7 +2,44 @@ package Language;
 
 
 public class Message {
-    LanguageController languageController = new LanguageController();
+
+    private final String[] args;
+    private Type type;
+
+    public static Message of(Type type, String... args) {
+        return new Message(type, args);
+    }
+
+    // All the methods that return of(...) is just for making the code easier to read in the app.
+    public static Message buyField(String playerName, String fieldName) {
+        return of(Type.WANT_TO_BUY_PROMPT, playerName, fieldName);
+    }
+
+    public static Message numberOfPlayers() {
+        return of(Type.PLAYER_COUNT_MSG);
+    }
+
+    public static Message yes() {
+        return of(Type.YES);
+    }
+
+    public static Message no() {
+        return of(Type.NO);
+    }
+
+
+    public Message(Type type, String[] args) {
+        this.type = type;
+        this.args = args;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public String[] getArgs() {
+        return args;
+    }
 
     public enum Type {
         CHANCE_CARD_MSG,

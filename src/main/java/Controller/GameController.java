@@ -2,8 +2,10 @@ package Controller;
 
 import Enities.ChanceCardImpl;
 import Enities.FieldImpl;
+import Enities.Fields.Field;
 import Enities.GameBoard;
 import Enities.Player;
+import Language.Message;
 import View.GuiView;
 
 
@@ -13,7 +15,7 @@ import View.GuiView;
 public class GameController {
     final private View view;
     final private GameBoard gameBoard;
-    private final UserIO userIO;
+    private final BasicUserIO basicUserIO;
 
 
     /**
@@ -22,10 +24,10 @@ public class GameController {
      * @param view      the view
      * @param gameBoard the gameBoard, our model
      */
-    public GameController(View view, UserIO userIO, GameBoard gameBoard) {
+    public GameController(View view, BasicUserIO basicUserIO, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        this.userIO = userIO;
+        this.basicUserIO = basicUserIO;
     }
 
     /**
@@ -33,17 +35,25 @@ public class GameController {
      * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
      */
     public static GameController setup() {
-        GameBoard gameBoard = GameBoard.setup("fields.csv");
-        GuiView guiView = GuiView.setup(gameBoard.getFields());
+
+        Field[] fields = GameBoard.getDefaultFields();
+        GuiView guiView = GuiView.setup(fields);
+        UserIO userIO = new UserIO(guiView);
+        GameBoard gameBoard = GameBoard.setup(fields, userIO);
+
         GameController controller = new GameController(guiView, guiView, gameBoard);
 
-        String key = "PLAYERCOUNTMSG";
-        int playerCount = guiView.promptRange(key, 2, 4);
-        gameBoard.createPlayers(playerCount);
-        guiView.addPlayersToGui(gameBoard.getPlayers());
+        Message numberOfPlayers = Message.numberOfPlayers();
+        int playerCount = userIO.promptRange(numberOfPlayers, 2, 4);
 
-        gameBoard.setActualFields(new FieldImpl(gameBoard, guiView));
-        gameBoard.setActualChanceCard(new ChanceCardImpl(gameBoard, guiView));
+        gameBoard.createPlayers(playerCount);
+//        String key = "PLAYER_COUNT_MSG";
+//        int playerCount = guiView.promptRange(guiView, 2, 4);
+//        gameBoard.createPlayers(playerCount);
+//        guiView.addPlayersToGui(gameBoard.getPlayers());
+//
+//        gameBoard.setActualFields(new FieldImpl(gameBoard, guiView));
+//        gameBoard.setActualChanceCard(new ChanceCardImpl(gameBoard, guiView));
 
         return controller;
     }
@@ -54,8 +64,8 @@ public class GameController {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-                userIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
-                userIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
+                basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
+                basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
 
             } else {
@@ -92,20 +102,20 @@ public class GameController {
         }
         if (!currentPlayer.isJailed()) {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
-            userIO.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
+            basicUserIO.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
             gameBoard.fieldAction(currentPlayer);
             //gameBoard.isPlayerBankrupt();
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
 
             if (hasPassedStart) {
-                userIO.showMessage(gameBoard.getMessage("passedStartMsg"));
+                basicUserIO.showMessage(gameBoard.getMessage("passedStartMsg"));
             }
             // Checks if player gets an extra turn
             // TODO Should you get extra turn if you land on goToJail?
 
             if (gameBoard.getDiceCup().diceAreEqual()) {
-                userIO.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
+                basicUserIO.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
                 playTurn(currentPlayer);
             }
         }

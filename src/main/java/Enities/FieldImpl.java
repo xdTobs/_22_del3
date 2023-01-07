@@ -1,5 +1,6 @@
 package Enities;
 
+import Controller.BasicUserIO;
 import Controller.UserIO;
 import Enities.ChanceCards.ChanceCard;
 import Enities.ChanceCards.Deck;
@@ -18,15 +19,17 @@ public class FieldImpl implements FieldAction {
     public FieldImpl(GameBoard gameBoard, UserIO userIO) {
         this.gameBoard = gameBoard;
         this.userIO = userIO;
-
     }
 
     private boolean wantToBuyPrompt(RentableField field) {
-        String question = gameBoard.getCurrentPlayer().getName() + userIO.showMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
-        boolean userWantsToBuyProperty = (userIO.promptChoices(question, new String[]{"yes", "no"}) == 0);
-        userIO.promptChoices(Message.wantToBuyField(field));
-        String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));
-        return yesOrNo.equals(gameBoard.getMessage("yes"));
+//        String question = gameBoard.getCurrentPlayer().getName() + basicUserIO.showMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
+//        boolean userWantsToBuyProperty = (basicUserIO.promptChoices(question, new String[]{"yes", "no"}) == 0);
+//        basicUserIO.promptChoice(Message.wantToBuyField(field));
+        String playerName = gameBoard.getCurrentPlayer().getName();
+        String fieldName = field.getName();
+        return userIO.promptYesOrNo(Message.buyField(playerName, fieldName));
+//        String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));
+//        return yesOrNo.equals(gameBoard.getMessage("yes"));
     }
 
 
@@ -140,7 +143,7 @@ public class FieldImpl implements FieldAction {
     private boolean wantToPayPercent(Tax tax) {
 //        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt"));
 //        new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt")
-        int valOrPercent = userIO.promptChoices("taxPrompt", String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%");
+        int valOrPercent = basicUserIO.promptChoice("taxPrompt", String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%");
         return valOrPercent == 1;
     }
 

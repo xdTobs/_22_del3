@@ -1,7 +1,6 @@
 package Enities.Fields;
 
 import Controller.GameController;
-import Controller.UserIO;
 import Enities.DiceCup.DiceCup;
 import Enities.DiceCup.TestDie;
 import Enities.GameBoard;

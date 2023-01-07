@@ -1,5 +1,6 @@
 package Enities;
 
+import Controller.BasicUserIO;
 import Controller.UserIO;
 import Enities.ChanceCards.ChanceAction;
 
@@ -10,11 +11,11 @@ import Enities.Fields.Field;
 
 public class ChanceCardImpl implements ChanceAction {
     private GameBoard gameBoard;
-    private UserIO userIO;
+    private BasicUserIO basicUserIO;
 
     public ChanceCardImpl(GameBoard gameBoard, UserIO userIO) {
         this.gameBoard = gameBoard;
-        this.userIO = userIO;
+        this.basicUserIO = userIO;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class ChanceCardImpl implements ChanceAction {
 //            userIO.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("succesfulConditionChanceCard") + amount + " DKK");
             String playerName = gameBoard.getCurrentPlayer().getName();
             String key = "SUCCESFULCONDITIONCHANCECARD";
-            userIO.showMessage(key, playerName, amount + "", "DKK");
+            basicUserIO.showMessage(key, playerName, amount + "", "DKK");
         } else {
 //            userIO.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("unSuccesfulConditionChanceCard"));
         }
@@ -107,7 +108,7 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void printDesc(String desc) {
-        userIO.showMessage(desc);
+        basicUserIO.showMessage(desc);
     }
 
 }

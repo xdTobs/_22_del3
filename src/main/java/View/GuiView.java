@@ -1,18 +1,18 @@
 package View;
 
-import Controller.UserIO;
+import Controller.BasicUserIO;
 import Controller.View;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.*;
 import Enities.Player;
 import Language.LanguageController;
+import Language.Message;
 import gui_fields.*;
 import gui_main.GUI;
-import org.apache.commons.codec.language.bm.Lang;
 
 import java.awt.*;
 
-public class GuiView implements View, UserIO {
+public class GuiView implements View, BasicUserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
@@ -21,19 +21,40 @@ public class GuiView implements View, UserIO {
 
     /**
      * Constructor for the GUI_View class.
-     * We create GUI_Fields corresponing to the fields in the gameboard.
+     * We create GUI_Fields corresponding to the fields in the gameboard.
      * We use the GUI_Fields created to create our GUI.
-     *
-     * @param fields The fields in the game.
      */
     public GuiView(GUI_Field[] guiFields, LanguageController languageController) {
         this.languageController = languageController;
         this.gui = new GUI(guiFields);
     }
 
-    public static GuiView getReference() {
-        return null;
+    @Override
+    public int promptChoice(Message message, Message... choices) {
+        String[] choiceArray = new String[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            choiceArray[i] = languageController.getMessage(choices[i]);
+        }
+        String answer = this.gui.getUserSelection(languageController.getMessage(message), choiceArray);
+
+        for (int i = 0; i < choices.length; i++) {
+            if (answer == choiceArray[i]) {
+                return i;
+            }
+        }
+        throw new UnsupportedOperationException("An answer have been given that is not in the choices array");
     }
+
+    @Override
+    public int promptRange(Message message, int min, int max) {
+        return this.gui.getUserInteger(languageController.getMessage(message), min, max);
+    }
+
+    @Override
+    public void showMessage(Message message) {
+        gui.showMessage(languageController.getMessage(message));
+    }
+
 
     public static GuiView setup(Field[] fields) {
         GUI_Field[] guiFields = new GUI_Field[40];
@@ -156,7 +177,6 @@ public class GuiView implements View, UserIO {
                     // etc.
                     int value = Integer.parseInt(street.getOwner().replaceAll("[^0-9]", ""));
                     GUI_Street guiStreet = (GUI_Street) guiFields[i];
-
                     guiStreet.setHouses(value);
                 }
             }
@@ -165,28 +185,4 @@ public class GuiView implements View, UserIO {
     }
 
 
-    @Override
-    public int promptChoices(String message, String... choices) {
-        String answer = this.gui.getUserSelection(message, choices);
-        for (int i = 0; i < choices.length; i++) {
-            if (answer == choices[i]) {
-                return i;
-            }
-        }
-        throw new RuntimeException("An answer have been given that is not in the choices array");
-    }
-
-    @Override
-    public int promptRange(String key, int min, int max) {
-        return this.gui.getUserInteger(key, min, max);
-    }
-
-    @Override
-    public void showMessage(String message, String... args) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String arg : args) {
-            stringBuilder.append(arg);
-        }
-        gui.showMessage(message + " " + stringBuilder);
-    }
 }

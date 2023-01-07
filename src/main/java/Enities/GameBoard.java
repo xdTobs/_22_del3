@@ -41,16 +41,37 @@ public class GameBoard {
         this.fields = fields;
     }
 
-    public static GameBoard setup(String filename, UserIO userIO) {
+    public static GameBoard setup(Field[] fields, UserIO userIO) {
+        // TODO
+        //  we need to figure out some way to make simpler tests.
+        //  Can we find a way to make the board only 5 square and then test jail on that board?
+        //  Can we do that without changing current code to much?
+        // We only make fieldPairs if it is the size of the original matador board.
+        // We do this so we can run tests with other board sizes.
+        fields = initFieldPairs(fields);
+        GameBoard gameBoard = new GameBoard(new LanguageController("english"), new Deck(), new DiceCup(), fields);
+
+        new FieldImpl(gameBoard, userIO);
+        new ChanceCardImpl(gameBoard, userIO);
+        return gameBoard;
+    }
+
+    private static Stream<String> getLineStream(String filename) {
         var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
-            throw new IllegalStateException("Inputstream should not be null");
+            throw new IllegalStateException("InputStream should not be null");
         }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
+        // First row is keys. Type, position, rent, which we must skip.
+        Stream<String> stream = bufferedReader.lines().skip(1);
+        return stream;
+    }
+
+    public static Field[] getDefaultFields() {
+        var lines = getLineStream("fields.csv");
         // First row is keys. Type, position, rent etc.
-        Stream<String> iter = bufferedReader.lines().skip(1);
-        List<Field> temp = iter.map(line -> {
+        List<Field> temp = lines.map(line -> {
             String[] key = line.split(",");
             return switch (key[2].trim()) {
                 case ("street") -> new Street(line);
@@ -68,19 +89,9 @@ public class GameBoard {
 
         Field[] fields = new Field[temp.size()];
         temp.toArray(fields);
-        // TODO
-        //  we need to figure out some way to make simpler tests.
-        //  Can we find a way to make the board only 5 square and then test jail on that board?
-        //  Can we do that without changing current code to much?
-        // We only make fieldPairs if it is the size of the original matador board.
-        // We do this so we can run tests with other board sizes.
-        fields = initFieldPairs(fields);
-        GameBoard gameBoard = new GameBoard(new LanguageController("english"), new Deck(), new DiceCup(), fields);
-
-        new FieldImpl(gameBoard, userIO);
-        new ChanceCardImpl(gameBoard, userIO);
-        return gameBoard;
+        return fields;
     }
+
 
     private static Field[] initFieldPairs(Field[] fields) {
         List<FieldPair> fieldPairs = new ArrayList<>();
