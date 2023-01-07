@@ -32,7 +32,7 @@ public class GameBoard {
     private ChanceCardImpl chanceCardImpl;
     private FieldImpl fieldImpl;
 
-    public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields, UserIO userIO, ) {
+    public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields, UserIO userIO) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
         this.deck = deck;

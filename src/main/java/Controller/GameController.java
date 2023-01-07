@@ -31,10 +31,6 @@ public class GameController {
     /**
      * We use this to create GameController so we can easier test the GameController with custom values and setup.
      * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
-     *
-     * @param guiView
-     * @param gameBoard
-     * @return
      */
     public static GameController setup() {
         GameBoard gameBoard = GameBoard.setup("fields.csv");

@@ -1,30 +1,29 @@
-MOVETO:Move To
-ONPICKFIELDCHANCE:Pick a field to move to. If it is available you get it for free. Otherwise you pay rent
-GAMEWONMSG: has won the game!
-GAMELOSTMSG: has lost the game!
-ROLLDICEMSG:It is your turn. Roll the Dice
-LEAVEJAILMSG: , you are in Jail. Pay a fine or roll equal dice to get out.
-CHANCECARDMSG: pulled a chance card. It tells you to:
-PARKINGMSG: You are on parking. There is not much happening here.
-STARTMSG: You get two dollars for landing or passing through start
-ONGETOUTOFJAIL:Recieve a get out of jail free card. This will automatically be used when you go to jail
-PLAYERCOUNTMSG:How many players will be playing?
-PLAYERNAME4:Player 4
-PLAYERNAME3:Player 3
-PLAYERNAME2:Player 2
-PLAYERNAME1:Player 1
-SUCCESFULCONDITIONCHANCECARD: Your values have been tallied under the requirement, you have recieved
-UNSUCCESFULCONDITIONCHANCECARD: Your values have been talliet over the requiremnt, you do not revieve anything.
-WANTTOBUYPROMPT1: You have landed on
-WANTTOBUYPROMPT2:. Would you like to buy it?
-WANTTOBAILOUT: Would you like to pay 1000 DKK to bail out of jail?
+MOVE_TO:Move to
+ON_PICK_FIELD_CHANCE:Pick a field to move to. If it is available you get it for free. Otherwise, you pay rent
+GAME_WON_MSG: has won the game!
+GAME_LOST_MSG: has lost the game!
+ROLL_DICE_MSG:It is your turn. Roll the Dice
+LEAVE_JAIL_MSG:, you are in Jail. Pay a fine or roll equal dice to get out.
+CHANCE_CARD_MSG: pulled a chance card. It tells you to:
+PARKING_MSG: You are on parking. There is not much happening here.
+START_MSG: You get two dollars for landing or passing through start
+ON_GET_OUT_OF_JAIL:Receive a get out of jail free card. This will automatically be used when you go to jail
+PLAYER_COUNT_MSG:How many players will be playing?
+PLAYER_NAME4:Player 4
+PLAYER_NAME3:Player 3
+PLAYER_NAME2:Player 2
+PLAYER_NAME1:Player 1
+SUCCESSFUL_CONDITION_CHANCE_CARD: Your values have been tallied under the requirement, you have received
+UN_SUCCESSFUL_CONDITION_CHANCE_CARD: Your values have been tallied over the requirement, you do not revive anything.
+WANT_TO_BUY_PROMPT: You have landed on $. Would you like to buy it?
+WANT_TO_BAIL_OUT: Would you like to pay 1000 DKK to bail out of jail?
 YES:Yes
 NO:No
-EXTRATURN: you rolled double, you get an extra turn.
-TAXPROMPT: You have to pay tax, you have the choice between:
-PLAYERTOTALVALUE: of all wealth
-PASSEDSTARTMSG: You passed start. You receive 4000 DKK.
-WANTTOBUYHOUSE: Would you like to buy a House?
-NOMOREHOUSES:I don't want to buy any more Houses
-SELECTHOUSE:Select the property that you wish to buy a house for:
-DKKPER:DKK per
+EXTRA_TURN:, you rolled double, you get an extra turn.
+TAX_PROMPT:You have to pay tax, you have the choice between:
+PLAYER_TOTAL_VALUE: of all wealth
+PASSED_START_MSG: You passed start. You receive 4000 DKK.
+WANT_TO_BUY_HOUSE: Would you like to buy a House?
+NO_MORE_HOUSES:I don't want to buy any more Houses
+SELECT_HOUSE:Select the property that you wish to buy a house for:
+DKK_PER:DKK per
