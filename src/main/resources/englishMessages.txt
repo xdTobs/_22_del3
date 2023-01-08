@@ -20,8 +20,7 @@ WANT_TO_BAIL_OUT: Would you like to pay 1000 DKK to bail out of jail?
 YES:Yes!
 NO:No.
 EXTRA_TURN:$, you rolled equal dice. You get an extra turn!
-TAX_PROMPT:You have to pay tax, you have the choice between: $ or $.
-PLAYER_TOTAL_VALUE:$ of all wealth
+TAX_PROMPT:You have to pay tax, you have the choice between: $ or $ % of all wealth.
 PASSED_START:$, you passed start. You receive 4000 DKK.
 WANT_TO_BUY_HOUSE:$, would you like to buy a House?
 NO_MORE_HOUSES:I don't want to buy any more Houses

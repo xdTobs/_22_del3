@@ -15,7 +15,7 @@ import View.GuiView;
 public class GameController {
     final private View view;
     final private GameBoard gameBoard;
-    private final BasicUserIO basicUserIO;
+    private final UserIO userIO;
 
 
     /**
@@ -24,10 +24,10 @@ public class GameController {
      * @param view      the view
      * @param gameBoard the gameBoard, our model
      */
-    public GameController(View view, BasicUserIO basicUserIO, GameBoard gameBoard) {
+    public GameController(View view, UserIO userIO, GameBoard gameBoard) {
         this.view = view;
         this.gameBoard = gameBoard;
-        this.basicUserIO = basicUserIO;
+        this.userIO = userIO;
     }
 
     /**
@@ -41,19 +41,12 @@ public class GameController {
         UserIO userIO = new UserIO(guiView);
         GameBoard gameBoard = GameBoard.setup(fields, userIO);
 
-        GameController controller = new GameController(guiView, guiView, gameBoard);
+        GameController controller = new GameController(guiView, userIO, gameBoard);
 
         Message numberOfPlayers = Message.numberOfPlayers();
         int playerCount = userIO.promptRange(numberOfPlayers, 2, 4);
 
         gameBoard.createPlayers(playerCount);
-//        String key = "PLAYER_COUNT_MSG";
-//        int playerCount = guiView.promptRange(guiView, 2, 4);
-//        gameBoard.createPlayers(playerCount);
-//        guiView.addPlayersToGui(gameBoard.getPlayers());
-//
-//        gameBoard.setActualFields(new FieldImpl(gameBoard, guiView));
-//        gameBoard.setActualChanceCard(new ChanceCardImpl(gameBoard, guiView));
 
         return controller;
     }
@@ -64,8 +57,10 @@ public class GameController {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-                basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
-                basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
+
+
+//                basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
+//                basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
 
             } else {

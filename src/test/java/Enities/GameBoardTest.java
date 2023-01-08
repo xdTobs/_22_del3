@@ -1,5 +1,7 @@
 package Enities;
 
+import Controller.UserIO;
+import View.TestView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +13,7 @@ class GameBoardTest {
 
     @BeforeEach
     void setUp() {
-        GameBoard board = new GameBoard();
+        GameBoard board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()));
         board.createPlayers(2);
     }
 

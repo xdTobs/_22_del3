@@ -24,7 +24,7 @@ public class GameBoard {
 
     private final DiceCup diceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
-    private final Field[] fields;
+    private Field[] fields;
     private final LanguageController languageController;
     private Deck deck;
     private Player[] players;
@@ -32,10 +32,14 @@ public class GameBoard {
     private ChanceCardImpl chanceCardImpl;
     private FieldImpl fieldImpl;
 
+    public GameBoard(Field[] fields, UserIO userIO) {
+        this(new LanguageController(), new DiceCup(), fields, userIO);
+    }
+
     public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields, UserIO userIO) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
-        this.deck = deck;
+        this.deck = Deck.setup();
         this.diceCup = diceCup;
         this.languageController = languageController;
         this.fields = fields;
@@ -47,9 +51,9 @@ public class GameBoard {
         //  Can we find a way to make the board only 5 square and then test jail on that board?
         //  Can we do that without changing current code to much?
         // We only make fieldPairs if it is the size of the original matador board.
-        // We do this so we can run tests with other board sizes.
+        // We do this, so we can run tests with other board sizes.
         fields = initFieldPairs(fields);
-        GameBoard gameBoard = new GameBoard(new LanguageController("english"), new Deck(), new DiceCup(), fields);
+        GameBoard gameBoard = new GameBoard(fields, userIO);
 
         new FieldImpl(gameBoard, userIO);
         new ChanceCardImpl(gameBoard, userIO);

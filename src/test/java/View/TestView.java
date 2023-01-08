@@ -1,11 +1,13 @@
 package View;
 
+import Controller.BasicUserIO;
 import Controller.View;
 import Enities.DiceCup.DiceCup;
 import Enities.Fields.Field;
 import Enities.Player;
+import Language.Message;
 
-public class TestView implements View {
+public class TestView implements View, BasicUserIO {
     @Override
     public void addPlayersToGui(Player[] players) {
 
@@ -26,10 +28,6 @@ public class TestView implements View {
 
     }
 
-    @Override
-    public void showMessage(String string) {
-        System.out.println(string);
-    }
 
     @Override
     public void update(Player[] players, Field[] fields) {
@@ -41,4 +39,18 @@ public class TestView implements View {
         System.out.println("updateHouses");
     }
 
+    @Override
+    public int promptChoice(Message message, Message... choices) {
+        return 0;
+    }
+
+    @Override
+    public int promptRange(Message message, int min, int max) {
+        return 0;
+    }
+
+    @Override
+    public void showMessage(Message message) {
+
+    }
 }

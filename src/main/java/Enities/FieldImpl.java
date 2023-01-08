@@ -1,6 +1,5 @@
 package Enities;
 
-import Controller.BasicUserIO;
 import Controller.UserIO;
 import Enities.ChanceCards.ChanceCard;
 import Enities.ChanceCards.Deck;
@@ -47,32 +46,33 @@ public class FieldImpl implements FieldAction {
     }
 
     //TODO figure out where this goes
-    private void buyHouseProcess() {
-        while (wantToBuyHouse()) {
-            List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
-            List<Street> ownedStreets = new ArrayList<>();
-            for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() < 6)
-                    ownedStreets.add(street);
-            }
-
-            String[] choices = new String[ownedStreets.size() + 1];
-            for (int i = 0; i < ownedStreets.size(); i++) {
-                choices[i + 1] = ownedStreets.get(i).getName() + " " + ownedStreets.get(i).getHousePrice() + " " + gameBoard.getMessage("DKK per");
-            }
-            choices[0] = gameBoard.getMessage("noMoreHouses");
-            String message = gameBoard.getMessage("selectHouse");
-            String selection = view.promptPlayer(choices, message);
-            if (selection.equals(gameBoard.getMessage("noMoreHouses")))
-                return;
-            for (Street ownedStreet : ownedStreets) {
-                if (selection.equals(ownedStreet.getName() + " " + ownedStreet.getHousePrice() + " " + gameBoard.getMessage("DKK per"))) {
-                    buyHouse(ownedStreet);
-                    break;
-                }
-            }
-        }
-    }
+//    private void buyHouseProcess() {
+//        while (wantToBuyHouse()) {
+//            List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
+//            List<Street> ownedStreets = new ArrayList<>();
+//            for (RentableField ownedField : ownedFields) {
+//                if (ownedField instanceof Street street && street.getHouses() < 6)
+//                    ownedStreets.add(street);
+//            }
+//
+//            String[] choices = new String[ownedStreets.size() + 1];
+//            for (int i = 0; i < ownedStreets.size(); i++) {
+//                choices[i + 1] = ownedStreets.get(i).getName() + " " + ownedStreets.get(i).getHousePrice() + " " + gameBoard.getMessage("DKK per");
+//            }
+//
+//            choices[0] = gameBoard.getMessage("noMoreHouses");
+//            String message = gameBoard.getMessage("selectHouse");
+//            String selection = view.promptPlayer(choices, message);
+//            if (selection.equals(gameBoard.getMessage("noMoreHouses")))
+//                return;
+//            for (Street ownedStreet : ownedStreets) {
+//                if (selection.equals(ownedStreet.getName() + " " + ownedStreet.getHousePrice() + " " + gameBoard.getMessage("DKK per"))) {
+//                    buyHouse(ownedStreet);
+//                    break;
+//                }
+//            }
+//        }
+//    }
 
     private void buyHouse(Street street) {
         street.setHouses(street.getHouses() + 1);
@@ -80,10 +80,8 @@ public class FieldImpl implements FieldAction {
     }
 
     private boolean wantToBuyHouse() {
-        String[] choices = new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")};
-        String message = gameBoard.getMessage("wantToBuyHouse");
-        String wantToBuyHouse = view.promptPlayer(choices, message);
-        return (wantToBuyHouse.equals(gameBoard.getMessage("yes")));
+        String playerName = gameBoard.getCurrentPlayer().getName();
+        return userIO.promptYesOrNo(Message.buyHouse(playerName));
     }
 
     public RentableField buyEmptyStreet(RentableField street) {
@@ -133,18 +131,18 @@ public class FieldImpl implements FieldAction {
     @Override
     public void taxAction(Tax tax) {
 
-        if (tax.getPercentPrice() > 0 && wantToPayPercent(tax)) {
+        if (tax.getPercentPrice() > 0 && wantToPayPercentPrice(tax)) {
             gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
             return;
         }
         gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) * 0.1));
     }
 
-    private boolean wantToPayPercent(Tax tax) {
-//        String valOrPercent = view.promptPlayer(new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt"));
-//        new String[]{String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%" + gameBoard.getMessage("playerTotalValue")}, gameBoard.getMessage("taxPrompt")
-        int valOrPercent = basicUserIO.promptChoice("taxPrompt", String.valueOf(tax.getPrice()), tax.getPercentPrice() + "%");
-        return valOrPercent == 1;
+    private boolean wantToPayPercentPrice(Tax tax) {
+        String fixedPrice = String.valueOf(tax.getPrice());
+        String percentPrice = tax.getPercentPrice() + "";
+        Message taxQuestion = Message.taxPrompt(fixedPrice, percentPrice);
+        return userIO.promptChoice(taxQuestion) == 1;
     }
 
     @Override

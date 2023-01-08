@@ -14,6 +14,13 @@ public class Message {
     public static Message buyField(String playerName, String fieldName) {
         return of(Type.WANT_TO_BUY_PROMPT, playerName, fieldName);
     }
+    public static Message buyHouse(String playerName) {
+        return of(Type.WANT_TO_BUY_PROMPT, playerName);
+    }
+
+    public static Message taxPrompt(String setPrice, String percentage) {
+        return of(Type.TAX_PROMPT, setPrice, percentage);
+    }
 
     public static Message numberOfPlayers() {
         return of(Type.PLAYER_COUNT_MSG);
@@ -60,7 +67,6 @@ public class Message {
         PLAYER_NAME2,
         PLAYER_NAME3,
         PLAYER_NAME4,
-        PLAYER_TOTAL_VALUE,
         ROLL_DICE_MSG,
         SELECT_HOUSE,
         START_MSG,

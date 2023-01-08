@@ -4,7 +4,9 @@ import Language.Message;
 
 /**
  * We use this class to make more advanced prompts for our user.
- * Instead of just having the three from the interface, we can add QOL methods here.
+ * Instead of just having the three from the interface, we can add quality of life methods here.
+ * Our GuiView implements the most basic of IO and every IO goes through the GuiView IO. We add more specific methods here,
+ * which makes it easier to ask Player for input or show message.
  */
 public class UserIO implements BasicUserIO {
     BasicUserIO basicUserIO;
