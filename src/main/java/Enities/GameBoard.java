@@ -215,7 +215,7 @@ public class GameBoard {
     }
 
     /**
-     * Roll die move player boolean.
+     * Moves the player and returns true if player has passed start.
      *
      * @return is true if the player has passed start.
      */
@@ -227,7 +227,7 @@ public class GameBoard {
         Player currentPlayer = getCurrentPlayer();
         int playerPosition = currentPlayer.getPosition();
         int newPosition = playerPosition + diceCup.getSum();
-        setNewPosition(newPosition);
+        return setNewPosition(newPosition);
     }
 
     public boolean setNewPosition(int newPosition) {

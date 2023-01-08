@@ -45,7 +45,7 @@ public class LanguageController {
         Iterator<String> args = Arrays.stream(message.getArgs()).iterator();
         String[] chars = languageMap.get(message.getType()).split("");
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i].equals("$")) {
+            if (chars[i].equals("*")) {
                 chars[i] = args.next();
             }
         }

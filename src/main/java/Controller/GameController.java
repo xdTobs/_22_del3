@@ -41,8 +41,7 @@ public class GameController {
 
         GameController controller = new GameController(guiView, userIO, gameBoard);
 
-        Message numberOfPlayers = Message.numberOfPlayers();
-        int playerCount = userIO.promptRange(numberOfPlayers, 2, 4);
+        int playerCount = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
 
         gameBoard.createPlayers(playerCount);
 
@@ -84,9 +83,10 @@ public class GameController {
                 currentPlayer.setJailed(false);
                 currentPlayer.setJailedCounter(0);
             } else if (currentPlayer.getBalance() >= 1000) {
-                String[] choices = new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")};
-                String yesOrNo = view.promptPlayer(choices, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBailOut"));
-                if (yesOrNo.equals(gameBoard.getMessage("yes"))) {
+                String playerName = gameBoard.getCurrentPlayer().getName();
+                boolean wantsToBailOut = userIO.promptYesOrNo(Message.bailOut(playerName));
+
+                if (wantsToBailOut) {
                     currentPlayer.setJailed(false);
                     currentPlayer.setJailedCounter(0);
                     currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
@@ -96,7 +96,8 @@ public class GameController {
         if (!currentPlayer.isJailed()) {
             gameBoard.getDiceCup().roll();
             boolean hasPassedStart = gameBoard.movePlayer();
-            basicUserIO.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
+            String playerName = gameBoard.getCurrentPlayer().getName();
+            userIO.showMessage(Message.rollDice(playerName));
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
             gameBoard.fieldAction(currentPlayer);
             //gameBoard.isPlayerBankrupt();
@@ -104,6 +105,7 @@ public class GameController {
 
             if (hasPassedStart) {
                 basicUserIO.showMessage(gameBoard.getMessage("passedStartMsg"));
+                userIO.showMessage(Message.passedStartMessage());
             }
             // Checks if player gets an extra turn
             // TODO Should you get extra turn if you land on goToJail?

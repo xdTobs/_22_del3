@@ -12,11 +12,15 @@ public class Message {
 
     // All the methods that return of(...) is just for making the code easier to read in the app.
     public static Message buyField(String playerName, String fieldName) {
-        return of(Type.WANT_TO_BUY_PROMPT, playerName, fieldName);
+        return of(Type.WANT_TO_BUY_FIELD, playerName, fieldName);
     }
 
     public static Message buyHouse(String playerName) {
-        return of(Type.WANT_TO_BUY_PROMPT, playerName);
+        return of(Type.WANT_TO_BUY_HOUSE, playerName);
+    }
+
+    public static Message bailOut(String playerName) {
+        return of(Type.WANT_TO_BAIL_OUT, playerName);
     }
 
     public static Message taxPrompt(String setPrice, String percentage) {
@@ -24,7 +28,7 @@ public class Message {
     }
 
     public static Message numberOfPlayers() {
-        return of(Type.PLAYER_COUNT_MSG);
+        return of(Type.PLAYER_COUNT);
     }
 
     public static Message yes() {
@@ -41,16 +45,76 @@ public class Message {
         this.args = args;
     }
 
-    public static Message chanceCard(String description) {
-        return of(Type.DESCRIPTION_FOR_CHANCE_CARDS, description);
-    }
-
     public static Message giftToPoorPlayer(String playerName, int amount) {
-        return of(Type.SUCCESSFUL_CONDITION_CHANCE_CARD, playerName, String.valueOf(amount));
+        return of(Type.MONEY_GIFT_CARD_SUCCESSFUL, playerName, String.valueOf(amount));
     }
 
     public static Message noGiftToRichPlayer(String playerName, int amount) {
-        return of(Type.UN_SUCCESSFUL_CONDITION_CHANCE_CARD, playerName, String.valueOf(amount));
+        return of(Type.MONEY_GIFT_CARD_UNSUCCESSFUL, playerName, String.valueOf(amount));
+    }
+
+    public static Message rollDice(String playerName) {
+        return of(Type.ROLL_DICE, playerName);
+    }
+
+    public static Message moveTo(String playerName, String fieldName) {
+        return of(Type.ROLL_DICE, playerName, fieldName);
+    }
+
+    public static Message pickField() {
+        return of(Type.ON_PICK_FIELD_CARD);
+    }
+
+    public static Message gameWon(String playerName) {
+        return of(Type.GAME_WON, playerName);
+    }
+
+    public static Message gameLost(String playerName) {
+        return of(Type.GAME_LOST, playerName);
+    }
+
+    public static Message chanceCard(String playerName, String fieldName) {
+        return of(Type.CHANCE_CARD, playerName, fieldName);
+    }
+
+    public static Message leaveJail(String playerName) {
+        return of(Type.LEAVE_JAIL, playerName);
+    }
+
+    public static Message getOutOfJail(String playerName) {
+        return of(Type.GET_OUT_OF_JAIL_CARD, playerName);
+    }
+
+    public static Message passedStart(String playerName) {
+        return of(Type.PASSED_START, playerName);
+    }
+
+    public static Message finishBuyingHouses() {
+        return of(Type.STOP_BUYING_HOUSES);
+    }
+
+//    PASSED_START,
+//    WANT_TO_BUY_HOUSE,
+//    NO_MORE_HOUSES,
+//    SELECT_HOUSE,
+
+    public static Message parking() {
+        return of(Type.PARKING);
+    }
+
+    public static Message playerName(int id) {
+        switch (id) {
+            case (1):
+                return of(Type.PLAYER_NAME_1);
+            case (2):
+                return of(Type.PLAYER_NAME_2);
+            case (3):
+                return of(Type.PLAYER_NAME_3);
+            case (4):
+                return of(Type.PLAYER_NAME_4);
+            default:
+                throw new IllegalArgumentException("The player doesn't exist.\nIllegal ID: " + id);
+        }
     }
 
     public Type getType() {
@@ -62,34 +126,32 @@ public class Message {
     }
 
     public enum Type {
-        CHANCE_CARD_MSG,
-        DKK_PER,
-        EXTRA_TURN,
-        GAME_LOST_MSG,
-        GAME_WON_MSG,
-        LEAVE_JAIL_MSG,
         MOVE_TO,
-        NO,
-        NO_MORE_HOUSES,
-        ON_GET_OUT_OF_JAIL,
-        ON_PICK_FIELD_CHANCE,
-        PARKING_MSG,
-        PASSED_START_MSG,
-        PLAYER_COUNT_MSG,
-        PLAYER_NAME1,
-        PLAYER_NAME2,
-        PLAYER_NAME3,
-        PLAYER_NAME4,
-        ROLL_DICE_MSG,
-        SELECT_HOUSE,
-        START_MSG,
-        SUCCESSFUL_CONDITION_CHANCE_CARD,
-        TAX_PROMPT,
-        UN_SUCCESSFUL_CONDITION_CHANCE_CARD,
+        ON_PICK_FIELD_CARD,
+        GAME_WON,
+        GAME_LOST,
+        ROLL_DICE,
+        LEAVE_JAIL,
+        CHANCE_CARD,
+        PARKING,
+        GET_OUT_OF_JAIL_CARD,
+        PLAYER_COUNT,
+        PLAYER_NAME_4,
+        PLAYER_NAME_3,
+        PLAYER_NAME_2,
+        PLAYER_NAME_1,
+        MONEY_GIFT_CARD_SUCCESSFUL,
+        MONEY_GIFT_CARD_UNSUCCESSFUL,
+        WANT_TO_BUY_FIELD,
         WANT_TO_BAIL_OUT,
+
         WANT_TO_BUY_HOUSE,
-        WANT_TO_BUY_PROMPT,
         YES,
-        DESCRIPTION_FOR_CHANCE_CARDS,
+        NO,
+        EXTRA_TURN,
+        TAX_PROMPT,
+        PASSED_START,
+        STOP_BUYING_HOUSES,
+        SELECT_HOUSE,
     }
 }

@@ -1,28 +1,26 @@
-MOVE_TO:$, move to $
-ON_PICK_FIELD_CHANCE:Pick a field to move to. If it is available you get it for free. Otherwise, you have to pay rent.
-GAME_WON:$ has won the game!
-GAME_LOST:$ has lost the game!
-ROLL_DICE:$, it is your turn. Roll the dice!
-LEAVE_JAIL:$, you are in Jail. Pay a fine, use a get out of jail card or roll equal dice to get out.
-CHANCE_CARD: pulled a chance card. It tells you to:
+MOVE_TO:*, move to *
+ON_PICK_FIELD_CARD:Pick a field to move to. If it is available you get it for free. Otherwise, you have to pay rent.
+GAME_WON:* has won the game!
+GAME_LOST:* has lost the game!
+ROLL_DICE:*, it is your turn. Roll the dice!
+LEAVE_JAIL:*, you are in Jail. Pay a fine or roll equal dice to get out. After three turns in jail you are forced to pay fine and leave jail.
+CHANCE_CARD:* pulled a chance card. It tells you to: *
 PARKING: You are on parking. There is not much happening here.
-START: You get two dollars for landing or passing through start
-ON_GET_OUT_OF_JAIL:Receive a get out of jail free card. This will automatically be used when you go to jail
+GET_OUT_OF_JAIL_CARD:*, you have received a get out of jail card. This will automatically be used when you go to jail.
 PLAYER_COUNT:How many players will be playing?
-PLAYER_NAME4:Player 4
-PLAYER_NAME3:Player 3
-PLAYER_NAME2:Player 2
-PLAYER_NAME1:Player 1
-SUCCESSFUL_CONDITION_CHANCE_CARD:$, your values have been tallied under the requirement, you have received $.
-UN_SUCCESSFUL_CONDITION_CHANCE_CARD:$, your values have been tallied over the requirement, you do NOT receive $.
-WANT_TO_BUY_PROMPT:$ have landed on $. Would you like to buy it?
-WANT_TO_BAIL_OUT: Would you like to pay 1000 DKK to bail out of jail?
+PLAYER_NAME_4:Player 4
+PLAYER_NAME_3:Player 3
+PLAYER_NAME_2:Player 2
+PLAYER_NAME_1:Player 1
+MONEY_GIFT_CARD_SUCCESSFUL:*, your values have been tallied under the requirement, you have received *.
+MONEY_GIFT_CARD_UNSUCCESSFUL:*, your values have been tallied over the requirement, you do NOT receive *.
+WANT_TO_BUY_FIELD:* have landed on *. Would you like to buy it?
+WANT_TO_BAIL_OUT: *, would you like to pay 1000 DKK to bail out of jail?
 YES:Yes!
 NO:No.
-EXTRA_TURN:$, you rolled equal dice. You get an extra turn!
-TAX_PROMPT:You have to pay tax, you have the choice between: $ or $ % of all wealth.
-PASSED_START:$, you passed start. You receive 4000 DKK.
-WANT_TO_BUY_HOUSE:$, would you like to buy a House?
-NO_MORE_HOUSES:I don't want to buy any more Houses
+EXTRA_TURN:*, you rolled equal dice. You get an extra turn!
+TAX_PROMPT:You have to pay tax, you have the choice between: * or * % of all wealth.
+PASSED_START:*, you passed start. You receive 4000 DKK.
+WANT_TO_BUY_HOUSE:*, would you like to buy a House?
+STOP_BUYING_HOUSES:I don't want to buy any more Houses.
 SELECT_HOUSE:Select the property that you wish to buy a house for:
-DESCRIPTION_FOR_CHANCE_CARDS:$

@@ -11,6 +11,7 @@ import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class GuiView implements View, BasicUserIO {
 
@@ -29,8 +30,18 @@ public class GuiView implements View, BasicUserIO {
         this.gui = new GUI(guiFields);
     }
 
+    /**
+     * If this gets called with no choices, then we will instead use the args as choices.
+     *
+     * @param message
+     * @param choices
+     * @return
+     */
     @Override
     public int promptChoice(Message message, Message... choices) {
+        if (choices.length == 0 && message.getArgs().length > 1) {
+            return promptChoice(message, message.getArgs());
+        }
         String[] choiceArray = new String[choices.length];
         for (int i = 0; i < choices.length; i++) {
             choiceArray[i] = languageController.getMessage(choices[i]);
@@ -43,6 +54,27 @@ public class GuiView implements View, BasicUserIO {
             }
         }
         throw new UnsupportedOperationException("An answer have been given that is not in the choices array");
+    }
+
+    /**
+     * We have this method only for the SELECT_HOUSE Message.Type.
+     * We need to be able to construct a choice prompt with field names as values,
+     * without having to fields ot the Message.Type enum.
+     *
+     * @param message
+     * @param choicesArray
+     * @return
+     */
+    private int promptChoice(Message message, String[] choicesArray) {
+        String answer = this.gui.getUserSelection(languageController.getMessage(message), choicesArray);
+
+        for (int i = 0; i < choicesArray.length; i++) {
+            if (answer == choicesArray[i]) {
+                return i;
+            }
+        }
+        String choices = Arrays.stream(choicesArray).reduce("", (acc, choice) -> acc + ", " + choice);
+        throw new UnsupportedOperationException("An answer have been given that is not in the choices array." + "Answer given: " + answer + "Choices: " + choices);
     }
 
     @Override
