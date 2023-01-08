@@ -1,7 +1,5 @@
 package Controller;
 
-import Enities.ChanceCardImpl;
-import Enities.FieldImpl;
 import Enities.Fields.Field;
 import Enities.GameBoard;
 import Enities.Player;
@@ -96,7 +94,8 @@ public class GameController {
             }
         }
         if (!currentPlayer.isJailed()) {
-            boolean hasPassedStart = gameBoard.rollDieMovePlayer();
+            gameBoard.getDiceCup().roll();
+            boolean hasPassedStart = gameBoard.movePlayer();
             basicUserIO.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
             gameBoard.fieldAction(currentPlayer);

@@ -219,11 +219,19 @@ public class GameBoard {
      *
      * @return is true if the player has passed start.
      */
-    public boolean rollDieMovePlayer() {
-        diceCup.roll();
+    public boolean movePlayer() {
+        return movePlayer(diceCup.getSum());
+    }
+
+    public boolean movePlayer(int diceValue) {
         Player currentPlayer = getCurrentPlayer();
         int playerPosition = currentPlayer.getPosition();
         int newPosition = playerPosition + diceCup.getSum();
+        setNewPosition(newPosition);
+    }
+
+    public boolean setNewPosition(int newPosition) {
+        Player currentPlayer = getCurrentPlayer();
         boolean hasPassedStart = false;
         if (newPosition > fields.length - 1) {
             newPosition = newPosition - fields.length;
@@ -233,7 +241,6 @@ public class GameBoard {
         currentPlayer.setPosition(newPosition);
         return hasPassedStart;
     }
-
 
     /**
      * Get players player [ ].

@@ -11,5 +11,5 @@ public interface ChanceAction {
     void payPerProperty(int perHouse, int perHotel);
     void goToJail();
     void moveToBrewery();
-    void printDesc(String desc);
+    void printDescription(String desc);
 }

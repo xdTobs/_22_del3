@@ -56,7 +56,7 @@ class GameBoardTest {
 
     @Test
     void rollDieMovePlayer() {
-        board.rollDieMovePlayer();
+        board.movePlayer();
         assertTrue(board.getCurrentPlayer().getPosition() > 0);
     }
 

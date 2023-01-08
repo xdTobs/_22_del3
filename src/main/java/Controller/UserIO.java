@@ -42,4 +42,8 @@ public class UserIO implements BasicUserIO {
     public void showMessage(Message message) {
         basicUserIO.showMessage(message);
     }
+
+    public void moneyToPoorPlayer(Message message) {
+        basicUserIO.showMessage(message);
+    }
 }

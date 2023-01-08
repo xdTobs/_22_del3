@@ -8,6 +8,6 @@ public class GoToJailChanceCard extends ChanceCard{
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
         chanceAction.goToJail();
-        chanceAction.printDesc(desc);
+        chanceAction.printDescription(desc);
     }
 }

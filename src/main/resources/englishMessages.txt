@@ -13,8 +13,8 @@ PLAYER_NAME4:Player 4
 PLAYER_NAME3:Player 3
 PLAYER_NAME2:Player 2
 PLAYER_NAME1:Player 1
-SUCCESSFUL_CONDITION_CHANCE_CARD: Your values have been tallied under the requirement, you have received $
-UN_SUCCESSFUL_CONDITION_CHANCE_CARD: Your values have been tallied over the requirement, you do not receive anything.
+SUCCESSFUL_CONDITION_CHANCE_CARD:$, your values have been tallied under the requirement, you have received $.
+UN_SUCCESSFUL_CONDITION_CHANCE_CARD:$, your values have been tallied over the requirement, you do NOT receive $.
 WANT_TO_BUY_PROMPT:$ have landed on $. Would you like to buy it?
 WANT_TO_BAIL_OUT: Would you like to pay 1000 DKK to bail out of jail?
 YES:Yes!
@@ -25,3 +25,4 @@ PASSED_START:$, you passed start. You receive 4000 DKK.
 WANT_TO_BUY_HOUSE:$, would you like to buy a House?
 NO_MORE_HOUSES:I don't want to buy any more Houses
 SELECT_HOUSE:Select the property that you wish to buy a house for:
+DESCRIPTION_FOR_CHANCE_CARDS:$

@@ -14,6 +14,7 @@ public class Message {
     public static Message buyField(String playerName, String fieldName) {
         return of(Type.WANT_TO_BUY_PROMPT, playerName, fieldName);
     }
+
     public static Message buyHouse(String playerName) {
         return of(Type.WANT_TO_BUY_PROMPT, playerName);
     }
@@ -38,6 +39,18 @@ public class Message {
     public Message(Type type, String[] args) {
         this.type = type;
         this.args = args;
+    }
+
+    public static Message chanceCard(String description) {
+        return of(Type.DESCRIPTION_FOR_CHANCE_CARDS, description);
+    }
+
+    public static Message giftToPoorPlayer(String playerName, int amount) {
+        return of(Type.SUCCESSFUL_CONDITION_CHANCE_CARD, playerName, String.valueOf(amount));
+    }
+
+    public static Message noGiftToRichPlayer(String playerName, int amount) {
+        return of(Type.UN_SUCCESSFUL_CONDITION_CHANCE_CARD, playerName, String.valueOf(amount));
     }
 
     public Type getType() {
@@ -77,5 +90,6 @@ public class Message {
         WANT_TO_BUY_HOUSE,
         WANT_TO_BUY_PROMPT,
         YES,
+        DESCRIPTION_FOR_CHANCE_CARDS,
     }
 }

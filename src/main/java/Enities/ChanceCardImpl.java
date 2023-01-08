@@ -1,21 +1,21 @@
 package Enities;
 
-import Controller.BasicUserIO;
 import Controller.UserIO;
 import Enities.ChanceCards.ChanceAction;
 
 import Enities.Fields.Brewery;
 import Enities.Fields.Ferry;
 import Enities.Fields.Field;
+import Language.Message;
 
 
 public class ChanceCardImpl implements ChanceAction {
     private GameBoard gameBoard;
-    private BasicUserIO basicUserIO;
+    private UserIO userIO;
 
     public ChanceCardImpl(GameBoard gameBoard, UserIO userIO) {
         this.gameBoard = gameBoard;
-        this.basicUserIO = userIO;
+        this.userIO = userIO;
     }
 
     @Override
@@ -25,25 +25,25 @@ public class ChanceCardImpl implements ChanceAction {
     }
 
     @Override
-    public void changeBal(int i) {
-        gameBoard.getCurrentPlayer().addBalance(i);
+    public void changeBal(int amount) {
+        gameBoard.getCurrentPlayer().addBalance(amount);
     }
 
     @Override
     public void changeBalConditional(int amount, int condition) {
+        String playerName = gameBoard.getCurrentPlayer().getName();
         if (gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) < condition) {
-//            userIO.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("succesfulConditionChanceCard") + amount + " DKK");
-            String playerName = gameBoard.getCurrentPlayer().getName();
-            String key = "SUCCESFULCONDITIONCHANCECARD";
-            basicUserIO.showMessage(key, playerName, amount + "", "DKK");
+            userIO.showMessage(Message.giftToPoorPlayer(playerName, amount));
+            changeBal(amount);
         } else {
-//            userIO.showMessage(gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("unSuccesfulConditionChanceCard"));
+            userIO.showMessage(Message.noGiftToRichPlayer(playerName, amount));
         }
     }
 
     @Override
     public void changeBalFromPlayers(int amount) {
         for (Player p : gameBoard.getPlayers()) {
+            changeBal(amount);
             gameBoard.getCurrentPlayer().addBalance(amount);
             p.addBalance(-amount);
         }
@@ -57,14 +57,7 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void moveSpaces(int spaces) {
-        int playerPos = gameBoard.getCurrentPlayer().getPosition();
-        if (playerPos + spaces > 0 && playerPos + spaces < gameBoard.getFields().length) {
-            gameBoard.getCurrentPlayer().setPosition(playerPos + spaces);
-        } else if (playerPos + spaces < 0) {
-            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length + playerPos + spaces);
-        } else {
-            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
-        }
+        gameBoard.movePlayer(spaces);
     }
 
     @Override
@@ -107,8 +100,8 @@ public class ChanceCardImpl implements ChanceAction {
     }
 
     @Override
-    public void printDesc(String desc) {
-        basicUserIO.showMessage(desc);
+    public void printDescription(String description) {
+        userIO.showMessage(Message.chanceCard(description));
     }
 
 }

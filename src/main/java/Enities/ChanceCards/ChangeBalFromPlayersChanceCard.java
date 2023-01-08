@@ -11,6 +11,6 @@ public class ChangeBalFromPlayersChanceCard extends ChanceCard{
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
     chanceAction.changeBalFromPlayers(amount);
-        chanceAction.printDesc(desc);
+        chanceAction.printDescription(desc);
     }
 }

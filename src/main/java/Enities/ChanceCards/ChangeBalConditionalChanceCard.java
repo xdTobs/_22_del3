@@ -1,19 +1,17 @@
 package Enities.ChanceCards;
 
-public class ChangeBalConditionalChanceCard extends ChanceCard{
+public class ChangeBalConditionalChanceCard extends ChanceCard {
     int amount;
     int condition;
 
-    public ChangeBalConditionalChanceCard(int amount, int condition,String desc) {
+    public ChangeBalConditionalChanceCard(int amount, int condition, String desc) {
+        super(desc);
         this.amount = amount;
         this.condition = condition;
-        this.desc = desc;
     }
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-        chanceAction.printDesc(desc);
-        chanceAction.changeBalConditional(amount,condition);
-
+        chanceAction.changeBalConditional(amount, condition);
     }
 }
