@@ -95,7 +95,7 @@ public class Player {
 
     }
 
-    public int getHotel() {
+    public int getHotels() {
         return 0;
         //TODO implement
     }
