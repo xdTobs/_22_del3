@@ -81,8 +81,6 @@ public class Deck {
         }
         int[] indexes = new int[]{0, 0, 37, 15, 24, 32, 19, 39};
         for (int i = 33; i < 41; i++) {
-            // TODO find the right indexes from line 49-56 in englishMessages.txt
-            // There is no line 49-56 in that file??? /Henrik
             cards.add(new MoveToFieldChanceCard(indexes[i - 33], content.get(i)));
         }
         for (int i = 41; i < 42; i++) {

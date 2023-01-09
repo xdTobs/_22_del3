@@ -52,7 +52,7 @@ public class ChanceCardImpl implements ChanceAction {
     @Override
     public void moveToField(int index) {
         gameBoard.getCurrentPlayer().setPosition(index);
-        //TODO make sure they also get a turn
+        //TODO make player get extra turn
     }
 
     @Override
