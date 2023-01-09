@@ -94,10 +94,11 @@ public class Player {
 
     }
 
-    public int getHotel() {
+    public int getHotels() {
         return 0;
-        //TODO implement
     }
+        //TODO implement
+
 
     // TODO implement, used in tax field.
     public double totalValue() {
@@ -106,10 +107,5 @@ public class Player {
 
     public boolean isBankrupt() {
         return this.getBalance() < 0;
-    }
-
-    public int getHotels() {
-        return 0;
-
     }
 }
