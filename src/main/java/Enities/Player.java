@@ -107,4 +107,9 @@ public class Player {
     public boolean isBankrupt() {
         return this.getBalance() < 0;
     }
+
+    public int getHotels() {
+
+
+    }
 }
