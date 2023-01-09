@@ -1,13 +1,28 @@
 package Enities;
 
+import Controller.TestUserIO;
 import Controller.UserIO;
+import Enities.ChanceCards.Deck;
+import Enities.DiceCup.DiceCup;
+import Enities.DiceCup.TestDie;
+import Enities.Fields.Field;
 import View.TestView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameBoardTest {
+public class GameBoardTest {
+
+
+//    public static GameBoard debugSetup(int diceValue, Field[] fields) {
+//        return debugSetup(diceValue, fields, new Deck(new ArrayList<>()));
+//    }
+//
+//    public static GameBoard debugSetup(int diceValue, Field[] fields, Deck deck) {
+//    }
 
     GameBoard board;
 

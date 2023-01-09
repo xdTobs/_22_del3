@@ -166,8 +166,6 @@ public class FieldImpl implements FieldAction {
             ferryPayRent(ferry);
         }
 
-        userIO.showMessage(Message.buyField("Henrik", "Stroget"));
-
         return boughtField;
     }
 

@@ -5,8 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FieldTest {
+public class FieldTest {
     Field field;
+
+    public static Field getStartFieldDebug() {
+        return new Start("Start,0, start,,,,,,,,");
+    }
 
     @BeforeEach
     void setUp() {

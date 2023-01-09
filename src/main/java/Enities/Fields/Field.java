@@ -1,16 +1,20 @@
 package Enities.Fields;
 
 public abstract class Field {
+    protected FieldPair pair;
     private int position;
     private String name;
-    protected FieldPair pair;
+
+    public Field(String s) {
+        this.parse(s);
+    }
 
     public FieldPair getPair() {
         return pair;
     }
 
-    public Field(String s) {
-        this.parse(s);
+    public void setPair(FieldPair pair) {
+        this.pair = pair;
     }
 
     public int getPosition() {
@@ -31,9 +35,5 @@ public abstract class Field {
 
     public String getHTMLDescription() {
         return "<span style='background-color: red'>" + this.getName() + "</span>";
-    }
-
-    public void setPair(FieldPair pair) {
-        this.pair = pair;
     }
 }

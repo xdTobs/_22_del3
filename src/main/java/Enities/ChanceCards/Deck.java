@@ -4,14 +4,10 @@ package Enities.ChanceCards;
 import Enities.GameBoard;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Deck {
     private List<ChanceCard> cards;
@@ -81,17 +77,16 @@ public class Deck {
             }
         }
         for (int i = 31; i < 33; i++) {
-            cards.add(new MoveToBreweryChanceCard(content.get(i)));
+            cards.add(new MoveToFerryChanceCard(content.get(i)));
         }
-        int[] indexes = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+        int[] indexes = new int[]{0, 0, 37, 15, 24, 32, 19, 39};
         for (int i = 33; i < 41; i++) {
-
-            //TODO find the right indexes from line 49-56 in englishMessages.txt
+            // TODO find the right indexes from line 49-56 in englishMessages.txt
             // There is no line 49-56 in that file??? /Henrik
             cards.add(new MoveToFieldChanceCard(indexes[i - 33], content.get(i)));
         }
         for (int i = 41; i < 42; i++) {
-            cards.add(new MoveToFerryChanceCard(content.get(i)));
+            cards.add(new MoveToBreweryChanceCard(content.get(i)));
         }
         for (int i = 42; i < 44; i++) {
             cards.add(new GetOutOfJailChanceCard(content.get(i)));

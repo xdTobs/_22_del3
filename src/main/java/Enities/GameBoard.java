@@ -37,9 +37,13 @@ public class GameBoard {
     }
 
     public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, int playerCount) {
+        this(diceCup, fields, Deck.setup(), userIO, playerCount);
+    }
+
+    public GameBoard(DiceCup diceCup, Field[] fields, Deck deck, UserIO userIO, int playerCount) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
-        this.deck = Deck.setup();
+        this.deck = deck;
         this.diceCup = diceCup;
         this.fields = fields;
         createPlayers(playerCount);
