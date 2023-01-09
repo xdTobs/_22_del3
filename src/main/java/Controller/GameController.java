@@ -29,8 +29,8 @@ public class GameController {
     }
 
     /**
-     * We use this to create GameController so we can easier test the GameController with custom values and setup.
-     * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
+     * We use this to create GameController, so we can easier test the GameController with custom values and setup.
+     * If we have a setup logic in constructor we can't create a controller for testing with completely custom settings
      */
     public static GameController setup() {
 
@@ -102,7 +102,8 @@ public class GameController {
             gameBoard.fieldAction(currentPlayer);
             //gameBoard.isPlayerBankrupt();
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
-/*
+
+            //Todo bliver denne brugt?
             if (hasPassedStart) {
                 basicUserIO.showMessage(gameBoard.getMessage("passedStartMsg"));
                 userIO.showMessage(Message.passedStartMessage());
@@ -113,7 +114,7 @@ public class GameController {
             if (gameBoard.getDiceCup().diceAreEqual()) {
                 basicUserIO.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
                 playTurn(currentPlayer);
-            }  */
+            }
         }
     }
 }
