@@ -125,6 +125,12 @@ public class Message {
     public static Message goToJail() {
         return of(Type.GO_TO_JAIL);
     }
+    public static Message houseOption(String streetName,String pricePer){
+        return of(Type.HOUSE_OPTION,streetName,pricePer);
+    }
+    public static Message selectHouse(){
+        return of(Type.SELECT_HOUSE);
+    }
 
     public Type getType() {
         return type;
@@ -135,6 +141,7 @@ public class Message {
     }
 
     public enum Type {
+        HOUSE_OPTION,
         MOVE_TO,
         ON_PICK_FIELD_CARD,
         GAME_WON,
@@ -164,5 +171,6 @@ public class Message {
         SELECT_HOUSE,
         PAY_RENT,
         GO_TO_JAIL
+
     }
 }

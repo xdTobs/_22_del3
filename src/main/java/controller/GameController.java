@@ -105,7 +105,7 @@ public class GameController {
             userIO.showMessage(Message.rollDice(playerName));
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
-
+            gameBoard.getActualFields().buyHouseProcess();
 
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
             if (playerHasBeenRemoved) {

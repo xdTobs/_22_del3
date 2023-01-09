@@ -39,33 +39,40 @@ public class FieldImpl implements FieldAction {
     }
 
     //TODO figure out where this goes
-//    private void buyHouseProcess() {
-//        while (wantToBuyHouse()) {
-//            List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
-//            List<Street> ownedStreets = new ArrayList<>();
-//            for (RentableField ownedField : ownedFields) {
-//                if (ownedField instanceof Street street && street.getHouses() < 6)
-//                    ownedStreets.add(street);
-//            }
-//
-//            String[] choices = new String[ownedStreets.size() + 1];
-//            for (int i = 0; i < ownedStreets.size(); i++) {
-//                choices[i + 1] = ownedStreets.get(i).getName() + " " + ownedStreets.get(i).getHousePrice() + " " + gameBoard.getMessage("DKK per");
-//            }
-//
-//            choices[0] = gameBoard.getMessage("noMoreHouses");
-//            String message = gameBoard.getMessage("selectHouse");
-//            String selection = view.promptPlayer(choices, message);
-//            if (selection.equals(gameBoard.getMessage("noMoreHouses")))
-//                return;
-//            for (Street ownedStreet : ownedStreets) {
-//                if (selection.equals(ownedStreet.getName() + " " + ownedStreet.getHousePrice() + " " + gameBoard.getMessage("DKK per"))) {
-//                    buyHouse(ownedStreet);
-//                    break;
-//                }
-//            }
-//        }
-//    }
+
+    public void buyHouseProcess() {
+        boolean ableToBuyHouse = false;
+        List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
+        List<Street> ownedStreets = new ArrayList<>();
+        for (RentableField ownedField : ownedFields) {
+            if (ownedField instanceof Street street && street.getHouses() < 6)
+                ownedStreets.add(street);
+        }
+        for(Street street : ownedStreets){
+            if(streetPlayerOwnsPair(street))
+                ableToBuyHouse = true;
+        }
+        while (ableToBuyHouse&&wantToBuyHouse()) {
+            ownedStreets = new ArrayList<>();
+            for (RentableField ownedField : ownedFields) {
+                if (ownedField instanceof Street street && street.getHouses() < 6)
+                    ownedStreets.add(street);
+            }
+
+            Message[] choices = new Message[ownedStreets.size() + 1];
+            for (int i = 0; i < ownedStreets.size(); i++) {
+                choices[i + 1] = Message.houseOption(ownedStreets.get(i).getName(), ownedStreets.get(i).getHousePrice() + "");
+
+            }
+
+            choices[0] = Message.finishBuyingHouses();
+            Message message = Message.selectHouse();
+            int selection = userIO.promptChoice(message, choices);
+            if (selection == 0)
+                return;
+            buyHouse(ownedStreets.get(selection - 1));
+        }
+    }
 
     private void buyHouse(Street street) {
         street.setHouses(street.getHouses() + 1);
