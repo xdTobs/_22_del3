@@ -1,24 +1,24 @@
 @startuml
 left to right direction
 
-interface View.View {
+interface view.view {
 ~ void update(Player[],Field[])
 ~ String promptPlayer(String[],String)
 }
 
 
-interface Enities.ChanceCards.ChanceAction {
+interface entities.chancecards.ChanceAction {
 ~ void getOutOfJail()
 ~ void changeBal(int)
 ~ void moveToField(int)
 ~ void payPerProperty(int,int)
 }
-class Enities.GameBoard {
+class entities.GameBoard {
 + void fieldAction(Player)
 + boolean rollDieMovePlayer()
 + boolean isGameover()
 }
-class Enities.Player {
+class entities.Player {
 
 
 
@@ -33,21 +33,21 @@ class Enities.Player {
 
 
 
-class Enities.ChanceCards.Deck {
+class entities.chancecards.Deck {
 -ChanceCard[] cards
 + void pullCard()
 }
 
-class Enities.ChanceCardImpl {
+class entities.ChanceCardImpl {
 ~ GameBoard gameBoard
-~ View view
+~ view view
 + void getOutOfJail()
 + void changeBal(int)
 + void moveToField(int)
 + void payPerProperty(int,int)
 }
 
-abstract class Enities.Fields.Field {
+abstract class enities.fields.Field {
 
 
 # FieldPair pair
@@ -57,54 +57,54 @@ abstract class Enities.Fields.Field {
 + {abstract}Field executeFieldAction(FieldAction)
 + String getName()
 }
-class Language.LanguageController {
+class language.LanguageController {
 + String getMessage(String)
 }
-class Enities.Fields.FieldPair {
+class enities.fields.FieldPair {
 + int[] getFieldIds()
 + Color getBackgroundColor()
 }
-abstract class Enities.DiceCup.Die {
+abstract class entities.dicecup.Die {
 ~ int faceValue
 ~ {abstract}void roll()
 ~ int getFaceValue()
 }
 
 
-class Enities.DiceCup.DiceCup {
+class entities.dicecup.DiceCup {
 + int getSum()
 + boolean diceAreEqual()
 + int[] getDiceValues()
 + void roll()
 }
-class Controller.GameController {
+class controller.GameController {
 + void playGame()
 + void playTurn(Player)
 }
 
 
 
-class View.GuiView {
+class view.GuiView {
 + void update(Player[],Field[])
 + String promptPlayer(String[],String)
 }
 
 
 
-abstract class Enities.ChanceCards.ChanceCard {
+abstract class entities.chancecards.ChanceCard {
 # String desc
 + {abstract}void executeCardAction(ChanceAction)
 }
-class Enities.FieldImpl {
+class entities.FieldImpl {
 ~ GameBoard gameBoard
-~ View view
+~ view view
 + Field streetAction(Street)
 }
 class Main {
 + {static} void main(String[])
 }
 
-interface Enities.Fields.FieldAction {
+interface enities.fields.FieldAction {
 ~ Field streetAction(Street)
 }
 
@@ -112,14 +112,14 @@ interface Enities.Fields.FieldAction {
 
 
 
-Enities.ChanceCards.ChanceAction <|.up. Enities.ChanceCardImpl
-Enities.Fields.FieldAction <|.up. Enities.FieldImpl
-View.View <|.. View.GuiView
-Controller.GameController --> View.View
-Controller.GameController --> Enities.GameBoard
-Enities.GameBoard -down-->Enities.DiceCup
-Main -->Controller.GameController
-Enities.GameBoard --->Language.LanguageController
-Enities.Fields.FieldAction<..Enities.Fields.Field
+entities.chancecards.ChanceAction <|.up. entities.ChanceCardImpl
+enities.fields.FieldAction <|.up. entities.FieldImpl
+view.view <|.. view.GuiView
+controller.GameController --> view.view
+controller.GameController --> entities.GameBoard
+entities.GameBoard -down-->entities.dicecup
+Main -->controller.GameController
+entities.GameBoard --->language.LanguageController
+enities.fields.FieldAction<..enities.fields.Field
 
 @enduml
