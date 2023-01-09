@@ -7,7 +7,6 @@ import entities.fields.Brewery;
 import entities.fields.Ferry;
 import entities.fields.Field;
 import language.Message;
-import org.apache.commons.lang.NotImplementedException;
 
 public class ChanceCardImpl implements ChanceAction {
     private final GameBoard gameBoard;
@@ -29,16 +28,16 @@ public class ChanceCardImpl implements ChanceAction {
         gameBoard.getCurrentPlayer().addBalance(i);
     }
 
+    //    You receive the "Matador grant" of DKK 40000, but only if your total values do not exceed DKK 15000.
     @Override
     public void changeBalConditional(int amount, int condition) {
-        String playerName = gameBoard.getCurrentPlayer().getName();
+        Player player = gameBoard.getCurrentPlayer();
         if (gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) < condition) {
-            userIO.showMessage(Message.giftToPoorPlayerCard(playerName, amount));
-
+            userIO.showMessage(Message.giftToPoorPlayerCard(player.getName(), amount));
+            player.addBalance(amount);
         } else {
-            userIO.showMessage(Message.noGiftToRichPlayerCard(playerName, amount));
+            userIO.showMessage(Message.noGiftToRichPlayerCard(player.getName(), amount));
         }
-        throw new NotImplementedException();
     }
 
     @Override

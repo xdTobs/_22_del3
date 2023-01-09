@@ -5,7 +5,6 @@ import entities.GameBoard;
 import entities.Player;
 import language.Message;
 import view.GuiView;
-import org.apache.commons.lang.NotImplementedException;
 
 
 /**
@@ -95,7 +94,6 @@ public class GameController {
                     currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 }
             }
-
             // LEAVE JAIL MESSAGE
         } else {
             gameBoard.getDiceCup().roll();
