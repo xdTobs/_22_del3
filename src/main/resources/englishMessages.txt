@@ -27,3 +27,4 @@ SELECT_HOUSE:Select the property that you wish to buy a house for:
 HOUSE_OPTION:* for * DKK per
 PAY_RENT:*, you have to pay rent at *, for * DKK.
 GO_TO_JAIL:Unlucky roll! Go to jail!
+REMAINING_PLAYERS:Another player has lost. Remaining players are: *

@@ -33,7 +33,7 @@ public class FieldImpl implements FieldAction {
 
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
-        if (street.getOwner().equals("Bank") && wantToBuyPrompt(street)) {
+        if (street.isNotOwned() && wantToBuyPrompt(street)) {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
@@ -42,6 +42,7 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
+    //TODO figure out where this goes
 
     public void buyHouseProcess() {
         boolean ableToBuyHouse = false;
@@ -53,13 +54,13 @@ public class FieldImpl implements FieldAction {
                 ownedStreets.add(street);
         }
 
-        for(Street street : ownedStreets){
-            if(streetPlayerOwnsPair(street))
+        for (Street street : ownedStreets) {
+            if (streetPlayerOwnsPair(street))
                 ableToBuyHouse = true;
             ownedPairStreets.add(street);
         }
 
-        while (ableToBuyHouse&&wantToBuyHouse()) {
+        while (ableToBuyHouse && wantToBuyHouse()) {
 
             HashMap<FieldPair,Integer> minHouses = new HashMap<>();
             for (Street street : ownedPairStreets){
@@ -99,7 +100,7 @@ public class FieldImpl implements FieldAction {
 
     public RentableField buyEmptyStreet(RentableField street) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        street.setOwnerName(currentPlayer.getName());
+        street.setOwner(currentPlayer);
         currentPlayer.addBalance(-street.getPrice());
         return street;
     }
@@ -108,25 +109,24 @@ public class FieldImpl implements FieldAction {
     public void streetPayRentToOwner(Street street) {
         // If the street is owned by another player, the player has to pay rent.
         // We need to find the owner, not just the name, so we can add the rent to him.
+        if (street.isNotOwned()) {
+            throw new IllegalArgumentException("This method should never be called on a street without a owner.");
+        }
         Player[] players = gameBoard.getPlayers();
-        String houseOwnerName = street.getOwner();
-        Player houseOwner = null;
+        Player houseOwner = street.getOwner();
         int rent = street.getRent(street.getHouses());
+
         for (Player player : players) {
-            if (player.getName().equals(houseOwnerName)) {
+            if (player == houseOwner) {
                 houseOwner = player;
             }
         }
 
-        if (houseOwner != null) {
-
-            if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
-                rent *= 2;
-            }
-
-            houseOwner.addBalance(rent);
-            gameBoard.getCurrentPlayer().addBalance(-rent);
-        }
+//        if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
+//            rent *= 2;
+//        }
+        houseOwner.addBalance(rent);
+        gameBoard.getCurrentPlayer().addBalance(-rent);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class FieldImpl implements FieldAction {
         boolean playerOwnsPair = true;
         for (int i : street.getPair().getFieldIds()) {
             Street pairStreet = (Street) gameBoard.getFields()[i];
-            if (!pairStreet.getOwner().equals(street.getOwner())) {
+            if (!(pairStreet.getOwner() == street.getOwner())) {
                 playerOwnsPair = false;
             }
         }
@@ -177,7 +177,7 @@ public class FieldImpl implements FieldAction {
     @Override
     public Field ferryAction(Ferry ferry) {
         Field boughtField = null;
-        if (ferry.getOwner().equals("Bank") && wantToBuyPrompt(ferry)) {
+        if (ferry.isNotOwned() && wantToBuyPrompt(ferry)) {
             boughtField = buyEmptyStreet(ferry);
         } else {
             ferryPayRent(ferry);
@@ -189,7 +189,7 @@ public class FieldImpl implements FieldAction {
     private void ferryPayRent(Ferry ferry) {
 
         Player[] players = gameBoard.getPlayers();
-        String houseOwnerName = ferry.getOwner();
+        String houseOwnerName = ferry.getOwner().getName();
         Player houseOwner = null;
         for (Player player : players) {
             if (player.getName().equals(houseOwnerName)) {
@@ -228,7 +228,7 @@ public class FieldImpl implements FieldAction {
     @Override
     public Field breweryAction(Brewery brewery) {
         Field boughtField = null;
-        if (brewery.getOwner().equals("Bank") && wantToBuyPrompt(brewery)) {
+        if (brewery.isNotOwned() && wantToBuyPrompt(brewery)) {
             boughtField = buyEmptyStreet(brewery);
         } else {
             breweryPayRent(brewery);
@@ -239,7 +239,7 @@ public class FieldImpl implements FieldAction {
     public void breweryPayRent(Brewery brewery) {
         int diceSum = gameBoard.getDiceCup().getSum();
         Player[] players = gameBoard.getPlayers();
-        String houseOwnerName = brewery.getOwner();
+        String houseOwnerName = brewery.getOwner().getName();
         Player houseOwner = null;
         for (Player player : players) {
             if (player.getName().equals(houseOwnerName)) {

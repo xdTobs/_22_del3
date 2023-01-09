@@ -21,10 +21,6 @@ public class Brewery extends RentableField {
     }
 
     @Override
-    public int getRent(int i) {
-        return super.getRent(i);
-    }
-    @Override
     public String getName() {
         return super.getName();
     }

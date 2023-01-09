@@ -35,9 +35,9 @@ Advance to START.
 Advance to START.
 Advance to Frederiksberg Allé. If you pass START, collect DKK 4000.
 Take the "Mols Linje", move your piece forward and if you pass START, collect DKK 4000.
-Advance to Grønningen, if you pass start then deposit DKK 4000.:23
-Advance to Vimmelskaftet, if you pass, start then collecting DKK 4000.:31
-Advance to Strandvejen. If you pass START, collect DKK 4000.:18
+Advance to Grønningen, if you pass start then deposit DKK 4000.
+Advance to Vimmelskaftet, if you pass, start then collecting DKK 4000.
+Advance to Strandvejen. If you pass START, collect DKK 4000.
 Go to "Rådhuspladsen".
 Take the nearest ferry, if you pass start then deposit DKK 4000.
 On the occasion of the king's birthday, you are hereby pardoned for imprisonment. This card can be kept until you need it or you can sell it.
