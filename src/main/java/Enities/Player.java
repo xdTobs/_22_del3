@@ -109,7 +109,7 @@ public class Player {
     }
 
     public int getHotels() {
-
+        return 0;
 
     }
 }
