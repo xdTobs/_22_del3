@@ -35,6 +35,8 @@ public abstract class RentableField extends Field {
         return housePrice;
     }
 
+    //TODO skal vi lave de samme metoder for "Hotels"?
+
     public void BuyProperty(){
 
     }

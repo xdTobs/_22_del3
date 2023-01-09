@@ -94,7 +94,7 @@ public class Player {
 
     }
 
-    public int getHotels() {
+    public int getHotel() {
         return 0;
         //TODO implement
     }
@@ -106,5 +106,10 @@ public class Player {
 
     public boolean isBankrupt() {
         return this.getBalance() < 0;
+    }
+
+    public int getHotels() {
+        return 0;
+
     }
 }
