@@ -11,6 +11,7 @@ public class Player {
     private int extraTurnCounter;
     private String name;
 
+    private boolean hasLost;
 
     public Player(String name) {
         this(name, 30000);
@@ -96,9 +97,8 @@ public class Player {
 
     public int getHotels() {
         return 0;
-    }
         //TODO implement
-
+    }
 
     // TODO implement, used in tax field.
     public double totalValue() {
@@ -108,4 +108,13 @@ public class Player {
     public boolean isBankrupt() {
         return this.getBalance() < 0;
     }
+
+    public boolean getHasLost() {
+        return this.hasLost;
+    }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
 }
