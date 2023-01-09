@@ -151,6 +151,16 @@ public class GuiView implements View {
 
                     guiStreet.setHouses(value);
                 }
+
+            }
+            if (fields[i] instanceof Ferry ferry) {
+                if (!ferry.getOwner().equals("Bank")) {
+                    int value = Integer.parseInt(ferry.getOwner().replaceAll("[^0-9]", ""));
+                    GUI_Street guiStreet = (GUI_Street) guiFields[i];
+
+                    guiStreet.setHouses(value);
+                }
+
             }
         }
 
