@@ -87,8 +87,6 @@ public class ActualChanceCard implements ChanceAction {
     public void goToJail() {
         gameBoard.getCurrentPlayer().setJailed(true);
         gameBoard.getCurrentPlayer().setPosition(10);
-        //TODO check if it works
-        // Could we make gameboard somehow recieve an int so we can control how big it is for testing?
     }
 
     @Override

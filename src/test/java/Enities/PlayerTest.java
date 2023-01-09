@@ -25,19 +25,19 @@ class PlayerTest {
 
     @Test
     void getBalance() {
-        assertEquals(20, player.getBalance());
+        assertEquals(30000, player.getBalance());
     }
 
     @Test
     void setBalance() {
-        player.setBalance(30);
-        assertEquals(30, player.getBalance());
+        player.setBalance(30000);
+        assertEquals(30000, player.getBalance());
     }
 
     @Test
     void addBalance() {
-        player.addBalance(10);
-        assertEquals(30, player.getBalance());
+        player.addBalance(4000);
+        assertEquals(4000, player.getBalance());
     }
 
     @Test
@@ -67,3 +67,4 @@ class PlayerTest {
         assertEquals("Test", player.getName());
     }
 }
+
