@@ -190,17 +190,17 @@ public class GuiView implements View, BasicUserIO {
     @Override
     public void updateHouses(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
-            if (fields[i] instanceof Street street) {
-                if (!street.getOwner().equals("Bank")) {
-                    // We get the player number from the owner name and sets the number of houses on the field equal to the player number.
-                    // player1 => one house.
-                    // player2 => two houses.
-                    // etc.
-                    int value = Integer.parseInt(street.getOwner().replaceAll("[^0-9]", ""));
-                    GUI_Street guiStreet = (GUI_Street) guiFields[i];
-                    guiStreet.setHouses(value);
+
+
+            if (fields[i] instanceof RentableField rentableField) {
+                String owner = rentableField.getOwner();
+                if (!rentableField.getOwner().equals("Bank")) {
+                    GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
+                    guiFerry.setSubText(rentableField.getPrice() + " - " + owner.charAt(6));
                 }
+
             }
+
         }
 
     }
