@@ -36,7 +36,7 @@ public class FieldImpl implements FieldAction {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
-            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName()));
+            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
         }
         return boughtField;
     }

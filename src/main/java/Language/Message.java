@@ -89,8 +89,9 @@ public class Message {
         return of(Type.PASSED_START, playerName);
     }
 
-    public static Message payRent(String playerName, String fieldName) {
-        return of(Type.PASSED_START, playerName);
+    public static Message payRent(String playerName, String fieldName,String rent) {
+        return of(Type.PAY_RENT, playerName,fieldName,rent);
+
     }
 
     public static Message finishBuyingHouses() {
