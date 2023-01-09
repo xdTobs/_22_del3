@@ -147,8 +147,6 @@ public class ActualFields implements FieldAction {
 
     @Override
     public void jailAction(Jail jail){
-        Player currentPlayer = gameBoard.getCurrentPlayer();
-        currentPlayer.setJailed(true);
         return;
     }
 
