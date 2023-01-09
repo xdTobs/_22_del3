@@ -121,13 +121,14 @@ public class GuiView implements View {
      *
      * @param players the players in the game
      * @param fields  the fields in the game
+     * @param diceCup
      */
     @Override
-    public void update(Player[] players, Field[] fields) {
+    public void update(Player[] players, Field[] fields, DiceCup diceCup) {
         updatePlayerLocations(players);
         updateHouses(fields);
         updatePlayerBalances(players);
-
+        updateDie(diceCup);
     }
 
     /**
