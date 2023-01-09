@@ -256,7 +256,13 @@ public class GameBoard {
      */
 
     public boolean isGameover() {
-        return players.length == 1;
+        int i = 0;
+        for (Player p : getPlayers()) {
+            if (!p.isBankrupt()) {
+                i++;
+            }
+        }
+        return i < 2;
     }
 
     public String findWinner() {
@@ -303,22 +309,15 @@ public class GameBoard {
     }
 
 
-    // These methods should not be static, just did it so I can test in main method.
-    // Everything looks ugly because we always use arraylists but our fields are usually arrays.
-    public static Player[] removeBankruptPlayers(Player[] players) {
-        var list = Arrays.asList(players);
-        List<Player> p = list.stream().filter(player -> !player.isBankrupt()).toList();
-        return p.toArray(new Player[p.size()]);
-    }
-
-    public static void main(String[] args) {
-        Player[] players = new Player[4];
-        for (int j = 0; j < players.length; j++) {
-            players[j] = new Player("p" + j);
+    public boolean removeBankruptPlayers() {
+        boolean playerHasBeenRemoved = false;
+        for (Player p : players) {
+            if (p.isBankrupt()) {
+                p.setHasLost(true);
+                playerHasBeenRemoved = true;
+            }
         }
-        players[0].setBalance(-10);
-        players = removeBankruptPlayers(players);
-
+        return playerHasBeenRemoved;
     }
 
 //    private void removePlayer(int i) {

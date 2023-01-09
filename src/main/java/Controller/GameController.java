@@ -40,10 +40,11 @@ public class GameController {
                 view.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
                 view.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
-
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
-                playTurn(currentPlayer);
+                if (!currentPlayer.getHasLost()) {
+                    playTurn(currentPlayer);
+                }
                 gameBoard.nextPlayer();
             }
         }
@@ -79,11 +80,13 @@ public class GameController {
             view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
-            GameBoard.removeBankruptPlayers(gameBoard.getPlayers());
+            boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
+            if (playerHasBeenRemoved) {
+                view.showMessage("A player has been removed.");
+            }
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 
-            if(gameBoard.isGameover())
-                return;
+            if (gameBoard.isGameover()) return;
             if (hasPassedStart) {
                 view.showMessage(gameBoard.getMessage("passedStartMsg"));
             }

@@ -11,6 +11,7 @@ public class Player {
     private int extraTurnCounter;
     private String name;
 
+    private boolean hasLost;
 
     public Player(String name) {
         this(name, 30000);
@@ -106,5 +107,13 @@ public class Player {
 
     public boolean isBankrupt() {
         return this.getBalance() < 0;
+    }
+
+    public boolean getHasLost() {
+        return this.hasLost;
+    }
+
+    public void setHasLost(boolean isBankrupt) {
+        hasLost = hasLost;
     }
 }
