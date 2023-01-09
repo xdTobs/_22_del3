@@ -14,7 +14,7 @@ public interface View {
     void updatePlayerLocations(Player[] players);
 
 
-    void update(Player[] players, Field[] fields);
+    void update(Player[] players, Field[] fields, DiceCup diceCup);
 
     void updateHouses(Field[] fields);
 

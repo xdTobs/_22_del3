@@ -30,7 +30,7 @@ public class TestView implements View, BasicUserIO {
 
 
     @Override
-    public void update(Player[] players, Field[] fields) {
+    public void update(Player[] players, Field[] fields, DiceCup diceCup) {
 
     }
 

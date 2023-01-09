@@ -36,6 +36,7 @@ public class FieldImpl implements FieldAction {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
+            view.showMessage(gameBoard.getMessage("payRent"));
         }
         return boughtField;
     }

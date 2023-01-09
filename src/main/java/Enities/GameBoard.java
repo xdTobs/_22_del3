@@ -10,6 +10,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
@@ -269,7 +270,13 @@ public class GameBoard {
      */
 
     public boolean isGameover() {
-        return players.length == 1;
+        int i = 0;
+        for (Player p : getPlayers()) {
+            if (!p.isBankrupt()) {
+                i++;
+            }
+        }
+        return i < 2;
     }
 
     public String findWinner() {
@@ -315,24 +322,25 @@ public class GameBoard {
 //        return languageController.getMessage(key);
 //    }
 
-    public void isPlayerBankrupt() {
-        int i = 0;
-        while (i < players.length) {
-            if (players[i].getBalance() < 0) {
-                removePlayer(i);
-                break;
+
+    public boolean removeBankruptPlayers() {
+        boolean playerHasBeenRemoved = false;
+        for (Player p : players) {
+            if (p.isBankrupt()) {
+                p.setHasLost(true);
+                playerHasBeenRemoved = true;
             }
-            i++;
         }
+        return playerHasBeenRemoved;
     }
 
-    private void removePlayer(int i) {
-        List<Player> newPlayerArray = new ArrayList<>();
-        for (int j = 0; j < players.length; j++) {
-            if (!(i == j)) newPlayerArray.add(players[j]);
-            else players[j].setBalance(-99999);
-        }
-        players = newPlayerArray.toArray(new Player[3]);
-        int l = players[0].getBalance();
-    }
+//    private void removePlayer(int i) {
+//        List<Player> newPlayerArray = new ArrayList<>();
+//        for (int j = 0; j < players.length; j++) {
+//            if (!(i == j)) newPlayerArray.add(players[j]);
+//            else players[j].setBalance(-99999);
+//        }
+//        players = newPlayerArray.toArray(new Player[3]);
+//        int l = players[0].getBalance();
+//    }
 }

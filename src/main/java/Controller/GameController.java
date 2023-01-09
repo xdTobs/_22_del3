@@ -60,10 +60,11 @@ public class GameController {
 //                basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
 //                basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
-
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
-                playTurn(currentPlayer);
+                if (!currentPlayer.getHasLost()) {
+                    playTurn(currentPlayer);
+                }
                 gameBoard.nextPlayer();
             }
         }
@@ -93,6 +94,8 @@ public class GameController {
                     currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 }
             }
+
+            // LEAVE JAIL MESSAGE
         }
         if (!currentPlayer.isJailed()) {
             gameBoard.getDiceCup().roll();
@@ -101,8 +104,13 @@ public class GameController {
             userIO.showMessage(Message.rollDice(playerName));
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
             gameBoard.fieldAction(currentPlayer);
-            //gameBoard.isPlayerBankrupt();
-            view.update(gameBoard.getPlayers(), gameBoard.getFields());
+            boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
+            if (playerHasBeenRemoved) {
+                throw new NotImplementedException()
+            }
+            view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
+
+            if (gameBoard.isGameover()) return;
             if (hasPassedStart) {
                 userIO.showMessage(Message.passedStart(playerName));
             }
