@@ -5,7 +5,7 @@ public class ChangeBalConditionalChanceCard extends ChanceCard {
     int condition;
 
     public ChangeBalConditionalChanceCard(int amount, int condition, String desc) {
-        super(desc);
+        this.desc = desc;
         this.amount = amount;
         this.condition = condition;
     }

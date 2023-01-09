@@ -4,7 +4,6 @@ public class MoveSpacesChanceCard extends ChanceCard {
     int spaces;
 
     public MoveSpacesChanceCard(int spaces, String desc) {
-        super(desc);
         this.spaces = spaces;
         this.desc = desc;
     }

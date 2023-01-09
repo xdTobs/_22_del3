@@ -1,8 +1,8 @@
 package Enities.ChanceCards;
 
 public class ChangeBalChanceCard extends ChanceCard {
-    public ChangeBalChanceCard(int amount, String description) {
-        super(description);
+    public ChangeBalChanceCard(int amount, String desc) {
+        this.desc = desc;
         this.amount = amount;
     }
 

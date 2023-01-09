@@ -45,11 +45,11 @@ public class Message {
         this.args = args;
     }
 
-    public static Message giftToPoorPlayer(String playerName, int amount) {
+    public static Message giftToPoorPlayerCard(String playerName, int amount) {
         return of(Type.MONEY_GIFT_CARD_SUCCESSFUL, playerName, String.valueOf(amount));
     }
 
-    public static Message noGiftToRichPlayer(String playerName, int amount) {
+    public static Message noGiftToRichPlayerCard(String playerName, int amount) {
         return of(Type.MONEY_GIFT_CARD_UNSUCCESSFUL, playerName, String.valueOf(amount));
     }
 
@@ -73,8 +73,8 @@ public class Message {
         return of(Type.GAME_LOST, playerName);
     }
 
-    public static Message chanceCard(String playerName, String fieldName) {
-        return of(Type.CHANCE_CARD, playerName, fieldName);
+    public static Message chanceCard(String playerName, String description) {
+        return of(Type.CHANCE_CARD, playerName, description);
     }
 
     public static Message leaveJail(String playerName) {
@@ -115,6 +115,10 @@ public class Message {
             default:
                 throw new IllegalArgumentException("The player doesn't exist.\nIllegal ID: " + id);
         }
+    }
+
+    public static Message extraTurn(String playerName) {
+        return of(Type.EXTRA_TURN, playerName);
     }
 
     public Type getType() {

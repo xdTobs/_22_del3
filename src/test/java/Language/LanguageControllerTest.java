@@ -1,13 +1,33 @@
 package Language;
 
+import Controller.BasicUserIO;
+import org.apache.commons.lang.NotImplementedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LanguageControllerTest {
     LanguageController languageController = new LanguageController();
 
+    BasicUserIO basicIO = new BasicUserIO() {
+        @Override
+        public int promptChoice(Message message, Message... choices) {
+            throw new NotImplementedException();
+        }
+
+        @Override
+        public int promptRange(Message message, int min, int max) {
+            throw new NotImplementedException();
+        }
+
+        @Override
+        public void showMessage(Message message) {
+            throw new NotImplementedException();
+        }
+    };
 
     @Test
     @DisplayName("Get message string from LanguageController with Message class")
@@ -21,9 +41,15 @@ class LanguageControllerTest {
     @Test
     @DisplayName("Message contains arguments.")
     void testGetMessage() {
-        Message moveToMessage = Message.of(Message.Type.MOVE_TO, "Mount Doom!");
-        String expected = "Move to Mount Doom!";
+        Message moveToMessage = Message.of(Message.Type.MOVE_TO, "Henrik", "Mount Doom");
+        String expected = "Henrik, move to Mount Doom.";
         var result = languageController.getMessage(moveToMessage);
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Message contains arguments.")
+    void testBuyFieldMessage() {
+        Message message = Message.buyField("Player 1", "Strøget");
     }
 }

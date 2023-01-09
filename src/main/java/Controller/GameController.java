@@ -102,16 +102,14 @@ public class GameController {
             gameBoard.fieldAction(currentPlayer);
             //gameBoard.isPlayerBankrupt();
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
-
             if (hasPassedStart) {
-                basicUserIO.showMessage(gameBoard.getMessage("passedStartMsg"));
-                userIO.showMessage(Message.passedStartMessage());
+                userIO.showMessage(Message.passedStart(playerName));
             }
             // Checks if player gets an extra turn
             // TODO Should you get extra turn if you land on goToJail?
 
             if (gameBoard.getDiceCup().diceAreEqual()) {
-                basicUserIO.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
+                userIO.showMessage(Message.extraTurn(playerName));
                 playTurn(currentPlayer);
             }
         }

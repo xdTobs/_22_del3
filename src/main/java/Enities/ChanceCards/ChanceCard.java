@@ -4,12 +4,7 @@ import java.io.IOException;
 
 public abstract class ChanceCard {
 
-    protected String desc;
-
-    public ChanceCard(String desc) {
-        this.desc = desc;
-    }
-
+    String desc;
     public abstract void executeCardAction(ChanceAction chanceAction);
 
 }

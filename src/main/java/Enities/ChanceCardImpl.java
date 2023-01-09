@@ -10,8 +10,8 @@ import Language.Message;
 
 
 public class ChanceCardImpl implements ChanceAction {
-    private GameBoard gameBoard;
-    private UserIO userIO;
+    private final GameBoard gameBoard;
+    private final UserIO userIO;
 
     public ChanceCardImpl(GameBoard gameBoard, UserIO userIO) {
         this.gameBoard = gameBoard;
@@ -33,10 +33,10 @@ public class ChanceCardImpl implements ChanceAction {
     public void changeBalConditional(int amount, int condition) {
         String playerName = gameBoard.getCurrentPlayer().getName();
         if (gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) < condition) {
-            userIO.showMessage(Message.giftToPoorPlayer(playerName, amount));
+            userIO.showMessage(Message.giftToPoorPlayerCard(playerName, amount));
             changeBal(amount);
         } else {
-            userIO.showMessage(Message.noGiftToRichPlayer(playerName, amount));
+            userIO.showMessage(Message.noGiftToRichPlayerCard(playerName, amount));
         }
     }
 
@@ -85,7 +85,7 @@ public class ChanceCardImpl implements ChanceAction {
         gameBoard.getCurrentPlayer().setJailed(true);
         gameBoard.getCurrentPlayer().setPosition(10);
         //TODO check if it works
-        // Could we make gameboard somehow recieve an int so we can control how big it is for testing?
+        // Could we make gameboard somehow receive an int so we can control how big it is for testing?
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void printDescription(String description) {
-        userIO.showMessage(Message.chanceCard(description));
+        String playerName = gameBoard.getCurrentPlayer().getName();
+        userIO.showMessage(Message.chanceCard(playerName, description));
     }
-
 }

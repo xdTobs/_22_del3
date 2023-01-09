@@ -1,4 +1,4 @@
-MOVE_TO:*, move to *
+MOVE_TO:*, move to *.
 ON_PICK_FIELD_CARD:Pick a field to move to. If it is available you get it for free. Otherwise, you have to pay rent.
 GAME_WON:* has won the game!
 GAME_LOST:* has lost the game!

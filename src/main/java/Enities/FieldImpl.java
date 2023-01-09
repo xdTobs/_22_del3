@@ -21,14 +21,9 @@ public class FieldImpl implements FieldAction {
     }
 
     private boolean wantToBuyPrompt(RentableField field) {
-//        String question = gameBoard.getCurrentPlayer().getName() + basicUserIO.showMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2");
-//        boolean userWantsToBuyProperty = (basicUserIO.promptChoices(question, new String[]{"yes", "no"}) == 0);
-//        basicUserIO.promptChoice(Message.wantToBuyField(field));
         String playerName = gameBoard.getCurrentPlayer().getName();
         String fieldName = field.getName();
         return userIO.promptYesOrNo(Message.buyField(playerName, fieldName));
-//        String yesOrNo = view.promptPlayer(new String[]{gameBoard.getMessage("yes"), gameBoard.getMessage("no")}, gameBoard.getCurrentPlayer().getName() + gameBoard.getMessage("wantToBuyPrompt1") + " " + field.getName() + gameBoard.getMessage("wantToBuyPrompt2"));
-//        return yesOrNo.equals(gameBoard.getMessage("yes"));
     }
 
 

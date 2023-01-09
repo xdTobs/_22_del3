@@ -1,12 +1,17 @@
 package Enities.ChanceCards;
 
 
+import Enities.GameBoard;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Deck {
     private List<ChanceCard> cards;
@@ -38,16 +43,13 @@ public class Deck {
     }
 
     public static Deck setup() {
-        List<ChanceCard> cards = new ArrayList<>();
-        List<String> content;
-        try {
-            content = Files.readAllLines(Path.of("src/main/java/Language/ChanceCardsEnglish"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream("chanceCardsEnglish.txt");
+        if (inputStream == null) {
+            throw new IllegalStateException("InputStream should not be null");
         }
-
-
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        List<ChanceCard> cards = new ArrayList<>();
+        List<String> content = bufferedReader.lines().toList();
         for (int i = 0; i < 2; i++) {
 
             Integer[] numbers = numberReader(content.get(i));

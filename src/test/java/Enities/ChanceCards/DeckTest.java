@@ -3,18 +3,24 @@ package Enities.ChanceCards;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 class DeckTest {
     Deck deck;
+
     @BeforeEach
     void setUp() {
-        deck = new Deck();
+        List<ChanceCard> cards = new ArrayList<ChanceCard>();
+        cards.add(new MoveSpacesChanceCard(3, "You moved three space."));
+        this.deck = new Deck(cards);
     }
-
     @Test
     void deckShouldContainCards() {
-
-    assert deck.getSize()>0;
+        assertTrue(this.deck.getSize() > 0);
     }
 
     @Test
@@ -32,5 +38,5 @@ class DeckTest {
         assert (deck.takeChanceCard() != null);
     }
 
-    
+
 }

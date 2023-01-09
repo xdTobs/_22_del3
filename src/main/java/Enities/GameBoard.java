@@ -93,6 +93,7 @@ public class GameBoard {
 
         Field[] fields = new Field[temp.size()];
         temp.toArray(fields);
+        initFieldPairs(fields);
         return fields;
     }
 

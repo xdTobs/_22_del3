@@ -32,6 +32,7 @@ public class GuiView implements View, BasicUserIO {
 
     /**
      * If this gets called with no choices, then we will instead use the args as choices.
+     * We do this so we can use buy houses thing.
      *
      * @param message
      * @param choices
@@ -39,21 +40,16 @@ public class GuiView implements View, BasicUserIO {
      */
     @Override
     public int promptChoice(Message message, Message... choices) {
-        if (choices.length == 0 && message.getArgs().length > 1) {
-            return promptChoice(message, message.getArgs());
-        }
-        String[] choiceArray = new String[choices.length];
-        for (int i = 0; i < choices.length; i++) {
-            choiceArray[i] = languageController.getMessage(choices[i]);
-        }
-        String answer = this.gui.getUserSelection(languageController.getMessage(message), choiceArray);
-
-        for (int i = 0; i < choices.length; i++) {
-            if (answer == choiceArray[i]) {
-                return i;
+        String[] choiceArray = new String[0];
+        if (choices.length != 0) {
+            choiceArray = new String[choices.length];
+            for (int i = 0; i < choices.length; i++) {
+                choiceArray[i] = languageController.getMessage(choices[i]);
             }
+        } else if (message.getArgs().length > 1) {
+            choiceArray = message.getArgs();
         }
-        throw new UnsupportedOperationException("An answer have been given that is not in the choices array");
+        return promptChoice(message, choiceArray);
     }
 
     /**
@@ -67,14 +63,13 @@ public class GuiView implements View, BasicUserIO {
      */
     private int promptChoice(Message message, String[] choicesArray) {
         String answer = this.gui.getUserSelection(languageController.getMessage(message), choicesArray);
-
         for (int i = 0; i < choicesArray.length; i++) {
             if (answer == choicesArray[i]) {
                 return i;
             }
         }
         String choices = Arrays.stream(choicesArray).reduce("", (acc, choice) -> acc + ", " + choice);
-        throw new UnsupportedOperationException("An answer have been given that is not in the choices array." + "Answer given: " + answer + "Choices: " + choices);
+        throw new UnsupportedOperationException("An answer have been given that is not in the choices array.\nAnswer given: " + answer + "\nChoices: " + choices);
     }
 
     @Override
