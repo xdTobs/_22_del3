@@ -10,7 +10,7 @@ class PlayerTest {
     Player player;
     @BeforeEach
     void setUp() {
-        this.player = new Player("Test", 20);
+        this.player = new Player("Test", 30000);
     }
     @Test
     void isJailed() {
