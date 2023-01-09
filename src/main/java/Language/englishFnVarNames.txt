@@ -29,3 +29,4 @@ noMoreHouses:I don't want to buy any more Houses
 selectHouse:Select the property that you wish to buy a house for:
 dkkPer:DKK per
 payRent: The field you have landed on is already owned, and you must pay rent.
+goToJailMsg: Unlucky roll! You go directly to jail...
