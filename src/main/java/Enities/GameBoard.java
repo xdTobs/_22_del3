@@ -321,7 +321,10 @@ public class GameBoard {
         return deck;
     }
 
-
+    // TODO Languagecontroller somewhere else
+//    public String getMessage(String key) {
+//        return languageController.getMessage(key);
+//    }
 
 
     public boolean removeBankruptPlayers() {
