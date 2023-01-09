@@ -66,5 +66,11 @@ class PlayerTest {
     void getName() {
         assertEquals("Test", player.getName());
     }
-}
+/*
+Tilføj:
+-to til 4 spillere
+-Om spilleren kan købe ledige felter.
+-Modtage leje, hvis en anden lander på et ejet felt.
+ */
 
+}
