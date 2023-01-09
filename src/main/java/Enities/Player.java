@@ -113,8 +113,8 @@ public class Player {
         return this.hasLost;
     }
 
-    public void setHasLost(boolean isBankrupt) {
-        hasLost = hasLost;
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
     }
 
 }
