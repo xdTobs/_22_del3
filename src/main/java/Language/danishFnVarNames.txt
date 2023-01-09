@@ -29,3 +29,4 @@ noMoreHouses:Jeg vil ikke købe flere huse nu.
 selectHouse:Vælg en ejendom du vil købe for:
 dkkPer:kroner per
 payRent: Feltet du er landet på er allerede ejet og du skal derfor betale leje.
+goToJailMsg: Uheldigt kast! Du ryger direkte i fængsel...

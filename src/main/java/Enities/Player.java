@@ -11,6 +11,7 @@ public class Player {
     private int extraTurnCounter;
     private String name;
 
+    private boolean hasLost;
 
     public Player(String name) {
         this(name, 30000);
@@ -94,7 +95,7 @@ public class Player {
 
     }
 
-    public int getHotel() {
+    public int getHotels() {
         return 0;
         //TODO implement
     }
@@ -108,8 +109,12 @@ public class Player {
         return this.getBalance() < 0;
     }
 
-    public int getHotels() {
-        return 0;
-
+    public boolean getHasLost() {
+        return this.hasLost;
     }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
 }

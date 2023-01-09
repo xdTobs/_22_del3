@@ -140,6 +140,7 @@ public class ActualFields implements FieldAction {
     @Override
     public void goToJailAction(GoToJail goToJail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
+        view.showMessage(gameBoard.getMessage("goToJailMsg"));
         currentPlayer.setPosition(10);
         currentPlayer.setJailed(true);
     }
