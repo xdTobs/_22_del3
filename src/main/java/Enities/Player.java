@@ -95,7 +95,7 @@ public class Player {
 
     }
 
-    public int getHotels() {
+    public int getHotel() {
         return 0;
         //TODO implement
     }
@@ -116,4 +116,5 @@ public class Player {
     public void setHasLost(boolean isBankrupt) {
         hasLost = hasLost;
     }
+
 }
