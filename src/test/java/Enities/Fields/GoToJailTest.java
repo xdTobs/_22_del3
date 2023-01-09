@@ -14,6 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GoToJailTest {
 
+    @Test
+    void gotoJail() {
+//       GameBoard gameBoard = new GameBoard()
+
+    }
 //    @Test
 //    void gotoJail() {
 //        // gotoJail is on square 3 in the test.

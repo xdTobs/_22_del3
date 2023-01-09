@@ -24,3 +24,5 @@ PASSED_START:*, you passed start. You receive 4000 DKK.
 WANT_TO_BUY_HOUSE:*, would you like to buy a House?
 STOP_BUYING_HOUSES:I don't want to buy any more Houses.
 SELECT_HOUSE:Select the property that you wish to buy a house for:
+PAY_RENT:*, you have to pay rent at *.
+GO_TO_JAIL:Unlucky roll! Go to jail!

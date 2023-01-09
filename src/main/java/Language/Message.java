@@ -89,14 +89,14 @@ public class Message {
         return of(Type.PASSED_START, playerName);
     }
 
+    public static Message payRent(String playerName, String fieldName) {
+        return of(Type.PASSED_START, playerName);
+    }
+
     public static Message finishBuyingHouses() {
         return of(Type.STOP_BUYING_HOUSES);
     }
 
-//    PASSED_START,
-//    WANT_TO_BUY_HOUSE,
-//    NO_MORE_HOUSES,
-//    SELECT_HOUSE,
 
     public static Message parking() {
         return of(Type.PARKING);
@@ -119,6 +119,10 @@ public class Message {
 
     public static Message extraTurn(String playerName) {
         return of(Type.EXTRA_TURN, playerName);
+    }
+
+    public static Message goToJail() {
+        return of(Type.GO_TO_JAIL);
     }
 
     public Type getType() {
@@ -157,5 +161,7 @@ public class Message {
         PASSED_START,
         STOP_BUYING_HOUSES,
         SELECT_HOUSE,
+        PAY_RENT,
+        GO_TO_JAIL
     }
 }

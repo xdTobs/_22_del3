@@ -36,7 +36,7 @@ public class FieldImpl implements FieldAction {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
-            view.showMessage(gameBoard.getMessage("payRent"));
+            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName()));
         }
         return boughtField;
     }
@@ -144,7 +144,7 @@ public class FieldImpl implements FieldAction {
     @Override
     public void goToJailAction(GoToJail goToJail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        view.showMessage(gameBoard.getMessage("goToJailMsg"));
+        userIO.showMessage(Message.goToJail());
         currentPlayer.setPosition(10);
         currentPlayer.setJailed(true);
     }
@@ -165,6 +165,9 @@ public class FieldImpl implements FieldAction {
         } else {
             ferryPayRent(ferry);
         }
+
+        userIO.showMessage(Message.buyField("Henrik", "Stroget"));
+
         return boughtField;
     }
 

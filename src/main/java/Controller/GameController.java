@@ -5,6 +5,7 @@ import Enities.GameBoard;
 import Enities.Player;
 import Language.Message;
 import View.GuiView;
+import org.apache.commons.lang.NotImplementedException;
 
 
 /**
@@ -102,11 +103,11 @@ public class GameController {
             boolean hasPassedStart = gameBoard.movePlayer();
             String playerName = gameBoard.getCurrentPlayer().getName();
             userIO.showMessage(Message.rollDice(playerName));
-            view.update(gameBoard.getPlayers(), gameBoard.getFields());
+            view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
             if (playerHasBeenRemoved) {
-                throw new NotImplementedException()
+                throw new NotImplementedException();
             }
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 
