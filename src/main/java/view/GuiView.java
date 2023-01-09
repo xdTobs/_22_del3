@@ -33,7 +33,7 @@ public class GuiView implements View, BasicUserIO {
 
     /**
      * If this gets called with no choices, then we will instead use the args as choices.
-     * We do this so we can use buy houses thing.
+     * We do this, so we can use buy houses thing.
      */
     @Override
     public int promptChoice(Message message, Message... choices) {
@@ -190,20 +190,13 @@ public class GuiView implements View, BasicUserIO {
     @Override
     public void updateHouses(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
-
-
             if (fields[i] instanceof RentableField rentableField) {
-                String owner = rentableField.getOwner();
-                if (!rentableField.getOwner().equals("Bank")) {
+                if (!rentableField.isNotOwned()) {
                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
-                    guiFerry.setSubText(rentableField.getPrice() + " - " + owner.charAt(6));
+                    String name = rentableField.getOwner().getName();
+                    guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 }
-
             }
-
         }
-
     }
-
-
 }

@@ -1,11 +1,13 @@
 package entities.fields;
 
+import entities.Player;
+
 public abstract class RentableField extends Field {
     int price;
     int housePrice;
     int houses = 0;
     private int[] rent = new int[6];
-    private String ownerName = "Bank";
+    private Player owner = null;
 
     public RentableField(String s) {
         super(s);
@@ -35,7 +37,7 @@ public abstract class RentableField extends Field {
 
     //TODO skal vi lave de samme metoder for "Hotels"?
 
-    public void BuyProperty(){
+    public void BuyProperty() {
 
     }
 
@@ -43,12 +45,16 @@ public abstract class RentableField extends Field {
         return rent[i];
     }
 
-    public String getOwner() {
-        return ownerName;
+    public Player getOwner() {
+        return owner;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public boolean isNotOwned() {
+        return owner == null;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
 }

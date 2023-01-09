@@ -24,11 +24,6 @@ public class Street extends RentableField {
         return super.getName();
     }
 
-    @Override
-    public int getRent(int i) {
-        return super.getRent(i);
-    }
-
     public int getHouses() {
         return houses;
     }
