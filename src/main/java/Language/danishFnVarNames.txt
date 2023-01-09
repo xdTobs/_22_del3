@@ -1,13 +1,30 @@
 moveTo:Gå til
-gameWonMsg:Har vundet spillet! Tillykke.
-gameLostMsg:Har tabt spillet!
-rollDiceMsg:Det er din tur. Rol med terningerne.
-chanceCardMsg:Du trak et chancekort. Det siger:
-parkingMsg:Du er på en parkeringsplads. Her sker der ikke meget..
-startMsg:Du får 4000 kroner for at passere start.
+onPickFieldChance:Vælg et felt at rykke til. Hvis det er frit får du det gratis. Hvis det er ejet skal du betale leje
+gameWonMsg: har vundet spillet! Tillykke.
+gameLostMsg: har tabt spillet!
+rollDiceMsg: det er din tur. Rul med terningerne.
+leaveJailMsg:, du er i fængsel. Betal dig ud eller rul to ens terninger for at komme ud.
+chanceCardMsg: du trak et chance kort. Det siger:
+parkingMsg: du er på en parkeringsplads. Her sker der ikke meget...
+startMsg: du får 4000 kroner for at passere start.
+onGetOutOfJail: du træk et "kom gratis ud af fængsel"-kort. Det vil automatisk blive brugt når du kommer i fængsel
 playerCountMsg:Hvor mange spillere vil spille?
-playerName4:Spiller 4
-playerName3:Spiller 3
-playerName2:Spiller 2
-playerName1:Spiller 1
-wantToBailOut: Vil du betale 1000 DKK for at komme ud af fængsel?
+playerName4:Spiller4
+playerName3:Spiller3
+playerName2:Spiller2
+playerName1:Spiller1
+successfulConditionChanceCard:?
+unSuccessfulConditionChanceCard:?
+wantToBuyPrompt1:Du er landet på
+wantToBuyPrompt2:. Vil du købe det?
+wantToBailOut:Vil du betale 1000 kroner for at komme ud af fængsel?
+yes:Ja
+no:Nej
+extraTurn:du slog to ens! Du får en ekstra tur.
+taxPrompt:du skal betale skat og har følgende valg:
+playerTotalValue:?
+passedStartMsg:du har passeret start og får 4000 kroner.
+wantToBuyHouse:har du lyst til at købe et hus?
+noMoreHouses:Jeg vil ikke købe flere huse nu.
+selectHouse:Vælg en ejendom du vil købe for:
+dkkPer:kroner per
