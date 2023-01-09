@@ -82,6 +82,8 @@ public class GameController {
             GameBoard.removeBankruptPlayers(gameBoard.getPlayers());
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 
+            if(gameBoard.isGameover())
+                return;
             if (hasPassedStart) {
                 view.showMessage(gameBoard.getMessage("passedStartMsg"));
             }
