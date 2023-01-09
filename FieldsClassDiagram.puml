@@ -1,13 +1,13 @@
 @startuml
 left to right direction
-class Enities.Fields.Ferry {
+class entities.fields.Ferry {
 + int getRent(int)
 + String getName()
 + int getPrice()
 + int getHousePrice()
 + Field executeFieldAction(FieldAction)
 }
-class Enities.Fields.Street {
+class entities.fields.Street {
 ~ Color color
 + int getPrice()
 + int getHousePrice()
@@ -17,7 +17,7 @@ class Enities.Fields.Street {
 + void setHouses(int)
 + Field executeFieldAction(FieldAction)
 }
-class Enities.Fields.Tax {
+class entities.fields.Tax {
 ~ int price
 ~ int percentPrice
 + int getPrice()
@@ -26,26 +26,26 @@ class Enities.Fields.Tax {
 + void setPercentPrice(int)
 + Field executeFieldAction(FieldAction)
 }
-class Enities.Fields.Start {
+class entities.fields.Start {
 + String getName()
 + Field executeFieldAction(FieldAction)
 }
-class Enities.Fields.ChanceField {
+class entities.fields.ChanceField {
 + String getName()
 + Field executeFieldAction(FieldAction)
 }
-class Enities.Fields.Jail {
+class entities.fields.Jail {
 + String getName()
 + Field executeFieldAction(FieldAction)
 }
-class Enities.Fields.Brewery {
+class entities.fields.Brewery {
 + int getPrice()
 + int getHousePrice()
 + Field executeFieldAction(FieldAction)
 + int getRent(int)
 + String getName()
 }
-abstract class Enities.Fields.Field {
+abstract class entities.fields.Field {
 - int position
 - String name
 # FieldPair pair
@@ -57,7 +57,7 @@ abstract class Enities.Fields.Field {
 + String getHTMLDescription()
 + void setPair(FieldPair)
 }
-abstract class Enities.Fields.RentableField {
+abstract class entities.fields.RentableField {
 ~ int price
 ~ int housePrice
 ~ int houses
@@ -72,7 +72,7 @@ abstract class Enities.Fields.RentableField {
 + String getOwner()
 + void setOwnerName(String)
 }
-class Enities.Fields.FieldPair {
+class entities.fields.FieldPair {
 - Color backgroundColor
 - Color foregroundColor
 - int[] fieldIds
@@ -80,11 +80,11 @@ class Enities.Fields.FieldPair {
 + Color getBackgroundColor()
 + Color getForegroundColor()
 }
-class Enities.Fields.Parking {
+class entities.fields.Parking {
 + String getName()
 + Field executeFieldAction(FieldAction)
 }
-interface Enities.Fields.FieldAction {
+interface entities.fields.FieldAction {
 ~ Field streetAction(Street)
 ~ void streetPayRentToOwner(Street)
 ~ boolean streetPlayerOwnsPair(Street)
@@ -94,20 +94,20 @@ interface Enities.Fields.FieldAction {
 ~ void chanceFieldAction(ChanceField)
 ~ Field breweryAction(Brewery)
 }
-class Enities.Fields.GoToJail {
+class entities.fields.GoToJail {
 + Field executeFieldAction(FieldAction)
 }
 
 
-Enities.Fields.RentableField <|-- Enities.Fields.Ferry
-Enities.Fields.RentableField <|-- Enities.Fields.Street
-Enities.Fields.Field <|-- Enities.Fields.Tax
-Enities.Fields.Field <|-- Enities.Fields.Start
-Enities.Fields.Field <|-- Enities.Fields.ChanceField
-Enities.Fields.Field <|-- Enities.Fields.Jail
-Enities.Fields.RentableField <|-- Enities.Fields.Brewery
-Enities.Fields.Field <|-- Enities.Fields.RentableField
-Enities.Fields.Field <|-- Enities.Fields.Parking
-Enities.Fields.Field <|-- Enities.Fields.GoToJail
-Enities.Fields.FieldAction ..>Enities.Fields.Field
+entities.fields.RentableField <|-- entities.fields.Ferry
+entities.fields.RentableField <|-- entities.fields.Street
+entities.fields.Field <|-- entities.fields.Tax
+entities.fields.Field <|-- entities.fields.Start
+entities.fields.Field <|-- entities.fields.ChanceField
+entities.fields.Field <|-- entities.fields.Jail
+entities.fields.RentableField <|-- entities.fields.Brewery
+entities.fields.Field <|-- entities.fields.RentableField
+entities.fields.Field <|-- entities.fields.Parking
+entities.fields.Field <|-- entities.fields.GoToJail
+entities.fields.FieldAction ..>entities.fields.Field
 @enduml

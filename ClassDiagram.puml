@@ -1,6 +1,6 @@
 @startuml
 
-class View.TestView {
+class view.TestView {
 + void addPlayersToGui(Player[])
 + void updateDie(DiceCup)
 + void updatePlayerBalances(Player[])
@@ -11,7 +11,7 @@ class View.TestView {
 + String promptPlayer(String[],String)
 + int promptPlayerCount(String,int,int)
 }
-interface View.View {
+interface view.view {
 ~ void addPlayersToGui(Player[])
 ~ void updateDie(DiceCup)
 ~ void updatePlayerBalances(Player[])
@@ -23,12 +23,12 @@ interface View.View {
 ~ int promptPlayerCount(String,int,int)
 }
 
-class Enities.DiceCup.DieSixSided {
+class entities.dicecup.DieSixSided {
 - int max
 + void roll()
 + int getFaceValue()
 }
-interface Enities.ChanceCards.ChanceAction {
+interface enities.chancecards.ChanceAction {
 ~ void getOutOfJail()
 ~ void changeBal(int)
 ~ void changeBalConditional(int,int)
@@ -41,7 +41,7 @@ interface Enities.ChanceCards.ChanceAction {
 ~ void moveToBrewery()
 ~ void printDesc(String)
 }
-class Enities.GameBoard {
+class entities.GameBoard {
 - DiceCup diceCup
 - HashMap<Player,List<RentableField>> ownershipMap
 - Field[] fields
@@ -65,7 +65,7 @@ class Enities.GameBoard {
 + void isPlayerBankrupt()
 - void removePlayer(int)
 }
-class Enities.Player {
+class entities.Player {
 - int balance
 - int position
 - boolean jailed
@@ -80,7 +80,7 @@ class Enities.Player {
 
 
 
-class Enities.ChanceCards.Deck {
+class enities.chancecards.Deck {
 - ArrayList<ChanceCard> cards
 + Integer[] numberReader(String)
 + void shuffleCards()
@@ -90,9 +90,9 @@ class Enities.ChanceCards.Deck {
 + ArrayList<ChanceCard> getCards()
 }
 
-class Enities.ChanceCardImpl {
+class entities.ChanceCardImpl {
 ~ GameBoard gameBoard
-~ View view
+~ view view
 + void getOutOfJail()
 + void changeBal(int)
 + void changeBalConditional(int,int)
@@ -106,7 +106,7 @@ class Enities.ChanceCardImpl {
 + void printDesc(String)
 }
 
-abstract class Enities.Fields.Field {
+abstract class entities.fields.Field {
 - int position
 - String name
 # FieldPair pair
@@ -118,12 +118,12 @@ abstract class Enities.Fields.Field {
 + String getHTMLDescription()
 + void setPair(FieldPair)
 }
-class Language.LanguageController {
+class language.LanguageController {
 - HashMap<String,String> languageMap
 + String getMessage(String)
 - HashMap<String,String> initLanguageHandler(Path)
 }
-class Enities.Fields.FieldPair {
+class entities.fields.FieldPair {
 - Color backgroundColor
 - Color foregroundColor
 - int[] fieldIds
@@ -131,13 +131,13 @@ class Enities.Fields.FieldPair {
 + Color getBackgroundColor()
 + Color getForegroundColor()
 }
-abstract class Enities.DiceCup.Die {
+abstract class entities.dicecup.Die {
 ~ int faceValue
 ~ {abstract}void roll()
 ~ int getFaceValue()
 + boolean equals(Object)
 }
-abstract class Enities.Fields.RentableField {
+abstract class entities.fields.RentableField {
 ~ int price
 ~ int housePrice
 ~ int houses
@@ -154,15 +154,15 @@ abstract class Enities.Fields.RentableField {
 }
 
 
-class Enities.DiceCup.DiceCup {
+class entities.dicecup.DiceCup {
 - Die[] diceArray
 + int getSum()
 + boolean diceAreEqual()
 + int[] getDiceValues()
 + void roll()
 }
-class Controller.GameController {
-- View view
+class controller.GameController {
+- view view
 - GameBoard gameBoard
 - ActualChanceCard acc
 + void playGame()
@@ -172,7 +172,7 @@ class Controller.GameController {
 
 
 
-class View.GuiView {
+class view.GuiView {
 - GUI gui
 - GUI_Player[] guiPlayers
 - GUI_Field[] guiFields
@@ -188,16 +188,16 @@ class View.GuiView {
 }
 
 
-class Enities.DiceCup.TestDie {
+class entities.dicecup.TestDie {
 ~ void roll()
 }
-abstract class Enities.ChanceCards.ChanceCard {
+abstract class enities.chancecards.ChanceCard {
 # String desc
 + {abstract}void executeCardAction(ChanceAction)
 }
-class Enities.FieldImpl {
+class entities.FieldImpl {
 ~ GameBoard gameBoard
-~ View view
+~ view view
 - boolean wantToBuyPrompt(RentableField)
 + Field streetAction(Street)
 - void buyHouseProcess()
@@ -220,7 +220,7 @@ class Main {
 + {static} void main(String[])
 }
 
-interface Enities.Fields.FieldAction {
+interface entities.fields.FieldAction {
 ~ Field streetAction(Street)
 ~ void streetPayRentToOwner(Street)
 ~ boolean streetPlayerOwnsPair(Street)
@@ -230,23 +230,23 @@ interface Enities.Fields.FieldAction {
 ~ void chanceFieldAction(ChanceField)
 ~ Field breweryAction(Brewery)
 }
-class Enities.Fields.GoToJail {
+class entities.fields.GoToJail {
 + Field executeFieldAction(FieldAction)
 }
 
 
-View.View <.. View.TestView
+view.view <.. view.TestView
 
 
-Enities.DiceCup.Die <-- Enities.DiceCup.DieSixSided
-Enities.ChanceCards.ChanceAction <.up. Enities.ChanceCardImpl
-Enities.Fields.FieldAction <.up. Enities.FieldImpl
-Enities.Fields.Field <-- Enities.Fields.RentableField
-View.View <.. View.GuiView
-Enities.DiceCup.Die <-- Enities.DiceCup.TestDie
-Controller.GameController --> View.View
-Controller.GameController --> Enities.GameBoard
-Enities.GameBoard -->Enities.DiceCup
-Main -->Controller.GameController
-Enities.GameBoard -->Language.LanguageController
+entities.dicecup.Die <-- entities.dicecup.DieSixSided
+enities.chancecards.ChanceAction <.up. entities.ChanceCardImpl
+entities.fields.FieldAction <.up. entities.FieldImpl
+entities.fields.Field <-- entities.fields.RentableField
+view.view <.. view.GuiView
+entities.dicecup.Die <-- entities.dicecup.TestDie
+controller.GameController --> view.view
+controller.GameController --> entities.GameBoard
+entities.GameBoard -->entities.dicecup
+Main -->controller.GameController
+entities.GameBoard -->language.LanguageController
 @enduml
