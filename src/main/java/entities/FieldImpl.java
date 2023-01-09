@@ -8,6 +8,7 @@ import controller.View;
 import language.Message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FieldImpl implements FieldAction {
@@ -41,30 +42,38 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
-    //TODO figure out where this goes
 
     public void buyHouseProcess() {
         boolean ableToBuyHouse = false;
         List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
         List<Street> ownedStreets = new ArrayList<>();
+        List<Street> ownedPairStreets = new ArrayList<>();
         for (RentableField ownedField : ownedFields) {
             if (ownedField instanceof Street street && street.getHouses() < 6)
                 ownedStreets.add(street);
         }
+
         for(Street street : ownedStreets){
             if(streetPlayerOwnsPair(street))
                 ableToBuyHouse = true;
+            ownedPairStreets.add(street);
         }
+
         while (ableToBuyHouse&&wantToBuyHouse()) {
-            ownedStreets = new ArrayList<>();
+
+            HashMap<FieldPair,Integer> minHouses = new HashMap<>();
+            for (Street street : ownedPairStreets){
+                minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), 0)));
+            }
+            ownedPairStreets = new ArrayList<>();
             for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() < 6)
-                    ownedStreets.add(street);
+                if (ownedField instanceof Street street && street.getHouses() < 6&&street.getHouses()==minHouses.get(street.getPair()))
+                    ownedPairStreets.add(street);
             }
 
-            Message[] choices = new Message[ownedStreets.size() + 1];
-            for (int i = 0; i < ownedStreets.size(); i++) {
-                choices[i + 1] = Message.houseOption(ownedStreets.get(i).getName(), ownedStreets.get(i).getHousePrice() + "");
+            Message[] choices = new Message[ownedPairStreets.size() + 1];
+            for (int i = 0; i < ownedPairStreets.size(); i++) {
+                choices[i + 1] = Message.houseOption(ownedPairStreets.get(i).getName(), ownedPairStreets.get(i).getHousePrice() + "");
 
             }
 
@@ -73,7 +82,8 @@ public class FieldImpl implements FieldAction {
             int selection = userIO.promptChoice(message, choices);
             if (selection == 0)
                 return;
-            buyHouse(ownedStreets.get(selection - 1));
+            buyHouse(ownedPairStreets.get(selection - 1));
+
         }
     }
 
