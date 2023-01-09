@@ -77,11 +77,13 @@ public class GameController {
         if (!currentPlayer.isJailed()) {
             boolean hasPassedStart = gameBoard.rollDieMovePlayer();
             view.showMessage(currentPlayer.getName() + " " + gameBoard.getMessage("rollDiceMsg"));
-            view.update(gameBoard.getPlayers(), gameBoard.getFields());
+            view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
             GameBoard.removeBankruptPlayers(gameBoard.getPlayers());
-            view.update(gameBoard.getPlayers(), gameBoard.getFields());
+            view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 
+            if(gameBoard.isGameover())
+                return;
             if (hasPassedStart) {
                 view.showMessage(gameBoard.getMessage("passedStartMsg"));
             }
