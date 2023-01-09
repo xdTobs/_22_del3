@@ -7,6 +7,9 @@ import entities.fields.*;
 import controller.View;
 import language.Message;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FieldImpl implements FieldAction {
     GameBoard gameBoard;
     View view;

@@ -97,8 +97,7 @@ public class GameController {
             }
 
             // LEAVE JAIL MESSAGE
-        }
-        if (!currentPlayer.isJailed()) {
+        } else {
             gameBoard.getDiceCup().roll();
             boolean hasPassedStart = gameBoard.movePlayer();
             String playerName = gameBoard.getCurrentPlayer().getName();
@@ -109,7 +108,7 @@ public class GameController {
 
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
             if (playerHasBeenRemoved) {
-                throw new NotImplementedException();
+                userIO.showMessage(Message.remainingPlayers(gameBoard.getPlayers()));
             }
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 

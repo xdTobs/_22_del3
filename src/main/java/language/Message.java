@@ -1,6 +1,10 @@
 package language;
 
 
+import entities.Player;
+
+import java.util.Arrays;
+
 public class Message {
 
     private final String[] args;
@@ -89,8 +93,13 @@ public class Message {
         return of(Type.PASSED_START, playerName);
     }
 
-    public static Message payRent(String playerName, String fieldName,String rent) {
-        return of(Type.PAY_RENT, playerName,fieldName,rent);
+    public static Message remainingPlayers(Player[] players) {
+        String playerNames = Arrays.stream(players).map(p -> p.getName()).reduce("", (acc, name) -> acc + ", " + name);
+        return of(Type.REMAINING_PLAYERS, playerNames);
+    }
+
+    public static Message payRent(String playerName, String fieldName, String rent) {
+        return of(Type.PAY_RENT, playerName, fieldName, rent);
 
     }
 
@@ -125,10 +134,12 @@ public class Message {
     public static Message goToJail() {
         return of(Type.GO_TO_JAIL);
     }
-    public static Message houseOption(String streetName,String pricePer){
-        return of(Type.HOUSE_OPTION,streetName,pricePer);
+
+    public static Message houseOption(String streetName, String pricePer) {
+        return of(Type.HOUSE_OPTION, streetName, pricePer);
     }
-    public static Message selectHouse(){
+
+    public static Message selectHouse() {
         return of(Type.SELECT_HOUSE);
     }
 
@@ -170,7 +181,7 @@ public class Message {
         STOP_BUYING_HOUSES,
         SELECT_HOUSE,
         PAY_RENT,
-        GO_TO_JAIL
-
+        GO_TO_JAIL,
+        REMAINING_PLAYERS,
     }
 }
