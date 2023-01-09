@@ -7,14 +7,14 @@ leaveJailMsg: , you are in Jail. Pay a fine or roll equal dice to get out.
 chanceCardMsg: pulled a chance card. It tells you to:
 parkingMsg: You are on parking. There is not much happening here.
 startMsg: You get two dollars for landing or passing through start
-onGetOutOfJail:Recieve a get out of jail free card. This will automatically be used when you go to jail
+onGetOutOfJail:Receive a get out of jail free card. This will automatically be used when you go to jail
 playerCountMsg:How many players will be playing?
 playerName4:Player 4
 playerName3:Player 3
 playerName2:Player 2
 playerName1:Player 1
-succesfulConditionChanceCard: Your values have been tallied under the requirement, you have recieved
-unSuccesfulConditionChanceCard: Your values have been talliet over the requiremnt, you do not revieve anything.
+successfulConditionChanceCard: Your values have been tallied under the requirement, you have received
+unSuccessfulConditionChanceCard: Your values have been tallied over the requirement, you do not receive anything.
 wantToBuyPrompt1: You have landed on
 wantToBuyPrompt2:. Would you like to buy it?
 wantToBailOut: Would you like to pay 1000 DKK to bail out of jail?
