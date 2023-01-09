@@ -37,11 +37,12 @@ public class GameController {
         Field[] fields = GameBoard.getDefaultFields();
         GuiView guiView = GuiView.setup(fields);
         UserIO userIO = new UserIO(guiView);
-        GameBoard gameBoard = GameBoard.setup(fields, userIO);
+        int playerCount = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
 
+        GameBoard gameBoard = GameBoard.setup(fields, userIO, playerCount);
+        guiView.addPlayersToGui(gameBoard.getPlayers());
         GameController controller = new GameController(guiView, userIO, gameBoard);
 
-        int playerCount = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
 
         gameBoard.createPlayers(playerCount);
 

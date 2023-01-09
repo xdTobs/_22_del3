@@ -5,8 +5,6 @@ import org.apache.commons.lang.NotImplementedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class LanguageControllerTest {
@@ -51,5 +49,13 @@ class LanguageControllerTest {
     @DisplayName("Message contains arguments.")
     void testBuyFieldMessage() {
         Message message = Message.buyField("Player 1", "Strøget");
+    }
+
+    @Test
+    void getMessage() {
+//        * pulled a chance card. It tells you to: *
+        var m = Message.chanceCard("Henrik", "Go to an empty square.");
+        var s = languageController.getMessage(m);
+        assertEquals("Henrik pulled a chance card. It tells you to: Go to an empty square.", s);
     }
 }

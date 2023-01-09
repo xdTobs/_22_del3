@@ -13,8 +13,7 @@ class GameBoardTest {
 
     @BeforeEach
     void setUp() {
-        GameBoard board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()));
-        board.createPlayers(2);
+        GameBoard board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()), 2);
     }
 
     @Test

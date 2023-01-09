@@ -22,58 +22,54 @@ import java.util.stream.Stream;
 public class GameBoard {
 
 
-    private final DiceCup diceCup;
+    private DiceCup diceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
     private Field[] fields;
-    private final LanguageController languageController;
-    private Deck deck;
+    private final Deck deck;
     private Player[] players;
     private int playerTurn;
     private ChanceCardImpl chanceCardImpl;
     private FieldImpl fieldImpl;
 
-    public GameBoard(Field[] fields, UserIO userIO) {
-        this(new LanguageController(), new DiceCup(), fields, userIO);
+    public GameBoard(Field[] fields, UserIO userIO, int playerCount) {
+        this(new DiceCup(), fields, userIO, playerCount);
     }
 
-    public GameBoard(LanguageController languageController, DiceCup diceCup, Field[] fields, UserIO userIO) {
+    public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, int playerCount) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
         this.deck = Deck.setup();
         this.diceCup = diceCup;
-        this.languageController = languageController;
         this.fields = fields;
+        createPlayers(playerCount);
     }
 
-    public static GameBoard setup(Field[] fields, UserIO userIO) {
+    public static GameBoard setup(Field[] fields, UserIO userIO, int playerCount) {
         // TODO
         //  we need to figure out some way to make simpler tests.
         //  Can we find a way to make the board only 5 square and then test jail on that board?
         //  Can we do that without changing current code to much?
         // We only make fieldPairs if it is the size of the original matador board.
         // We do this, so we can run tests with other board sizes.
-        fields = initFieldPairs(fields);
-        GameBoard gameBoard = new GameBoard(fields, userIO);
-
+        GameBoard gameBoard = new GameBoard(fields, userIO, playerCount);
         new FieldImpl(gameBoard, userIO);
         new ChanceCardImpl(gameBoard, userIO);
         return gameBoard;
     }
 
-    private static Stream<String> getLineStream(String filename) {
-        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream(filename);
+    private static Stream<String> getLineStream() {
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream("fields.csv");
         if (inputStream == null) {
             throw new IllegalStateException("InputStream should not be null");
         }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         // First row is keys. Type, position, rent, which we must skip.
-        Stream<String> stream = bufferedReader.lines().skip(1);
-        return stream;
+        return bufferedReader.lines().skip(1);
     }
 
     public static Field[] getDefaultFields() {
-        var lines = getLineStream("fields.csv");
+        var lines = getLineStream();
         // First row is keys. Type, position, rent etc.
         List<Field> temp = lines.map(line -> {
             String[] key = line.split(",");
@@ -93,8 +89,7 @@ public class GameBoard {
 
         Field[] fields = new Field[temp.size()];
         temp.toArray(fields);
-        initFieldPairs(fields);
-        return fields;
+        return initFieldPairs(fields);
     }
 
 
@@ -303,7 +298,6 @@ public class GameBoard {
     public void createPlayers(int playerCount) {
         Player[] players = new Player[playerCount];
         for (int j = 0; j < playerCount; j++) {
-
             players[j] = new Player("Player" + Math.addExact(j, 1));
         }
         setPlayers(players);

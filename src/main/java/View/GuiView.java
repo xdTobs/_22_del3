@@ -17,7 +17,7 @@ public class GuiView implements View, BasicUserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    final private GUI_Field[] guiFields = new GUI_Field[40];
+    private GUI_Field[] guiFields = new GUI_Field[40];
     private LanguageController languageController;
 
     /**
@@ -28,15 +28,12 @@ public class GuiView implements View, BasicUserIO {
     public GuiView(GUI_Field[] guiFields, LanguageController languageController) {
         this.languageController = languageController;
         this.gui = new GUI(guiFields);
+        this.guiFields = gui.getFields();
     }
 
     /**
      * If this gets called with no choices, then we will instead use the args as choices.
      * We do this so we can use buy houses thing.
-     *
-     * @param message
-     * @param choices
-     * @return
      */
     @Override
     public int promptChoice(Message message, Message... choices) {
@@ -56,15 +53,11 @@ public class GuiView implements View, BasicUserIO {
      * We have this method only for the SELECT_HOUSE Message.Type.
      * We need to be able to construct a choice prompt with field names as values,
      * without having to fields ot the Message.Type enum.
-     *
-     * @param message
-     * @param choicesArray
-     * @return
      */
     private int promptChoice(Message message, String[] choicesArray) {
         String answer = this.gui.getUserSelection(languageController.getMessage(message), choicesArray);
         for (int i = 0; i < choicesArray.length; i++) {
-            if (answer == choicesArray[i]) {
+            if (answer.equals(choicesArray[i])) {
                 return i;
             }
         }
