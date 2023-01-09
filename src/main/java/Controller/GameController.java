@@ -102,7 +102,7 @@ public class GameController {
             gameBoard.fieldAction(currentPlayer);
             //gameBoard.isPlayerBankrupt();
             view.update(gameBoard.getPlayers(), gameBoard.getFields());
-
+/*
             if (hasPassedStart) {
                 basicUserIO.showMessage(gameBoard.getMessage("passedStartMsg"));
                 userIO.showMessage(Message.passedStartMessage());
@@ -113,7 +113,7 @@ public class GameController {
             if (gameBoard.getDiceCup().diceAreEqual()) {
                 basicUserIO.showMessage(currentPlayer.getName() + gameBoard.getMessage("extraTurn"));
                 playTurn(currentPlayer);
-            }
+            }  */
         }
     }
 }
