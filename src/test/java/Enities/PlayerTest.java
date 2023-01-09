@@ -68,9 +68,11 @@ class PlayerTest {
     }
 /*
 Tilføj:
--to til 4 spillere
+-to til 4 spillere.
 -Om spilleren kan købe ledige felter.
+-Om spilleren har mulighed for ikke at købe ledige felter.
 -Modtage leje, hvis en anden lander på et ejet felt.
+-
  */
 
 }
