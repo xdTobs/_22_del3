@@ -42,6 +42,30 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
+    public void buyProcess() {
+        boolean keepBuyingHouse = true;
+        while (keepBuyingHouse) {
+            if (canBuyHouse()) {
+
+            }
+        }
+
+    }
+
+    private boolean canBuyHouse() {
+        Player currentPlayer = gameBoard.getCurrentPlayer();
+        List<RentableField> currentPlayerOwnedFields = gameBoard.getOwnershipMap().get(currentPlayer);
+
+//        List<RentableField> fieldPairFieldsPlayerOwn = Field.findFieldPairsAllOwnedByPlayer(currentPlayerOwnedFields);
+
+
+//        if(){
+//
+//        }
+        return false;
+
+    }
+
     //TODO figure out where this goes
 
     public void buyHouseProcess() {
@@ -62,13 +86,13 @@ public class FieldImpl implements FieldAction {
 
         while (ableToBuyHouse && wantToBuyHouse()) {
 
-            HashMap<FieldPair,Integer> minHouses = new HashMap<>();
-            for (Street street : ownedPairStreets){
+            HashMap<FieldPair, Integer> minHouses = new HashMap<>();
+            for (Street street : ownedPairStreets) {
                 minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), 0)));
             }
             ownedPairStreets = new ArrayList<>();
             for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() < 6&&street.getHouses()==minHouses.get(street.getPair()))
+                if (ownedField instanceof Street street && street.getHouses() < 6 && street.getHouses() == minHouses.get(street.getPair()))
                     ownedPairStreets.add(street);
             }
 

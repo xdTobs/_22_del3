@@ -31,7 +31,17 @@ public class TestUserIO extends UserIO {
 
     @Override
     public void showMessage(Message message) {
-        System.out.println("Message type: " + message.getType().name());
+        debugPrintMessage(message);
+    }
+
+    private static void debugPrintMessage(Message m) {
+        System.out.println("Message: " + m.getType().name());
+        System.out.println("Args:");
+        for (String arg :
+                m.getArgs()) {
+            System.out.println(arg);
+        }
+        System.out.println();
     }
 
     @Override
