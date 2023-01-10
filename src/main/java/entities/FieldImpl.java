@@ -50,25 +50,26 @@ public class FieldImpl implements FieldAction {
         List<Street> ownedStreets = new ArrayList<>();
         List<Street> ownedPairStreets = new ArrayList<>();
         for (RentableField ownedField : ownedFields) {
-            if (ownedField instanceof Street street && street.getHouses() < 6)
+            if (ownedField instanceof Street street)
                 ownedStreets.add(street);
         }
 
         for (Street street : ownedStreets) {
-            if (streetPlayerOwnsPair(street))
+            if (streetPlayerOwnsPair(street)) {
                 ableToBuyHouse = true;
-            ownedPairStreets.add(street);
+                ownedPairStreets.add(street);
+            }
         }
 
         while (ableToBuyHouse && wantToBuyHouse()) {
 
-            HashMap<FieldPair,Integer> minHouses = new HashMap<>();
-            for (Street street : ownedPairStreets){
+            HashMap<FieldPair, Integer> minHouses = new HashMap<>();
+            for (Street street : ownedPairStreets) {
                 minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), 0)));
             }
             ownedPairStreets = new ArrayList<>();
             for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() < 6&&street.getHouses()==minHouses.get(street.getPair()))
+                if (ownedField instanceof Street street && street.getHouses() < 6 && street.getHouses() == minHouses.get(street.getPair()))
                     ownedPairStreets.add(street);
             }
 
@@ -163,7 +164,7 @@ public class FieldImpl implements FieldAction {
         Player currentPlayer = gameBoard.getCurrentPlayer();
 
         for (Field field : gameBoard.getFields()) {
-            if(field instanceof Jail jail) {
+            if (field instanceof Jail jail) {
                 currentPlayer.setPosition(jail.getPosition());
                 currentPlayer.setJailed(true);
                 userIO.showMessage(Message.goToJail());
@@ -177,7 +178,6 @@ public class FieldImpl implements FieldAction {
     public void jailAction(Jail jail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         currentPlayer.setJailed(true);
-        return;
     }
 
 
@@ -216,7 +216,7 @@ public class FieldImpl implements FieldAction {
         int count = 0;
         for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
-            if (ferryCounter.getOwner()!=null&&ferryCounter.getOwner().getName().equals(gameBoard.getCurrentPlayer().getName()))
+            if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(gameBoard.getCurrentPlayer().getName()))
                 count++;
         }
         return count;
