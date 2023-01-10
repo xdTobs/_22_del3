@@ -65,17 +65,17 @@ public class FieldImpl implements FieldAction {
 
             HashMap<FieldPair, Integer> minHouses = new HashMap<>();
             for (Street street : ownedPairStreets) {
-                minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), 0)));
+                minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), street.getHouses())));
             }
-            ownedPairStreets = new ArrayList<>();
-            for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() < 6 && street.getHouses() == minHouses.get(street.getPair()))
-                    ownedPairStreets.add(street);
+            List<Street> availableStreets = new ArrayList<>();
+            for (Street ownedPairStreet : ownedPairStreets) {
+                if (ownedPairStreet.getHouses() < 6 && ownedPairStreet.getHouses() == minHouses.get(ownedPairStreet.getPair()))
+                    availableStreets.add(ownedPairStreet);
             }
 
-            Message[] choices = new Message[ownedPairStreets.size() + 1];
-            for (int i = 0; i < ownedPairStreets.size(); i++) {
-                choices[i + 1] = Message.houseOption(ownedPairStreets.get(i).getName(), ownedPairStreets.get(i).getHousePrice() + "");
+            Message[] choices = new Message[availableStreets.size() + 1];
+            for (int i = 0; i < availableStreets.size(); i++) {
+                choices[i + 1] = Message.houseOption(availableStreets.get(i).getName(), availableStreets.get(i).getHousePrice() + "");
 
             }
 
@@ -84,7 +84,7 @@ public class FieldImpl implements FieldAction {
             int selection = userIO.promptChoice(message, choices);
             if (selection == 0)
                 return;
-            buyHouse(ownedPairStreets.get(selection - 1));
+            buyHouse(availableStreets.get(selection - 1));
 
         }
     }
