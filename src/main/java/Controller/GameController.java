@@ -83,6 +83,7 @@ public class GameController {
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
             if (playerHasBeenRemoved) {
                 view.showMessage("A player has been removed.");
+                // TODO message is shown every time it would have been that players turn. It should only be shown ONCE
             }
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 
