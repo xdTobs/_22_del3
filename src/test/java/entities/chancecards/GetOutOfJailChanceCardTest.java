@@ -21,8 +21,8 @@ class GetOutOfJailChanceCardTest {
         Field[] fields = new Field[4];
 
         fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
-        fields[2] = new Ferry("Fængsel,30, gotoJail,,,,,,,,,,");
+        fields[1] = new ChanceField("Prøv lykken,1, chance,,,,,,,,");
+        fields[2] = new GoToJail("Fængsel,2, gotoJail,,,,,,,,,,");
         fields[3] = new Jail("I fængsel/På besøg,3, jail,,,,,,,,");
 
 
@@ -35,7 +35,10 @@ class GetOutOfJailChanceCardTest {
         GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
 
-        assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
+
+        assertEquals(0, gameBoard.getCurrentPlayer().getPosition());
     }
 }

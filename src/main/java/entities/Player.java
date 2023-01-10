@@ -71,6 +71,12 @@ public class Player {
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
     }
+    public void decrementGetOutOfJailCards(){
+        getOutOfJailCards--;
+        if(getOutOfJailCards < 0){
+            throw new RuntimeException("Jail cards can't be negative.");
+        }
+    }
 
     public void addToJailedCounter() {
         jailedCounter++;

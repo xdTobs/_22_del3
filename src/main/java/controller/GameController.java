@@ -1,5 +1,6 @@
 package controller;
 
+import entities.chancecards.GetOutOfJailChanceCard;
 import entities.fields.Field;
 import entities.GameBoard;
 import entities.Player;
@@ -78,6 +79,12 @@ public class GameController {
 
     public void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
+        if (currentPlayer.isJailed() && currentPlayer.getGetOutOfJailCards() > 0) {
+            currentPlayer.setJailed(false);
+            currentPlayer.decrementGetOutOfJailCards();
+
+        }
+
         if (currentPlayer.isJailed()) {
             currentPlayer.addToJailedCounter();
             int jailedCounter = currentPlayer.getJailedCounter();
@@ -116,6 +123,8 @@ public class GameController {
             }
             // Checks if player gets an extra turn
             // TODO Should you get extra turn if you land on goToJail?
+            // TODO If you have getOutOfJailCard and roll equal dice
+            // TODO should you get to continue playing?
 
             if (gameBoard.getDiceCup().diceAreEqual()) {
                 userIO.showMessage(Message.extraTurn(playerName));
