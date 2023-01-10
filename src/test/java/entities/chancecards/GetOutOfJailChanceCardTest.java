@@ -12,9 +12,9 @@ import view.TestView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GoToJailChanceCardTest {
+class GetOutOfJailChanceCardTest {
 
     @Test
     void executeCardAction() {
@@ -22,15 +22,15 @@ class GoToJailChanceCardTest {
 
         fields[0] = FieldTest.getStartFieldDebug();
         fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
-        fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+        fields[2] = new Ferry("Fængsel,30, gotoJail,,,,,,,,,,");
         fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[5] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[6] = new Jail("I fængsel/På besøg,6, jail,,,,,,,,");
+        fields[6] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[7] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[8] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[9] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[10] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+        fields[10] = new Jail("I fængsel/På besøg,10, jail,,,,,,,,");
         fields[11] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[12] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[13] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
@@ -40,12 +40,12 @@ class GoToJailChanceCardTest {
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         List<ChanceCard> cards = new ArrayList<>();
-        cards.add(new GoToJailChanceCard("This is a GoToJail chance card."));
+        cards.add(new GetOutOfJailChanceCard("This is a get out of jail chance card."));
         Deck deck = new Deck(cards);
         GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
 
-        assertEquals(6, gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(10, gameBoard.getCurrentPlayer().getPosition());
     }
 }

@@ -161,9 +161,16 @@ public class FieldImpl implements FieldAction {
     @Override
     public void goToJailAction(GoToJail goToJail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        userIO.showMessage(Message.goToJail());
-        currentPlayer.setPosition(10);
-        currentPlayer.setJailed(true);
+
+        for (Field field : gameBoard.getFields()) {
+            if(field instanceof Jail jail) {
+                currentPlayer.setPosition(jail.getPosition());
+                currentPlayer.setJailed(true);
+                userIO.showMessage(Message.goToJail());
+                return;
+            }
+        }
+        throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
     }
 
     @Override
