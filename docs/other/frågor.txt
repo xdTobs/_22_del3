@@ -1,0 +1,7 @@
+Frågor till Christian.
+
+Skapa test gameboard, smartaste metoden. Ligger exempel i ChanceCardTest.
+FieldPairs, var borde den ligga?
+RentableField känner till ägare, men vi har också en ownershipMap.
+Se på vår LanguageHandler, Message, BasicUserIO, UserIO system. Vad är detta för pattern?
+
