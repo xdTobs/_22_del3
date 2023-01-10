@@ -18,34 +18,27 @@ class GetOutOfJailChanceCardTest {
 
     @Test
     void executeCardAction() {
-        Field[] fields = new Field[16];
+        Field[] fields = new Field[4];
 
         fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
-        fields[2] = new Ferry("Fængsel,30, gotoJail,,,,,,,,,,");
-        fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[5] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[6] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[7] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[8] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[9] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[10] = new Jail("I fængsel/På besøg,10, jail,,,,,,,,");
-        fields[11] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[12] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[13] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[14] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[15] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+        fields[1] = new ChanceField("Prøv lykken,1, chance,,,,,,,,");
+        fields[2] = new GoToJail("Fængsel,2, gotoJail,,,,,,,,,,");
+        fields[3] = new Jail("I fængsel/På besøg,3, jail,,,,,,,,");
+
 
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         List<ChanceCard> cards = new ArrayList<>();
         cards.add(new GetOutOfJailChanceCard("This is a get out of jail chance card."));
+        //check hvor mange chancekort spiller har.
         Deck deck = new Deck(cards);
         GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
 
-        assertEquals(10, gameBoard.getCurrentPlayer().getPosition());
+
+        assertEquals(0, gameBoard.getCurrentPlayer().getPosition());
     }
 }
