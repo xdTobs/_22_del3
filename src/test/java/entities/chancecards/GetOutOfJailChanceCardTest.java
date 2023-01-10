@@ -12,33 +12,33 @@ import view.TestView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ChangeBalFromPlayersChanceCardTest {
+class GetOutOfJailChanceCardTest {
 
     @Test
-    void Postitive_ChangeBalFromPlayerChanceCard() {
-        //Number of fields
-        Field[] fields = new Field[2];
-        //Type of fields
-        fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
-        //Test dice, that moves you one step.
-        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
-        //TestUserIO for gameboard and gamecontroller
-        TestUserIO testUserIO = TestUserIO.debugSetup();
-        //Deck with only one type of card
-        List<ChanceCard> cards = new ArrayList<>();
-        cards.add(new ChangeBalFromPlayersChanceCard(-1000, "Change balance from player chance card"));
-        Deck deck = new Deck(cards);
-        //Making the gameboard
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
-        //Making the game
-        GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
-        //"Playing" the test
-        gameController.playTurn(gameBoard.getCurrentPlayer());
-        //Assert statement
-        assertEquals(29000, gameBoard.getCurrentPlayer().getBalance());
-    }
+    void Positive_GetOutOfJailChanceCardTest() {
+        Field[] fields = new Field[4];
 
+        fields[0] = FieldTest.getStartFieldDebug();
+        fields[1] = new ChanceField("Prøv lykken,1, chance,,,,,,,,");
+        fields[2] = new GoToJail("Fængsel,2, gotoJail,,,,,,,,,,");
+        fields[3] = new Jail("I fængsel/På besøg,3, jail,,,,,,,,");
+
+
+        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
+        TestUserIO testUserIO = TestUserIO.debugSetup();
+        List<ChanceCard> cards = new ArrayList<>();
+        cards.add(new GetOutOfJailChanceCard("This is a get out of jail chance card."));
+        //check hvor mange chancekort spiller har.
+        Deck deck = new Deck(cards);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+
+
+        assertEquals(0, gameBoard.getCurrentPlayer().getPosition());
+    }
 }

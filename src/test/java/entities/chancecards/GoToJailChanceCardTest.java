@@ -17,25 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class GoToJailChanceCardTest {
 
     @Test
-    void executeCardAction() {
-        Field[] fields = new Field[16];
+    void Positive_GoToJailChanceCardTest() {
+        Field[] fields = new Field[5];
 
         fields[0] = FieldTest.getStartFieldDebug();
         fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
         fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+        fields[3] = new Jail("I fængsel/På besøg,3, jail,,,,,,,,");
         fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[5] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[6] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[7] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[8] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[9] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[10] = new Jail("I fængsel/På besøg,10, jail,,,,,,,,");
-        fields[11] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[12] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[13] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[14] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[15] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
 
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
@@ -46,6 +35,6 @@ class GoToJailChanceCardTest {
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
 
-        assertEquals(10, gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
     }
 }

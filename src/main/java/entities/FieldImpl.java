@@ -50,40 +50,41 @@ public class FieldImpl implements FieldAction {
         List<Street> ownedStreets = new ArrayList<>();
         List<Street> ownedPairStreets = new ArrayList<>();
         for (RentableField ownedField : ownedFields) {
-            if (ownedField instanceof Street street && street.getHouses() < 6)
+            if (ownedField instanceof Street street)
                 ownedStreets.add(street);
         }
 
         for (Street street : ownedStreets) {
-            if (streetPlayerOwnsPair(street))
+            if (streetPlayerOwnsPair(street)) {
                 ableToBuyHouse = true;
-            ownedPairStreets.add(street);
+                ownedPairStreets.add(street);
+            }
         }
 
         while (ableToBuyHouse && wantToBuyHouse()) {
 
-            HashMap<FieldPair,Integer> minHouses = new HashMap<>();
-            for (Street street : ownedPairStreets){
-                minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), 0)));
+            HashMap<FieldPair, Integer> minHouses = new HashMap<>();
+            for (Street street : ownedPairStreets) {
+                minHouses.put(street.getPair(), Math.min(street.getHouses(), minHouses.getOrDefault(street.getPair(), street.getHouses())));
             }
-            ownedPairStreets = new ArrayList<>();
-            for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() < 6&&street.getHouses()==minHouses.get(street.getPair()))
-                    ownedPairStreets.add(street);
+            List<Street> availableStreets = new ArrayList<>();
+            for (Street ownedPairStreet : ownedPairStreets) {
+                if (ownedPairStreet.getHouses() < 5 && ownedPairStreet.getHouses() == minHouses.get(ownedPairStreet.getPair()))
+                    availableStreets.add(ownedPairStreet);
             }
 
-            Message[] choices = new Message[ownedPairStreets.size() + 1];
-            for (int i = 0; i < ownedPairStreets.size(); i++) {
-                choices[i + 1] = Message.houseOption(ownedPairStreets.get(i).getName(), ownedPairStreets.get(i).getHousePrice() + "");
+            Message[] choices = new Message[availableStreets.size() + 1];
+            for (int i = 0; i < availableStreets.size(); i++) {
+                choices[i + 1] = Message.houseOption(availableStreets.get(i).getName(), availableStreets.get(i).getHousePrice() + "");
 
             }
 
             choices[0] = Message.finishBuyingHouses();
             Message message = Message.selectHouse();
             int selection = userIO.promptChoice(message, choices);
-            if (selection == 0)
+            if (selection == 0||availableStreets.size()==0)
                 return;
-            buyHouse(ownedPairStreets.get(selection - 1));
+            buyHouse(availableStreets.get(selection - 1));
 
         }
     }
@@ -161,16 +162,22 @@ public class FieldImpl implements FieldAction {
     @Override
     public void goToJailAction(GoToJail goToJail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-        userIO.showMessage(Message.goToJail());
-        currentPlayer.setPosition(10);
-        currentPlayer.setJailed(true);
+
+        for (Field field : gameBoard.getFields()) {
+            if (field instanceof Jail jail) {
+                currentPlayer.setPosition(jail.getPosition());
+                currentPlayer.setJailed(true);
+                userIO.showMessage(Message.goToJail());
+                return;
+            }
+        }
+        throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
     }
 
     @Override
     public void jailAction(Jail jail) {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         currentPlayer.setJailed(true);
-        return;
     }
 
 
@@ -209,7 +216,7 @@ public class FieldImpl implements FieldAction {
         int count = 0;
         for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
-            if (ferryCounter.getOwner().equals(gameBoard.getCurrentPlayer().getName()))
+            if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(gameBoard.getCurrentPlayer().getName()))
                 count++;
         }
         return count;

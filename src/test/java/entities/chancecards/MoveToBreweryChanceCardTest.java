@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MoveToBreweryChanceCardTest {
 
     @Test
-    void executeCardAction() {
+    void Positive_MoveToBreweryChanceCardTest() {
         //Number of fields
         Field[] fields = new Field[4];
         //Type of fields

@@ -197,6 +197,9 @@ public class GuiView implements View, BasicUserIO {
                     guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 }
             }
+            if(guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street){
+                gui_street.setHouses(street.getHouses());
+            }
         }
     }
 }

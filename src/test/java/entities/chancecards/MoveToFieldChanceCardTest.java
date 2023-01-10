@@ -14,22 +14,27 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChangeBalFromPlayersChanceCardTest {
+class MoveToFieldChanceCardTest {
 
     @Test
-    void Postitive_ChangeBalFromPlayerChanceCard() {
+    void Positive_MoveToFieldChanceCardTest() {
         //Number of fields
-        Field[] fields = new Field[2];
+        Field[] fields = new Field[5];
         //Type of fields
         fields[0] = FieldTest.getStartFieldDebug();
         fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+        fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+        fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+        fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+
         //Test dice, that moves you one step.
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         //TestUserIO for gameboard and gamecontroller
         TestUserIO testUserIO = TestUserIO.debugSetup();
         //Deck with only one type of card
         List<ChanceCard> cards = new ArrayList<>();
-        cards.add(new ChangeBalFromPlayersChanceCard(-1000, "Change balance from player chance card"));
+        //Card Moves player to field number 3.
+        cards.add(new MoveToFieldChanceCard(3, "This is a MoveToField chance card"));
         Deck deck = new Deck(cards);
         //Making the gameboard
         GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
@@ -38,7 +43,6 @@ class ChangeBalFromPlayersChanceCardTest {
         //"Playing" the test
         gameController.playTurn(gameBoard.getCurrentPlayer());
         //Assert statement
-        assertEquals(29000, gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
     }
-
 }

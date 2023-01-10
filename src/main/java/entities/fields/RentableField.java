@@ -12,7 +12,7 @@ public abstract class RentableField extends Field {
     public RentableField(String s) {
         super(s);
         String[] split = s.split(",");
-        for (int i = 0; i < split.length - 6; i++) {
+        for (int i = 0; i < split.length - 5; i++) {
             this.rent[i] = Integer.parseInt(split[i + 5]);
         }
         price = Integer.parseInt(split[3]);
