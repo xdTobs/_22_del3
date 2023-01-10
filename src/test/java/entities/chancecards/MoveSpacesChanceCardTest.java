@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MoveSpacesChanceCardTest {
 
     @Test
-    void executeCardAction() {
+    void Positive_MoveSpacesChanceCardTest() {
         //Number of fields
         Field[] fields = new Field[6];
         //Type of fields

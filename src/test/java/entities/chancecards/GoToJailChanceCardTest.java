@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GoToJailChanceCardTest {
 
     @Test
-    void executeCardAction() {
+    void Positive_GoToJailChanceCardTest() {
         Field[] fields = new Field[5];
 
         fields[0] = FieldTest.getStartFieldDebug();

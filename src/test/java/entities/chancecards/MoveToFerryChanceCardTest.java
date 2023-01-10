@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MoveToFerryChanceCardTest {
 
     @Test
-    void executeCardAction() {
+    void Positive_MoveToFerryChanceCardTest() {
         Field[] fields = new Field[4];
 //                            case ("street") -> new Street(line);
 //                case ("tax") -> new Tax(line);

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GetOutOfJailChanceCardTest {
 
     @Test
-    void executeCardAction() {
+    void Positive_GetOutOfJailChanceCardTest() {
         Field[] fields = new Field[4];
 
         fields[0] = FieldTest.getStartFieldDebug();

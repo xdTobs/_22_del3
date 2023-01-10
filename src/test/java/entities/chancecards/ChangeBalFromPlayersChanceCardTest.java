@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ChangeBalFromPlayersChanceCardTest {
 
     @Test
-    void executeCardAction() {
+    void Postitive_ChangeBalFromPlayerChanceCard() {
         //Number of fields
         Field[] fields = new Field[2];
         //Type of fields
