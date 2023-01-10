@@ -19,12 +19,10 @@ class ChangeBalFromPlayersChanceCardTest {
     @Test
     void executeCardAction() {
         //Number of fields
-        Field[] fields = new Field[4];
+        Field[] fields = new Field[2];
         //Type of fields
         fields[0] = FieldTest.getStartFieldDebug();
         fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
-        fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[3] = new Brewery("Tuborg Squash,12, brewery,3000,0,100,200,,,,");
         //Test dice, that moves you one step.
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         //TestUserIO for gameboard and gamecontroller
@@ -42,4 +40,5 @@ class ChangeBalFromPlayersChanceCardTest {
         //Assert statement
         assertEquals(29000, gameBoard.getCurrentPlayer().getBalance());
     }
+
 }
