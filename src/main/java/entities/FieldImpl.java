@@ -69,7 +69,7 @@ public class FieldImpl implements FieldAction {
             }
             List<Street> availableStreets = new ArrayList<>();
             for (Street ownedPairStreet : ownedPairStreets) {
-                if (ownedPairStreet.getHouses() < 6 && ownedPairStreet.getHouses() == minHouses.get(ownedPairStreet.getPair()))
+                if (ownedPairStreet.getHouses() < 5 && ownedPairStreet.getHouses() == minHouses.get(ownedPairStreet.getPair()))
                     availableStreets.add(ownedPairStreet);
             }
 
@@ -82,7 +82,7 @@ public class FieldImpl implements FieldAction {
             choices[0] = Message.finishBuyingHouses();
             Message message = Message.selectHouse();
             int selection = userIO.promptChoice(message, choices);
-            if (selection == 0)
+            if (selection == 0||availableStreets.size()==0)
                 return;
             buyHouse(availableStreets.get(selection - 1));
 
