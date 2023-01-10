@@ -29,7 +29,7 @@ Bredgade,26, street,5200,3000,450,2200,6600,16000,19500,23000
 Kgs. Nytorv,27, street,5200,3000,450,2200,6600,16000,19500,23000
 Coca Cola,28, brewery,3000,0,100,200,,,,
 Østergade,29, street,5600,3000,500,2400,7200,17000,20500,24000
-Fængsel,30, gotoJail,,,,,,,,
+Fængsel,30, goToJail,,,,,,,,
 Amagertorv,31, street,6000,4000,550,2600,7800,18000,22000,25000
 Vimmelskaftet,32, street,6000,4000,550,2600,7800,18000,22000,25000
 Prøv lykken,33, chance,,,,,,,,
