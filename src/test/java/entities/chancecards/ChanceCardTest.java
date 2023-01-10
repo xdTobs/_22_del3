@@ -1,15 +1,22 @@
 package entities.chancecards;
 
-import entities.ChanceCardImpl;
+import controller.GameController;
+import controller.TestUserIO;
 import entities.GameBoard;
+import entities.dicecup.DiceCup;
+import entities.dicecup.TestDie;
+import entities.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ChanceCardTest {
-    Deck deck;
-    ChanceCardImpl acc;
-    GameBoard testBoard;
+import static org.junit.jupiter.api.Assertions.*;
 
+import view.TestView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChanceCardTest {
     @BeforeEach
     void setUp() {
 //        testBoard = new GameBoard();
@@ -44,11 +51,23 @@ public class ChanceCardTest {
 
     @Test
     void chanceCardUpdatesBalance() {
+        Field[] fields = new Field[2];
 
-        ChanceCard cc = new ChangeBalChanceCard(500, "");
-        testBoard.getCurrentPlayer().setBalance(0);
-        cc.executeCardAction(acc);
-        assert testBoard.getCurrentPlayer().getBalance() == 500;
+        fields[0] = FieldTest.getStartFieldDebug();
+        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+
+        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
+        TestUserIO testUserIO = TestUserIO.debugSetup();
+        List<ChanceCard> cards = new ArrayList<>();
+        cards.add(new ChangeBalChanceCard(1000, "Update balance chance card."));
+
+        Deck deck = new Deck(cards);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
+        // When player is created he has 30 000. Chance card adds 1000.
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+
+        assertEquals(31000, gameBoard.getCurrentPlayer().getBalance());
 
     }
 }
