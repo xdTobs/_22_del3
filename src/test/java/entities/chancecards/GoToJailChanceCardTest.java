@@ -37,7 +37,6 @@ class GoToJailChanceCardTest {
         fields[14] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[15] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
 
-
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         List<ChanceCard> cards = new ArrayList<>();
@@ -46,6 +45,7 @@ class GoToJailChanceCardTest {
         GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
+
         assertEquals(10, gameBoard.getCurrentPlayer().getPosition());
     }
 }
