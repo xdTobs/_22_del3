@@ -339,9 +339,10 @@ public class GameBoard {
     }
     public void sellAllFields(Player p){
         List<RentableField> ownedFields = ownershipMap.get(p);
-        for (RentableField field : ownedFields){
-            field.setOwner(null);
-            ownedFields.remove(field);
+
+        for (int i = 0; i < ownedFields.size(); i++) {
+            ownedFields.get(i).setOwner(null);
+            ownedFields.remove(ownedFields.get(i));
         }
     }
 
