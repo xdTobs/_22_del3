@@ -18,11 +18,12 @@ class ChangeBalFromPlayersChanceCardTest {
 
     @Test
     void Postitive_ChangeBalFromPlayerChanceCard() {
-        //Number of fields
+//        Number of fields
         Field[] fields = new Field[2];
         //Type of fields
-        fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+
+        fields[0] = new Start("Start");
+        fields[1] = new ChanceField("Test Chance");
         //Test dice, that moves you one step.
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         //TestUserIO for gameboard and gamecontroller

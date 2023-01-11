@@ -4,25 +4,23 @@ import java.awt.*;
 
 public class Street extends RentableField {
     Color color;
+    int housePrice;
+    int houses = 0;
 
-    public Street(String s) {
-        super(s);
+    public Street(String name, int price, int housePrice, int[] rents) {
+        super(name, price, rents);
+        this.housePrice = housePrice;
     }
 
     @Override
-    public int getPrice() {
-        return super.getPrice();
+    public int getRent(int i) {
+        return rents[i];
     }
 
-    @Override
     public int getHousePrice() {
-        return super.getHousePrice();
+        return housePrice;
     }
 
-    @Override
-    public String getName() {
-        return super.getName();
-    }
 
     public int getHouses() {
         return houses;
@@ -37,4 +35,5 @@ public class Street extends RentableField {
     public Field executeFieldAction(FieldAction fieldAction) {
         return fieldAction.streetAction(this);
     }
+
 }

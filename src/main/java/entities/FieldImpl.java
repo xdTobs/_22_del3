@@ -4,7 +4,6 @@ import controller.UserIO;
 import entities.chancecards.ChanceCard;
 import entities.chancecards.Deck;
 import entities.fields.*;
-import controller.View;
 import language.Message;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.List;
 
 public class FieldImpl implements FieldAction {
     GameBoard gameBoard;
-    View view;
     UserIO userIO;
 
     public FieldImpl(GameBoard gameBoard, UserIO userIO) {
@@ -81,7 +79,7 @@ public class FieldImpl implements FieldAction {
             choices[0] = Message.finishBuyingHouses();
             Message message = Message.selectHouse();
             int selection = userIO.promptChoice(message, choices);
-            if (selection == 0||availableStreets.size()==0)
+            if (selection == 0 || availableStreets.size() == 0)
                 return;
             buyHouse(availableStreets.get(selection - 1));
 
@@ -145,14 +143,14 @@ public class FieldImpl implements FieldAction {
     public void taxAction(Tax tax) {
 
         if (tax.getPercentPrice() > 0 && wantToPayPercentPrice(tax)) {
-            gameBoard.getCurrentPlayer().addBalance(-tax.getPrice());
+            gameBoard.getCurrentPlayer().addBalance(-tax.getFixedPrice());
             return;
         }
         gameBoard.getCurrentPlayer().addBalance((int) -(gameBoard.totalPlayerValue(gameBoard.getCurrentPlayer()) * 0.1));
     }
 
     private boolean wantToPayPercentPrice(Tax tax) {
-        String fixedPrice = String.valueOf(tax.getPrice());
+        String fixedPrice = String.valueOf(tax.getFixedPrice());
         String percentPrice = tax.getPercentPrice() + "";
         Message taxQuestion = Message.taxPrompt(fixedPrice, percentPrice);
         return userIO.promptChoice(taxQuestion) == 1;
@@ -160,17 +158,8 @@ public class FieldImpl implements FieldAction {
 
     @Override
     public void goToJailAction(GoToJail goToJail) {
-        Player currentPlayer = gameBoard.getCurrentPlayer();
-
-        for (Field field : gameBoard.getFields()) {
-            if (field instanceof Jail jail) {
-                currentPlayer.setPosition(jail.getPosition());
-                currentPlayer.setJailed(true);
-                userIO.showMessage(Message.goToJail());
-                return;
-            }
-        }
-        throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
+        gameBoard.jailPlayer();
+        userIO.showMessage(Message.goToJail());
     }
 
     @Override
@@ -209,7 +198,7 @@ public class FieldImpl implements FieldAction {
         }
     }
 
-    public int ferryPlayerOwns(Ferry ferry) {
+    private int ferryPlayerOwns(Ferry ferry) {
         int count = 0;
         for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
@@ -224,7 +213,7 @@ public class FieldImpl implements FieldAction {
     public void chanceFieldAction(ChanceField chanceField) {
         Deck deck = gameBoard.getDeck();
         ChanceCard chanceCard = deck.takeChanceCard();
-        chanceCard.executeCardAction(gameBoard.getActualChanceCard());
+        chanceCard.executeCardAction(gameBoard.getChanceCardImpl());
         deck.putCardBack(chanceCard);
     }
 
@@ -240,7 +229,7 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
-    public void breweryPayRent(Brewery brewery) {
+    private void breweryPayRent(Brewery brewery) {
         int diceSum = gameBoard.getDiceCup().getSum();
         Player[] players = gameBoard.getPlayers();
         String houseOwnerName = brewery.getOwner().getName();
@@ -251,14 +240,16 @@ public class FieldImpl implements FieldAction {
             }
         }
 
-
-        int rent = brewery.getRent(brewery.getHouses());
+        int breweriesOwned = findHowManyInGroupPlayerOwns();
+        int rent = brewery.getRent(breweriesOwned) * diceSum;
         if (houseOwner != null) {
-
-
-            houseOwner.addBalance(rent * diceSum);
-            gameBoard.getCurrentPlayer().addBalance(-rent * diceSum);
+            houseOwner.addBalance(rent);
+            gameBoard.getCurrentPlayer().addBalance(-rent);
         }
     }
 
+    // TODO implement this.
+    private int findHowManyInGroupPlayerOwns() {
+        throw new RuntimeException("Not implemented yet");
+    }
 }

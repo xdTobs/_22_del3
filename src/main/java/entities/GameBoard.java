@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -21,14 +22,14 @@ import java.util.stream.Stream;
 public class GameBoard {
 
 
-    private DiceCup diceCup;
+    private final DiceCup diceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
-    private Field[] fields;
+    private final Field[] fields;
     private final Deck deck;
     private Player[] players;
     private int playerTurn;
-    private ChanceCardImpl chanceCardImpl;
-    private FieldImpl fieldImpl;
+    private final ChanceCardImpl chanceCardImpl;
+    private final FieldImpl fieldImpl;
 
     public GameBoard(Field[] fields, UserIO userIO, int playerCount) {
         this(new DiceCup(), fields, userIO, playerCount);
@@ -54,10 +55,7 @@ public class GameBoard {
         //  Can we do that without changing current code to much?
         // We only make fieldPairs if it is the size of the original matador board.
         // We do this, so we can run tests with other board sizes.
-        GameBoard gameBoard = new GameBoard(fields, userIO, playerCount);
-        new FieldImpl(gameBoard, userIO);
-        new ChanceCardImpl(gameBoard, userIO);
-        return gameBoard;
+        return new GameBoard(fields, userIO, playerCount);
     }
 
     private static Stream<String> getLineStream() {
@@ -74,27 +72,11 @@ public class GameBoard {
     public static Field[] getDefaultFields() {
         var lines = getLineStream();
         // First row is keys. Type, position, rent etc.
-        List<Field> temp = lines.map(line -> {
-            String[] key = line.split(",");
-            return switch (key[2].trim()) {
-                case ("street") -> new Street(line);
-                case ("tax") -> new Tax(line);
-                case ("jail") -> new Jail(line);
-                case ("goToJail") -> new GoToJail(line);
-                case ("chance") -> new ChanceField(line);
-                case ("refugee") -> new Parking(line);
-                case ("start") -> new Start(line);
-                case ("brewery") -> new Brewery(line);
-                case ("ferry") -> new Ferry(line);
-                default -> throw new IllegalStateException("Unexpected value: " + key[2].trim());
-            };
-        }).toList();
-
+        List<Field> temp = lines.map(Field::parse).toList();
         Field[] fields = new Field[temp.size()];
         temp.toArray(fields);
         return initFieldPairs(fields);
     }
-
 
     private static Field[] initFieldPairs(Field[] fields) {
         List<FieldPair> fieldPairs = new ArrayList<>();
@@ -127,24 +109,16 @@ public class GameBoard {
     }
 
 
-    public ChanceCardImpl getActualChanceCard() {
+    public ChanceCardImpl getChanceCardImpl() {
         return chanceCardImpl;
-    }
-
-    public void setActualChanceCard(ChanceCardImpl chanceCardImpl) {
-        this.chanceCardImpl = chanceCardImpl;
     }
 
     public HashMap<Player, List<RentableField>> getOwnershipMap() {
         return ownershipMap;
     }
 
-    public FieldImpl getActualFields() {
+    public FieldImpl getFieldImpl() {
         return fieldImpl;
-    }
-
-    public void setActualFields(FieldImpl fieldImpl) {
-        this.fieldImpl = fieldImpl;
     }
 
     /**
@@ -158,7 +132,6 @@ public class GameBoard {
     }
 
 
-
     /**
      * Makes whatever action the field supports.
      *
@@ -167,23 +140,25 @@ public class GameBoard {
     public void fieldAction(Player currentPlayer) {
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
-        Field boughtField = field.executeFieldAction(this.getActualFields());
+        Field boughtField = field.executeFieldAction(fieldImpl);
         if (boughtField instanceof RentableField rentableBoughtField) {
             ownershipMap.get(currentPlayer).add(rentableBoughtField);
         }
     }
 
     public int totalPlayerValue(Player p) {
-        int res = 0;
+        int totalPlayerValue = 0;
         List<RentableField> playerOwnedFields = ownershipMap.get(p);
         for (RentableField field : playerOwnedFields) {
-            res += field.getPrice();
-            int housesprice = field.getHousePrice();
-            int houses = field.getHouses();
-            res += houses * housesprice;
+            totalPlayerValue += field.getPrice();
+            if (field instanceof Street street) {
+                int housesprice = street.getHousePrice();
+                int houses = street.getHouses();
+                totalPlayerValue += houses * housesprice;
+            }
         }
-        res += p.getBalance();
-        return res;
+        totalPlayerValue += p.getBalance();
+        return totalPlayerValue;
     }
 
     public Field[] getFields() {
@@ -317,7 +292,7 @@ public class GameBoard {
         return deck;
     }
 
-    // TODO Languagecontroller somewhere else
+// TODO Languagecontroller somewhere else
 //    public String getMessage(String key) {
 //        return languageController.getMessage(key);
 //    }
@@ -343,13 +318,20 @@ public class GameBoard {
         ownedFields.clear();
     }
 
-//    private void removePlayer(int i) {
-//        List<Player> newPlayerArray = new ArrayList<>();
-//        for (int j = 0; j < players.length; j++) {
-//            if (!(i == j)) newPlayerArray.add(players[j]);
-//            else players[j].setBalance(-99999);
-//        }
-//        players = newPlayerArray.toArray(new Player[3]);
-//        int l = players[0].getBalance();
-//    }
+    void jailPlayer() {
+        Player currentPlayer = getCurrentPlayer();
+        Field[] fields = getFields();
+
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            if (field instanceof Jail) {
+                currentPlayer.setPosition(i);
+                currentPlayer.setJailed(true);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
+        //TODO check if it works
+        // Could we make gameboard somehow recieve an int so we can control how big it is for testing?
+    }
 }

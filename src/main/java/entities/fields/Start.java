@@ -3,15 +3,9 @@ package entities.fields;
 public class Start extends Field {
 
 
-
     public Start(String s) {
         super(s);
     }
-
-    public String getName() {
-        return super.getName();
-    }
-
 
 
     @Override

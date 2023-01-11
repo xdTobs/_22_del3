@@ -2,27 +2,19 @@ package entities.fields;
 
 public class Brewery extends RentableField {
 
-    public Brewery(String s) {
-        super(s);
-    }
-    @Override
-    public int getPrice() {
-        return super.getPrice();
+    public Brewery(String name, int price, int[] rents) {
+        super(name, price, rents);
     }
 
+
     @Override
-    public int getHousePrice() {
-        return super.getHousePrice();
+    public int getRent(int i) {
+        return rents[i];
     }
+
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
         return fieldAction.breweryAction(this);
 
     }
-
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
 }

@@ -7,10 +7,6 @@ public class Parking extends Field {
         super(s);
     }
 
-    public String getName() {
-        return super.getName();
-    }
-
 
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {

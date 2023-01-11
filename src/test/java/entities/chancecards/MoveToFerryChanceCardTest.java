@@ -28,10 +28,10 @@ class MoveToFerryChanceCardTest {
 //                case ("start") -> new Start(line);
 //                case ("brewery") -> new Brewery(line);
 //                case ("ferry") -> new Ferry(line);
-        fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
-        fields[2] = new Brewery("Tuborg Squash,12, brewery,3000,0,100,200,,,,");
-        fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
+//        fields[0] = FieldTest.getStartFieldDebug();
+//        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,", 2);
+//        fields[2] = new Brewery("Tuborg Squash,12, brewery,3000,0,100,200,,,,", Integer.parseInt(key[3]));
+//        fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,", Integer.parseInt(key[3]));
 
 
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
