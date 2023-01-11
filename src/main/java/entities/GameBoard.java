@@ -80,7 +80,7 @@ public class GameBoard {
                 case ("street") -> new Street(line);
                 case ("tax") -> new Tax(line);
                 case ("jail") -> new Jail(line);
-                case ("gotoJail") -> new GoToJail(line);
+                case ("goToJail") -> new GoToJail(line);
                 case ("chance") -> new ChanceField(line);
                 case ("refugee") -> new Parking(line);
                 case ("start") -> new Start(line);
