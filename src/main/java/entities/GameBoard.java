@@ -331,10 +331,18 @@ public class GameBoard {
         for (Player p : players) {
             if (p.isBankrupt()) {
                 p.setHasLost(true);
+                sellAllFields(p);
                 playerHasBeenRemoved = true;
             }
         }
         return playerHasBeenRemoved;
+    }
+    public void sellAllFields(Player p){
+        List<RentableField> ownedFields = ownershipMap.get(p);
+        for (RentableField field : ownedFields){
+            field.setOwner(null);
+            ownedFields.remove(field);
+        }
     }
 
 //    private void removePlayer(int i) {
