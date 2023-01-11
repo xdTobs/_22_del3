@@ -226,13 +226,15 @@ public class GameBoard {
     public boolean movePlayer(int diceValue) {
         Player currentPlayer = getCurrentPlayer();
         int playerPosition = currentPlayer.getPosition();
-        int newPosition = playerPosition + diceCup.getSum();
+        int newPosition = playerPosition + diceValue;
         return setNewPosition(newPosition);
     }
 
     public boolean setNewPosition(int newPosition) {
         Player currentPlayer = getCurrentPlayer();
         boolean hasPassedStart = false;
+
+        // This will break if you have a board of size n and dice that can roll higher than 2*n.
         if (newPosition > fields.length - 1) {
             newPosition = newPosition - fields.length;
             currentPlayer.addBalance(4000);
@@ -242,11 +244,6 @@ public class GameBoard {
         return hasPassedStart;
     }
 
-    /**
-     * Get players player [ ].
-     *
-     * @return the player [ ]
-     */
     public Player[] getPlayers() {
         return players;
     }

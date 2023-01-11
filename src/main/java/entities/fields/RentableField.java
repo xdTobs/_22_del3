@@ -52,6 +52,9 @@ public abstract class RentableField extends Field {
     public boolean isNotOwned() {
         return owner == null;
     }
+    public boolean isOwned() {
+        return owner != null;
+    }
 
     public void setOwner(Player owner) {
         this.owner = owner;

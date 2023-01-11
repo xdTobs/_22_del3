@@ -157,13 +157,19 @@ public class GuiView implements View, BasicUserIO {
         }
     }
 
+    /**
+     * Only move player when moving with diceroll. Still teleport if moving with chanceCard or gotojail.
+     *
+     * @param currentPlayer
+     * @param diceCup
+     */
     @Override
     public void movePlayerVisually(Player currentPlayer, DiceCup diceCup) {
-        int startPos = currentPlayer.getPosition();
-        GUI_Player guiPlayer = Arrays.stream(guiPlayers).filter(gp -> gp.getName().equals(currentPlayer.getName())).findFirst().orElse(null);
-        if(guiPlayer == null){
-            throw new RuntimeException("Could not find guiPlayer matching player name.");
-        }
+//        int startPos = currentPlayer.getPosition();
+//        GUI_Player guiPlayer = Arrays.stream(guiPlayers).filter(gp -> gp.getName().equals(currentPlayer.getName())).findFirst().orElse(null);
+//        if(guiPlayer == null){
+//            throw new RuntimeException("Could not find guiPlayer matching player name.");
+//        }
         // TODO implement moving player with 0.1 ms delay between every move.
 
 
@@ -204,13 +210,15 @@ public class GuiView implements View, BasicUserIO {
     public void updateHouses(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof RentableField rentableField) {
-                if (!rentableField.isNotOwned()) {
-                    GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
-                    // GRON BORDER
-                    // TODO
-                    guiFerry.setBorder(Color.GREEN);
+                if (rentableField.isOwned()) {
+                    GUI_Ownable guiOwnable = (GUI_Ownable) guiFields[i];
+                    Player owner = rentableField.getOwner();
+                    GUI_Player guiOwner = Arrays.stream(guiPlayers).filter(guiPlayer -> owner.getName().equals(guiPlayer.getName())).findFirst().get();
+
+                    guiOwnable.setBorder(guiOwner.getPrimaryColor());
+
                     String name = rentableField.getOwner().getName();
-                    guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
+                    guiOwnable.setSubText(rentableField.getPrice() + " " + name.charAt(6));
                 } else {
                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
                     guiFerry.setSubText(rentableField.getPrice() + "");

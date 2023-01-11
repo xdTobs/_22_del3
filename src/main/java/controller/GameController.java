@@ -105,6 +105,7 @@ public class GameController {
         } else {
             gameBoard.getDiceCup().roll();
             boolean hasPassedStart = gameBoard.movePlayer();
+            view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
             String playerName = gameBoard.getCurrentPlayer().getName();
             userIO.showMessage(Message.rollDice(playerName));
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());

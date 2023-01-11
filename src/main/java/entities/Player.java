@@ -1,16 +1,11 @@
 package entities;
 
-
-import gui_fields.GUI_Player;
-
 public class Player {
     private int balance;
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
     private int jailedCounter;
-
-    private int extraTurnCounter;
     private String name;
 
     private boolean hasLost;
@@ -107,11 +102,6 @@ public class Player {
     public int getHotels() {
         return 0;
         //TODO implement
-    }
-
-    // TODO implement, used in tax field.
-    public double totalValue() {
-        return 2.0;
     }
 
     public boolean isBankruptThisTurn() {
