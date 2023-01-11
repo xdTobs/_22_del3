@@ -12,7 +12,10 @@ public interface View {
     void updatePlayerBalances(Player[] players);
 
     void updatePlayerLocations(Player[] players);
+    void movePlayerVisually(Player currentPlayer, DiceCup diceCup);
 
+
+    // TODO Move every step, dont teleport.
 
     void update(Player[] players, Field[] fields, DiceCup diceCup);
 

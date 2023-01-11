@@ -1,6 +1,8 @@
 package entities;
 
 
+import gui_fields.GUI_Player;
+
 public class Player {
     private int balance;
     private int position;

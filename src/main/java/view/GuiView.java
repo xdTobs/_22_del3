@@ -157,6 +157,18 @@ public class GuiView implements View, BasicUserIO {
         }
     }
 
+    @Override
+    public void movePlayerVisually(Player currentPlayer, DiceCup diceCup) {
+        int startPos = currentPlayer.getPosition();
+        GUI_Player guiPlayer = Arrays.stream(guiPlayers).filter(gp -> gp.getName().equals(currentPlayer.getName())).findFirst().orElse(null);
+        if(guiPlayer == null){
+            throw new RuntimeException("Could not find guiPlayer matching player name.");
+        }
+        // TODO implement moving player with 0.1 ms delay between every move.
+
+
+    }
+
     // TODO Move every step, dont teleport.
     @Override
     public void updatePlayerLocations(Player[] players) {
@@ -199,21 +211,19 @@ public class GuiView implements View, BasicUserIO {
                     guiFerry.setBorder(Color.GREEN);
                     String name = rentableField.getOwner().getName();
                     guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
-                }
-                else{
-                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
-                    guiFerry.setSubText(rentableField.getPrice()+"");
+                } else {
+                    GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
+                    guiFerry.setSubText(rentableField.getPrice() + "");
                 }
             }
-            if(guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street){
-                if(street.getHouses()<5){
+            if (guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {
+                if (street.getHouses() < 5) {
                     gui_street.setHouses(street.getHouses());
                     gui_street.setHotel(false);
-                }else if(street.getHouses()==5) {
+                } else if (street.getHouses() == 5) {
                     gui_street.setHouses(0);
                     gui_street.setHotel(true);
-                }
-                else{
+                } else {
                     throw new RuntimeException("invalid amount of houses");
                 }
 
