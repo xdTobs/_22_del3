@@ -1,8 +1,8 @@
 package entities.fields;
 
 public class ChanceField extends Field {
-    public ChanceField(String s) {
-        super(s);
+    public ChanceField(String s, int i) {
+        super(s,i);
     }
 
     @Override

@@ -5,8 +5,8 @@ import java.awt.*;
 public class Street extends RentableField {
     Color color;
 
-    public Street(String s) {
-        super(s);
+    public Street(String s, int position) {
+        super(s, position);
     }
 
     @Override

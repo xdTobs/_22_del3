@@ -77,11 +77,11 @@ public class GameBoard {
         List<Field> temp = lines.map(line -> {
             String[] key = line.split(",");
             return switch (key[2].trim()) {
-                case ("street") -> new Street(line);
+                case ("street") -> new Street(line, position);
                 case ("tax") -> new Tax(line);
                 case ("jail") -> new Jail(line);
                 case ("gotoJail") -> new GoToJail(line);
-                case ("chance") -> new ChanceField(line);
+                case ("chance") -> new ChanceField(line, 2);
                 case ("refugee") -> new Parking(line);
                 case ("start") -> new Start(line);
                 case ("brewery") -> new Brewery(line);

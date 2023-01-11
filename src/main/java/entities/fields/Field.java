@@ -1,12 +1,14 @@
 package entities.fields;
 
 public abstract class Field {
-    protected FieldPair pair;
-    private int position;
-    private String name;
+    private FieldPair pair = null;
+    private final int position;
+    private final String name;
 
-    public Field(String s) {
-        this.parse(s);
+    // todo ska field ha styr pa position. NEJ.
+    protected Field(String name, int position) {
+        this.position = position;
+        this.name = name;
     }
 
     public FieldPair getPair() {
@@ -21,10 +23,23 @@ public abstract class Field {
         return position;
     }
 
-    protected void parse(String s) {
-        String[] split = s.split(",");
-        this.position = Integer.parseInt(split[1]);
-        this.name = split[0];
+    public static Field parse(String line) {
+        String[] key = line.split(",");
+        int position = Integer.parseInt(key[1]);
+        String name = key[0];
+        return switch (key[2].trim()) {
+            case ("street") -> new Street(name, position);
+            case ("tax") -> new Tax(name, position);
+            case ("jail") -> new Jail(name, position);
+            case ("gotoJail") -> new GoToJail(name, position);
+            case ("chance") -> new ChanceField(name, position);
+            case ("refugee") -> new Parking(name, position);
+            case ("start") -> new Start(name, position);
+            case ("brewery") -> new Brewery(name, position);
+            case ("ferry") -> new Ferry(name, position);
+            default -> throw new IllegalStateException("Unexpected value: " + key[2].trim());
+        };
+
     }
 
     public abstract Field executeFieldAction(FieldAction fieldAction);

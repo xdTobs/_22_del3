@@ -22,7 +22,7 @@ class MoveToFieldChanceCardTest {
         Field[] fields = new Field[5];
         //Type of fields
         fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,", 2);
         fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");

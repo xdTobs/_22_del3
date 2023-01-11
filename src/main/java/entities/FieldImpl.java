@@ -13,7 +13,6 @@ import java.util.List;
 
 public class FieldImpl implements FieldAction {
     GameBoard gameBoard;
-    View view;
     UserIO userIO;
 
     public FieldImpl(GameBoard gameBoard, UserIO userIO) {

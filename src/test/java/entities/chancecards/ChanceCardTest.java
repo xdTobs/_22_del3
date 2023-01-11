@@ -56,7 +56,7 @@ public class ChanceCardTest {
         if (type.equals(Start.class)) {
             return new Start("Prøv lykken," + i + ", chance,,,,,,,,");
         } else if (type.equals(ChanceField.class)) {
-            return new ChanceField("Prøv lykken," + i + ", chance,,,,,,,,");
+            return new ChanceField("Prøv lykken," + i + ", chance,,,,,,,,", 2);
         } else if (type.equals(Brewery.class)) {
             return new Brewery("Coca Cola," + i + ", brewery,3000,0,100,200,,,,");
         } else if (type.equals(Ferry.class)) {
@@ -70,7 +70,7 @@ public class ChanceCardTest {
         } else if (type.equals(Parking.class)) {
             return new Parking("Parkering," + i + ", refugee,,,,,,,,");
         }
-        return new Street("Rødovrevej," + i + ", street,1200,1000,50,250,750,2250,4000,6000");
+        return new Street("Rødovrevej," + i + ", street,1200,1000,50,250,750,2250,4000,6000", position);
 //        type.getDeclaredConstructor().newInstance();
     }
 
@@ -115,7 +115,7 @@ public class ChanceCardTest {
         Field[] fields = new Field[2];
 
         fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+        fields[1] = new ChanceField("Prov lykken", 2);
 
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();

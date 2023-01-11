@@ -1,11 +1,9 @@
 package controller;
 
-import entities.chancecards.GetOutOfJailChanceCard;
 import entities.fields.Field;
 import entities.GameBoard;
 import entities.Player;
 import language.Message;
-import view.GuiView;
 
 
 /**
@@ -33,20 +31,9 @@ public class GameController {
      * We use this to create GameController so we can easier test the GameController with custom values and setup.
      * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
      */
-    public static GameController setup() {
-
-        Field[] fields = GameBoard.getDefaultFields();
-        GuiView guiView = GuiView.setup(fields);
-        UserIO userIO = new UserIO(guiView);
-        int playerCount = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
-
-        GameBoard gameBoard = GameBoard.setup(fields, userIO, playerCount);
-        guiView.addPlayersToGui(gameBoard.getPlayers());
-        GameController controller = new GameController(guiView, userIO, gameBoard);
-
-
-        gameBoard.createPlayers(playerCount);
-
+    public static GameController setup(View view, UserIO userIO, GameBoard gameBoard) {
+        view.addPlayersToGui(gameBoard.getPlayers());
+        GameController controller = new GameController(view, userIO, gameBoard);
         return controller;
     }
 

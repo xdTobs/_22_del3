@@ -21,7 +21,7 @@ class GoToJailChanceCardTest {
         Field[] fields = new Field[5];
 
         fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,", 2);
         fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
         fields[3] = new Jail("I fængsel/På besøg,3, jail,,,,,,,,");
         fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");

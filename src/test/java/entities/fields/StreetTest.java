@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StreetTest {
 
-    Street street1 = new Street("Bülowsvej,13, street,2800,2000,200,1000,3000,9000,12500,15000");
-    Street street2 = new Street("Gl. Kongevej,14, street,3200,2000,250,1250,3750,10000,14000,18000");
+    Street street1 = new Street("Bülowsvej,13, street,2800,2000,200,1000,3000,9000,12500,15000", position);
+    Street street2 = new Street("Gl. Kongevej,14, street,3200,2000,250,1250,3750,10000,14000,18000", position);
 
     @Test
     void getName() {
