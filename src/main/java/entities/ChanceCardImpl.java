@@ -6,7 +6,6 @@ import entities.chancecards.ChanceAction;
 import entities.fields.Brewery;
 import entities.fields.Ferry;
 import entities.fields.Field;
-import entities.fields.Jail;
 import language.Message;
 
 public class ChanceCardImpl implements ChanceAction {
@@ -90,7 +89,7 @@ public class ChanceCardImpl implements ChanceAction {
     @Override
     public void goToJail() {
         gameBoard.jailPlayer();
-        userIO.showMessage(Message.goToJail());
+        userIO.showMessage(Message.goToJailCard());
     }
 
     @Override

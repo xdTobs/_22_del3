@@ -151,7 +151,7 @@ public class FieldImpl implements FieldAction {
     @Override
     public void goToJailAction(GoToJail goToJail) {
         gameBoard.jailPlayer();
-        userIO.showMessage(Message.goToJail());
+        userIO.showMessage(Message.goToJailField());
     }
 
     @Override
