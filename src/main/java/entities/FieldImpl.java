@@ -42,7 +42,6 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
-    //TODO figure out where this goes
 
     public void buyHouseProcess() {
         boolean ableToBuyHouse = false;

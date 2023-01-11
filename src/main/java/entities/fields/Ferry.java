@@ -23,8 +23,7 @@ public class Ferry extends RentableField{
 
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
-        fieldAction.ferryAction(this);
-        return null;
+        return fieldAction.ferryAction(this);
     }
 
 }
