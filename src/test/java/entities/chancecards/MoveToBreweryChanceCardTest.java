@@ -21,10 +21,11 @@ class MoveToBreweryChanceCardTest {
         //Number of fields
         Field[] fields = new Field[4];
         //Type of fields
-        fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,", 2);
-        fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,");
-        fields[3] = new Brewery("Tuborg Squash,12, brewery,3000,0,100,200,,,,");
+        fields[0] = new Start("Start");
+        fields[1] = new ChanceField("Test Chance");
+        fields[2] = new Ferry("Test Ferry", 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[3] = new Brewery("Test Brewery", 1000, new int[]{1000, 2000, 3000, 4000});
+
         //Test dice, that moves you one step.
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         //TestUserIO for gameboard and gamecontroller

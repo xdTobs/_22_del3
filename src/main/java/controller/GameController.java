@@ -1,6 +1,5 @@
 package controller;
 
-import entities.fields.Field;
 import entities.GameBoard;
 import entities.Player;
 import language.Message;
@@ -33,8 +32,7 @@ public class GameController {
      */
     public static GameController setup(View view, UserIO userIO, GameBoard gameBoard) {
         view.addPlayersToGui(gameBoard.getPlayers());
-        GameController controller = new GameController(view, userIO, gameBoard);
-        return controller;
+        return new GameController(view, userIO, gameBoard);
     }
 
 
@@ -96,7 +94,7 @@ public class GameController {
             userIO.showMessage(Message.rollDice(playerName));
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
-            gameBoard.getActualFields().buyHouseProcess();
+            gameBoard.getFieldImpl().buyHouseProcess();
 
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
             if (playerHasBeenRemoved) {

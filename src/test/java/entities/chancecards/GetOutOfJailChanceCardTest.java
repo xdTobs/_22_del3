@@ -19,11 +19,10 @@ class GetOutOfJailChanceCardTest {
     @Test
     void Positive_GetOutOfJailChanceCardTest() {
         Field[] fields = new Field[4];
-
-        fields[0] = FieldTest.getStartFieldDebug();
-        fields[1] = new ChanceField("Prøv lykken,1, chance,,,,,,,,", 2);
-        fields[2] = new GoToJail("Fængsel,2, gotoJail,,,,,,,,,,");
-        fields[3] = new Jail("I fængsel/På besøg,3, jail,,,,,,,,");
+        fields[0] = new Start("Start");
+        fields[1] = new ChanceField("Test Chance");
+        fields[2] = new GoToJail("Go to jail");
+        fields[3] = new Jail("Jail");
 
 
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
