@@ -41,7 +41,7 @@ public abstract class RentableField extends Field {
 
     }
 
-    public int getRent(int i) {
+    public int getBaseRent(int i) {
         return rent[i];
     }
 

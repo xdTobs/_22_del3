@@ -4,7 +4,6 @@ import controller.UserIO;
 import entities.chancecards.ChanceCard;
 import entities.chancecards.Deck;
 import entities.fields.*;
-import controller.View;
 import language.Message;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class FieldImpl implements FieldAction {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
-            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
+            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getBaseRent(street.getHouses()))));
         }
         return boughtField;
     }
@@ -81,7 +80,7 @@ public class FieldImpl implements FieldAction {
             choices[0] = Message.finishBuyingHouses();
             Message message = Message.selectHouse();
             int selection = userIO.promptChoice(message, choices);
-            if (selection == 0||availableStreets.size()==0)
+            if (selection == 0 || availableStreets.size() == 0)
                 return;
             buyHouse(availableStreets.get(selection - 1));
 
@@ -114,7 +113,7 @@ public class FieldImpl implements FieldAction {
         }
         Player[] players = gameBoard.getPlayers();
         Player houseOwner = street.getOwner();
-        int rent = street.getRent(street.getHouses());
+        int rent = street.getBaseRent(street.getHouses());
 
         for (Player player : players) {
             if (player == houseOwner) {
@@ -205,13 +204,13 @@ public class FieldImpl implements FieldAction {
 
         if (houseOwner != null) {
             int ferrysOwned = ferryPlayerOwns(ferry);
-            int rent = ferry.getRent(ferrysOwned);
+            int rent = ferry.getBaseRent(ferrysOwned);
             houseOwner.addBalance(rent);
             gameBoard.getCurrentPlayer().addBalance(-rent);
         }
     }
 
-    public int ferryPlayerOwns(Ferry ferry) {
+    private int ferryPlayerOwns(Ferry ferry) {
         int count = 0;
         for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
@@ -242,7 +241,7 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
-    public void breweryPayRent(Brewery brewery) {
+    private void breweryPayRent(Brewery brewery) {
         int diceSum = gameBoard.getDiceCup().getSum();
         Player[] players = gameBoard.getPlayers();
         String houseOwnerName = brewery.getOwner().getName();
@@ -254,10 +253,8 @@ public class FieldImpl implements FieldAction {
         }
 
 
-        int rent = brewery.getRent(brewery.getHouses());
+        int rent = brewery.getBaseRent(brewery.getHouses());
         if (houseOwner != null) {
-
-
             houseOwner.addBalance(rent * diceSum);
             gameBoard.getCurrentPlayer().addBalance(-rent * diceSum);
         }

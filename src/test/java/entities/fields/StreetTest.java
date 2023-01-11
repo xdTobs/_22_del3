@@ -21,8 +21,8 @@ class StreetTest {
 
     @Test
     void getRent() {
-        assertEquals(200, street1.getRent(0));
-        assertEquals(250, street2.getRent(0));
+        assertEquals(200, street1.getBaseRent(0));
+        assertEquals(250, street2.getBaseRent(0));
     }
 
     @Test
