@@ -198,7 +198,17 @@ public class GuiView implements View, BasicUserIO {
                 }
             }
             if(guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street){
-                gui_street.setHouses(street.getHouses());
+                if(street.getHouses()<5){
+                    gui_street.setHouses(street.getHouses());
+                    gui_street.setHotel(false);
+                }else if(street.getHouses()==5) {
+                    gui_street.setHouses(0);
+                    gui_street.setHotel(true);
+                }
+                else{
+                    throw new RuntimeException("invalid amount of houses");
+                }
+
             }
         }
     }
