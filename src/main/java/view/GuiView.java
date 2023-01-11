@@ -157,6 +157,7 @@ public class GuiView implements View, BasicUserIO {
         }
     }
 
+    // TODO Move every step, dont teleport.
     @Override
     public void updatePlayerLocations(Player[] players) {
         for (int i = 0; i < players.length; i++) {
@@ -181,6 +182,7 @@ public class GuiView implements View, BasicUserIO {
         updateDie(diceCup);
     }
 
+
     /**
      * Updates the houses on the GUI.
      * We set the number of houses equal to the player number.
@@ -193,11 +195,14 @@ public class GuiView implements View, BasicUserIO {
             if (fields[i] instanceof RentableField rentableField) {
                 if (!rentableField.isNotOwned()) {
                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
+                    // GRON BORDER
+                    // TODO
+                    guiFerry.setBorder(Color.GREEN);
                     String name = rentableField.getOwner().getName();
                     guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 }
             }
-            if(guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street){
+            if (guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {
                 gui_street.setHouses(street.getHouses());
             }
         }

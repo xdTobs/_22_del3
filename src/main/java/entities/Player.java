@@ -12,6 +12,7 @@ public class Player {
     private String name;
 
     private boolean hasLost;
+    // TODO Vælge spillernavn.
 
     public Player(String name) {
         this(name, 30000);
