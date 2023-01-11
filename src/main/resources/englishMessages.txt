@@ -5,7 +5,7 @@ GAME_LOST:* has lost the game!
 ROLL_DICE:*, it is your turn. Roll the dice!
 LEAVE_JAIL:*, you are in Jail. Pay a fine or roll equal dice to get out. After three turns in jail you are forced to pay fine and leave jail.
 CHANCE_CARD:* pulled a chance card. It tells you to: *
-PARKING: You are on parking. There is not much happening here.
+PARKING: You are at the parking lot. There is not much happening here.
 GET_OUT_OF_JAIL_CARD:*, you have received a get out of jail card. This will automatically be used when you go to jail.
 PLAYER_COUNT:How many players will be playing?
 PLAYER_NAME_4:Player 4
@@ -26,5 +26,6 @@ STOP_BUYING_HOUSES:I don't want to buy any more Houses.
 SELECT_HOUSE:Select the property that you wish to buy a house for:
 HOUSE_OPTION:* for * DKK per
 PAY_RENT:*, you have to pay rent at *, for * DKK.
-GO_TO_JAIL:Unlucky roll! Go to jail!
+GO_TO_JAIL_FIELD:Unlucky roll! Go to jail!
+GO_TO_JAIL_CARD:Bad luck! This chance card puts you in jail!
 REMAINING_PLAYERS:Another player has lost. Remaining players are: *

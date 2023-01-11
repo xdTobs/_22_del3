@@ -10,6 +10,11 @@ public class Message {
     private final String[] args;
     private Type type;
 
+    public Message(Type type, String[] args) {
+        this.type = type;
+        this.args = args;
+    }
+
     public static Message of(Type type, String... args) {
         return new Message(type, args);
     }
@@ -41,12 +46,6 @@ public class Message {
 
     public static Message no() {
         return of(Type.NO);
-    }
-
-
-    public Message(Type type, String[] args) {
-        this.type = type;
-        this.args = args;
     }
 
     public static Message giftToPoorPlayerCard(String playerName, int amount) {
@@ -112,27 +111,16 @@ public class Message {
         return of(Type.PARKING);
     }
 
-    public static Message playerName(int id) {
-        switch (id) {
-            case (1):
-                return of(Type.PLAYER_NAME_1);
-            case (2):
-                return of(Type.PLAYER_NAME_2);
-            case (3):
-                return of(Type.PLAYER_NAME_3);
-            case (4):
-                return of(Type.PLAYER_NAME_4);
-            default:
-                throw new IllegalArgumentException("The player doesn't exist.\nIllegal ID: " + id);
-        }
-    }
-
     public static Message extraTurn(String playerName) {
         return of(Type.EXTRA_TURN, playerName);
     }
 
-    public static Message goToJail() {
-        return of(Type.GO_TO_JAIL);
+    public static Message goToJailField() {
+        return of(Type.GO_TO_JAIL_FIELD);
+    }
+
+    public static Message goToJailCard() {
+        return of(Type.GO_TO_JAIL_CARD);
     }
 
     public static Message houseOption(String streetName, String pricePer) {
@@ -152,36 +140,37 @@ public class Message {
     }
 
     public enum Type {
-        HOUSE_OPTION,
-        MOVE_TO,
-        ON_PICK_FIELD_CARD,
-        GAME_WON,
-        GAME_LOST,
-        ROLL_DICE,
-        LEAVE_JAIL,
         CHANCE_CARD,
-        PARKING,
+        EXTRA_TURN,
+        GAME_LOST,
+        GAME_WON,
         GET_OUT_OF_JAIL_CARD,
-        PLAYER_COUNT,
-        PLAYER_NAME_4,
-        PLAYER_NAME_3,
-        PLAYER_NAME_2,
-        PLAYER_NAME_1,
+        GO_TO_JAIL_CARD,
+        GO_TO_JAIL_FIELD,
+        HOUSE_OPTION,
+        LEAVE_JAIL,
         MONEY_GIFT_CARD_SUCCESSFUL,
         MONEY_GIFT_CARD_UNSUCCESSFUL,
-        WANT_TO_BUY_FIELD,
-        WANT_TO_BAIL_OUT,
+        MOVE_TO,
+        NO,
+        ON_PICK_FIELD_CARD,
+        PARKING,
+        PASSED_START,
+        PAY_RENT,
+        PLAYER_COUNT,
+        PLAYER_NAME_1,
 
+        PLAYER_NAME_2,
+        PLAYER_NAME_3,
+        PLAYER_NAME_4,
+        REMAINING_PLAYERS,
+        ROLL_DICE,
+        SELECT_HOUSE,
+        STOP_BUYING_HOUSES,
+        TAX_PROMPT,
+        WANT_TO_BAIL_OUT,
+        WANT_TO_BUY_FIELD,
         WANT_TO_BUY_HOUSE,
         YES,
-        NO,
-        EXTRA_TURN,
-        TAX_PROMPT,
-        PASSED_START,
-        STOP_BUYING_HOUSES,
-        SELECT_HOUSE,
-        PAY_RENT,
-        GO_TO_JAIL,
-        REMAINING_PLAYERS,
     }
 }

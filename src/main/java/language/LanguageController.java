@@ -35,7 +35,7 @@ public class LanguageController {
 
         if (missingTypes.size() != 0) {
             String s = missingTypes.stream().map(Enum::toString).reduce("", (acc, type) -> acc + type);
-            throw new UnsupportedOperationException("LanguageMap is missing the following keys:\n" + s);
+            throw new RuntimeException("LanguageMap is missing the following keys: " + s);
         }
     }
 
