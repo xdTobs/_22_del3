@@ -4,7 +4,6 @@ import controller.UserIO;
 import entities.chancecards.ChanceCard;
 import entities.chancecards.Deck;
 import entities.fields.*;
-import controller.View;
 import language.Message;
 
 import java.util.ArrayList;
@@ -107,19 +106,11 @@ public class FieldImpl implements FieldAction {
     @Override
     public void streetPayRentToOwner(Street street) {
         // If the street is owned by another player, the player has to pay rent.
-        // We need to find the owner, not just the name, so we can add the rent to him.
         if (street.isNotOwned()) {
             return;
         }
-        Player[] players = gameBoard.getPlayers();
         Player houseOwner = street.getOwner();
         int rent = street.getRent(street.getHouses());
-
-        for (Player player : players) {
-            if (player == houseOwner) {
-                houseOwner = player;
-            }
-        }
 
 //        if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
 //            rent *= 2;
