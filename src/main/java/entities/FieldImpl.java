@@ -42,7 +42,6 @@ public class FieldImpl implements FieldAction {
         return boughtField;
     }
 
-    //TODO figure out where this goes
 
     public void buyHouseProcess() {
         boolean ableToBuyHouse = false;
@@ -111,7 +110,7 @@ public class FieldImpl implements FieldAction {
         // If the street is owned by another player, the player has to pay rent.
         // We need to find the owner, not just the name, so we can add the rent to him.
         if (street.isNotOwned()) {
-            throw new IllegalArgumentException("This method should never be called on a street without a owner.");
+            return;
         }
         Player[] players = gameBoard.getPlayers();
         Player houseOwner = street.getOwner();

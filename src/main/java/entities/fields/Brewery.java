@@ -16,8 +16,8 @@ public class Brewery extends RentableField {
     }
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
-        fieldAction.breweryAction(this);
-        return null;
+        return fieldAction.breweryAction(this);
+
     }
 
     @Override

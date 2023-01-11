@@ -182,7 +182,6 @@ public class GuiView implements View, BasicUserIO {
         updateDie(diceCup);
     }
 
-
     /**
      * Updates the houses on the GUI.
      * We set the number of houses equal to the player number.
@@ -201,9 +200,23 @@ public class GuiView implements View, BasicUserIO {
                     String name = rentableField.getOwner().getName();
                     guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 }
+                else{
+                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
+                    guiFerry.setSubText(rentableField.getPrice()+"");
+                }
             }
-            if (guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {
-                gui_street.setHouses(street.getHouses());
+            if(guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street){
+                if(street.getHouses()<5){
+                    gui_street.setHouses(street.getHouses());
+                    gui_street.setHotel(false);
+                }else if(street.getHouses()==5) {
+                    gui_street.setHouses(0);
+                    gui_street.setHotel(true);
+                }
+                else{
+                    throw new RuntimeException("invalid amount of houses");
+                }
+
             }
         }
     }

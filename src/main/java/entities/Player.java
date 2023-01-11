@@ -112,8 +112,12 @@ public class Player {
         return 2.0;
     }
 
-    public boolean isBankrupt() {
-        return this.getBalance() < 0;
+    public boolean isBankruptThisTurn() {
+        if(this.getBalance() < 0 && !hasLost){
+            hasLost = true;
+            return true;
+        }
+        return false;
     }
 
     public boolean getHasLost() {

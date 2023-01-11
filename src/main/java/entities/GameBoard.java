@@ -275,7 +275,7 @@ public class GameBoard {
     public boolean isGameover() {
         int i = 0;
         for (Player p : getPlayers()) {
-            if (!p.isBankrupt()) {
+            if (!p.isBankruptThisTurn()) {
                 i++;
             }
         }
@@ -329,12 +329,21 @@ public class GameBoard {
     public boolean removeBankruptPlayers() {
         boolean playerHasBeenRemoved = false;
         for (Player p : players) {
-            if (p.isBankrupt()) {
+            if (p.isBankruptThisTurn()) {
                 p.setHasLost(true);
+                sellAllFields(p);
                 playerHasBeenRemoved = true;
             }
         }
         return playerHasBeenRemoved;
+    }
+    public void sellAllFields(Player p){
+        List<RentableField> ownedFields = ownershipMap.get(p);
+
+        for (RentableField ownedField : ownedFields) {
+            ownedField.setOwner(null);
+        }
+        ownedFields.clear();
     }
 
 //    private void removePlayer(int i) {
