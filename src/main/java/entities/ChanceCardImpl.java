@@ -92,15 +92,15 @@ public class ChanceCardImpl implements ChanceAction {
         Player currentPlayer = gameBoard.getCurrentPlayer();
 
         for (Field field : gameBoard.getFields()) {
-            if(field instanceof Jail jail) {
+            if (field instanceof Jail jail) {
                 currentPlayer.setPosition(jail.getPosition());
                 currentPlayer.setJailed(true);
-                userIO.showMessage(Message.goToJail());
+                userIO.showMessage(Message.goToJailCard());
                 return;
             }
         }
-        throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
-        //TODO check if it works
+        throw new IllegalArgumentException("There is no jail, so you can't use goToJail card");
+        // TODO check if it works
         // Could we make gameboard somehow recieve an int so we can control how big it is for testing?
     }
 

@@ -12,6 +12,7 @@ import gui_main.GUI;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class GuiView implements View, BasicUserIO {
 
@@ -165,14 +166,28 @@ public class GuiView implements View, BasicUserIO {
      */
     @Override
     public void movePlayerVisually(Player currentPlayer, DiceCup diceCup) {
-//        int startPos = currentPlayer.getPosition();
-//        GUI_Player guiPlayer = Arrays.stream(guiPlayers).filter(gp -> gp.getName().equals(currentPlayer.getName())).findFirst().orElse(null);
-//        if(guiPlayer == null){
-//            throw new RuntimeException("Could not find guiPlayer matching player name.");
-//        }
-        // TODO implement moving player with 0.1 ms delay between every move.
+        int startPos = currentPlayer.getPosition();
+        int sum = diceCup.getSum();
+        GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
+        for (int i = 1; i <= sum; i++) {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            setGuiPosition(guiPlayer, startPos + i);
+        }
 
+//         TODO implement moving player with 0.1 ms delay between every move.
+    }
 
+    // This throws unchecked exception if no player is found.
+    private GUI_Player findGuiPlayerFromPlayer(Player player) {
+        return Arrays.stream(guiPlayers).filter(guiPlayer -> player.getName().equals(guiPlayer.getName())).findFirst().orElseThrow();
+    }
+
+    private void setGuiPosition(GUI_Player guiPlayer, int position) {
+        guiPlayer.getCar().setPosition(guiFields[position]);
     }
 
     // TODO Move every step, dont teleport.
@@ -218,7 +233,7 @@ public class GuiView implements View, BasicUserIO {
                     guiOwnable.setBorder(guiOwner.getPrimaryColor());
 
                     String name = rentableField.getOwner().getName();
-                    guiOwnable.setSubText(rentableField.getPrice() + " " + name.charAt(6));
+                    guiOwnable.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 } else {
                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
                     guiFerry.setSubText(rentableField.getPrice() + "");

@@ -103,11 +103,11 @@ public class GameController {
             }
             // LEAVE JAIL MESSAGE
         } else {
-            gameBoard.getDiceCup().roll();
-            boolean hasPassedStart = gameBoard.movePlayer();
-            view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
             String playerName = gameBoard.getCurrentPlayer().getName();
             userIO.showMessage(Message.rollDice(playerName));
+            gameBoard.getDiceCup().roll();
+            view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
+            boolean hasPassedStart = gameBoard.movePlayer();
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
             gameBoard.fieldAction(currentPlayer);
             gameBoard.getActualFields().buyHouseProcess();

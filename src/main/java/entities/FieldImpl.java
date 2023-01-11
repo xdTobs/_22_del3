@@ -13,7 +13,6 @@ import java.util.List;
 
 public class FieldImpl implements FieldAction {
     GameBoard gameBoard;
-    View view;
     UserIO userIO;
 
     public FieldImpl(GameBoard gameBoard, UserIO userIO) {
@@ -81,7 +80,7 @@ public class FieldImpl implements FieldAction {
             choices[0] = Message.finishBuyingHouses();
             Message message = Message.selectHouse();
             int selection = userIO.promptChoice(message, choices);
-            if (selection == 0||availableStreets.size()==0)
+            if (selection == 0 || availableStreets.size() == 0)
                 return;
             buyHouse(availableStreets.get(selection - 1));
 
@@ -166,7 +165,7 @@ public class FieldImpl implements FieldAction {
             if (field instanceof Jail jail) {
                 currentPlayer.setPosition(jail.getPosition());
                 currentPlayer.setJailed(true);
-                userIO.showMessage(Message.goToJail());
+                userIO.showMessage(Message.goToJailField());
                 return;
             }
         }
@@ -238,6 +237,11 @@ public class FieldImpl implements FieldAction {
             breweryPayRent(brewery);
         }
         return boughtField;
+    }
+
+    @Override
+    public void parkingAction() {
+        userIO.showMessage(Message.parking());
     }
 
     public void breweryPayRent(Brewery brewery) {
