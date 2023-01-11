@@ -196,6 +196,10 @@ public class GuiView implements View, BasicUserIO {
                     String name = rentableField.getOwner().getName();
                     guiFerry.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 }
+                else{
+                     GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
+                    guiFerry.setSubText(rentableField.getPrice()+"");
+                }
             }
             if(guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street){
                 if(street.getHouses()<5){
