@@ -12,14 +12,13 @@ import gui_main.GUI;
 
 import java.awt.*;
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 public class GuiView implements View, BasicUserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    private GUI_Field[] guiFields = new GUI_Field[40];
-    private LanguageController languageController;
+    private GUI_Field[] guiFields ;
+    private final LanguageController languageController;
 
     /**
      * Constructor for the GUI_View class.
@@ -160,9 +159,6 @@ public class GuiView implements View, BasicUserIO {
 
     /**
      * Only move player when moving with diceroll. Still teleport if moving with chanceCard or gotojail.
-     *
-     * @param currentPlayer
-     * @param diceCup
      */
     @Override
     public void movePlayerVisually(Player currentPlayer, DiceCup diceCup) {
@@ -177,8 +173,6 @@ public class GuiView implements View, BasicUserIO {
             }
             setGuiPosition(guiPlayer, startPos + i);
         }
-
-//         TODO implement moving player with 0.1 ms delay between every move.
     }
 
     // This throws unchecked exception if no player is found.
@@ -190,7 +184,6 @@ public class GuiView implements View, BasicUserIO {
         guiPlayer.getCar().setPosition(guiFields[position]);
     }
 
-    // TODO Move every step, dont teleport.
     @Override
     public void updatePlayerLocations(Player[] players) {
         for (int i = 0; i < players.length; i++) {
@@ -203,9 +196,6 @@ public class GuiView implements View, BasicUserIO {
      * Updates all the fields, dices and players in the GUI.
      * The view should be in sync with the model after this method has run.
      *
-     * @param players the players in the game
-     * @param fields  the fields in the game
-     * @param diceCup
      */
     @Override
     public void update(Player[] players, Field[] fields, DiceCup diceCup) {

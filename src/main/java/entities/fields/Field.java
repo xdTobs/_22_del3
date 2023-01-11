@@ -5,7 +5,6 @@ public abstract class Field {
     private FieldPair pair = null;
     private final String name;
 
-    // todo ska field ha styr pa position. NEJ.
     protected Field(String name) {
         this.name = name;
     }

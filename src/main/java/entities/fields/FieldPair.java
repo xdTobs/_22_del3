@@ -7,12 +7,13 @@ import java.awt.*;
  */
 public class FieldPair {
     // todo fields har styr pa farger.
+    // Group id on fields instead of fieldpairs???
 
-    private Color backgroundColor;
-    private Color foregroundColor;
+    private final Color backgroundColor;
+    private final Color foregroundColor;
 
 
-    private int[] fieldIds;
+    private final int[] fieldIds;
 
     public FieldPair(Color backgroundColor, int[] fieldIds) {
         this(backgroundColor, Color.BLACK, fieldIds);

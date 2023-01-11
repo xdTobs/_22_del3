@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -49,12 +48,6 @@ public class GameBoard {
     }
 
     public static GameBoard setup(Field[] fields, UserIO userIO, int playerCount) {
-        // TODO
-        //  we need to figure out some way to make simpler tests.
-        //  Can we find a way to make the board only 5 square and then test jail on that board?
-        //  Can we do that without changing current code to much?
-        // We only make fieldPairs if it is the size of the original matador board.
-        // We do this, so we can run tests with other board sizes.
         return new GameBoard(fields, userIO, playerCount);
     }
 
@@ -292,12 +285,6 @@ public class GameBoard {
         return deck;
     }
 
-// TODO Languagecontroller somewhere else
-//    public String getMessage(String key) {
-//        return languageController.getMessage(key);
-//    }
-
-
     public boolean removeBankruptPlayers() {
         boolean playerHasBeenRemoved = false;
         for (Player p : players) {
@@ -331,7 +318,5 @@ public class GameBoard {
             }
         }
         throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
-        //TODO check if it works
-        // Could we make gameboard somehow recieve an int so we can control how big it is for testing?
     }
 }
