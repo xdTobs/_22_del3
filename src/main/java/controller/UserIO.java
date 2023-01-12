@@ -33,9 +33,9 @@ public class UserIO implements BasicUserIO {
         return basicUserIO.promptRange(message, min, max);
     }
 
-    public String[] promptPlayerNames(int playerCount) {
-        String[] names = new String[playerCount];
-        for (int i = 0; i < playerCount; i++) {
+    public String[] promptPlayerNames(int numberOfPlayers) {
+        String[] names = new String[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
             switch (i) {
                 case 0 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("1st player"));
                 case 1 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("2nd player"));

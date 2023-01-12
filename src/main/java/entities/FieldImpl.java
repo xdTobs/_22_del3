@@ -143,7 +143,7 @@ public class FieldImpl implements FieldAction {
 
     private boolean wantToPayPercentPrice(Tax tax) {
         String fixedPrice = String.valueOf(tax.getFixedPrice());
-        String percentPrice = tax.getPercentPrice() + "";
+        String percentPrice = tax.getPercentPrice() + "%";
         Message taxQuestion = Message.taxPrompt(fixedPrice, percentPrice);
         return userIO.promptChoice(taxQuestion) == 1;
     }

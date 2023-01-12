@@ -17,7 +17,6 @@ public class GuiView implements View, BasicUserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    private final GUI_Field[] guiFields;
     private final LanguageController languageController;
 
     /**
@@ -25,10 +24,9 @@ public class GuiView implements View, BasicUserIO {
      * We create GUI_Fields corresponding to the fields in the gameboard.
      * We use the GUI_Fields created to create our GUI.
      */
-    public GuiView(GUI_Field[] guiFields, LanguageController languageController) {
+    public GuiView(GUI gui, LanguageController languageController) {
+        this.gui = gui;
         this.languageController = languageController;
-        this.gui = new GUI(guiFields);
-        this.guiFields = gui.getFields();
     }
 
     /**
@@ -81,7 +79,7 @@ public class GuiView implements View, BasicUserIO {
     }
 
 
-    public static GuiView setup(Field[] fields) {
+    public static GuiView setup(Field[] fields, LanguageController languageController) {
         GUI_Field[] guiFields = new GUI_Field[40];
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start start) {
@@ -112,7 +110,7 @@ public class GuiView implements View, BasicUserIO {
                 guiFields[i] = createGuiField(new GUI_Brewery(), brewery, brewery.getPrice() + "");
             }
         }
-        return new GuiView(guiFields, new LanguageController());
+        return new GuiView(new GUI(guiFields), languageController);
     }
 
     private static GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
@@ -126,7 +124,6 @@ public class GuiView implements View, BasicUserIO {
     private static GUI_Field createGuiField(GUI_Field gf, Field field) {
         return createGuiField(gf, field, "");
     }
-
 
     /**
      * Method to create the players in the GUI.
@@ -186,14 +183,14 @@ public class GuiView implements View, BasicUserIO {
     }
 
     private void setGuiPosition(GUI_Player guiPlayer, int position) {
-        guiPlayer.getCar().setPosition(guiFields[position]);
+        guiPlayer.getCar().setPosition(gui.getFields()[position]);
     }
 
     @Override
     public void updatePlayerLocations(Player[] players) {
         for (int i = 0; i < players.length; i++) {
             GUI_Player guiPlayer = guiPlayers[i];
-            guiPlayer.getCar().setPosition(guiFields[players[i].getPosition()]);
+            guiPlayer.getCar().setPosition(gui.getFields()[players[i].getPosition()]);
         }
     }
 
@@ -220,7 +217,7 @@ public class GuiView implements View, BasicUserIO {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof RentableField rentableField) {
                 if (rentableField.isOwned()) {
-                    GUI_Ownable guiOwnable = (GUI_Ownable) guiFields[i];
+                    GUI_Ownable guiOwnable = (GUI_Ownable) gui.getFields()[i];
                     Player owner = rentableField.getOwner();
                     GUI_Player guiOwner = Arrays.stream(guiPlayers).filter(guiPlayer -> owner.getName().equals(guiPlayer.getName())).findFirst().get();
 
@@ -229,11 +226,11 @@ public class GuiView implements View, BasicUserIO {
                     String name = rentableField.getOwner().getName();
                     guiOwnable.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 } else {
-                    GUI_Ownable guiOwnable = (GUI_Ownable) guiFields[i];
+                    GUI_Ownable guiOwnable = (GUI_Ownable) gui.getFields()[i];
                     guiOwnable.setSubText(rentableField.getPrice() + "");
                 }
             }
-            if (guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {
+            if (gui.getFields()[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {
                 if (street.getHouses() < 5) {
                     gui_street.setHouses(street.getHouses());
                     gui_street.setHotel(false);

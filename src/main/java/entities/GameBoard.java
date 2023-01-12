@@ -22,33 +22,39 @@ public class GameBoard {
 
 
     private final DiceCup diceCup;
-    private final HashMap<Player, List<RentableField>> ownershipMap = new HashMap<>();
+    private final HashMap<Player, List<RentableField>> ownershipMap;
     private final Field[] fields;
     private final Deck deck;
-    private Player[] players;
+    private final Player[] players;
     private int playerTurn;
     private final ChanceCardImpl chanceCardImpl;
     private final FieldImpl fieldImpl;
 
-    public GameBoard(Field[] fields, UserIO userIO, int playerCount) {
-        this(new DiceCup(), fields, userIO, playerCount);
+    public GameBoard(Field[] fields, UserIO userIO, Player[] players) {
+        this(new DiceCup(), fields, userIO, players);
     }
 
-    public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, int playerCount) {
-        this(diceCup, fields, Deck.setup(), userIO, playerCount);
+    public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, Player[] players) {
+        this(diceCup, fields, Deck.setup(), userIO, players);
     }
 
-    public GameBoard(DiceCup diceCup, Field[] fields, Deck deck, UserIO userIO, int playerCount) {
+    public GameBoard(DiceCup diceCup, Field[] fields, Deck deck, UserIO userIO, Player[] players) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
         this.deck = deck;
         this.diceCup = diceCup;
         this.fields = fields;
-        createPlayers(playerCount);
+        this.players = players;
+        this.ownershipMap = new HashMap<>();
+        for (Player player : players) {
+            ownershipMap.put(player, new ArrayList<>());
+        }
     }
 
     public static GameBoard setup(Field[] fields, UserIO userIO, int playerCount) {
-        return new GameBoard(fields, userIO, playerCount);
+        String[] names = userIO.promptPlayerNames(playerCount);
+        Player[] players = Player.setupPlayers(names);
+        return new GameBoard(fields, userIO, players);
     }
 
     private static Stream<String> getLineStream() {
@@ -142,6 +148,7 @@ public class GameBoard {
     public int totalPlayerValue(Player p) {
         int totalPlayerValue = 0;
         List<RentableField> playerOwnedFields = ownershipMap.get(p);
+//        if (playerOwnedFields != null) {
         for (RentableField field : playerOwnedFields) {
             totalPlayerValue += field.getPrice();
             if (field instanceof Street street) {
@@ -150,6 +157,8 @@ public class GameBoard {
                 totalPlayerValue += houses * housesprice;
             }
         }
+
+//        }
         totalPlayerValue += p.getBalance();
         return totalPlayerValue;
     }
@@ -216,10 +225,6 @@ public class GameBoard {
         return players;
     }
 
-    private void setPlayers(Player[] players) {
-        this.players = players;
-    }
-
     /**
      * Next player.
      */
@@ -270,17 +275,6 @@ public class GameBoard {
     }
 
 
-    public void createPlayers(int playerCount) {
-        Player[] players = new Player[playerCount];
-        for (int j = 0; j < playerCount; j++) {
-            players[j] = new Player("Player" + Math.addExact(j, 1));
-        }
-        setPlayers(players);
-        for (Player p : players) {
-            ownershipMap.put(p, new ArrayList<>());
-        }
-    }
-
     public Deck getDeck() {
         return deck;
     }
@@ -296,7 +290,8 @@ public class GameBoard {
         }
         return playerHasBeenRemoved;
     }
-    public void sellAllFields(Player p){
+
+    public void sellAllFields(Player p) {
         List<RentableField> ownedFields = ownershipMap.get(p);
 
         for (RentableField ownedField : ownedFields) {

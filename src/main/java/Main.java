@@ -2,7 +2,7 @@ import controller.GameController;
 import controller.UserIO;
 import entities.GameBoard;
 import entities.fields.Field;
-import language.Message;
+import language.LanguageController;
 import view.GuiView;
 
 public class Main {
@@ -13,17 +13,13 @@ public class Main {
     public static void main(String[] args) {
 
         Field[] fields = GameBoard.getDefaultFields();
-        GuiView view = GuiView.setup(fields);
+        GuiView view = GuiView.setup(fields, new LanguageController());
         UserIO userIO = new UserIO(view);
 
-        int playerCount = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
+//        int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
+        int numberOfPlayers = 2;
 
-        String[] names = userIO.promptPlayerNames(playerCount);
-        for (String n : names) {
-            System.out.println(n);
-        }
-        GameBoard gameBoard = GameBoard.setup(fields, userIO, playerCount);
-        gameBoard.createPlayers(playerCount);
+        GameBoard gameBoard = GameBoard.setup(fields, userIO, numberOfPlayers);
 
         GameController game = GameController.setup(view, userIO, gameBoard);
 

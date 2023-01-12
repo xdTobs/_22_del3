@@ -6,7 +6,7 @@ public class Player {
     private boolean jailed;
     private int getOutOfJailCards = 0;
     private int jailedCounter;
-    private String name;
+    private final String name;
 
     private boolean hasLost;
     // TODO Vælge spillernavn.
@@ -23,6 +23,14 @@ public class Player {
         this.name = name;
         this.jailedCounter = 0;
 
+    }
+
+    public static Player[] setupPlayers(String[] names) {
+        Player[] players = new Player[names.length];
+        for (int i = 0; i < players.length; i++) {
+            players[i] = new Player(names[i]);
+        }
+        return players;
     }
 
     public boolean isJailed() {
@@ -62,16 +70,13 @@ public class Player {
         setGetOutOfJailCards(getGetOutOfJailCards() + 1);
     }
 
-    public void removeGetOutOfJailCard() {
-        setGetOutOfJailCards(getGetOutOfJailCards() - 1);
-    }
-
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
     }
-    public void decrementGetOutOfJailCards(){
+
+    public void decrementGetOutOfJailCards() {
         getOutOfJailCards--;
-        if(getOutOfJailCards < 0){
+        if (getOutOfJailCards < 0) {
             throw new RuntimeException("Jail cards can't be negative.");
         }
     }
@@ -105,7 +110,7 @@ public class Player {
     }
 
     public boolean isBankruptThisTurn() {
-        if(this.getBalance() < 0 && !hasLost){
+        if (this.getBalance() < 0 && !hasLost) {
             hasLost = true;
             return true;
         }
