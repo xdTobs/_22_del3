@@ -145,7 +145,7 @@ public class FieldImpl implements FieldAction {
         String fixedPrice = String.valueOf(tax.getFixedPrice());
         String percentPrice = tax.getPercentPrice() + "%";
         Message taxQuestion = Message.taxPrompt(fixedPrice, percentPrice);
-        return userIO.promptChoice(taxQuestion) == 1;
+        return userIO.promptChoice(taxQuestion) == 0;
     }
 
     @Override

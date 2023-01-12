@@ -1,18 +1,17 @@
 package entities;
 
 public class Player {
+    private final String name;
     private int balance;
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
     private int jailedCounter;
-    private final String name;
-
     private boolean hasLost;
     // TODO Vælge spillernavn.
 
     public Player(String name) {
-        this(name, 30000);
+        this(name, 1000);
     }
 
 
@@ -46,6 +45,9 @@ public class Player {
     }
 
     public void setBalance(int balance) {
+        if (hasLost) {
+            return;
+        }
         this.balance = balance;
     }
 
@@ -66,12 +68,12 @@ public class Player {
         return getOutOfJailCards;
     }
 
-    public void addGetOutOfJailCard() {
-        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
-    }
-
     public void setGetOutOfJailCards(int getOutOfJailCards) {
         this.getOutOfJailCards = getOutOfJailCards;
+    }
+
+    public void addGetOutOfJailCard() {
+        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
     }
 
     public void decrementGetOutOfJailCards() {
@@ -110,15 +112,15 @@ public class Player {
     }
 
     public boolean isBankruptThisTurn() {
-        if (this.getBalance() < 0 && !hasLost) {
-            hasLost = true;
-            return true;
-        }
-        return false;
+        return isBankrupt() && !hasLost;
     }
 
-    public boolean getHasLost() {
-        return this.hasLost;
+    public boolean isBankrupt() {
+        return this.getBalance() < 0;
+    }
+
+    public boolean hasNotLost() {
+        return !this.hasLost;
     }
 
     public void setHasLost(boolean hasLost) {

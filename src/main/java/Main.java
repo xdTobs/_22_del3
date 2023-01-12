@@ -3,6 +3,7 @@ import controller.UserIO;
 import entities.GameBoard;
 import entities.fields.Field;
 import language.LanguageController;
+import language.Message;
 import view.GuiView;
 
 public class Main {
@@ -16,8 +17,7 @@ public class Main {
         GuiView view = GuiView.setup(fields, new LanguageController());
         UserIO userIO = new UserIO(view);
 
-//        int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
-        int numberOfPlayers = 2;
+        int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
 
         GameBoard gameBoard = GameBoard.setup(fields, userIO, numberOfPlayers);
 

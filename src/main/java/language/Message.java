@@ -1,10 +1,6 @@
 package language;
 
 
-import entities.Player;
-
-import java.util.Arrays;
-
 public class Message {
 
     private final String[] args;
@@ -64,16 +60,9 @@ public class Message {
         return of(Type.MOVE_TO, playerName, fieldName);
     }
 
-    public static Message pickField() {
-        return of(Type.ON_PICK_FIELD_CARD);
-    }
 
-    public static Message gameWon(String playerName) {
-        return of(Type.GAME_WON, playerName);
-    }
-
-    public static Message gameLost(String playerName) {
-        return of(Type.GAME_LOST, playerName);
+    public static Message gameOver(String winner, String restOfPlayers) {
+        return of(Type.GAME_OVER_MESSAGE, winner, restOfPlayers);
     }
 
     public static Message chanceCard(String playerName, String description) {
@@ -92,8 +81,7 @@ public class Message {
         return of(Type.PASSED_START, playerName);
     }
 
-    public static Message remainingPlayers(Player[] players) {
-        String playerNames = Arrays.stream(players).map(Player::getName).reduce("", (acc, name) -> acc + ", " + name);
+    public static Message remainingPlayers(String playerNames) {
         return of(Type.REMAINING_PLAYERS, playerNames);
     }
 
@@ -142,8 +130,7 @@ public class Message {
     public enum Type {
         CHANCE_CARD,
         EXTRA_TURN,
-        GAME_LOST,
-        GAME_WON,
+        GAME_OVER_MESSAGE,
         GO_TO_JAIL_CARD,
         GO_TO_JAIL_FIELD,
         HOUSE_OPTION,
@@ -156,8 +143,8 @@ public class Message {
         PARKING,
         PASSED_START,
         PAY_RENT,
-        PLAYER_COUNT,
 
+        PLAYER_COUNT,
         REMAINING_PLAYERS,
         ROLL_DICE,
         SELECT_HOUSE,

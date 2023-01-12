@@ -168,11 +168,11 @@ public class GuiView implements View, BasicUserIO {
         int sum = diceCup.getSum();
         GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
         for (int i = 1; i <= sum; i++) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                Thread.sleep(200);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
             setGuiPosition(guiPlayer, startPos + i);
         }
     }
@@ -224,7 +224,10 @@ public class GuiView implements View, BasicUserIO {
                     guiOwnable.setBorder(guiOwner.getPrimaryColor());
 
                     String name = rentableField.getOwner().getName();
-                    guiOwnable.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
+                    // TODO if we want to show the character of players name when winning we need some smarter way to do it.
+                    // If player names start with same name, then they will have same symbol.
+                    // We show the border, but
+                    guiOwnable.setSubText(rentableField.getPrice() + " - " + name.charAt(0));
                 } else {
                     GUI_Ownable guiOwnable = (GUI_Ownable) gui.getFields()[i];
                     guiOwnable.setSubText(rentableField.getPrice() + "");

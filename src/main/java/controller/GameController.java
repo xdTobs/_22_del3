@@ -42,12 +42,11 @@ public class GameController {
         while (true) {
             if (gameBoard.isGameover()) {
                 // TODO
-                // basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
-                // basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
+                userIO.showMessage(Message.gameOver(gameBoard.findWinner(), gameBoard.findLosers()));
                 break;
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
-                if (!currentPlayer.getHasLost()) {
+                if (currentPlayer.hasNotLost()) {
                     playTurn(currentPlayer);
                 }
                 gameBoard.nextPlayer();
@@ -98,7 +97,7 @@ public class GameController {
 
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
             if (playerHasBeenRemoved) {
-                userIO.showMessage(Message.remainingPlayers(gameBoard.getPlayers()));
+                userIO.showMessage(Message.remainingPlayers(gameBoard.getRemainingPlayerNames()));
             }
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
 

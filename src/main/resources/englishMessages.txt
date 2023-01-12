@@ -1,7 +1,6 @@
 MOVE_TO:*, move to *.
 ON_PICK_FIELD_CARD:Pick a field to move to. If it is available you get it for free. Otherwise, you have to pay rent.
-GAME_WON:* has won the game!
-GAME_LOST:* has lost the game!
+GAME_OVER_MESSAGE:* has won the game! The order of the rest of the players was: *.
 ROLL_DICE:*, it is your turn. Roll the dice!
 LEAVE_JAIL:*, you are in Jail. Pay a fine or roll equal dice to get out. After three turns in jail you are forced to pay fine and leave jail.
 CHANCE_CARD:* pulled a chance card. It tells you to: *

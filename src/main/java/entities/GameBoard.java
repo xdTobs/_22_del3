@@ -29,8 +29,10 @@ public class GameBoard {
     private int playerTurn;
     private final ChanceCardImpl chanceCardImpl;
     private final FieldImpl fieldImpl;
+    private final List<Player> orderOfLosing = new ArrayList<>();
 
     public GameBoard(Field[] fields, UserIO userIO, Player[] players) {
+//        this(new DiceCup(new Die[]{new TestDie(4), new TestDie(0)}),fields, userIO, players);
         this(new DiceCup(), fields, userIO, players);
     }
 
@@ -78,23 +80,30 @@ public class GameBoard {
     }
 
     private static Field[] initFieldPairs(Field[] fields) {
+        // We do this so border that marks who owns fields and color of the field it self is not same color.
+        // It is impossible to see border of red player on red field otherwise.
+        // Magenta is changed because it is ugly otherwise.
+        Color red = new Color(255, 80, 80);
+        Color blue = new Color(80, 80, 255);
+        Color yellow = new Color(235, 235, 20);
+        Color magenta = new Color(235, 80, 235);
         List<FieldPair> fieldPairs = new ArrayList<>();
-        fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{1, 3}));
+        fieldPairs.add(new FieldPair(blue, Color.WHITE, new int[]{1, 3}));
         fieldPairs.add(new FieldPair(Color.ORANGE, new int[]{6, 8, 9}));
-        fieldPairs.add(new FieldPair(Color.YELLOW, new int[]{11, 13, 14}));
+        fieldPairs.add(new FieldPair(yellow, new int[]{11, 13, 14}));
         fieldPairs.add(new FieldPair(Color.GRAY, Color.WHITE, new int[]{16, 18, 19}));
-        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{21, 23, 24}));
+        fieldPairs.add(new FieldPair(red, Color.WHITE, new int[]{21, 23, 24}));
         fieldPairs.add(new FieldPair(Color.WHITE, new int[]{26, 27, 29}));
-        fieldPairs.add(new FieldPair(Color.YELLOW, new int[]{31, 32, 34}));
-        fieldPairs.add(new FieldPair(Color.MAGENTA, new int[]{37, 39}));
+        fieldPairs.add(new FieldPair(yellow, new int[]{31, 32, 34}));
+        fieldPairs.add(new FieldPair(magenta, new int[]{37, 39}));
         fieldPairs.add(new FieldPair(Color.BLACK, Color.GREEN, new int[]{2, 7, 17, 22, 33, 36}));
         fieldPairs.add(new FieldPair(Color.LIGHT_GRAY, new int[]{4, 38}));
-        fieldPairs.add(new FieldPair(Color.BLUE, Color.WHITE, new int[]{5, 15, 25, 35}));
+        fieldPairs.add(new FieldPair(blue, Color.WHITE, new int[]{5, 15, 25, 35}));
         fieldPairs.add(new FieldPair(Color.GRAY, Color.WHITE, new int[]{20}));
         fieldPairs.add(new FieldPair(Color.BLACK, new int[]{10}));
         fieldPairs.add(new FieldPair(Color.WHITE, Color.BLACK, new int[]{30}));
-        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{28, 12}));
-        fieldPairs.add(new FieldPair(Color.RED, Color.WHITE, new int[]{0}));
+        fieldPairs.add(new FieldPair(red, Color.WHITE, new int[]{28, 12}));
+        fieldPairs.add(new FieldPair(red, Color.WHITE, new int[]{0}));
 
         int i = 0;
         for (FieldPair f : fieldPairs) {
@@ -245,7 +254,7 @@ public class GameBoard {
     public boolean isGameover() {
         int i = 0;
         for (Player p : getPlayers()) {
-            if (!p.isBankruptThisTurn()) {
+            if (p.hasNotLost()) {
                 i++;
             }
         }
@@ -262,16 +271,12 @@ public class GameBoard {
         return winner;
     }
 
-    public String findLoser() {
-        String loser = players[0].getName();
-        int loserBalance = players[0].getBalance();
-        for (int i = 1; i < players.length; i++) {
-            if (players[i].getBalance() < loserBalance) {
-                loser = players[i].getName();
-                loserBalance = players[i].getBalance();
-            }
+    public String findLosers() {
+        StringBuilder losers = new StringBuilder();
+        for (Player player : orderOfLosing) {
+            losers.append(player.getName()).append(", ");
         }
-        return loser;
+        return losers.toString();
     }
 
 
@@ -283,6 +288,7 @@ public class GameBoard {
         boolean playerHasBeenRemoved = false;
         for (Player p : players) {
             if (p.isBankruptThisTurn()) {
+                orderOfLosing.add(p);
                 p.setHasLost(true);
                 sellAllFields(p);
                 playerHasBeenRemoved = true;
@@ -313,5 +319,15 @@ public class GameBoard {
             }
         }
         throw new IllegalArgumentException("There is no jail, so you can't use goToJail square");
+    }
+
+    public String getRemainingPlayerNames() {
+        StringBuilder names = new StringBuilder();
+        for (Player player : players) {
+            if (player.hasNotLost()) {
+                names.append(player.getName()).append(", ");
+            }
+        }
+        return names.toString();
     }
 }
