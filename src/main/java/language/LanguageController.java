@@ -23,9 +23,9 @@ public class LanguageController {
         }
         var bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-        // If we need to split text in englishMessages we will use $ for split.
-        // I don't think we will need that.
+        // If we need to split text in englishMessages we will use * for split.
         for (String line : bufferedReader.lines().toList()) {
+            // We use limit, so we only split on first ":"
             String[] split = line.split(":", 2);
             Message.Type type = Message.Type.valueOf(split[0]);
             languageMap.put(type, split[1]);
@@ -37,6 +37,11 @@ public class LanguageController {
             String s = missingTypes.stream().map(Enum::toString).reduce("", (acc, type) -> acc + type);
             throw new RuntimeException("LanguageMap is missing the following keys: " + s);
         }
+        if (languageMap.size() != Message.Type.values().length) {
+            String s = languageMap.keySet().stream().map(Enum::toString).reduce("", (acc, type) -> acc + type);
+            throw new RuntimeException("LanguageMap has too many keys: " + s);
+        }
+
     }
 
     // First arg in message is prepended to message rest of args are appended seperated by ","

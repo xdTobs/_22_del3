@@ -88,10 +88,6 @@ public class Message {
         return of(Type.WHAT_IS_YOUR_NAME, playerOrder);
     }
 
-    public static Message getOutOfJail(String playerName) {
-        return of(Type.GET_OUT_OF_JAIL_CARD, playerName);
-    }
-
     public static Message passedStart(String playerName) {
         return of(Type.PASSED_START, playerName);
     }
@@ -148,7 +144,6 @@ public class Message {
         EXTRA_TURN,
         GAME_LOST,
         GAME_WON,
-        GET_OUT_OF_JAIL_CARD,
         GO_TO_JAIL_CARD,
         GO_TO_JAIL_FIELD,
         HOUSE_OPTION,

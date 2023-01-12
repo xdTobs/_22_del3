@@ -6,7 +6,6 @@ ROLL_DICE:*, it is your turn. Roll the dice!
 LEAVE_JAIL:*, you are in Jail. Pay a fine or roll equal dice to get out. After three turns in jail you are forced to pay fine and leave jail.
 CHANCE_CARD:* pulled a chance card. It tells you to: *
 PARKING: You are at the parking lot. There is not much happening here.
-GET_OUT_OF_JAIL_CARD:*, you have received a get out of jail card. This will automatically be used when you go to jail.
 PLAYER_COUNT:How many players will be playing?
 MONEY_GIFT_CARD_SUCCESSFUL:*, your values have been tallied under the requirement, you have received *.
 MONEY_GIFT_CARD_UNSUCCESSFUL:*, your values have been tallied over the requirement, you do NOT receive *.
