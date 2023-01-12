@@ -17,16 +17,11 @@ public abstract class Die {
 
     /**
      * Returns true if dice are of the same value. Sibling classes can also return true if face value is equal.
-     *
-     * @param o
-     * @return
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Die)) return false;
-        Die die = (Die) o;
+        if (!(o instanceof Die die)) return false;
         return faceValue == die.faceValue;
     }
-
 }
