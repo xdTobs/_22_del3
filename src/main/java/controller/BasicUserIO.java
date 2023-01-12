@@ -8,5 +8,7 @@ public interface BasicUserIO {
 
     int promptRange(Message message, int min, int max);
 
+    String promptString(Message message);
+
     void showMessage(Message message);
 }

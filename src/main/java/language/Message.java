@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Message {
 
     private final String[] args;
-    private Type type;
+    private final Type type;
 
     public Message(Type type, String[] args) {
         this.type = type;
@@ -61,7 +61,7 @@ public class Message {
     }
 
     public static Message moveTo(String playerName, String fieldName) {
-        return of(Type.ROLL_DICE, playerName, fieldName);
+        return of(Type.MOVE_TO, playerName, fieldName);
     }
 
     public static Message pickField() {
@@ -84,6 +84,10 @@ public class Message {
         return of(Type.LEAVE_JAIL, playerName);
     }
 
+    public static Message enterPlayerName(String playerOrder) {
+        return of(Type.WHAT_IS_YOUR_NAME, playerOrder);
+    }
+
     public static Message getOutOfJail(String playerName) {
         return of(Type.GET_OUT_OF_JAIL_CARD, playerName);
     }
@@ -93,7 +97,7 @@ public class Message {
     }
 
     public static Message remainingPlayers(Player[] players) {
-        String playerNames = Arrays.stream(players).map(p -> p.getName()).reduce("", (acc, name) -> acc + ", " + name);
+        String playerNames = Arrays.stream(players).map(Player::getName).reduce("", (acc, name) -> acc + ", " + name);
         return of(Type.REMAINING_PLAYERS, playerNames);
     }
 
@@ -158,11 +162,7 @@ public class Message {
         PASSED_START,
         PAY_RENT,
         PLAYER_COUNT,
-        PLAYER_NAME_1,
 
-        PLAYER_NAME_2,
-        PLAYER_NAME_3,
-        PLAYER_NAME_4,
         REMAINING_PLAYERS,
         ROLL_DICE,
         SELECT_HOUSE,
@@ -171,6 +171,7 @@ public class Message {
         WANT_TO_BAIL_OUT,
         WANT_TO_BUY_FIELD,
         WANT_TO_BUY_HOUSE,
+        WHAT_IS_YOUR_NAME,
         YES,
     }
 }

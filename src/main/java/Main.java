@@ -17,6 +17,11 @@ public class Main {
         UserIO userIO = new UserIO(view);
 
         int playerCount = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
+
+        String[] names = userIO.promptPlayerNames(playerCount);
+        for (String n : names) {
+            System.out.println(n);
+        }
         GameBoard gameBoard = GameBoard.setup(fields, userIO, playerCount);
         gameBoard.createPlayers(playerCount);
 

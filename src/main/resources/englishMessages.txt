@@ -8,10 +8,6 @@ CHANCE_CARD:* pulled a chance card. It tells you to: *
 PARKING: You are at the parking lot. There is not much happening here.
 GET_OUT_OF_JAIL_CARD:*, you have received a get out of jail card. This will automatically be used when you go to jail.
 PLAYER_COUNT:How many players will be playing?
-PLAYER_NAME_4:Player 4
-PLAYER_NAME_3:Player 3
-PLAYER_NAME_2:Player 2
-PLAYER_NAME_1:Player 1
 MONEY_GIFT_CARD_SUCCESSFUL:*, your values have been tallied under the requirement, you have received *.
 MONEY_GIFT_CARD_UNSUCCESSFUL:*, your values have been tallied over the requirement, you do NOT receive *.
 WANT_TO_BUY_FIELD:* have landed on *. Would you like to buy it?
@@ -29,3 +25,4 @@ PAY_RENT:*, you have to pay rent at *, for * DKK.
 GO_TO_JAIL_FIELD:Unlucky roll! Go to jail!
 GO_TO_JAIL_CARD:Bad luck! This chance card puts you in jail!
 REMAINING_PLAYERS:Another player has lost. Remaining players are: *
+WHAT_IS_YOUR_NAME:What is your name, *?

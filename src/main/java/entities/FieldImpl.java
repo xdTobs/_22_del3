@@ -22,7 +22,7 @@ public class FieldImpl implements FieldAction {
     private boolean wantToBuyPrompt(RentableField field) {
         String playerName = gameBoard.getCurrentPlayer().getName();
         String fieldName = field.getName();
-        return userIO.promptYesOrNo(Message.buyField(playerName, fieldName));
+        return userIO.promptBuyField(playerName, fieldName);
     }
 
 

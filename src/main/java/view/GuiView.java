@@ -17,7 +17,7 @@ public class GuiView implements View, BasicUserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    private GUI_Field[] guiFields ;
+    private final GUI_Field[] guiFields;
     private final LanguageController languageController;
 
     /**
@@ -68,6 +68,11 @@ public class GuiView implements View, BasicUserIO {
     @Override
     public int promptRange(Message message, int min, int max) {
         return this.gui.getUserInteger(languageController.getMessage(message), min, max);
+    }
+
+    @Override
+    public String promptString(Message message) {
+        return this.gui.getUserString(languageController.getMessage(message));
     }
 
     @Override
@@ -195,7 +200,6 @@ public class GuiView implements View, BasicUserIO {
     /**
      * Updates all the fields, dices and players in the GUI.
      * The view should be in sync with the model after this method has run.
-     *
      */
     @Override
     public void update(Player[] players, Field[] fields, DiceCup diceCup) {
@@ -225,8 +229,8 @@ public class GuiView implements View, BasicUserIO {
                     String name = rentableField.getOwner().getName();
                     guiOwnable.setSubText(rentableField.getPrice() + " - " + name.charAt(6));
                 } else {
-                    GUI_Ownable guiFerry = (GUI_Ownable) guiFields[i];
-                    guiFerry.setSubText(rentableField.getPrice() + "");
+                    GUI_Ownable guiOwnable = (GUI_Ownable) guiFields[i];
+                    guiOwnable.setSubText(rentableField.getPrice() + "");
                 }
             }
             if (guiFields[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {

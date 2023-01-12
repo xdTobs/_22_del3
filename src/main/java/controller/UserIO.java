@@ -20,28 +20,39 @@ public class UserIO implements BasicUserIO {
         return basicUserIO.promptChoice(message, choices);
     }
 
-    /**
-     * @param message
-     * @return
-     */
     public boolean promptYesOrNo(Message message) {
         return (basicUserIO.promptChoice(message, Message.yes(), Message.no())) == 0;
     }
-//    private void promptBuyField(String playerName, String fieldName) {
-//        promptYesOrNo(Message.buyField(playerName, fieldName));
-//    }
+
+    public boolean promptBuyField(String playerName, String fieldName) {
+        return promptYesOrNo(Message.buyField(playerName, fieldName));
+    }
 
     @Override
     public int promptRange(Message message, int min, int max) {
         return basicUserIO.promptRange(message, min, max);
     }
 
-    @Override
-    public void showMessage(Message message) {
-        basicUserIO.showMessage(message);
+    public String[] promptPlayerNames(int playerCount) {
+        String[] names = new String[playerCount];
+        for (int i = 0; i < playerCount; i++) {
+            switch (i) {
+                case 0 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("1st player"));
+                case 1 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("2nd player"));
+                case 2 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("3rd player"));
+                default -> names[i] = basicUserIO.promptString(Message.enterPlayerName(i + "th player"));
+            }
+        }
+        return names;
     }
 
-    public void moneyToPoorPlayer(Message message) {
+    @Override
+    public String promptString(Message message) {
+        return basicUserIO.promptString(message);
+    }
+
+    @Override
+    public void showMessage(Message message) {
         basicUserIO.showMessage(message);
     }
 }

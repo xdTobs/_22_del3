@@ -27,7 +27,7 @@ public class GameController {
     }
 
     /**
-     * We use this to create GameController so we can easier test the GameController with custom values and setup.
+     * We use this to create GameController, so we can easier test the GameController with custom values and setup.
      * If we have setup logic in constructor we can't create a controller for testing with completely custom settings
      */
     public static GameController setup(View view, UserIO userIO, GameBoard gameBoard) {
@@ -41,10 +41,9 @@ public class GameController {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-
-
-//                basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
-//                basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
+                // TODO
+                // basicUserIO.showMessage(gameBoard.findLoser() + gameBoard.getMessage("gameLostMsg"));
+                // basicUserIO.showMessage(gameBoard.findWinner() + gameBoard.getMessage("gameWonMsg"));
                 break;
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
@@ -64,31 +63,31 @@ public class GameController {
 
     public void playTurn(Player currentPlayer) {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
+
+        String playerName = gameBoard.getCurrentPlayer().getName();
+
+        // If player was jailed last turn and has a get out of jail card he should be release and then he will play normal turn.
         if (currentPlayer.isJailed() && currentPlayer.getGetOutOfJailCards() > 0) {
             currentPlayer.setJailed(false);
             currentPlayer.decrementGetOutOfJailCards();
-
+            userIO.showMessage(Message.leaveJail(currentPlayer.getName()));
         }
 
         if (currentPlayer.isJailed()) {
             currentPlayer.addToJailedCounter();
             int jailedCounter = currentPlayer.getJailedCounter();
-            if (jailedCounter == 3) {
+            boolean wantsToBailOut = false;
+            if (currentPlayer.getBalance() >= 1000) {
+                wantsToBailOut = userIO.promptYesOrNo(Message.bailOut(playerName));
+            }
+            // If player wants to bailout he can pay 1000 to bailout or if he has been jailed for 3 turns he gets forced to pay bail.
+            if (jailedCounter == 3 || wantsToBailOut) {
                 currentPlayer.setJailed(false);
                 currentPlayer.setJailedCounter(0);
-            } else if (currentPlayer.getBalance() >= 1000) {
-                String playerName = gameBoard.getCurrentPlayer().getName();
-                boolean wantsToBailOut = userIO.promptYesOrNo(Message.bailOut(playerName));
-
-                if (wantsToBailOut) {
-                    currentPlayer.setJailed(false);
-                    currentPlayer.setJailedCounter(0);
-                    currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
-                }
+                currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
+                userIO.showMessage(Message.leaveJail(playerName));
             }
-            // LEAVE JAIL MESSAGE
         } else {
-            String playerName = gameBoard.getCurrentPlayer().getName();
             userIO.showMessage(Message.rollDice(playerName));
             gameBoard.getDiceCup().roll();
             view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
