@@ -43,15 +43,6 @@ class LanguageControllerTest {
 
     @Test
     @DisplayName("Message contains arguments.")
-    void testGetMessage() {
-        Message moveToMessage = Message.of(Message.Type.MOVE_TO, "Henrik", "Mount Doom");
-        String expected = "Henrik, move to Mount Doom.";
-        var result = languageController.getMessage(moveToMessage);
-        assertEquals(expected, result);
-    }
-
-    @Test
-    @DisplayName("Message contains arguments.")
     void testBuyFieldMessage() {
         Message message = Message.buyField("Player 1", "Strøget");
     }

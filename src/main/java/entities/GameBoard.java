@@ -10,6 +10,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
@@ -280,11 +281,8 @@ public class GameBoard {
     }
 
     public String findLosers() {
-        StringBuilder losers = new StringBuilder();
-        for (Player player : orderOfLosing) {
-            losers.append(player.getName()).append(", ");
-        }
-        return losers.toString();
+        List<String> names = orderOfLosing.stream().map(Player::getName).toList();
+        return String.join(", ", names);
     }
 
 
@@ -330,12 +328,15 @@ public class GameBoard {
     }
 
     public String getRemainingPlayerNames() {
-        StringBuilder names = new StringBuilder();
-        for (Player player : players) {
-            if (player.hasNotLost()) {
-                names.append(player.getName()).append(", ");
-            }
-        }
-        return names.toString();
+//        List<String> names = orderOfLosing.stream().map(player -> player.getName()).toList();
+        List<String> names = Arrays.stream(players).filter(Player::hasNotLost).map(Player::getName).toList();
+        return String.join(", ", names);
+//        StringBuilder names = new StringBuilder();
+//        for (Player player : players) {
+//            if (player.hasNotLost()) {
+//                names.append(player.getName()).append(", ");
+//            }
+//        }
+//        return names.toString();
     }
 }

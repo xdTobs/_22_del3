@@ -41,8 +41,10 @@ public class GameController {
         resetPlayerPositions();
         while (true) {
             if (gameBoard.isGameover()) {
-                userIO.showMessage(Message.gameOver(gameBoard.findWinner(), gameBoard.findLosers()));
-                break;
+                boolean wantToQuit = userIO.promptYesOrNo(Message.gameOver(gameBoard.findWinner(), gameBoard.findLosers()));
+                if (wantToQuit) {
+                    break;
+                }
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 if (currentPlayer.hasNotLost()) {
@@ -62,38 +64,41 @@ public class GameController {
         view.updatePlayerLocations(gameBoard.getPlayers());
     }
 
+    private void leaveJail() {
+        Player currentPlayer = gameBoard.getCurrentPlayer();
+        currentPlayer.setJailed(false);
+        currentPlayer.setJailTimeCounter(0);
+    }
+
     private void inJail() {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         String playerName = currentPlayer.getName();
+        boolean shouldLeaveJail = false;
         if (currentPlayer.getGetOutOfJailCards() > 0) {
-            currentPlayer.setJailed(false);
+            shouldLeaveJail = true;
             currentPlayer.decrementGetOutOfJailCards();
             userIO.showMessage(Message.leaveJail(currentPlayer.getName()));
         } else {
             currentPlayer.incJailTimeCounter();
-            int jailedCounter = currentPlayer.getJailTimeCounter();
-            boolean wantsToBailOut = false;
-            if (currentPlayer.getBalance() >= 1000) {
-                wantsToBailOut = userIO.promptYesOrNo(Message.bailOut(playerName));
-            }
             // If player wants to bailout he can pay 1000 to bailout
             // or if he has been jailed for 3 turns he gets forced to pay bail.
-            if (jailedCounter == 3 || wantsToBailOut) {
-                currentPlayer.setJailed(false);
-                currentPlayer.setJailTimeCounter(0);
-                currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
-                userIO.showMessage(Message.leaveJail(playerName));
-            }
-            if (!wantsToBailOut) {
+            if (currentPlayer.getJailTimeCounter() == 3 || (currentPlayer.getBalance() >= 1000 && userIO.promptYesOrNo(Message.bailOut(playerName)))) {
+                currentPlayer.addBalance(-1000);
+                shouldLeaveJail = true;
+            } else{
                 userIO.showMessage(Message.rollDice(playerName));
                 gameBoard.getDiceCup().roll();
-                view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
-                /*if(gameBoard.getDiceCup().diceAreEqual()) {
-                    currentPlayer.setJailed(false);
-                }*/
+                view.updateDie(gameBoard.getDiceCup());
+                // If player leaves jail he gets to roll again and move as a normal turn.
+                if (gameBoard.getDiceCup().equalDiceValue()) {
+                    shouldLeaveJail = true;
+                }
             }
         }
-
+        if (shouldLeaveJail) {
+            userIO.showMessage(Message.leaveJail(playerName));
+            leaveJail();
+        }
     }
 
     private boolean rollDiceAndMove() {
@@ -102,6 +107,7 @@ public class GameController {
         userIO.showMessage(Message.rollDice(currentPlayer.getName()));
         gameBoard.getDiceCup().roll();
         view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
+
         // Player is given 4000 in movePlayer if he passes start.
         boolean hasPassedStart = gameBoard.movePlayer();
         view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
@@ -110,7 +116,7 @@ public class GameController {
 
     private void checkForAndRemoveBankruptPlayers() {
         boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
-        if (playerHasBeenRemoved) {
+        if (playerHasBeenRemoved && !gameBoard.isGameover()) {
             userIO.showMessage(Message.remainingPlayers(gameBoard.getRemainingPlayerNames()));
         }
         view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());

@@ -56,11 +56,6 @@ public class Message {
         return of(Type.ROLL_DICE, playerName);
     }
 
-    public static Message moveTo(String playerName, String fieldName) {
-        return of(Type.MOVE_TO, playerName, fieldName);
-    }
-
-
     public static Message gameOver(String winner, String restOfPlayers) {
         return of(Type.GAME_OVER_MESSAGE, winner, restOfPlayers);
     }
@@ -87,7 +82,6 @@ public class Message {
 
     public static Message payRent(String playerName, String fieldName, String rent) {
         return of(Type.PAY_RENT, playerName, fieldName, rent);
-
     }
 
     public static Message finishBuyingHouses() {
@@ -137,13 +131,10 @@ public class Message {
         LEAVE_JAIL,
         MONEY_GIFT_CARD_SUCCESSFUL,
         MONEY_GIFT_CARD_UNSUCCESSFUL,
-        MOVE_TO,
         NO,
-        ON_PICK_FIELD_CARD,
         PARKING,
         PASSED_START,
         PAY_RENT,
-
         PLAYER_COUNT,
         REMAINING_PLAYERS,
         ROLL_DICE,
