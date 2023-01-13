@@ -77,7 +77,7 @@ public class PlayerTest {
         player.setPosition(1);
         boolean buyField = false;
         player.getHouses();
-            assertEquals(0, );
+        //Forventet værdi: 0
     }
 
     @Test
@@ -89,6 +89,13 @@ public class PlayerTest {
     void getExtraTurn() {
 
     }
+
+    @Test
+    void leaveGameWhenBankrupt() {
+        player.setHasLost(true);
+        //Skal resterende spillere så få tur, så man kan se at de ikke er en del af spillet mere?
+    }
+
 //todo: Lave tests færdige.
     //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
