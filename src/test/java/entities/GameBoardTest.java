@@ -22,13 +22,13 @@ public class GameBoardTest {
     @BeforeEach
     void setUp() {
         Player[]players = PlayerTest.getTwoDebugPlayers(30000);
-        GameBoard board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()), players);
+        board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()), players);
     }
 
     @Test
     void getField() {
         assertEquals("Start", board.getField(0).getName());
-        assertEquals("Prøv Lykken", board.getField(2).getName());
+        assertEquals("Prøv lykken", board.getField(2).getName());
     }
 
     @Test
