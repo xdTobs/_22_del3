@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO Go through all tests, and make sure they are implemented with correct logic.
 public class PlayerTest {
 
     public static Player[] getTwoDebugPlayers(int money) {
@@ -108,9 +109,5 @@ public class PlayerTest {
         //har altså passeret start
         assertNotEquals(0, 4000);
     }
-
-
-//todo: Lave tests færdige.
-    //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
 }

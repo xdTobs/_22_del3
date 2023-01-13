@@ -8,7 +8,6 @@ public class Player {
     private int getOutOfJailCards = 0;
     private int jailTimeCounter;
     private boolean hasLost;
-    // TODO Vælge spillernavn.
 
     public Player(String name) {
         this(name, 30000);
