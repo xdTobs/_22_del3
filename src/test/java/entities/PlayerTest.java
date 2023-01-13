@@ -96,6 +96,18 @@ public class PlayerTest {
         //Skal resterende spillere så få tur, så man kan se at de ikke er en del af spillet mere?
     }
 
+    @Test
+    void get4000WhenPassingStart(){
+        player.setPosition(0);
+        player.setBalance(0);
+        player.setPosition(10);
+        player.setPosition(1);
+        //har altså passeret start
+        assertNotEquals(0,4000);
+    }
+
+
+
 //todo: Lave tests færdige.
     //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
