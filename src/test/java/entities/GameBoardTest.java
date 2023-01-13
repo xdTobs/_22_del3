@@ -21,7 +21,8 @@ public class GameBoardTest {
 
     @BeforeEach
     void setUp() {
-        GameBoard board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()), 2);
+        Player[]players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()), players);
     }
 
     @Test
