@@ -85,6 +85,11 @@ public class PlayerTest {
         player.getBalance();
             //expected 30000.
     }
+    @Test
+    void getExtraTurn() {
 
+    }
+//todo: Lave tests færdige.
+    //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
 }
