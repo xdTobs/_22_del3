@@ -3,7 +3,7 @@ package entities;
 import controller.*;
 import controller.TestUserIO;
 import entities.chancecards.Deck;
-import entities.dicecup.DiceCup;
+import entities.dicecup.RandomDiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
 import language.Message;
@@ -19,7 +19,7 @@ class FieldImplTest {
 
     @Test
     void buyHouseProcess() {
-        DiceCup dc = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
+        RandomDiceCup dc = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
         Field[] fields = GameBoard.getDefaultFields();
         BasicUserIO userIO = new BasicUserIO() {
             @Override
@@ -64,7 +64,7 @@ class FieldImplTest {
         //play a turn for player 1 and player 2, where you always buy all of the houses you can
         //since player 1 already owns a pair, they buy four houses and a hotel first turn, and player 2 pays rent for all of it
         for (int i = 0; i < 2; i++) {
-            gameController.playTurn(gameBoard.getCurrentPlayer());
+            gameController.playTurn();
             gameBoard.nextPlayer();
         }
         //player2 balance should be 24000 since they pay rent with hotel for 6000
@@ -83,15 +83,15 @@ class FieldImplTest {
         fields[1] = new GoToJail("Ga i fængsel,1, jail,,,,,,,,");
         fields[2] = new Jail("I fængsel/På besøg,2, jail,,,,,,,,");
 
-        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
+        RandomDiceCup randomDiceCup = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         Deck deck = new Deck(new ArrayList<>());
         Player[]players = PlayerTest.getTwoDebugPlayers(30000);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
+        GameBoard gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 
         // Player should go one step, land on go to jail and then get moved to jail.
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
 
 
         assertEquals(2, gameBoard.getCurrentPlayer().getPosition());

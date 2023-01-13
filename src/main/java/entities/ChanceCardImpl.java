@@ -52,6 +52,7 @@ public class ChanceCardImpl implements ChanceAction {
     public void moveToField(int index) {
         gameBoard.getCurrentPlayer().setPosition(index);
         //TODO make player get extra turn
+        gameBoard.fieldAction();
     }
 
     @Override
@@ -64,6 +65,7 @@ public class ChanceCardImpl implements ChanceAction {
         } else {
             gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
         }
+        gameBoard.fieldAction();
     }
 
     @Override

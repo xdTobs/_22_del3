@@ -207,9 +207,8 @@ public class FieldImpl implements FieldAction {
     @Override
     public void chanceFieldAction(ChanceField chanceField) {
         Deck deck = gameBoard.getDeck();
-        ChanceCard chanceCard = deck.takeChanceCard();
+        ChanceCard chanceCard = deck.pullChanceCard();
         chanceCard.executeCardAction(gameBoard.getChanceCardImpl());
-        deck.putCardBack(chanceCard);
     }
 
 
