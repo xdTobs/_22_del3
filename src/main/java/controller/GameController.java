@@ -86,6 +86,14 @@ public class GameController {
                 currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 userIO.showMessage(Message.leaveJail(playerName));
             }
+            if (!wantsToBailOut) {
+                userIO.showMessage(Message.rollDice(playerName));
+                gameBoard.getDiceCup().roll();
+                view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
+                /*if(gameBoard.getDiceCup().diceAreEqual()) {
+                    currentPlayer.setJailed(false);
+                }*/
+            }
         } if (!currentPlayer.isJailed()) {
             userIO.showMessage(Message.rollDice(playerName));
             gameBoard.getDiceCup().roll();
@@ -109,6 +117,10 @@ public class GameController {
             // TODO Should you get extra turn if you land on goToJail?
             // TODO If you have getOutOfJailCard and roll equal dice
             // TODO should you get to continue playing?
+            // You don't immediately get an extra turn if you got equal dice before entering jail.
+            // If you enter jail, everything else stops, and you cannot continue until next turn.
+            // According to the rules you get an extra turn if you get equal dice when in jail,
+            // and you move the spaces the eyes show.
 
             if (gameBoard.getDiceCup().equals()) {
                 userIO.showMessage(Message.extraTurn(playerName));

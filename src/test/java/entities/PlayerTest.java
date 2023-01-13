@@ -72,5 +72,22 @@ public class PlayerTest {
         assertEquals("Test", player.getName());
     }
 
+    @Test
+    void dontBuyField() {
+        player.setPosition(1);
+        boolean buyField = false;
+        player.getHouses() {
+            assertEquals(0, );
+        }
+    }
+
+    @Test
+    void playersStartWith30000() {
+        player.getBalance() {
+            //expected 30000.
+        };
+
+    }
+
 
 }
