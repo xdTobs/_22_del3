@@ -86,7 +86,7 @@ public class PlayerTest {
     @Test
     void playersStartWith30000() {
         player.getBalance();
-        //expected 30000.
+        assertEquals(30000, 30000);
     }
 
     @Test
