@@ -151,10 +151,9 @@ public class GameBoard {
 
     /**
      * Makes whatever action the field supports.
-     *
-     * @param currentPlayer the current player
      */
-    public void fieldAction(Player currentPlayer) {
+    public void fieldAction() {
+        Player currentPlayer = getCurrentPlayer();
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
         Field boughtField = field.executeFieldAction(fieldImpl);

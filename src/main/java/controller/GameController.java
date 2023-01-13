@@ -92,7 +92,7 @@ public class GameController {
             view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
             boolean hasPassedStart = gameBoard.movePlayer();
             view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
-            gameBoard.fieldAction(currentPlayer);
+            gameBoard.fieldAction();
             gameBoard.getFieldImpl().buyHouseProcess();
 
             boolean playerHasBeenRemoved = gameBoard.removeBankruptPlayers();
