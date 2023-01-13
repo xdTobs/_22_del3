@@ -36,7 +36,7 @@ class GoToJailChanceCardTest {
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
         GameBoard gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
 
         assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
     }

@@ -9,7 +9,7 @@ public abstract class DiceCup {
 
     public abstract int[] getDiceValues();
 
-    public boolean equals() {
+    public boolean equalDiceValue() {
         if (dice.length < 2) {
             return false;
         }

@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.TestView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static entities.Utils.decidableDieCup;
@@ -56,7 +55,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new MoveToBreweryChanceCard("test")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(6, gameBoard.getCurrentPlayer().getPosition());
     }

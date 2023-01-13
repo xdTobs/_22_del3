@@ -51,7 +51,7 @@ class MoveToFerryChanceCardTest {
 
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
 
     }

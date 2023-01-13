@@ -64,7 +64,7 @@ class FieldImplTest {
         //play a turn for player 1 and player 2, where you always buy all of the houses you can
         //since player 1 already owns a pair, they buy four houses and a hotel first turn, and player 2 pays rent for all of it
         for (int i = 0; i < 2; i++) {
-            gameController.playTurn(gameBoard.getCurrentPlayer());
+            gameController.playTurn();
             gameBoard.nextPlayer();
         }
         //player2 balance should be 24000 since they pay rent with hotel for 6000
@@ -91,7 +91,7 @@ class FieldImplTest {
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 
         // Player should go one step, land on go to jail and then get moved to jail.
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
 
 
         assertEquals(2, gameBoard.getCurrentPlayer().getPosition());

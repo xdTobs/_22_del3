@@ -232,7 +232,6 @@ public class GameBoard {
         // This will break if you have a board of size n and dice that can roll higher than 2*n.
         if (newPosition > fields.length - 1) {
             newPosition = newPosition - fields.length;
-            currentPlayer.addBalance(4000);
             hasPassedStart = true;
 
         }

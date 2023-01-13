@@ -6,7 +6,7 @@ public class Player {
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
-    private int jailedCounter;
+    private int jailTimeCounter;
     private boolean hasLost;
     // TODO Vælge spillernavn.
 
@@ -20,7 +20,7 @@ public class Player {
         this.position = 0;
         this.jailed = false;
         this.name = name;
-        this.jailedCounter = 0;
+        this.jailTimeCounter = 0;
 
     }
 
@@ -83,16 +83,16 @@ public class Player {
         }
     }
 
-    public void addToJailedCounter() {
-        jailedCounter++;
+    public void incJailTimeCounter() {
+        jailTimeCounter++;
     }
 
-    public int getJailedCounter() {
-        return jailedCounter;
+    public int getJailTimeCounter() {
+        return jailTimeCounter;
     }
 
-    public void setJailedCounter(int jailedCounter) {
-        this.jailedCounter = jailedCounter;
+    public void setJailTimeCounter(int jailTimeCounter) {
+        this.jailTimeCounter = jailTimeCounter;
     }
 
     public String getName() {

@@ -40,7 +40,7 @@ class ChangeBalConditionalChanceCardTest {
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameBoard.getCurrentPlayer().setBalance(0);
         //"Playing" the test
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(15000, gameBoard.getCurrentPlayer().getBalance());
     }
@@ -68,7 +68,7 @@ class ChangeBalConditionalChanceCardTest {
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameBoard.getCurrentPlayer().setBalance(1);
         //"Playing" the test
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(1, gameBoard.getCurrentPlayer().getBalance());
     }

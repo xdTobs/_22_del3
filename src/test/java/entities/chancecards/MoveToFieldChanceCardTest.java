@@ -45,7 +45,7 @@ class MoveToFieldChanceCardTest {
         //Making the game
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         //"Playing" the test
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
     }

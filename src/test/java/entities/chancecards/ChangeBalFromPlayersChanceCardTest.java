@@ -40,7 +40,7 @@ class ChangeBalFromPlayersChanceCardTest {
         //Making the game
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         //"Playing" the test
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(29000, gameBoard.getCurrentPlayer().getBalance());
     }
