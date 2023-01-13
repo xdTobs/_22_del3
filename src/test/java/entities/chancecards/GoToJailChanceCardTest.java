@@ -3,6 +3,7 @@ package entities.chancecards;
 import controller.GameController;
 import controller.TestUserIO;
 import entities.GameBoard;
+import entities.Player;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
@@ -31,7 +32,10 @@ class GoToJailChanceCardTest {
         List<ChanceCard> cards = new ArrayList<>();
         cards.add(new GoToJailChanceCard("This is a GoToJail chance card."));
         Deck deck = new Deck(cards);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = new Player[2];
+        players[0] = new Player("Test1", 30000);
+        players[1] = new Player("Test2", 30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
 
