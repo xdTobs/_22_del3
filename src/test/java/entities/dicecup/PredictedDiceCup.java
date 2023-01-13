@@ -31,7 +31,11 @@ public class PredictedDiceCup extends DiceCup {
 
     @Override
     public int getSum() {
-        return 0;
+        int sum = 0;
+        for(Die die : dice){
+          sum+=die.faceValue;
+        }
+        return sum;
     }
     public boolean allRollsUsed(){
         return curRoll==rolls.length;

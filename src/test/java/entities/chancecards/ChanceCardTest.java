@@ -58,7 +58,7 @@ public class ChanceCardTest {
 
         gameController.playTurn(gameBoard.getCurrentPlayer());
         //Assert statement
-        assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(6, gameBoard.getCurrentPlayer().getPosition());
     }
     //    @BeforeEach
 //    void setUp() {
