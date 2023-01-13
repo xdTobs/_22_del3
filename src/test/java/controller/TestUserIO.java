@@ -1,6 +1,7 @@
 package controller;
 
 import language.Message;
+import org.junit.jupiter.api.Test;
 
 public class TestUserIO extends UserIO {
 
@@ -35,3 +36,4 @@ public class TestUserIO extends UserIO {
     }
 
 }
+

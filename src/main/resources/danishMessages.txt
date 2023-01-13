@@ -1,13 +1,26 @@
-MOVETO:Gå til
-GAMEWONMSG:Har vundet spillet! Tillykke.
-GAMELOSTMSG:Har tabt spillet!
-ROLLDICEMSG:Det er din tur. Rol med terningerne.
-CHANCECARDMSG:Du trak et chancekort. Det siger:
-PARKINGMSG:Du er på en parkeringsplads. Her sker der ikke meget..
-STARTMSG:Du får 4000 kroner for at passere start.
-PLAYERCOUNTMSG:Hvor mange spillere vil spille?
-PLAYERNAME4:Spiller 4
-PLAYERNAME3:Spiller 3
-PLAYERNAME2:Spiller 2
-PLAYERNAME1:Spiller 1
-WANTTOBAILOUT: Vil du betale 1000 DKK for at komme ud af fængsel?
+MOVETO:*, ryk til *.
+ONPICFIELDCARD:Vælg et felt at rykke frem til. Hvis det er ledigt, får du det gratis. Hvis det er ejet, skal du betale leje.
+GAMEOVERMESSAGE:* har vundet spillet! Rankeringen af de andre spillere er: *.
+ROLLDICE:*, det er din tur. Kast tærningerne!
+LEAVEJAIL:*, du er i fængsel. Betal dig ud eller slå 2 ens terninger for at komme ud. Efter 3 ture i fængsel bliver du tvunget til at betale for at komme ud.
+CHANCECARD:* træk et chancekort. På det står der at du: *
+PARKING: Du er på parkeringspladsen. Her sker der ikke så meget.
+PLAYERCOUNT:Hvor mange spillere vil spille?
+MONEYGIFTCARDSUCCESSFUL:*, your values have been tallied under the requirement, you have received *.
+MONEYGIFTCARDUNSUCCESSFUL:*, your values have been tallied over the requirement, you do NOT receive *.
+WANTTOBUYFIELD:* er landet på *. Vil du købe det?
+WANTTOBAILOUT: *, vil du betale 1000 DKK for at komme ud af fængslet?
+YES:Ja!
+NO:Nej.
+EXTRATURN:*, du slog to ens terninger. Du får en ekstra tur!
+TAXPROMPT:Du skal betale skat og valget mellem: * eller * % af alle dine penge.
+PASSEDSTART:*, du har passeret start. Du får 4000 DKK.
+WANTTOBUYHOUSE:*, vil du købe et hus?
+STOPBUYINGHOUSES:Jeg vil ikke købe flere huse.
+SELECTHOUSE:Vælg den ejendom du gerne vil købe et hus til:
+HOUSEOPTION:* for * DKK per
+PAYRENT:*, du skal betale leje på *, for * DKK.
+GOTOJAILFIELD:Uheldigt kast! Du skal i fængsel!
+GOTOJAILCARD:Dårligt held! Dette kort sender dig i fængsel!
+REMAININGPLAYERS:En anden spiller har tabt. Tilbageværende spillere er: *
+WHATISYOURNAME:Hvad er dit navn, *?
