@@ -2,6 +2,8 @@ package entities.chancecards;
 
 import controller.GameController;
 import controller.TestUserIO;
+import entities.Player;
+import entities.PlayerTest;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
@@ -40,7 +42,8 @@ class MoveToFerryChanceCardTest {
         List<ChanceCard> cards = new ArrayList<>();
         cards.add(new MoveToFerryChanceCard("This is a test ferry chance card."));
         Deck deck = new Deck(cards);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
 
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 

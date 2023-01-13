@@ -3,6 +3,8 @@ package entities.chancecards;
 import controller.GameController;
 import controller.TestUserIO;
 import entities.GameBoard;
+import entities.Player;
+import entities.PlayerTest;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
@@ -31,7 +33,8 @@ class GetOutOfJailChanceCardTest {
         cards.add(new GetOutOfJailChanceCard("This is a get out of jail chance card."));
         //check hvor mange chancekort spiller har.
         Deck deck = new Deck(cards);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
         gameController.playTurn(gameBoard.getCurrentPlayer());
