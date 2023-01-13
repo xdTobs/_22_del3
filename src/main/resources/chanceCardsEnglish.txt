@@ -16,7 +16,7 @@ You receive your dividend. Receive DKK 1000 from the bank.;ChangeBalPos
 You receive your dividend. Receive DKK 1000 from the bank.;ChangeBalPos
 You receive your dividend. Receive DKK 1000 from the bank.;ChangeBalPos
 The municipality has waived one quarter's tax. Withdraw DKK 3000 from the bank.;ChangeBalPos
-You have a line of eleven correct in tipping, receive DKK 1000.;ChangeBalPos
+You have been to the horse races and bet some money. Receive DKK 1000.;ChangeBalPos
 Due to inflation, you have received a wage bonus, receive DKK 1000.;ChangeBalPos
 Your premium bond is the term. You receive DKK 1000 from the bank.;ChangeBalPos
 Your premium bond is the term. You receive DKK 1000 from the bank.;ChangeBalPos
