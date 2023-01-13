@@ -3,6 +3,8 @@ package entities.chancecards;
 import controller.GameController;
 import controller.TestUserIO;
 import entities.GameBoard;
+import entities.Player;
+import entities.PlayerTest;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
@@ -32,7 +34,8 @@ class ChangeBalConditionalChanceCardTest {
         cards.add(new ChangeBalConditionalChanceCard(15000, 1, "This is a ChangeBalConditional Chancecard"));
         Deck deck = new Deck(cards);
         //Making the gameboard
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         //Making the game
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameBoard.getCurrentPlayer().setBalance(0);
@@ -59,7 +62,8 @@ class ChangeBalConditionalChanceCardTest {
         cards.add(new ChangeBalConditionalChanceCard(15000, 1, "This is a ChangeBalConditional Chancecard"));
         Deck deck = new Deck(cards);
         //Making the gameboard
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         //Making the game
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameBoard.getCurrentPlayer().setBalance(1);

@@ -3,6 +3,8 @@ package entities.chancecards;
 import controller.GameController;
 import controller.TestUserIO;
 import entities.GameBoard;
+import entities.Player;
+import entities.PlayerTest;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
@@ -23,10 +25,10 @@ class MoveToFieldChanceCardTest {
         //Type of fields
         fields[0] = FieldTest.getStartFieldDebug();
 
-        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,", 2);
-        fields[2] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,", Integer.parseInt(key[3]));
-        fields[3] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,", Integer.parseInt(key[3]));
-        fields[4] = new Ferry("Helsingør - Helsingborg,5, ferry,4000,0,500,1000,2000,4000,,", Integer.parseInt(key[3]));
+        fields[1] = new ChanceField("Prøv lykken,2, chance,,,,,,,,");
+        fields[2] = new Ferry("Helsingør - Helsingborg",4000,new int[]{500,1000,2000,4000});
+        fields[3] = new Ferry("Helsingør - Helsingborg",4000,new int[]{500,1000,2000,4000});
+        fields[4] = new Ferry("Helsingør - Helsingborg",4000,new int[]{500,1000,2000,4000});
 
         //Test dice, that moves you one step.
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
@@ -38,7 +40,8 @@ class MoveToFieldChanceCardTest {
         cards.add(new MoveToFieldChanceCard(3, "This is a MoveToField chance card"));
         Deck deck = new Deck(cards);
         //Making the gameboard
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         //Making the game
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         //"Playing" the test

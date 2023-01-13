@@ -22,6 +22,11 @@ class LanguageControllerTest {
         }
 
         @Override
+        public String promptString(Message message) {
+            return null;
+        }
+
+        @Override
         public void showMessage(Message message) {
             throw new NotImplementedException();
         }
