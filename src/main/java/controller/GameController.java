@@ -42,6 +42,7 @@ public class GameController {
         while (true) {
             if (gameBoard.isGameover()) {
                 userIO.showMessage(Message.gameOver(gameBoard.findWinner(), gameBoard.findLosers()));
+                break;
             } else {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 if (currentPlayer.hasNotLost()) {
@@ -115,8 +116,6 @@ public class GameController {
         view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
     }
 
-    ;
-
     private void playNotInJailTurn() {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         String playerName = currentPlayer.getName();
@@ -126,7 +125,7 @@ public class GameController {
             currentPlayer.addBalance(4000);
             userIO.showMessage(Message.passedStart(playerName));
         }
-        gameBoard.fieldAction(currentPlayer);
+        gameBoard.fieldAction();
         gameBoard.getFieldImpl().buyHouseProcess();
 
         checkForAndRemoveBankruptPlayers();

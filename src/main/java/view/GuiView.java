@@ -110,7 +110,10 @@ public class GuiView implements View, BasicUserIO {
                 guiFields[i] = createGuiField(new GUI_Brewery(), brewery, brewery.getPrice() + "");
             }
         }
-        return new GuiView(new GUI(guiFields), languageController);
+
+        GuiView guiview = new GuiView(new GUI(guiFields), languageController);
+        guiview.updateHousesAndFields(fields);
+        return guiview;
     }
 
     private static GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
@@ -173,11 +176,10 @@ public class GuiView implements View, BasicUserIO {
 //            } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
 //            }
-            if(startPos+i<40){
-            setGuiPosition(guiPlayer, startPos + i);
-        }
-            else{
-                setGuiPosition(guiPlayer, 40-startPos + i);
+            if (startPos + i < 40) {
+                setGuiPosition(guiPlayer, startPos + i);
+            } else {
+                setGuiPosition(guiPlayer, 40 - startPos + i);
             }
         }
     }
@@ -206,7 +208,7 @@ public class GuiView implements View, BasicUserIO {
     @Override
     public void update(Player[] players, Field[] fields, DiceCup randomDiceCup) {
         updatePlayerLocations(players);
-        updateHouses(fields);
+        updateHousesAndFields(fields);
         updatePlayerBalances(players);
         updateDie(randomDiceCup);
     }
@@ -218,7 +220,7 @@ public class GuiView implements View, BasicUserIO {
      * @param fields The fields in the game.
      */
     @Override
-    public void updateHouses(Field[] fields) {
+    public void updateHousesAndFields(Field[] fields) {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof RentableField rentableField) {
                 if (rentableField.isOwned()) {

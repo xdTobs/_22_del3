@@ -40,7 +40,7 @@ public class TestView implements View, BasicUserIO {
     }
 
     @Override
-    public void updateHouses(Field[] fields) {
+    public void updateHousesAndFields(Field[] fields) {
         System.out.println("updateHouses");
     }
 
