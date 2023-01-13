@@ -33,5 +33,8 @@ public class PredictedDiceCup extends DiceCup {
         }
         return sum;
     }
+    public boolean allRollsUsed(){
+        return curRoll==rolls.length;
+    }
 
 }

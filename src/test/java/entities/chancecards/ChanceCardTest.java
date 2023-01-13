@@ -9,14 +9,17 @@ import entities.Utils;
 import entities.dicecup.PredictedDiceCup;
 import entities.dicecup.RandomDiceCup;
 import entities.fields.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.TestView;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static entities.Utils.decidableDieCup;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ChanceCardTest {
@@ -37,6 +40,8 @@ public class ChanceCardTest {
         fields[6] = new Brewery("Test Brewery", 1000, new int[]{1000, 2000, 3000, 4000});
         fields[7] = new GoToJail("Test GoToJail");
         fields[8] = new Jail("Test Jail");
+        fields[1].setPair(new FieldPair(Color.orange,new int[]{1,3}));
+        fields[3].setPair(new FieldPair(Color.orange,new int[]{1,3}));
         TestUserIO testUserIO = TestUserIO.debugSetup();
         //Test dice, that moves you one step.
         RandomDiceCup randomDiceCup = decidableDieCup(new Utils.Roll(1, 1));
@@ -45,6 +50,7 @@ public class ChanceCardTest {
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
         gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
         gameController = new GameController(new TestView(), testUserIO, gameBoard);
+
 
     }
 
@@ -55,9 +61,117 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new MoveToBreweryChanceCard("test")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn();
+        gameController.playTurn(gameBoard.getCurrentPlayer());
         //Assert statement
         assertEquals(6, gameBoard.getCurrentPlayer().getPosition());
+    }
+
+    @Test
+    void moveToFerryPositive() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new MoveToFerryChanceCard("ferry")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        //Assert statement
+        assertEquals(5, gameBoard.getCurrentPlayer().getPosition());
+    }
+
+    @Test
+    void moveSpacesPositive() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new MoveSpacesChanceCard(3,"moveSpaces")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        //Assert statement
+        assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
+        //you should get extra turn and get put in jail
+        assertTrue(gameBoard.getCurrentPlayer().isJailed());
+    }
+
+    @Test
+    void changeBalConditionalPositive() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1,20000,"ChangeBalConditional")));
+        gameBoard.setDeck(deck);
+        gameBoard.getCurrentPlayer().setBalance(19999);
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        assertEquals(20000,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
+    }
+
+    @Test
+    void changeBalConditionalNegative() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1,20000,"ChangeBalConditional")));
+        gameBoard.setDeck(deck);
+        gameBoard.getCurrentPlayer().setBalance(20000);
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        assertEquals(20000,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
+    }
+
+    @Test
+    void changeBalFromPlayers() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new ChangeBalFromPlayersChanceCard(500,"fromPlayers")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        assertEquals(30500,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
+    }
+
+
+
+    @Test
+    void getOutOfJailCount() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        assertEquals(30000,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(1,gameBoard.getCurrentPlayer().getGetOutOfJailCards());
+    }
+    @Test
+    void getOutOfJailWorks() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3),new Utils.Roll(1,2)));
+        Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        assertEquals(30000,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(0,gameBoard.getCurrentPlayer().getGetOutOfJailCards());
+        assertFalse(gameBoard.getCurrentPlayer().isJailed());
+    }
+
+    @Test
+    void moveToField() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new MoveToFieldChanceCard(1,"moveto1")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        //30000 + 4000 - 1000
+        assertEquals(33000,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(1,gameBoard.getCurrentPlayer().getPosition());
+    }
+
+    @Test
+    void payPerProperty() {
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new MoveToFieldChanceCard(1,"moveto1")));
+        gameBoard.setDeck(deck);
+    }
+
+    @AfterEach
+    void tearDown() {
+        PredictedDiceCup dc = (PredictedDiceCup) gameBoard.getDiceCup();
+        assertTrue(dc.allRollsUsed());
+
     }
     //    @BeforeEach
 //    void setUp() {
