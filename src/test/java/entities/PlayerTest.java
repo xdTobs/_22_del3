@@ -76,17 +76,14 @@ public class PlayerTest {
     void dontBuyField() {
         player.setPosition(1);
         boolean buyField = false;
-        player.getHouses() {
+        player.getHouses();
             assertEquals(0, );
-        }
     }
 
     @Test
     void playersStartWith30000() {
-        player.getBalance() {
+        player.getBalance();
             //expected 30000.
-        };
-
     }
 
 
