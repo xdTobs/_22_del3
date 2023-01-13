@@ -4,7 +4,7 @@ import controller.GameController;
 import controller.TestUserIO;
 import entities.Player;
 import entities.PlayerTest;
-import entities.dicecup.DiceCup;
+import entities.dicecup.RandomDiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
 import entities.GameBoard;
@@ -40,14 +40,14 @@ class MoveToFerryChanceCardTest {
         fields[1] = new Ferry("Helsingør - Helsingborg",4000,new int[]{500,1000,2000,4000});
         fields[2] = new Ferry("Helsingør - Helsingborg",4000,new int[]{500,1000,2000,4000});
         fields[3] = new Ferry("Helsingør - Helsingborg",4000,new int[]{500,1000,2000,4000});
-        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
+        RandomDiceCup randomDiceCup = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
 //    public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, int playerCount) {
         List<ChanceCard> cards = new ArrayList<>();
         cards.add(new MoveToFerryChanceCard("This is a test ferry chance card."));
         Deck deck = new Deck(cards);
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
+        GameBoard gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
 
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 

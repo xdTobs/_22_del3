@@ -146,8 +146,8 @@ public class GuiView implements View, BasicUserIO {
     }
 
     @Override
-    public void updateDie(DiceCup diceCup) {
-        int[] diceValues = diceCup.getDiceValues();
+    public void updateDie(DiceCup randomDiceCup) {
+        int[] diceValues = randomDiceCup.getDiceValues();
         gui.setDice(diceValues[0], diceValues[1]);
     }
 
@@ -163,9 +163,9 @@ public class GuiView implements View, BasicUserIO {
      * Only move player when moving with diceroll. Still teleport if moving with chanceCard or gotojail.
      */
     @Override
-    public void movePlayerVisually(Player currentPlayer, DiceCup diceCup) {
+    public void movePlayerVisually(Player currentPlayer, DiceCup randomDiceCup) {
         int startPos = currentPlayer.getPosition();
-        int sum = diceCup.getSum();
+        int sum = randomDiceCup.getSum();
         GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
         for (int i = 1; i <= sum; i++) {
 //            try {
@@ -204,11 +204,11 @@ public class GuiView implements View, BasicUserIO {
      * The view should be in sync with the model after this method has run.
      */
     @Override
-    public void update(Player[] players, Field[] fields, DiceCup diceCup) {
+    public void update(Player[] players, Field[] fields, DiceCup randomDiceCup) {
         updatePlayerLocations(players);
         updateHouses(fields);
         updatePlayerBalances(players);
-        updateDie(diceCup);
+        updateDie(randomDiceCup);
     }
 
     /**

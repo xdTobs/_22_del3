@@ -3,7 +3,7 @@ package entities;
 import controller.*;
 import controller.TestUserIO;
 import entities.chancecards.Deck;
-import entities.dicecup.DiceCup;
+import entities.dicecup.RandomDiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
 import language.Message;
@@ -19,7 +19,7 @@ class FieldImplTest {
 
     @Test
     void buyHouseProcess() {
-        DiceCup dc = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
+        RandomDiceCup dc = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
         Field[] fields = GameBoard.getDefaultFields();
         BasicUserIO userIO = new BasicUserIO() {
             @Override
@@ -83,11 +83,11 @@ class FieldImplTest {
         fields[1] = new GoToJail("Ga i fængsel,1, jail,,,,,,,,");
         fields[2] = new Jail("I fængsel/På besøg,2, jail,,,,,,,,");
 
-        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
+        RandomDiceCup randomDiceCup = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         Deck deck = new Deck(new ArrayList<>());
         Player[]players = PlayerTest.getTwoDebugPlayers(30000);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
+        GameBoard gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 
         // Player should go one step, land on go to jail and then get moved to jail.

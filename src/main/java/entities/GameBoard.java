@@ -3,6 +3,7 @@ package entities;
 import controller.UserIO;
 import entities.chancecards.Deck;
 import entities.dicecup.DiceCup;
+import entities.dicecup.RandomDiceCup;
 import entities.fields.*;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
 public class GameBoard {
 
 
-    private final DiceCup diceCup;
+    private final DiceCup randomDiceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap;
     private final Field[] fields;
     private final Deck deck;
@@ -33,18 +34,18 @@ public class GameBoard {
 
     public GameBoard(Field[] fields, UserIO userIO, Player[] players) {
 //        this(new DiceCup(new Die[]{new TestDie(4), new TestDie(0)}),fields, userIO, players);
-        this(new DiceCup(), fields, userIO, players);
+        this(new RandomDiceCup(), fields, userIO, players);
     }
 
-    public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, Player[] players) {
-        this(diceCup, fields, Deck.setup(), userIO, players);
+    public GameBoard(DiceCup randomDiceCup, Field[] fields, UserIO userIO, Player[] players) {
+        this(randomDiceCup, fields, Deck.setup(), userIO, players);
     }
 
-    public GameBoard(DiceCup diceCup, Field[] fields, Deck deck, UserIO userIO, Player[] players) {
+    public GameBoard(DiceCup randomDiceCup, Field[] fields, Deck deck, UserIO userIO, Player[] players) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
         this.deck = deck;
-        this.diceCup = diceCup;
+        this.randomDiceCup = randomDiceCup;
         this.fields = fields;
         this.players = players;
         this.ownershipMap = new HashMap<>();
@@ -187,7 +188,7 @@ public class GameBoard {
     }
 
     public DiceCup getDiceCup() {
-        return diceCup;
+        return randomDiceCup;
     }
 
     public boolean currentPlayerIsOnChanceField() {
@@ -206,7 +207,7 @@ public class GameBoard {
      * @return is true if the player has passed start.
      */
     public boolean movePlayer() {
-        return movePlayer(diceCup.getSum());
+        return movePlayer(randomDiceCup.getSum());
     }
 
     public boolean movePlayer(int diceValue) {

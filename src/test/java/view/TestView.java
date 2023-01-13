@@ -14,7 +14,7 @@ public class TestView implements View, BasicUserIO {
     }
 
     @Override
-    public void updateDie(DiceCup diceCup) {
+    public void updateDie(DiceCup randomDiceCup) {
 
     }
 
@@ -29,13 +29,13 @@ public class TestView implements View, BasicUserIO {
     }
 
     @Override
-    public void movePlayerVisually(Player currentPlayer, DiceCup diceCup) {
+    public void movePlayerVisually(Player currentPlayer, DiceCup randomDiceCup) {
 
     }
 
 
     @Override
-    public void update(Player[] players, Field[] fields, DiceCup diceCup) {
+    public void update(Player[] players, Field[] fields, DiceCup randomDiceCup) {
 
     }
 

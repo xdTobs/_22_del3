@@ -5,7 +5,7 @@ import controller.TestUserIO;
 import entities.GameBoard;
 import entities.Player;
 import entities.PlayerTest;
-import entities.dicecup.DiceCup;
+import entities.dicecup.RandomDiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
 import org.junit.jupiter.api.Test;
@@ -27,14 +27,14 @@ class GetOutOfJailChanceCardTest {
         fields[3] = new Jail("Jail");
 
 
-        DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
+        RandomDiceCup randomDiceCup = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         List<ChanceCard> cards = new ArrayList<>();
         cards.add(new GetOutOfJailChanceCard("This is a get out of jail chance card."));
         //check hvor mange chancekort spiller har.
         Deck deck = new Deck(cards);
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
+        GameBoard gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         gameController.playTurn(gameBoard.getCurrentPlayer());
         gameController.playTurn(gameBoard.getCurrentPlayer());
