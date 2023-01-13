@@ -83,14 +83,12 @@ public class ChanceCardTest {
     @Test
     void moveSpacesPositive() {
         gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
-        Deck deck = new Deck(List.of(new MoveSpacesChanceCard(3,"moveSpaces")));
+        Deck deck = new Deck(List.of(new MoveSpacesChanceCard(4,"moveSpaces")));
         gameBoard.setDeck(deck);
 
         gameController.playTurn(gameBoard.getCurrentPlayer());
         //Assert statement
-        assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
-        //you should get extra turn and get put in jail
-        assertTrue(gameBoard.getCurrentPlayer().isJailed());
+        assertEquals(9, gameBoard.getCurrentPlayer().getPosition());
     }
 
     @Test
@@ -146,9 +144,12 @@ public class ChanceCardTest {
 
         gameController.playTurn(gameBoard.getCurrentPlayer());
         gameController.playTurn(gameBoard.getCurrentPlayer());
+        assertTrue(gameBoard.getCurrentPlayer().isJailed());
+        gameController.playTurn(gameBoard.getCurrentPlayer());
         assertEquals(30000,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(0,gameBoard.getCurrentPlayer().getGetOutOfJailCards());
         assertFalse(gameBoard.getCurrentPlayer().isJailed());
+        assertEquals(11,gameBoard.getCurrentPlayer().getPosition());
     }
 
     @Test
