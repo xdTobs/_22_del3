@@ -84,10 +84,10 @@ public class GameBoard {
         // We do this so border that marks who owns fields and color of the field it self is not same color.
         // It is impossible to see border of red player on red field otherwise.
         // Magenta is changed because it is ugly otherwise.
-        Color red = new Color(255, 80, 80);
-        Color blue = new Color(80, 80, 255);
-        Color yellow = new Color(235, 235, 20);
-        Color magenta = new Color(235, 80, 235);
+        Color red = new Color(235, 110, 110);
+        Color blue = new Color(110, 110, 235);
+        Color yellow = new Color(235, 235, 30);
+        Color magenta = new Color(215, 80, 215);
         List<FieldPair> fieldPairs = new ArrayList<>();
         fieldPairs.add(new FieldPair(blue, Color.WHITE, new int[]{1, 3}));
         fieldPairs.add(new FieldPair(Color.ORANGE, new int[]{6, 8, 9}));

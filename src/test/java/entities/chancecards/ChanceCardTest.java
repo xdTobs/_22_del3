@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import view.TestView;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static entities.Utils.decidableDieCup;
@@ -61,7 +60,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new MoveToBreweryChanceCard("test")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(6, gameBoard.getCurrentPlayer().getPosition());
     }
@@ -72,7 +71,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new MoveToFerryChanceCard("ferry")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(5, gameBoard.getCurrentPlayer().getPosition());
     }
@@ -83,7 +82,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new MoveSpacesChanceCard(3,"moveSpaces")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //Assert statement
         assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
         //you should get extra turn and get put in jail
@@ -96,7 +95,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1,20000,"ChangeBalConditional")));
         gameBoard.setDeck(deck);
         gameBoard.getCurrentPlayer().setBalance(19999);
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         assertEquals(20000,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
     }
@@ -107,7 +106,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1,20000,"ChangeBalConditional")));
         gameBoard.setDeck(deck);
         gameBoard.getCurrentPlayer().setBalance(20000);
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         assertEquals(20000,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
     }
@@ -118,7 +117,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new ChangeBalFromPlayersChanceCard(500,"fromPlayers")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         assertEquals(30500,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
     }
@@ -131,7 +130,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         assertEquals(30000,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(1,gameBoard.getCurrentPlayer().getGetOutOfJailCards());
     }
@@ -141,8 +140,8 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
+        gameController.playTurn();
         assertEquals(30000,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(0,gameBoard.getCurrentPlayer().getGetOutOfJailCards());
         assertFalse(gameBoard.getCurrentPlayer().isJailed());
@@ -154,7 +153,7 @@ public class ChanceCardTest {
         Deck deck = new Deck(List.of(new MoveToFieldChanceCard(1,"moveto1")));
         gameBoard.setDeck(deck);
 
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         //30000 + 4000 - 1000
         assertEquals(33000,gameBoard.getCurrentPlayer().getBalance());
         assertEquals(1,gameBoard.getCurrentPlayer().getPosition());
