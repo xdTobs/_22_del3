@@ -1,5 +1,11 @@
 @startuml
-skinparam linetype ortho
+'skinparam linetype ortho
+'skinparam linetype polyline
+'left to right direction
+'top to bottom direction
+
+skinparam nodesep 45
+skinparam ranksep 45
 
 
 class GuiView {
@@ -9,21 +15,6 @@ class GuiView {
     + void showMessage(Message)
     + void update(Player[],Field[],DiceCup)
 }
-
-
-
-'class Main {
-'    + {static} void main(String[])
-'}
-'interface View {
-'    ~ void addPlayersToGui(Player[])
-'    ~ void updateDie(DiceCup)
-'    ~ void updatePlayerBalances(Player[])
-'    ~ void updatePlayerLocations(Player[])
-'    ~ void movePlayerVisually(Player,DiceCup)
-'    ~ void update(Player[],Field[],DiceCup)
-'    ~ void updateHousesAndFields(Field[])
-'}
 
 
 package controller {
@@ -57,8 +48,6 @@ package lang {
         + {static} Message buyHouse(String)
         + {static} Message yes()
         + {static} Message no()
-        + Type getType()
-        + String[] getArgs()
     }
     enum Type {
         +  WANT_TO_BUY_HOUSE
@@ -66,14 +55,21 @@ package lang {
         +  NO
     }
 }
-'View <|.. GuiView
-'BasicUserIO <|.. GuiView
-GuiView .up.|> BasicUserIO
-GuiView *-- LangController
-UserIO .right.|> BasicUserIO
+'GuiView .up.|> BasicUserIO
+'GuiView *-- LangController
+'UserIO .down.|> BasicUserIO
+'GameController *-right- UserIO
+
+'LangController *.left. Message
+
+'Message +-- Type
+
 GameController *-- UserIO
+UserIO ..|> BasicUserIO
 
-LangController *.left. Message
+GuiView .left.|> BasicUserIO
+LangController-down-* GuiView
 
-Message +-- Type
+LangController *.up. Message
+Message +-up- Type
 @enduml
