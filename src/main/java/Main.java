@@ -27,3 +27,5 @@ public class Main {
 
     }
 }
+//tilføj et Grid pane? Layout, visuelt
+//
