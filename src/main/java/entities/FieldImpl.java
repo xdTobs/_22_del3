@@ -35,6 +35,11 @@ public class FieldImpl implements FieldAction {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
+            // TODO Jeg tror ikke vi har gjort så at man ikke får leje hvis man er i fängsel.
+            // Reglerne er:
+            //  Er man i fængsel, har man stadig ret til at købe grunde (ved
+            //  auktion eller handel spillerne imellem), men man kan ikke opkræve leje af de
+            //  andre spillere.
             userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
         }
         return boughtField;
