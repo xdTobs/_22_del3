@@ -15,6 +15,11 @@ public class TestBasicUserIO implements BasicUserIO {
     }
 
     @Override
+    public String promptString(Message message) {
+        return null;
+    }
+
+    @Override
     public void showMessage(Message message) {
 
     }

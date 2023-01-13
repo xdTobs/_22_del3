@@ -34,8 +34,4 @@ public class TestUserIO extends UserIO {
         System.out.println("Message type: " + message.getType().name());
     }
 
-    @Override
-    public void moneyToPoorPlayer(Message message) {
-        basicUserIO.showMessage(message);
-    }
 }
