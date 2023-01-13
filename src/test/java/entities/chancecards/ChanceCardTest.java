@@ -28,7 +28,7 @@ public class ChanceCardTest {
     void setUp() {
 
         //Number of fields
-        Field[] fields = new Field[9];
+        Field[] fields = new Field[12];
         //Type of fields
         fields[0] = new Start("Start");
         fields[1] = new Street("Test Street1", 1000, 1000, new int[]{1000, 2000, 3000, 4000});
@@ -39,6 +39,9 @@ public class ChanceCardTest {
         fields[6] = new Brewery("Test Brewery", 1000, new int[]{1000, 2000, 3000, 4000});
         fields[7] = new GoToJail("Test GoToJail");
         fields[8] = new Jail("Test Jail");
+        fields[9] = new Start("Start");
+        fields[10] = new Start("Start");
+        fields[11] = new Start("Start");
         fields[1].setPair(new FieldPair(Color.orange,new int[]{1,3}));
         fields[3].setPair(new FieldPair(Color.orange,new int[]{1,3}));
         TestUserIO testUserIO = TestUserIO.debugSetup();
@@ -136,7 +139,7 @@ public class ChanceCardTest {
     }
     @Test
     void getOutOfJailWorks() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3),new Utils.Roll(1,2)));
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3),new Utils.Roll(1,2),new Utils.Roll(2,1)));
         Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
         gameBoard.setDeck(deck);
 
@@ -162,9 +165,23 @@ public class ChanceCardTest {
     @Test
     void payPerProperty() {
         gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
-        Deck deck = new Deck(List.of(new MoveToFieldChanceCard(1,"moveto1")));
+        Deck deck = new Deck(List.of(new PayPerPropertyChanceCard(100,1000,"payper")));
         gameBoard.setDeck(deck);
+        Street field1 = (Street) gameBoard.getFields()[1];
+        Street field2 = (Street) gameBoard.getFields()[3];
+        field1.setOwner(gameBoard.getCurrentPlayer());
+        field2.setOwner(gameBoard.getCurrentPlayer());
+        gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer()).addAll(List.of(field1,field2));
+        field1.setHouses(5);
+        field2.setHouses(2);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        //30000 - 1000 - 200 - 3000 for houses after tax
+        assertEquals(25800,gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(4,gameBoard.getCurrentPlayer().getPosition());
+
     }
+
 
     @AfterEach
     void tearDown() {

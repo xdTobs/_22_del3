@@ -191,6 +191,27 @@ public class GameBoard {
         }
     }
 
+
+    public int[] getProperties(Player player) {
+        int[]res = new int[2];
+        Arrays.fill(res,0);
+        List<Street> streets = new ArrayList<>();
+        for (RentableField rf : ownershipMap.get(player)){
+            if(rf instanceof Street s){
+                streets.add(s);
+            }
+        }
+        for (Street s : streets){
+            if(s.getHouses()==5)
+                res[1]++;
+            else
+                res[0]+=s.getHouses();
+        }
+        return res;
+
+    }
+
+
     public Player getCurrentPlayer() {
         return players[playerTurn];
     }

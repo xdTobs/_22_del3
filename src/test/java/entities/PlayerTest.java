@@ -79,13 +79,13 @@ public class PlayerTest {
     void dontBuyField() {
         player.setPosition(1);
         boolean buyField = false;
-        player.getHouses();
+        //Forventet værdi: 0
     }
 
     @Test
     void playersStartWith30000() {
         player.getBalance();
-        assertEquals(30000, 30000);
+        //expected 30000.
     }
 
     @Test

@@ -36,7 +36,7 @@ class LanguageControllerTest {
     @DisplayName("Get message string from LanguageController with Message class")
     void testGetMessageEnum() {
         Message buyProperty = Message.buyField("Henrik Zenkert", "Strøget");
-        String expected = "Henrik Zenkert have landed on Strøget. Would you like to buy it?";
+        String expected = "Henrik Zenkert has landed on Strøget. Would you like to buy it?";
         var result = languageController.getMessage(buyProperty);
         assertEquals(expected, result);
     }
