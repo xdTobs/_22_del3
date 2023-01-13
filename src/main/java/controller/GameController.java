@@ -111,8 +111,8 @@ public class GameController {
             // TODO should you get to continue playing?
             // You don't immediately get an extra turn if you got equal dice before entering jail.
             // If you enter jail, everything else stops, and you cannot continue until next turn.
-            // According to the rules you get an extra turn if you get equal dice when in jail, and you move the spaces
-            // the eyes show.
+            // According to the rules you get an extra turn if you get equal dice when in jail,
+            // and you move the spaces the eyes show.
 
             if (gameBoard.getDiceCup().diceAreEqual()) {
                 userIO.showMessage(Message.extraTurn(playerName));
