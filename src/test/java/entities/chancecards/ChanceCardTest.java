@@ -1,17 +1,72 @@
 package entities.chancecards;
 
+import controller.GameController;
+import controller.TestUserIO;
+import entities.GameBoard;
+import entities.Player;
+import entities.PlayerTest;
+import entities.Utils;
+import entities.dicecup.PredictedDiceCup;
+import entities.dicecup.RandomDiceCup;
+import entities.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import view.TestView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static entities.Utils.decidableDieCup;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ChanceCardTest {
+    GameBoard gameBoard;
+    GameController gameController;
     @BeforeEach
     void setUp() {
+
+        //Number of fields
+        Field[] fields = new Field[9];
+        //Type of fields
+        fields[0] = new Start("Start");
+        fields[1] = new Street("Test Street1", 1000, 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[2] = new Start("Start");
+        fields[3] = new Street("Test Street2", 1000, 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[4] = new ChanceField("Test Chance");
+        fields[5] = new Ferry("Test Ferry", 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[6] = new Brewery("Test Brewery", 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[7] = new GoToJail("Test GoToJail");
+        fields[8] = new Jail("Test Jail");
+        TestUserIO testUserIO = TestUserIO.debugSetup();
+        //Test dice, that moves you one step.
+        RandomDiceCup randomDiceCup = decidableDieCup(new Utils.Roll(1, 1));
+        Deck deck = Deck.setup();
+        //Making the gameboard
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
+        gameController = new GameController(new TestView(), testUserIO, gameBoard);
+
+    }
+
+    @Test
+    void moveToBreweryPositive() {
+        //setup portion
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1,3)));
+        Deck deck = new Deck(List.of(new MoveToBreweryChanceCard("test")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn(gameBoard.getCurrentPlayer());
+        //Assert statement
+        assertEquals(3, gameBoard.getCurrentPlayer().getPosition());
+    }
+    //    @BeforeEach
+//    void setUp() {
 //        testBoard = new GameBoard();
 //        testBoard.createPlayers(4);
 //        deck = new Deck();
 //        acc = new ChanceCardImpl(testBoard, new TestView());
-    }
+//    }
 
 //    @Test
 //    void chanceCardNotNull() {
@@ -93,8 +148,8 @@ public class ChanceCardTest {
 //    }
 
 
-    @Test
-    void chanceCardUpdatesBalance() {
+   // @Test
+    //void chanceCardUpdatesBalance() {
         // First two lines are example for Christian.
 //        Class[] fieldTypes = new Class[]{Start.class, ChanceField.class, Street.class, Tax.class, Jail.class, GoToJail.class, Parking.class, Brewery.class, Ferry.class};
 //        GameBoard gameBoardTest = debugSetup(fieldTypes, new ArrayList<>(), 2);
@@ -118,5 +173,5 @@ public class ChanceCardTest {
 //        gameController.playTurn(gameBoard.getCurrentPlayer());
 //        assertEquals(31000, gameBoard.getCurrentPlayer().getBalance());
 
-    }
+   // }
 }

@@ -22,10 +22,10 @@ import java.util.stream.Stream;
 public class GameBoard {
 
 
-    private final DiceCup randomDiceCup;
+    private DiceCup randomDiceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap;
     private final Field[] fields;
-    private final Deck deck;
+    private Deck deck;
     private final Player[] players;
     private int playerTurn;
     private final ChanceCardImpl chanceCardImpl;
@@ -117,6 +117,13 @@ public class GameBoard {
         return fields;
     }
 
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public void setRandomDiceCup(DiceCup randomDiceCup) {
+        this.randomDiceCup = randomDiceCup;
+    }
 
     public ChanceCardImpl getChanceCardImpl() {
         return chanceCardImpl;
@@ -125,6 +132,7 @@ public class GameBoard {
     public HashMap<Player, List<RentableField>> getOwnershipMap() {
         return ownershipMap;
     }
+
 
     public FieldImpl getFieldImpl() {
         return fieldImpl;
