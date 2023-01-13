@@ -37,7 +37,6 @@ public class Deck {
 
         return numbersAsInt;
     }
-
     public static Deck setup() {
         var inputStream = GameBoard.class.getClassLoader().getResourceAsStream("chanceCardsEnglish.txt");
         if (inputStream == null) {
@@ -46,56 +45,29 @@ public class Deck {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         List<ChanceCard> cards = new ArrayList<>();
         List<String> content = bufferedReader.lines().toList();
-        for (int i = 0; i < 2; i++) {
+        for(String s : content){
+            String[]split = s.split(";");
+            Integer[] numbers = numberReader(s);
 
-            Integer[] numbers = numberReader(content.get(i));
 
-            cards.add(new PayPerPropertyChanceCard(numbers[0], numbers[1], content.get(i)));
-        }
-        for (int i = 2; i < 12; i++) {
-            Integer[] numbers = numberReader(content.get(i));
-            cards.add(new ChangeBalChanceCard(-numbers[0], content.get(i)));
-        }
-        for (int i = 12; i < 24; i++) {
-            Integer[] numbers = numberReader(content.get(i));
-            cards.add(new ChangeBalChanceCard(numbers[0], content.get(i)));
-        }
-        for (int i = 24; i < 25; i++) {
-            Integer[] numbers = numberReader(content.get(i));
-            cards.add(new ChangeBalConditionalChanceCard(numbers[0], numbers[1], content.get(i)));
-        }
-        for (int i = 25; i < 28; i++) {
-            Integer[] numbers = numberReader(content.get(i));
-            cards.add(new ChangeBalFromPlayersChanceCard(numbers[0], content.get(i)));
-        }
-        for (int i = 28; i < 31; i++) {
-            String[] words = content.get(i).split(" ");
-            if (words[0].equals("Advance") || words[3].equals("frem")) {
-                cards.add(new MoveSpacesChanceCard(3, content.get(i)));
-            } else {
-                cards.add(new MoveSpacesChanceCard(-3, content.get(i)));
+            switch (split[1]) {
+                case ("PayPerProperty") -> cards.add(new PayPerPropertyChanceCard(numbers[0], numbers[1], split[0]));
+                case ("ChangeBalNeg") -> cards.add(new ChangeBalChanceCard(-numbers[0], split[0]));
+                case ("ChangeBalPos") -> cards.add(new ChangeBalChanceCard(numbers[0], split[0]));
+                case("ChangeBalConditional") -> cards.add(new ChangeBalConditionalChanceCard(numbers[0], numbers[1], split[0]));
+                case("ChangeBalFromPlayers") -> cards.add(new ChangeBalFromPlayersChanceCard(numbers[0], split[0]));
+                case("MoveSpaces") -> cards.add(new MoveSpacesChanceCard(numbers[0], split[0]));
+                case("MoveToBrewery") -> cards.add(new MoveToBreweryChanceCard(split[0]));
+                case("MoveToField") -> cards.add(new MoveToFieldChanceCard(Integer.parseInt(split[2]), split[0]));
+                case("MoveToFerry") -> cards.add(new MoveToFerryChanceCard(split[0]));
+                case("GetOutOfJailFree") -> cards.add(new GetOutOfJailChanceCard(split[0]));
+                case("GoToJail") -> cards.add(new GoToJailChanceCard(split[0]));
             }
-        }
-        for (int i = 31; i < 33; i++) {
-            cards.add(new MoveToFerryChanceCard(content.get(i)));
-        }
-        int[] indexes = new int[]{0, 0, 37, 15, 24, 32, 19, 39};
-        for (int i = 33; i < 41; i++) {
-            cards.add(new MoveToFieldChanceCard(indexes[i - 33], content.get(i)));
-        }
-        for (int i = 41; i < 42; i++) {
-            cards.add(new MoveToBreweryChanceCard(content.get(i)));
-        }
-        for (int i = 42; i < 44; i++) {
-            cards.add(new GetOutOfJailChanceCard(content.get(i)));
-
-        }
-        for (int i = 44; i < 46; i++) {
-            cards.add(new GoToJailChanceCard(content.get(i)));
         }
         shuffleCards(cards);
         return new Deck(cards);
     }
+
 
     public static void shuffleCards(List<ChanceCard> cards) {
         Collections.shuffle(cards);
