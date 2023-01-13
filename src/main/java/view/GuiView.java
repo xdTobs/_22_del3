@@ -173,7 +173,12 @@ public class GuiView implements View, BasicUserIO {
 //            } catch (InterruptedException e) {
 //                throw new RuntimeException(e);
 //            }
+            if(startPos+i<40){
             setGuiPosition(guiPlayer, startPos + i);
+        }
+            else{
+                setGuiPosition(guiPlayer, 40-startPos + i);
+            }
         }
     }
 

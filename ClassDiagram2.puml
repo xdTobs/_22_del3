@@ -106,6 +106,7 @@ class Main {
 
 interface entities.fields.FieldAction {
 ~ Field streetAction(Street)
+~ void streetPayRentToOwner(Street);
 }
 
 
