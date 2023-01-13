@@ -139,7 +139,7 @@ public class ChanceCardTest {
 
         gameController.playTurn();
         assertEquals(30000, gameBoard.getCurrentPlayer().getBalance());
-        assertEquals(1, gameBoard.getCurrentPlayer().getGetOutOfJailCards());
+        assertTrue(gameBoard.getCurrentPlayer().hasGetOutOfJailCard());
     }
 
     @Test
@@ -153,7 +153,7 @@ public class ChanceCardTest {
         gameController.playTurn();
 
         assertEquals(30000, gameBoard.getCurrentPlayer().getBalance());
-        assertEquals(0, gameBoard.getCurrentPlayer().getGetOutOfJailCards());
+        assertTrue(!gameBoard.getCurrentPlayer().hasGetOutOfJailCard());
         assertFalse(gameBoard.getCurrentPlayer().isJailed());
     }
 

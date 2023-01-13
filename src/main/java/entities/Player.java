@@ -11,7 +11,7 @@ public class Player {
     // TODO Vælge spillernavn.
 
     public Player(String name) {
-        this(name, 1000);
+        this(name, 30000);
     }
 
 
@@ -64,8 +64,8 @@ public class Player {
         assert position >= 0 && position <= 39;
     }
 
-    public int getGetOutOfJailCards() {
-        return getOutOfJailCards;
+    public boolean hasGetOutOfJailCard() {
+        return getOutOfJailCards > 0;
     }
 
     public void setGetOutOfJailCards(int getOutOfJailCards) {
@@ -73,7 +73,7 @@ public class Player {
     }
 
     public void addGetOutOfJailCard() {
-        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+        setGetOutOfJailCards(getOutOfJailCards + 1);
     }
 
     public void decrementGetOutOfJailCards() {

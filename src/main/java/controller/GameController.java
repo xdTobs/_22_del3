@@ -74,7 +74,7 @@ public class GameController {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         String playerName = currentPlayer.getName();
         boolean shouldLeaveJail = false;
-        if (currentPlayer.getGetOutOfJailCards() > 0) {
+        if (currentPlayer.hasGetOutOfJailCard()) {
             shouldLeaveJail = true;
             currentPlayer.decrementGetOutOfJailCards();
             userIO.showMessage(Message.leaveJail(currentPlayer.getName()));

@@ -61,13 +61,13 @@ public class PlayerTest {
 
     @Test
     void getGetOutOfJailCards() {
-        assertEquals(0, player.getGetOutOfJailCards());
+        assertFalse(player.hasGetOutOfJailCard());
     }
 
     @Test
     void setGetOutOfJailCards() {
         player.setGetOutOfJailCards(1);
-        assertEquals(1, player.getGetOutOfJailCards());
+        assertTrue(player.hasGetOutOfJailCard());
     }
 
     @Test
