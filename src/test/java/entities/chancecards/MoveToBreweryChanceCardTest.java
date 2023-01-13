@@ -3,6 +3,8 @@ package entities.chancecards;
 import controller.GameController;
 import controller.TestUserIO;
 import entities.GameBoard;
+import entities.Player;
+import entities.PlayerTest;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
@@ -35,7 +37,8 @@ class MoveToBreweryChanceCardTest {
         cards.add(new MoveToBreweryChanceCard("This is a brewery chance card"));
         Deck deck = new Deck(cards);
         //Making the gameboard
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         //Making the game
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
         //"Playing" the test
