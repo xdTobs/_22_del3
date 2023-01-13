@@ -1,6 +1,7 @@
 package entities;
 
 import controller.*;
+import controller.TestUserIO;
 import entities.chancecards.Deck;
 import entities.dicecup.DiceCup;
 import entities.dicecup.TestDie;
@@ -35,12 +36,18 @@ class FieldImplTest {
             }
 
             @Override
+            public String promptString(Message message) {
+                return null;
+            }
+
+            @Override
             public void showMessage(Message message) {
 
             }
         };
         UserIO testUserIO = new UserIO(userIO);
-        GameBoard gameBoard = new GameBoard(dc, fields, testUserIO, 2);
+        Player[]players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(dc, fields, testUserIO, players);
         View view = new TestView();
 
         GameController gameController = new GameController(view, testUserIO, gameBoard);
@@ -79,7 +86,8 @@ class FieldImplTest {
         DiceCup diceCup = new DiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
         TestUserIO testUserIO = TestUserIO.debugSetup();
         Deck deck = new Deck(new ArrayList<>());
-        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, 2);
+        Player[]players = PlayerTest.getTwoDebugPlayers(30000);
+        GameBoard gameBoard = new GameBoard(diceCup, fields, deck, testUserIO, players);
         GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
 
         // Player should go one step, land on go to jail and then get moved to jail.

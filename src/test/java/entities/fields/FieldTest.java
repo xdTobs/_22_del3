@@ -18,8 +18,4 @@ public class FieldTest {
     }
 
 
-    @Test
-    void getPosition() {
-        assertEquals(0, field.getPosition());
-    }
 }

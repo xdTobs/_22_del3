@@ -5,7 +5,7 @@ import language.Message;
 public class TestUserIO extends UserIO {
 
     public static TestUserIO debugSetup() {
-        BasicUserIO basicUserIO = new TestBasicUserIO();
+        BasicUserIO basicUserIO = new controller.TestBasicUserIO();
         TestUserIO testUserIO = new TestUserIO(basicUserIO);
         return testUserIO;
     }

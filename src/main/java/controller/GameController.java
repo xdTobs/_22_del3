@@ -86,7 +86,7 @@ public class GameController {
                 currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 userIO.showMessage(Message.leaveJail(playerName));
             }
-        } else {
+        } if (!currentPlayer.isJailed()) {
             userIO.showMessage(Message.rollDice(playerName));
             gameBoard.getDiceCup().roll();
             view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
