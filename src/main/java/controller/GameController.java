@@ -85,7 +85,7 @@ public class GameController {
             if (currentPlayer.getJailTimeCounter() == 3 || (currentPlayer.getBalance() >= 1000 && userIO.promptYesOrNo(Message.bailOut(playerName)))) {
                 currentPlayer.addBalance(-1000);
                 shouldLeaveJail = true;
-            } else{
+            } else {
                 userIO.showMessage(Message.rollDice(playerName));
                 gameBoard.getDiceCup().roll();
                 view.updateDie(gameBoard.getDiceCup());
@@ -103,7 +103,6 @@ public class GameController {
 
     private boolean rollDiceAndMove() {
         Player currentPlayer = gameBoard.getCurrentPlayer();
-
         userIO.showMessage(Message.rollDice(currentPlayer.getName()));
         gameBoard.getDiceCup().roll();
         view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
@@ -154,7 +153,8 @@ public class GameController {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         if (currentPlayer.isJailed()) {
             inJail();
-        } else {
+        }
+        if (!currentPlayer.isJailed()){
             playNotInJailTurn();
         }
         // If player was jailed last turn and has a get out of jail card he should be release, and then he will play normal turn.
