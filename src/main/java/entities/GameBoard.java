@@ -234,6 +234,7 @@ public class GameBoard {
             newPosition = newPosition - fields.length;
             currentPlayer.addBalance(4000);
             hasPassedStart = true;
+
         }
         currentPlayer.setPosition(newPosition);
         return hasPassedStart;
