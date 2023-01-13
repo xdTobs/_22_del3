@@ -19,6 +19,12 @@ public class FieldImpl implements FieldAction {
         this.userIO = userIO;
     }
 
+
+    // TODO Vi har sagt til Anton at vi nåk vil nå at implementere salg af hus og hotel, og pantsæntning af grunde.
+    private void sellHousePawnFieldProcess() {
+        throw new RuntimeException("Not implemented yet");
+    }
+
     private boolean wantToBuyPrompt(RentableField field) {
         String playerName = gameBoard.getCurrentPlayer().getName();
         String fieldName = field.getName();
@@ -35,17 +41,26 @@ public class FieldImpl implements FieldAction {
             boughtField = buyEmptyStreet(street);
         } else {
             streetPayRentToOwner(street);
-            // TODO Jeg tror ikke vi har gjort så at man ikke får leje hvis man er i fängsel.
+
+            // TODO PRIORITET 1 DOBBELT LEJE ALLE GRUNDE
+            // Vi har ikke gjort så man får dobbelt leje hvis man ejer alle grunde i en FieldPair.
+            // Denne føles ret basic, og burde vi implementere.
+            // TODO PRIORITET 2 INGEN LEJE I FÆNGSEL
             // Reglerne er:
             //  Er man i fængsel, har man stadig ret til at købe grunde (ved
             //  auktion eller handel spillerne imellem), men man kan ikke opkræve leje af de
             //  andre spillere.
+            // Begge to burde vi nå. Det skal også skrives test till dem.
             userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
         }
         return boughtField;
     }
 
 
+    // TODO Tobias har du styr på dette?
+    // Kan man kun bygge jævnt? Du er nødt til at ha 1 hus på hver grunde i FieldPair, før du kan bygge nummer 2.
+    // TODO HOTEL PRIS
+    // Hotel skal koste 5 gange prisen af et hus.
     public void buyHouseProcess() {
         boolean ableToBuyHouse = false;
         List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
@@ -169,8 +184,7 @@ public class FieldImpl implements FieldAction {
         Field boughtField = null;
         if (ferry.isNotOwned() && wantToBuyPrompt(ferry)) {
             boughtField = buyEmptyStreet(ferry);
-        }
-        else if(ferry.isNotOwned())
+        } else if (ferry.isNotOwned())
             return null;
         else {
             ferryPayRent(ferry);
@@ -222,8 +236,7 @@ public class FieldImpl implements FieldAction {
         Field boughtField = null;
         if (brewery.isNotOwned() && wantToBuyPrompt(brewery)) {
             boughtField = buyEmptyStreet(brewery);
-        }
-        else if(brewery.isNotOwned())
+        } else if (brewery.isNotOwned())
             return null;
         else {
             breweryPayRent(brewery);
@@ -257,16 +270,16 @@ public class FieldImpl implements FieldAction {
 
 
     private int findHowManyInGroupPlayerOwns(RentableField rentableField) {
-        if(!rentableField.isOwned())
+        if (!rentableField.isOwned())
             return 0;
         Player owner = rentableField.getOwner();
-        int res =0;
+        int res = 0;
 
         FieldPair fp = rentableField.getPair();
         int[] fieldIDs = fp.getFieldIds();
-        for (int i : fieldIDs){
-            RentableField field =(RentableField)gameBoard.getFields()[i];
-            if(field.isOwned()&&field.getOwner()==owner){
+        for (int i : fieldIDs) {
+            RentableField field = (RentableField) gameBoard.getFields()[i];
+            if (field.isOwned() && field.getOwner() == owner) {
                 res++;
             }
         }

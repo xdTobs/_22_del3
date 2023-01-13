@@ -1,0 +1,79 @@
+@startuml
+skinparam linetype ortho
+
+
+class GuiView {
+    - GUI gui
+    - LangController langController
+    + int promptChoice(Message,Message)
+    + void showMessage(Message)
+    + void update(Player[],Field[],DiceCup)
+}
+
+
+
+'class Main {
+'    + {static} void main(String[])
+'}
+'interface View {
+'    ~ void addPlayersToGui(Player[])
+'    ~ void updateDie(DiceCup)
+'    ~ void updatePlayerBalances(Player[])
+'    ~ void updatePlayerLocations(Player[])
+'    ~ void movePlayerVisually(Player,DiceCup)
+'    ~ void update(Player[],Field[],DiceCup)
+'    ~ void updateHousesAndFields(Field[])
+'}
+
+
+package controller {
+    class GameController {
+        - View view
+        - GameBoard gameBoard
+        - UserIO userIO
+        + void playGame()
+    }
+    class UserIO {
+        ~ BasicUserIO basicUserIO
+        + boolean promptYesOrNo(Message)
+        + boolean promptBuyField(String,String)
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
+    interface BasicUserIO {
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
+}
+package lang {
+    class LangController {
+        - EnumMap<Type, String> langMap
+        + String getMessage(Message)
+    }
+    class Message {
+        - String[] args
+        - Type type
+        + {static} Message of(Type,String)
+        + {static} Message buyHouse(String)
+        + {static} Message yes()
+        + {static} Message no()
+        + Type getType()
+        + String[] getArgs()
+    }
+    enum Type {
+        +  WANT_TO_BUY_HOUSE
+        +  YES
+        +  NO
+    }
+}
+'View <|.. GuiView
+'BasicUserIO <|.. GuiView
+GuiView .up.|> BasicUserIO
+GuiView *-- LangController
+UserIO .right.|> BasicUserIO
+GameController *-- UserIO
+
+LangController *.left. Message
+
+Message +-- Type
+@enduml
