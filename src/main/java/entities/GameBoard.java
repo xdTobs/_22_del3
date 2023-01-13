@@ -10,6 +10,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
@@ -189,6 +190,27 @@ public class GameBoard {
             player.setPosition(0);
         }
     }
+
+
+    public int[] getProperties(Player player) {
+        int[]res = new int[2];
+        Arrays.fill(res,0);
+        List<Street> streets = new ArrayList<>();
+        for (RentableField rf : ownershipMap.get(player)){
+            if(rf instanceof Street s){
+                streets.add(s);
+            }
+        }
+        for (Street s : streets){
+            if(s.getHouses()==5)
+                res[1]++;
+            else
+                res[0]+=s.getHouses();
+        }
+        return res;
+
+    }
+
 
     public Player getCurrentPlayer() {
         return players[playerTurn];

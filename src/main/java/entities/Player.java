@@ -100,16 +100,7 @@ public class Player {
     }
 
 
-    public int getHouses() {
-        return 0;
-        //TODO implement
 
-    }
-
-    public int getHotels() {
-        return 0;
-        //TODO implement
-    }
 
     public boolean isBankruptThisTurn() {
         return isBankrupt() && !hasLost;
