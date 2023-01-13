@@ -164,7 +164,10 @@ public class FieldImpl implements FieldAction {
         Field boughtField = null;
         if (ferry.isNotOwned() && wantToBuyPrompt(ferry)) {
             boughtField = buyEmptyStreet(ferry);
-        } else {
+        }
+        else if(ferry.isNotOwned())
+            return null;
+        else {
             ferryPayRent(ferry);
         }
 
@@ -215,7 +218,10 @@ public class FieldImpl implements FieldAction {
         Field boughtField = null;
         if (brewery.isNotOwned() && wantToBuyPrompt(brewery)) {
             boughtField = buyEmptyStreet(brewery);
-        } else {
+        }
+        else if(brewery.isNotOwned())
+            return null;
+        else {
             breweryPayRent(brewery);
         }
         return boughtField;
