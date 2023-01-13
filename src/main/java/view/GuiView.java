@@ -168,11 +168,11 @@ public class GuiView implements View, BasicUserIO {
         int sum = diceCup.getSum();
         GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
         for (int i = 1; i <= sum; i++) {
-//            try {
-//                Thread.sleep(200);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if(startPos+i<40){
             setGuiPosition(guiPlayer, startPos + i);
         }

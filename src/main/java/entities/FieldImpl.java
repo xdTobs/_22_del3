@@ -31,9 +31,13 @@ public class FieldImpl implements FieldAction {
 
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
-        if (street.isNotOwned() && wantToBuyPrompt(street)) {
-            boughtField = buyEmptyStreet(street);
-        } else {
+        if(street.isNotOwned()){
+            if(wantToBuyPrompt(street)){
+                boughtField = buyEmptyStreet(street);
+            }else {
+                return boughtField;
+            }
+        }else {
             streetPayRentToOwner(street);
             userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
         }
