@@ -1,10 +1,6 @@
 package entities;
 
-import controller.UserIO;
-import entities.chancecards.Deck;
-import entities.chancecards.MoveToBreweryChanceCard;
 import entities.dicecup.RandomDiceCup;
-import entities.fields.*;
 
 public class Utils {
 

@@ -23,13 +23,7 @@ public class RandomDiceCup extends DiceCup {
         return sum;
     }
 
-    public boolean diceAreEqual() {
-        if (dice.length < 2) {
-            return false;
-        }
-        // equals is implemented in die class.
-        return Arrays.stream(dice).allMatch(die -> die.equals(dice[0]));
-    }
+
 
     public int[] getDiceValues() {
         int[] result = new int[dice.length];

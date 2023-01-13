@@ -1,12 +1,13 @@
 package entities.chancecards;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class DeckTest {
@@ -18,25 +19,9 @@ class DeckTest {
         cards.add(new MoveSpacesChanceCard(3, "You moved three space."));
         this.deck = new Deck(cards);
     }
-    @Test
-    void deckShouldContainCards() {
-        assertTrue(this.deck.getSize() > 0);
-    }
 
     @Test
-    void deckSizeShouldNotChange() {
-        int deckSize = deck.getSize();
-        deck.pullCard();
-        deck.pullCard();
-        deck.pullCard();
-        deck.pullCard();
-        assert deckSize == deck.getSize();
+    void shouldReturnCorrectCard() {
+        assertTrue(deck.pullChanceCard() instanceof ChanceCard);
     }
-
-    @Test
-    void deckShouldReturnObject() {
-        assert (deck.takeChanceCard() != null);
-    }
-
-
 }

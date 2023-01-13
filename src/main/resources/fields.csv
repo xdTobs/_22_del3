@@ -16,7 +16,7 @@ Bülowsvej,13,street,2800,2000,200,1000,3000,9000,12500,15000,3,yellow,black
 Gl. Kongevej,14,street,3200,2000,250,1250,3750,10000,14000,18000,3,yellow,black
 Mols-Linien,15,ferry,4000,0,500,1000,2000,4000,,,,blue,white
 Bernstorffsvej,16,street,3600,2000,300,1400,4000,11000,15000,19000,4,grey,white
-Prøv lykken,17,chance,,,,,,,,,green,black
+Prøv lykken,17,chance,,,,,,,,,,,black
 Hellerupvej,18,street,3600,2000,300,1400,4000,11000,15000,19000,4,grey,white
 Strandvejen,19,street,4000,2000,350,1600,4400,12000,16000,20000,4,grey,white
 Parkering,20,refugee,,,,,,,,,,green,black

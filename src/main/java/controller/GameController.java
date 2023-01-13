@@ -110,7 +110,7 @@ public class GameController {
             // TODO If you have getOutOfJailCard and roll equal dice
             // TODO should you get to continue playing?
 
-            if (gameBoard.getDiceCup().diceAreEqual()) {
+            if (gameBoard.getDiceCup().equals()) {
                 userIO.showMessage(Message.extraTurn(playerName));
                 playTurn(currentPlayer);
             }
