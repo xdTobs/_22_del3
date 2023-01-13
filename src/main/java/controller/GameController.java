@@ -86,6 +86,14 @@ public class GameController {
                 currentPlayer.setBalance(currentPlayer.getBalance() - 1000);
                 userIO.showMessage(Message.leaveJail(playerName));
             }
+            if (!wantsToBailOut) {
+                userIO.showMessage(Message.rollDice(playerName));
+                gameBoard.getDiceCup().roll();
+                view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
+                /*if(gameBoard.getDiceCup().diceAreEqual()) {
+                    currentPlayer.setJailed(false);
+                }*/
+            }
         } if (!currentPlayer.isJailed()) {
             userIO.showMessage(Message.rollDice(playerName));
             gameBoard.getDiceCup().roll();
