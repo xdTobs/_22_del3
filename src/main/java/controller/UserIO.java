@@ -40,7 +40,7 @@ public class UserIO implements BasicUserIO {
                 case 0 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("1st player"));
                 case 1 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("2nd player"));
                 case 2 -> names[i] = basicUserIO.promptString(Message.enterPlayerName("3rd player"));
-                default -> names[i] = basicUserIO.promptString(Message.enterPlayerName(i + "th player"));
+                default -> names[i] = basicUserIO.promptString(Message.enterPlayerName((i + 1) + "th player"));
             }
         }
         return names;
