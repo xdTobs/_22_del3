@@ -72,5 +72,11 @@ public class PlayerTest {
         assertEquals("Test", player.getName());
     }
 
+    @Test dontBuyStreet() {
+        player.setPosition(1);
+        boolean buyField = false;
+        player.getHouses() {assertEquals( 0, );
+    }
+
 
 }
