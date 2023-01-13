@@ -223,14 +223,9 @@ public class GuiView implements View, BasicUserIO {
 
                     guiOwnable.setBorder(guiOwner.getPrimaryColor());
 
-                    String name = rentableField.getOwner().getName();
-                    // TODO if we want to show the character of players name when winning we need some smarter way to do it.
-                    // If player names start with same name, then they will have same symbol.
-                    // We show the border, but
-                    guiOwnable.setSubText(rentableField.getPrice() + " - " + name.charAt(0));
                 } else {
                     GUI_Ownable guiOwnable = (GUI_Ownable) gui.getFields()[i];
-                    guiOwnable.setSubText(rentableField.getPrice() + "");
+                    guiOwnable.setBorder(Color.BLACK);
                 }
             }
             if (gui.getFields()[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {

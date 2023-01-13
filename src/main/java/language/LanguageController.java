@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.regex.Pattern;
 
-// We can use this class to implement different languages. For example, we can make translation variable be an array and then we can loop through it and print out the different translations, so the game is multi-lingual.
-// TODO use this instead of LanguageHandler
 public class LanguageController {
     private final EnumMap<Message.Type, String> languageMap = new EnumMap<>(Message.Type.class);
 
