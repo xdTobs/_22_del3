@@ -237,7 +237,7 @@ public class FieldImpl implements FieldAction {
             }
         }
 
-        int breweriesOwned = findHowManyInGroupPlayerOwns();
+        int breweriesOwned = findHowManyInGroupPlayerOwns(brewery);
         int rent = brewery.getRent(breweriesOwned) * diceSum;
         if (houseOwner != null) {
             houseOwner.addBalance(rent);
@@ -245,8 +245,21 @@ public class FieldImpl implements FieldAction {
         }
     }
 
-    // TODO implement this.
-    private int findHowManyInGroupPlayerOwns() {
-        throw new RuntimeException("Not implemented yet");
+
+    private int findHowManyInGroupPlayerOwns(RentableField rentableField) {
+        if(!rentableField.isOwned())
+            return 0;
+        Player owner = rentableField.getOwner();
+        int res =0;
+
+        FieldPair fp = rentableField.getPair();
+        int[] fieldIDs = fp.getFieldIds();
+        for (int i : fieldIDs){
+            RentableField field =(RentableField)gameBoard.getFields()[i];
+            if(field.isOwned()&&field.getOwner()==owner){
+                res++;
+            }
+        }
+        return res;
     }
 }
