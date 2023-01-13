@@ -8,7 +8,7 @@ PARKING: You are at the parking lot. There is not much happening here.
 PLAYER_COUNT:How many players will be playing?
 MONEY_GIFT_CARD_SUCCESSFUL:*, your values have been tallied under the requirement, you have received *.
 MONEY_GIFT_CARD_UNSUCCESSFUL:*, your values have been tallied over the requirement, you do NOT receive *.
-WANT_TO_BUY_FIELD:* have landed on *. Would you like to buy it?
+WANT_TO_BUY_FIELD:* has landed on *. Would you like to buy it?
 WANT_TO_BAIL_OUT: *, would you like to pay 1000 DKK to bail out of jail?
 YES:Yes!
 NO:No.

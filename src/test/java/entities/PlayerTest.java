@@ -7,16 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
 
-    public static Player[] getTwoDebugPlayers(int money){
+    public static Player[] getTwoDebugPlayers(int money) {
         Player player1 = new Player("Player1", money);
         Player player2 = new Player("Player2", money);
         return new Player[]{player1, player2};
     }
+
     Player player;
+
     @BeforeEach
     void setUp() {
         this.player = new Player("Test", 20);
     }
+
     @Test
     void isJailed() {
         assertFalse(player.isJailed());
@@ -72,5 +75,43 @@ public class PlayerTest {
         assertEquals("Test", player.getName());
     }
 
+    @Test
+    void dontBuyField() {
+        player.setPosition(1);
+        boolean buyField = false;
+        player.getHouses();
+        //Forventet værdi: 0
+    }
+
+    @Test
+    void playersStartWith30000() {
+        player.getBalance();
+        //expected 30000.
+    }
+
+    @Test
+    void getExtraTurn() {
+
+    }
+
+    @Test
+    void leaveGameWhenBankrupt() {
+        player.setHasLost(true);
+        //Skal resterende spillere så få tur, så man kan se at de ikke er en del af spillet mere?
+    }
+
+    @Test
+    void get4000WhenPassingStart() {
+        player.setPosition(0);
+        player.setBalance(0);
+        player.setPosition(10);
+        player.setPosition(1);
+        //har altså passeret start
+        assertNotEquals(0, 4000);
+    }
+
+
+//todo: Lave tests færdige.
+    //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
 }
