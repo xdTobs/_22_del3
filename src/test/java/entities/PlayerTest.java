@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PlayerTest {
+public class PlayerTest {
 
     public static Player[] getTwoDebugPlayers(int money){
         Player player1 = new Player("Player1", money);
