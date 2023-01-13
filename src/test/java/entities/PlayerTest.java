@@ -7,6 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
+    public static Player[] getTwoDebugPlayers(int money){
+        Player player1 = new Player("Player1", money);
+        Player player2 = new Player("Player2", money);
+        return new Player[]{player1, player2};
+    }
     Player player;
     @BeforeEach
     void setUp() {
