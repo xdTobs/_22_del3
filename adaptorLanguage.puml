@@ -5,7 +5,7 @@
 'top to bottom direction
 
 skinparam nodesep 45
-skinparam ranksep 45
+'skinparam ranksep 45
 
 
 class GuiView {
@@ -17,13 +17,32 @@ class GuiView {
 }
 
 
-package controller {
-    class GameController {
-        - View view
-        - GameBoard gameBoard
-        - UserIO userIO
-        + void playGame()
+package lang {
+    class LangController {
+        - EnumMap<Message.Type, String> langMap
+        + String getMessage(Message)
     }
+    class Message {
+        - String[] args
+        - Message.Type type
+        + {static} Message of(Message.Type,String)
+        + {static} Message buyHouse(String)
+        + {static} Message yes()
+        + {static} Message no()
+    }
+    enum Message.Type {
+        +  WANT_TO_BUY_HOUSE
+        +  YES
+        +  NO
+    }
+}
+
+package controller {
+interface BasicUserIO {
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
+
     class UserIO {
         ~ BasicUserIO basicUserIO
         + boolean promptYesOrNo(Message)
@@ -31,28 +50,11 @@ package controller {
         ~ int promptChoice(Message,Message)
         ~ void showMessage(Message)
     }
-    interface BasicUserIO {
-        ~ int promptChoice(Message,Message)
-        ~ void showMessage(Message)
-    }
-}
-package lang {
-    class LangController {
-        - EnumMap<Type, String> langMap
-        + String getMessage(Message)
-    }
-    class Message {
-        - String[] args
-        - Type type
-        + {static} Message of(Type,String)
-        + {static} Message buyHouse(String)
-        + {static} Message yes()
-        + {static} Message no()
-    }
-    enum Type {
-        +  WANT_TO_BUY_HOUSE
-        +  YES
-        +  NO
+    class GameController {
+        - View view
+        - GameBoard gameBoard
+        - UserIO userIO
+        + void playGame()
     }
 }
 'GuiView .up.|> BasicUserIO
@@ -64,12 +66,13 @@ package lang {
 
 'Message +-- Type
 
-GameController *-- UserIO
-UserIO ..|> BasicUserIO
 
-GuiView .left.|> BasicUserIO
-LangController-down-* GuiView
+BasicUserIO <|.up. GuiView
+GuiView -down-> LangController
 
-LangController *.up. Message
-Message +-up- Type
+LangController -down-> Message.Type
+Message +-up- Message.Type :Type is an \ninner class
+
+GameController -up-> UserIO
+UserIO .up.|> BasicUserIO
 @enduml

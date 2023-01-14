@@ -1,0 +1,45 @@
+@startuml
+
+skinparam nodesep 25
+skinparam ranksep 45
+skinparam linetype ortho
+'top to bottom direction
+hide empty members
+note top of GameController
+We use:
+- GuiView as View
+- GuiView as BasicUserIO
+end note
+class GameController {
+    - BasicUserIO basicUserIO
+    - View view
+    + <<Create>> GameController(View, BasicUserIO, GameBoard)
+    + void playGame()
+}
+interface BasicUserIO {
+    ~ int promptChoice(Message,Message)
+    ~ void showMessage(Message)
+}
+
+class GuiView {
+    ~ int promptChoice(Message,Message)
+    + void showMessage(Message)
+    + void update(Player[],Field[],DiceCup)
+}
+
+interface View {
+    ~ void update(Player[],Field[],DiceCup)
+}
+class TestIO{
+    ~ int promptChoice(Message,Message)
+    + void showMessage(Message)
+}
+GameController -[hidden]-> GuiView
+GameController --> BasicUserIO
+GameController --> View
+GameController -[hidden]up-> TestIO
+GuiView ..|> View
+GuiView ..|> BasicUserIO
+TestIO -[norank]-|> BasicUserIO
+
+@enduml
