@@ -34,12 +34,13 @@ class TestIO{
     ~ int promptChoice(Message,Message)
     + void showMessage(Message)
 }
+hide TestIO
 GameController -[hidden]-> GuiView
 GameController --> BasicUserIO
 GameController --> View
 GameController -[hidden]up-> TestIO
 GuiView ..|> View
 GuiView ..|> BasicUserIO
-TestIO -[norank]-|> BasicUserIO
+TestIO --|> BasicUserIO
 
 @enduml

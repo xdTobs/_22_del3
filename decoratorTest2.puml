@@ -36,11 +36,12 @@ class TestIO{
     + void showMessage(Message)
 }
 
+
 GameController -[hidden]-> TestView
 GameController --> BasicUserIO
 GameController --> View
 GameController -[hidden]up-> TestIO
 TestView ..|> View
 TestView ..|> BasicUserIO
-TestIO -[norank]-|> BasicUserIO
+TestIO ..|> BasicUserIO
 @enduml

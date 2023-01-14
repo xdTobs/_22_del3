@@ -6,7 +6,7 @@ import entities.GameBoard;
 import entities.Player;
 import entities.PlayerTest;
 import entities.Utils;
-import entities.dicecup.PredictedDiceCup;
+import entities.dicecup.PredeterminedDiceCup;
 import entities.dicecup.RandomDiceCup;
 import entities.fields.*;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +18,7 @@ import view.TestView;
 import java.awt.*;
 import java.util.List;
 
-import static entities.Utils.decidableDieCup;
+import static entities.Utils.predeterminedDiceCup;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -48,7 +48,7 @@ public class ChanceCardTest {
         fields[3].setPair(new FieldPair(Color.orange, new int[]{1, 3}));
         TestUserIO testUserIO = TestUserIO.debugSetup();
         //Test dice, that moves you one step.
-        RandomDiceCup randomDiceCup = decidableDieCup(new Utils.Roll(1, 1));
+        RandomDiceCup randomDiceCup = predeterminedDiceCup(new Utils.Roll(1, 1));
         Deck deck = Deck.setup();
         //Making the gameboard
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
@@ -62,7 +62,7 @@ public class ChanceCardTest {
     @DisplayName("Player should move to Brewery with MoveToBreweryChanceCard.")
     void moveToBreweryPositive() {
         //setup portion
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new MoveToBreweryChanceCard("test")));
         gameBoard.setDeck(deck);
 
@@ -75,7 +75,7 @@ public class ChanceCardTest {
 
     @Test
     void moveToFerryPositive() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new MoveToFerryChanceCard("ferry")));
         gameBoard.setDeck(deck);
 
@@ -86,7 +86,7 @@ public class ChanceCardTest {
 
     @Test
     void moveSpacesPositive() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new MoveSpacesChanceCard(3, "moveSpaces")));
         gameBoard.setDeck(deck);
 
@@ -99,7 +99,7 @@ public class ChanceCardTest {
 
     @Test
     void changeBalConditionalPositive() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1, 20000, "ChangeBalConditional")));
         gameBoard.setDeck(deck);
         gameBoard.getCurrentPlayer().setBalance(19999);
@@ -110,7 +110,7 @@ public class ChanceCardTest {
 
     @Test
     void changeBalConditionalNegative() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1, 20000, "ChangeBalConditional")));
         gameBoard.setDeck(deck);
         gameBoard.getCurrentPlayer().setBalance(20000);
@@ -121,7 +121,7 @@ public class ChanceCardTest {
 
     @Test
     void changeBalFromPlayers() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new ChangeBalFromPlayersChanceCard(500, "fromPlayers")));
         gameBoard.setDeck(deck);
 
@@ -133,7 +133,7 @@ public class ChanceCardTest {
 
     @Test
     void getOutOfJailCount() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
         gameBoard.setDeck(deck);
 
@@ -144,7 +144,7 @@ public class ChanceCardTest {
 
     @Test
     void getOutOfJailWorks() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3), new Utils.Roll(1, 2), new Utils.Roll(2, 1)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3), new Utils.Roll(1, 2), new Utils.Roll(2, 1)));
         Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
         gameBoard.setDeck(deck);
 
@@ -159,7 +159,7 @@ public class ChanceCardTest {
 
     @Test
     void moveToField() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new MoveToFieldChanceCard(1, "moveto1")));
         gameBoard.setDeck(deck);
 
@@ -171,7 +171,7 @@ public class ChanceCardTest {
 
     @Test
     void payPerProperty() {
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new PayPerPropertyChanceCard(100, 1000, "payper")));
         gameBoard.setDeck(deck);
         Street field1 = (Street) gameBoard.getFields()[1];
@@ -191,7 +191,7 @@ public class ChanceCardTest {
 
     @AfterEach
     void tearDown() {
-        PredictedDiceCup dc = (PredictedDiceCup) gameBoard.getDiceCup();
+        PredeterminedDiceCup dc = (PredeterminedDiceCup) gameBoard.getDiceCup();
         assertTrue(dc.allRollsUsed());
 
     }
