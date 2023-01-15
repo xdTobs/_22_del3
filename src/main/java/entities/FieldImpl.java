@@ -224,10 +224,10 @@ public class FieldImpl implements FieldAction {
         int count = 0;
         for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
-            if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(gameBoard.getCurrentPlayer().getName()))
+            if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(ferry.getOwner().getName()))
                 count++;
         }
-        return count;
+        return count-1;
 
     }
 
