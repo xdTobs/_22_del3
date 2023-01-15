@@ -188,6 +188,16 @@ public class ChanceCardTest {
         assertEquals(4, gameBoard.getCurrentPlayer().getPosition());
 
     }
+    @Test
+    void goToJailTest(){
+        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        Deck deck = new Deck(List.of(new GoToJailChanceCard("GoToJailChance")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn();
+        assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
+        assertTrue(gameBoard.getCurrentPlayer().isJailed());
+    }
 
     @AfterEach
     void tearDown() {
