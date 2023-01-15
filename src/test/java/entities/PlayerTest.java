@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO Go through all tests, and make sure they are implemented with correct logic.
 public class PlayerTest {
 
     public static Player[] getTwoDebugPlayers(int money) {
@@ -61,13 +62,13 @@ public class PlayerTest {
 
     @Test
     void getGetOutOfJailCards() {
-        assertEquals(0, player.getGetOutOfJailCards());
+        assertFalse(player.hasGetOutOfJailCard());
     }
 
     @Test
     void setGetOutOfJailCards() {
         player.setGetOutOfJailCards(1);
-        assertEquals(1, player.getGetOutOfJailCards());
+        assertTrue(player.hasGetOutOfJailCard());
     }
 
     @Test
@@ -79,7 +80,6 @@ public class PlayerTest {
     void dontBuyField() {
         player.setPosition(1);
         boolean buyField = false;
-        player.getHouses();
         //Forventet værdi: 0
     }
 
@@ -109,9 +109,5 @@ public class PlayerTest {
         //har altså passeret start
         assertNotEquals(0, 4000);
     }
-
-
-//todo: Lave tests færdige.
-    //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
 }

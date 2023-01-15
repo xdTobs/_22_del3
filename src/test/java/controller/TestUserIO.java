@@ -1,14 +1,15 @@
 package controller;
 
 import language.Message;
-import org.junit.jupiter.api.Test;
 
 public class TestUserIO extends UserIO {
 
     public static TestUserIO debugSetup() {
         BasicUserIO basicUserIO = new controller.TestBasicUserIO();
-        TestUserIO testUserIO = new TestUserIO(basicUserIO);
-        return testUserIO;
+        return new TestUserIO(basicUserIO);
+    }
+    public static TestUserIO debugSetup(BasicUserIO basicUserIO) {
+        return new TestUserIO(basicUserIO);
     }
 
     public TestUserIO(BasicUserIO basicUserIO) {
@@ -22,7 +23,7 @@ public class TestUserIO extends UserIO {
 
     @Override
     public boolean promptYesOrNo(Message message) {
-        return true;
+        return (basicUserIO.promptChoice(message, Message.yes(), Message.no())) == 0;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class TestUserIO extends UserIO {
 
     @Override
     public void showMessage(Message message) {
-        System.out.println("Message type: " + message.getType().name());
+//        System.out.println("Message type: " + message.getType().name());
     }
 
 }

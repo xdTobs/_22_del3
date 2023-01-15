@@ -32,10 +32,6 @@ public class GameBoardTest {
     }
 
     @Test
-    void fieldAction() {
-    }
-
-    @Test
     void getFields() {
         assertEquals(40, board.getFields().length);
     }

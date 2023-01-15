@@ -1,0 +1,78 @@
+@startuml
+'skinparam linetype ortho
+'skinparam linetype polyline
+'left to right direction
+'top to bottom direction
+
+skinparam nodesep 45
+'skinparam ranksep 45
+
+
+class GuiView {
+    - GUI gui
+    - LangController langController
+    + int promptChoice(Message,Message)
+    + void showMessage(Message)
+    + void update(Player[],Field[],DiceCup)
+}
+
+
+package lang {
+    class LangController {
+        - EnumMap<Message.Type, String> langMap
+        + String getMessage(Message)
+    }
+    class Message {
+        - String[] args
+        - Message.Type type
+        + {static} Message of(Message.Type,String)
+        + {static} Message buyHouse(String)
+        + {static} Message yes()
+        + {static} Message no()
+    }
+    enum Message.Type {
+        +  WANT_TO_BUY_HOUSE
+        +  YES
+        +  NO
+    }
+}
+
+package controller {
+interface BasicUserIO {
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
+
+    class UserIO {
+        ~ BasicUserIO basicUserIO
+        + boolean promptYesOrNo(Message)
+        + boolean promptBuyField(String,String)
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
+    class GameController {
+        - View view
+        - GameBoard gameBoard
+        - UserIO userIO
+        + void playGame()
+    }
+}
+'GuiView .up.|> BasicUserIO
+'GuiView *-- LangController
+'UserIO .down.|> BasicUserIO
+'GameController *-right- UserIO
+
+'LangController *.left. Message
+
+'Message +-- Type
+
+
+BasicUserIO <|.up. GuiView
+GuiView -down-> LangController
+
+LangController -down-> Message.Type
+Message +-up- Message.Type :Type is an \ninner class
+
+GameController -up-> UserIO
+UserIO .up.|> BasicUserIO
+@enduml

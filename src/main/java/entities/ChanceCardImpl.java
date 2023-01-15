@@ -50,8 +50,15 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void moveToField(int index) {
+        if(index<gameBoard.getCurrentPlayer().getPosition()){
+            userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
+            gameBoard.getCurrentPlayer().addBalance(4000);
+        }
+
+
         gameBoard.getCurrentPlayer().setPosition(index);
-        //TODO make player get extra turn
+
+        gameBoard.fieldAction();
     }
 
     @Override
@@ -62,8 +69,11 @@ public class ChanceCardImpl implements ChanceAction {
         } else if (playerPos + spaces < 0) {
             gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length + playerPos + spaces);
         } else {
+                userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
+                gameBoard.getCurrentPlayer().addBalance(4000);
             gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
         }
+        gameBoard.fieldAction();
     }
 
     @Override
@@ -79,11 +89,11 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void payPerProperty(int perHouse, int perHotel) {
+        //only the selected player pays
+        int[]properties = gameBoard.getProperties(gameBoard.getCurrentPlayer());
 
-        int houses = gameBoard.getCurrentPlayer().getHouses();
-        int hotels = gameBoard.getCurrentPlayer().getHotels();
 
-        gameBoard.getCurrentPlayer().addBalance(-((houses * perHouse) + (hotels * perHotel)));
+        gameBoard.getCurrentPlayer().addBalance(-((properties[0] * perHouse) + (properties[1] * perHotel)));
     }
 
     @Override

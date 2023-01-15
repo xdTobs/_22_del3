@@ -6,9 +6,8 @@ public class Player {
     private int position;
     private boolean jailed;
     private int getOutOfJailCards = 0;
-    private int jailedCounter;
+    private int jailTimeCounter;
     private boolean hasLost;
-    // TODO Vælge spillernavn.
 
     public Player(String name) {
         this(name, 30000);
@@ -20,7 +19,7 @@ public class Player {
         this.position = 0;
         this.jailed = false;
         this.name = name;
-        this.jailedCounter = 0;
+        this.jailTimeCounter = 0;
 
     }
 
@@ -64,8 +63,8 @@ public class Player {
         assert position >= 0 && position <= 39;
     }
 
-    public int getGetOutOfJailCards() {
-        return getOutOfJailCards;
+    public boolean hasGetOutOfJailCard() {
+        return getOutOfJailCards > 0;
     }
 
     public void setGetOutOfJailCards(int getOutOfJailCards) {
@@ -73,7 +72,7 @@ public class Player {
     }
 
     public void addGetOutOfJailCard() {
-        setGetOutOfJailCards(getGetOutOfJailCards() + 1);
+        setGetOutOfJailCards(getOutOfJailCards + 1);
     }
 
     public void decrementGetOutOfJailCards() {
@@ -83,16 +82,16 @@ public class Player {
         }
     }
 
-    public void addToJailedCounter() {
-        jailedCounter++;
+    public void incJailTimeCounter() {
+        jailTimeCounter++;
     }
 
-    public int getJailedCounter() {
-        return jailedCounter;
+    public int getJailTimeCounter() {
+        return jailTimeCounter;
     }
 
-    public void setJailedCounter(int jailedCounter) {
-        this.jailedCounter = jailedCounter;
+    public void setJailTimeCounter(int jailTimeCounter) {
+        this.jailTimeCounter = jailTimeCounter;
     }
 
     public String getName() {
@@ -100,16 +99,7 @@ public class Player {
     }
 
 
-    public int getHouses() {
-        return 0;
-        //TODO implement
 
-    }
-
-    public int getHotels() {
-        return 0;
-        //TODO implement
-    }
 
     public boolean isBankruptThisTurn() {
         return isBankrupt() && !hasLost;

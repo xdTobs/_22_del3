@@ -3,12 +3,14 @@ package entities;
 import controller.UserIO;
 import entities.chancecards.Deck;
 import entities.dicecup.DiceCup;
+import entities.dicecup.RandomDiceCup;
 import entities.fields.*;
 
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
@@ -21,10 +23,10 @@ import java.util.stream.Stream;
 public class GameBoard {
 
 
-    private final DiceCup diceCup;
+    private DiceCup randomDiceCup;
     private final HashMap<Player, List<RentableField>> ownershipMap;
     private final Field[] fields;
-    private final Deck deck;
+    private Deck deck;
     private final Player[] players;
     private int playerTurn;
     private final ChanceCardImpl chanceCardImpl;
@@ -33,18 +35,18 @@ public class GameBoard {
 
     public GameBoard(Field[] fields, UserIO userIO, Player[] players) {
 //        this(new DiceCup(new Die[]{new TestDie(4), new TestDie(0)}),fields, userIO, players);
-        this(new DiceCup(), fields, userIO, players);
+        this(new RandomDiceCup(), fields, userIO, players);
     }
 
-    public GameBoard(DiceCup diceCup, Field[] fields, UserIO userIO, Player[] players) {
-        this(diceCup, fields, Deck.setup(), userIO, players);
+    public GameBoard(DiceCup randomDiceCup, Field[] fields, UserIO userIO, Player[] players) {
+        this(randomDiceCup, fields, Deck.setup(), userIO, players);
     }
 
-    public GameBoard(DiceCup diceCup, Field[] fields, Deck deck, UserIO userIO, Player[] players) {
+    public GameBoard(DiceCup randomDiceCup, Field[] fields, Deck deck, UserIO userIO, Player[] players) {
         this.chanceCardImpl = new ChanceCardImpl(this, userIO);
         this.fieldImpl = new FieldImpl(this, userIO);
         this.deck = deck;
-        this.diceCup = diceCup;
+        this.randomDiceCup = randomDiceCup;
         this.fields = fields;
         this.players = players;
         this.ownershipMap = new HashMap<>();
@@ -83,10 +85,10 @@ public class GameBoard {
         // We do this so border that marks who owns fields and color of the field it self is not same color.
         // It is impossible to see border of red player on red field otherwise.
         // Magenta is changed because it is ugly otherwise.
-        Color red = new Color(255, 80, 80);
-        Color blue = new Color(80, 80, 255);
-        Color yellow = new Color(235, 235, 20);
-        Color magenta = new Color(235, 80, 235);
+        Color red = new Color(235, 110, 110);
+        Color blue = new Color(110, 110, 235);
+        Color yellow = new Color(235, 235, 30);
+        Color magenta = new Color(215, 80, 215);
         List<FieldPair> fieldPairs = new ArrayList<>();
         fieldPairs.add(new FieldPair(blue, Color.WHITE, new int[]{1, 3}));
         fieldPairs.add(new FieldPair(Color.ORANGE, new int[]{6, 8, 9}));
@@ -116,6 +118,13 @@ public class GameBoard {
         return fields;
     }
 
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public void setRandomDiceCup(DiceCup randomDiceCup) {
+        this.randomDiceCup = randomDiceCup;
+    }
 
     public ChanceCardImpl getChanceCardImpl() {
         return chanceCardImpl;
@@ -124,6 +133,7 @@ public class GameBoard {
     public HashMap<Player, List<RentableField>> getOwnershipMap() {
         return ownershipMap;
     }
+
 
     public FieldImpl getFieldImpl() {
         return fieldImpl;
@@ -142,10 +152,9 @@ public class GameBoard {
 
     /**
      * Makes whatever action the field supports.
-     *
-     * @param currentPlayer the current player
      */
-    public void fieldAction(Player currentPlayer) {
+    public void fieldAction() {
+        Player currentPlayer = getCurrentPlayer();
         int playerPosition = currentPlayer.getPosition();
         Field field = getField(playerPosition);
         Field boughtField = field.executeFieldAction(fieldImpl);
@@ -182,12 +191,33 @@ public class GameBoard {
         }
     }
 
+
+    public int[] getProperties(Player player) {
+        int[]res = new int[2];
+        Arrays.fill(res,0);
+        List<Street> streets = new ArrayList<>();
+        for (RentableField rf : ownershipMap.get(player)){
+            if(rf instanceof Street s){
+                streets.add(s);
+            }
+        }
+        for (Street s : streets){
+            if(s.getHouses()==5)
+                res[1]++;
+            else
+                res[0]+=s.getHouses();
+        }
+        return res;
+
+    }
+
+
     public Player getCurrentPlayer() {
         return players[playerTurn];
     }
 
     public DiceCup getDiceCup() {
-        return diceCup;
+        return randomDiceCup;
     }
 
     public boolean currentPlayerIsOnChanceField() {
@@ -206,7 +236,7 @@ public class GameBoard {
      * @return is true if the player has passed start.
      */
     public boolean movePlayer() {
-        return movePlayer(diceCup.getSum());
+        return movePlayer(randomDiceCup.getSum());
     }
 
     public boolean movePlayer(int diceValue) {
@@ -223,8 +253,8 @@ public class GameBoard {
         // This will break if you have a board of size n and dice that can roll higher than 2*n.
         if (newPosition > fields.length - 1) {
             newPosition = newPosition - fields.length;
-            currentPlayer.addBalance(4000);
             hasPassedStart = true;
+
         }
         currentPlayer.setPosition(newPosition);
         return hasPassedStart;
@@ -272,11 +302,8 @@ public class GameBoard {
     }
 
     public String findLosers() {
-        StringBuilder losers = new StringBuilder();
-        for (Player player : orderOfLosing) {
-            losers.append(player.getName()).append(", ");
-        }
-        return losers.toString();
+        List<String> names = orderOfLosing.stream().map(Player::getName).toList();
+        return String.join(", ", names);
     }
 
 
@@ -322,12 +349,15 @@ public class GameBoard {
     }
 
     public String getRemainingPlayerNames() {
-        StringBuilder names = new StringBuilder();
-        for (Player player : players) {
-            if (player.hasNotLost()) {
-                names.append(player.getName()).append(", ");
-            }
-        }
-        return names.toString();
+//        List<String> names = orderOfLosing.stream().map(player -> player.getName()).toList();
+        List<String> names = Arrays.stream(players).filter(Player::hasNotLost).map(Player::getName).toList();
+        return String.join(", ", names);
+//        StringBuilder names = new StringBuilder();
+//        for (Player player : players) {
+//            if (player.hasNotLost()) {
+//                names.append(player.getName()).append(", ");
+//            }
+//        }
+//        return names.toString();
     }
 }

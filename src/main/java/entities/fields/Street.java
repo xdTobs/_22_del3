@@ -1,5 +1,7 @@
 package entities.fields;
 
+import entities.Player;
+
 import java.awt.*;
 
 public class Street extends RentableField {
@@ -30,6 +32,15 @@ public class Street extends RentableField {
         this.houses = houses;
     }
 
+    @Override
+    public void setOwner(Player owner) {
+        if (owner == null) {
+            super.setOwner(null);
+            this.houses = 0;
+        } else {
+            super.setOwner(owner);
+        }
+    }
 
     @Override
     public Field executeFieldAction(FieldAction fieldAction) {
