@@ -8,6 +8,9 @@ public class TestUserIO extends UserIO {
         BasicUserIO basicUserIO = new controller.TestBasicUserIO();
         return new TestUserIO(basicUserIO);
     }
+    public static TestUserIO debugSetup(BasicUserIO basicUserIO) {
+        return new TestUserIO(basicUserIO);
+    }
 
     public TestUserIO(BasicUserIO basicUserIO) {
         super(basicUserIO);
@@ -20,7 +23,7 @@ public class TestUserIO extends UserIO {
 
     @Override
     public boolean promptYesOrNo(Message message) {
-        return true;
+        return (basicUserIO.promptChoice(message, Message.yes(), Message.no())) == 0;
     }
 
     @Override

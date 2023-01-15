@@ -32,26 +32,58 @@ class FieldImplTest {
         //Type of fields
         fields[0] = new Start("Start");
         fields[1] = new Jail("Test jail");
-        fields[2] = new Street("Test Street1", 1000, 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[2] = new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
         fields[3] = new Jail("Test jail");
-        fields[4] = new Street("Test Street2", 1000, 1000, new int[]{1000, 2000, 3000, 4000});
+        fields[4] = new Street("Test Street2", 3000, 1000, new int[]{50, 100, 200, 300, 400, 500});
         fields[2].setPair(new FieldPair(Color.orange, new int[]{2, 4}));
         fields[4].setPair(new FieldPair(Color.orange, new int[]{2, 4}));
-        TestUserIO testUserIO = TestUserIO.debugSetup();
+        BasicUserIO basicUserIO = new BasicUserIO() {
+            // We say yes to streets and no to everything else.
+            // This means we always say no to buying new house.
+            @Override
+            public int promptChoice(Message message, Message... choices) {
+                if (message.getType() == Message.Type.WANT_TO_BUY_FIELD) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+
+            @Override
+            public int promptRange(Message message, int min, int max) {
+                return 2;
+            }
+
+            @Override
+            public String promptString(Message message) {
+                return "";
+            }
+
+            @Override
+            public void showMessage(Message message) {
+            }
+        };
+        TestUserIO testUserIO = TestUserIO.debugSetup(basicUserIO);
+
         //Test dice, that moves you one step.
         RandomDiceCup randomDiceCup = predeterminedDiceCup(new Utils.Roll(1, 1));
         Deck deck = Deck.setup();
         //Making the gameboard
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
-        gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
-        gameController = new GameController(new TestView(), testUserIO, gameBoard);
+        gameBoard = new
+
+                GameBoard(randomDiceCup, fields, deck, testUserIO, players);
+
+        gameController = new
+
+                GameController(new TestView(), testUserIO, gameBoard);
     }
 
     @Test
     void buyHouseProcess() {
         RandomDiceCup dc = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(2)});
         Field[] fields = GameBoard.getDefaultFields();
-        BasicUserIO userIO = new BasicUserIO() {
+        BasicUserIO basicUserIO = new BasicUserIO() {
             @Override
             public int promptChoice(Message message, Message... choices) {
                 //override the choice to always want to buy a house on the first avaliable street
@@ -75,7 +107,7 @@ class FieldImplTest {
 
             }
         };
-        UserIO testUserIO = new UserIO(userIO);
+        UserIO testUserIO = new UserIO(basicUserIO);
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
         GameBoard localGameBoard = new GameBoard(dc, fields, testUserIO, players);
         View view = new TestView();
@@ -127,11 +159,14 @@ class FieldImplTest {
         assertTrue(gameBoard.getCurrentPlayer().isJailed());
     }
 
-    void streetAction() {
-    }
+//    void streetAction() {
+//    }
 
+    // TODO
+    // Tobias vill du kigge på dette og se så jeg har gjort det rigtigt?
     @Test
-    void streetPayRentToOwner() {
+    @DisplayName("If player lands on a street and it is owned  by a different player he should pay rent.")
+    void payRentToOwner() {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2), new Utils.Roll(0, 2)));
         gameController.playTurn();
         gameBoard.nextPlayer();
@@ -139,7 +174,74 @@ class FieldImplTest {
         Player[] players = gameBoard.getPlayers();
         Player player1 = players[0];
         Player player2 = players[1];
-        assertEquals(30000 - 1000, player1.getBalance());
-        assertEquals(30000 + 1000, player2.getBalance());
+        /*
+        Name, Price, HousePrice, {no house, 1 house, 2 houses, 3 houses, 4 houses, hotel}
+        new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
+
+        Player 1 owns the street, so player 2 should pay rent to player 1.
+        Player 2 lands on "Test Street1". He pays 50 in rent.
+        Player 2 money should be 30000 - 50 = 29950
+         */
+        assertEquals(30000 - 50, player2.getBalance());
+    }
+
+    @Test
+    @DisplayName("If a player buys two streets in a pair that costs 4000 and 3000 he should lose 7000 dkk")
+    void buyTwoStreetsTest() {
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2), new Utils.Roll(0, 2)));
+        gameController.playTurn();
+        gameController.playTurn();
+        Player player1 = gameBoard.getCurrentPlayer();
+        /*
+        Name, Price, HousePrice, {no house, 1 house, 2 houses, 3 houses, 4 houses, hotel}
+        new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
+
+        Player 1 owns the street, so player 2 should pay rent to player 1.
+        Player 2 lands on "Test Street1". He pays 50 in rent.
+        Player 2 money should be 30000 - 50 = 29950
+         */
+        assertEquals(30000 - 4000 - 3000, player1.getBalance());
+    }
+
+    @Test
+    @DisplayName("If a player owns all pairs in a street pair the rent should be doubled, if there are no houses built.")
+    void payDoubleRentToOwner() {
+        /*
+        Name, Price, HousePrice, {no house, 1 house, 2 houses, 3 houses, 4 houses, hotel}
+        new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
+        Player 1 owns the street, so player 2 should pay rent to player 1.
+         */
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2), new Utils.Roll(0, 2), new Utils.Roll(0, 2)));
+        // Player 1 lands on street1.
+        gameController.playTurn();
+        // Player 1 lands on street2.
+        gameController.playTurn();
+        gameBoard.nextPlayer();
+        // Player 2 lands on "Test Street1". He pays 50 * 2 in rent.
+        // Player 2 money should be 30000 - 50 * 2 = 29900
+        gameController.playTurn();
+        Player[] players = gameBoard.getPlayers();
+        Player player2 = players[1];
+        assertEquals(30000 - 50 * 2, player2.getBalance());
+    }
+
+
+    @Test
+    @DisplayName("If player lands on a street and buys it, pay for it")
+    void buyStreetTestOwnershipTest() {
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2)));
+        gameController.playTurn();
+        Player player1 = gameBoard.getCurrentPlayer();
+        assertEquals(30000 - 4000, player1.getBalance());
+    }
+
+    @Test
+    @DisplayName("If player lands on a street and buys it, he should own the street.")
+    void buyStreetPaymentTest() {
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2)));
+        gameController.playTurn();
+        Player player1 = gameBoard.getCurrentPlayer();
+        Street street = (Street) gameBoard.getFields()[2];
+        assertEquals(player1, street.getOwner());
     }
 }

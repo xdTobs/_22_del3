@@ -132,9 +132,9 @@ public class FieldImpl implements FieldAction {
         Player houseOwner = street.getOwner();
         int rent = street.getRent(street.getHouses());
 
-//        if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
-//            rent *= 2;
-//        }
+        if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
+            rent *= 2;
+        }
         houseOwner.addBalance(rent);
         gameBoard.getCurrentPlayer().addBalance(-rent);
     }
