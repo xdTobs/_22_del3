@@ -203,7 +203,6 @@ public class ChanceCardTest {
     void tearDown() {
         PredeterminedDiceCup dc = (PredeterminedDiceCup) gameBoard.getDiceCup();
         assertTrue(dc.allRollsUsed());
-
     }
 
 }

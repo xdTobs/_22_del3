@@ -1,8 +1,6 @@
 package entities.fields;
 
 public class Jail extends Field {
-
-
     public Jail(String s) {
         super(s);
     }

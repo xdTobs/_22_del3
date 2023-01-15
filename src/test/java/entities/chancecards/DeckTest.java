@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class DeckTest {
@@ -15,13 +15,13 @@ class DeckTest {
 
     @BeforeEach
     void setUp() {
-        List<ChanceCard> cards = new ArrayList<ChanceCard>();
+        List<ChanceCard> cards = new ArrayList<>();
         cards.add(new MoveSpacesChanceCard(3, "You moved three space."));
         this.deck = new Deck(cards);
     }
 
     @Test
     void shouldReturnCorrectCard() {
-        assertTrue(deck.pullChanceCard() instanceof ChanceCard);
+        assertTrue(deck.pullChanceCard() instanceof MoveSpacesChanceCard);
     }
 }

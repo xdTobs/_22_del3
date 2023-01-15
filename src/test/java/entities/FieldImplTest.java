@@ -66,13 +66,11 @@ class FieldImplTest {
         TestUserIO testUserIO = TestUserIO.debugSetup(basicUserIO);
 
         //Test dice, that moves you one step.
-        RandomDiceCup randomDiceCup = predeterminedDiceCup(new Utils.Roll(1, 1));
+        RandomDiceCup randomDiceCup = Utils.predeterminedDiceCup(new Utils.Roll(1, 1));
         Deck deck = Deck.setup();
         //Making the gameboard
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);
-        gameBoard = new
-
-                GameBoard(randomDiceCup, fields, deck, testUserIO, players);
+        gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
 
         gameController = new
 

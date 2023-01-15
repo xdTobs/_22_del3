@@ -15,6 +15,7 @@ public class RandomDiceCup extends DiceCup {
     }
 
     // Returns the total sum of all dice
+    @Override
     public int getSum() {
         int sum = 0;
         for (Die d : dice) {
@@ -25,6 +26,7 @@ public class RandomDiceCup extends DiceCup {
 
 
 
+    @Override
     public int[] getDiceValues() {
         int[] result = new int[dice.length];
         for (int i = 0; i < dice.length; i++) {
@@ -34,6 +36,7 @@ public class RandomDiceCup extends DiceCup {
     }
 
     // Rolls all dice
+    @Override
     public void roll() {
         for (Die d : dice) {
             d.roll();
