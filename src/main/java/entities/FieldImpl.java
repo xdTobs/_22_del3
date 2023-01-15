@@ -20,7 +20,7 @@ public class FieldImpl implements FieldAction {
     }
 
 
-    // TODO Vi har sagt til Anton at vi nåk vil nå at implementere salg af hus og hotel, og pantsæntning af grunde.
+    // TODO Vi har sagt til Anton at vi nok vil nå at implementere salg af hus og hotel, og pantsæntning af grunde.
     private void sellHousePawnFieldProcess() {
         throw new RuntimeException("Not implemented yet");
     }
