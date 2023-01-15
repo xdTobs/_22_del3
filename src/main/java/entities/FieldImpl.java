@@ -37,9 +37,13 @@ public class FieldImpl implements FieldAction {
 
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
-        if (street.isNotOwned() && wantToBuyPrompt(street)) {
-            boughtField = buyEmptyStreet(street);
-        } else {
+        if(street.isNotOwned()){
+            if(wantToBuyPrompt(street)){
+                boughtField = buyEmptyStreet(street);
+            }else {
+                return boughtField;
+            }
+        }else {
             streetPayRentToOwner(street);
 
             // TODO PRIORITET 1 DOBBELT LEJE ALLE GRUNDE
@@ -203,23 +207,26 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-
         if (houseOwner != null) {
             int ferrysOwned = ferryPlayerOwns(ferry);
             int rent = ferry.getRent(ferrysOwned);
             houseOwner.addBalance(rent);
             gameBoard.getCurrentPlayer().addBalance(-rent);
+            if (houseOwner != gameBoard.getCurrentPlayer()){
+                userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), ferry.getName(), String.valueOf(rent)));
+            }
         }
+
     }
 
     private int ferryPlayerOwns(Ferry ferry) {
         int count = 0;
         for (int i : ferry.getPair().getFieldIds()) {
             Ferry ferryCounter = (Ferry) gameBoard.getFields()[i];
-            if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(gameBoard.getCurrentPlayer().getName()))
+            if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(ferry.getOwner().getName()))
                 count++;
         }
-        return count;
+        return count-1;
 
     }
 

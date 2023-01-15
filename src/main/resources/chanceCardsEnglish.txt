@@ -16,7 +16,7 @@ You receive your dividend. Receive DKK 1000 from the bank.;ChangeBalPos
 You receive your dividend. Receive DKK 1000 from the bank.;ChangeBalPos
 You receive your dividend. Receive DKK 1000 from the bank.;ChangeBalPos
 The municipality has waived one quarter's tax. Withdraw DKK 3000 from the bank.;ChangeBalPos
-You have a line of eleven correct in tipping, receive DKK 1000.;ChangeBalPos
+You have been to the horse races and bet some money. Receive DKK 1000.;ChangeBalPos
 Due to inflation, you have received a wage bonus, receive DKK 1000.;ChangeBalPos
 Your premium bond is the term. You receive DKK 1000 from the bank.;ChangeBalPos
 Your premium bond is the term. You receive DKK 1000 from the bank.;ChangeBalPos
@@ -27,10 +27,10 @@ It's your birthday. Receive DKK 200 from each fellow player.;ChangeBalFromPlayer
 You have put money up front for a joint festival. Remarkably, everyone pays immediately. Receive DKK 500 from each fellow player.;ChangeBalFromPlayers
 You must hold a family party and receive a subsidy of DKK 500 from each fellow player.;ChangeBalFromPlayers
 Advance three spaces.;MoveSpaces;3
-Move back three spaces.;MoveSpaces;-3
-Move back three spaces.;MoveSpaces;-3
-Go to the nearest shipping company and pay the owner twice the rent he or she is otherwise entitled to, if the company is not owned by anyone you can buy it from the bank.;MoveToBrewery
-Go to the nearest shipping company and pay the owner twice the rent he or she is otherwise entitled to, if the company is not owned by anyone you can buy it from the bank.;MoveToBrewery
+Move back three spaces.;MoveBackSpaces;3
+Move back three spaces.;MoveBackSpaces;3
+Go to the nearest shipping company and pay the owner twice the rent he or she is otherwise entitled to, if the company is not owned by anyone you can buy it from the bank.;MoveToFerry
+Go to the nearest shipping company and pay the owner twice the rent he or she is otherwise entitled to, if the company is not owned by anyone you can buy it from the bank.;MoveToFerry
 Advance to START.;MoveToField;0
 Advance to START.;MoveToField;0
 Advance to Frederiksberg Allé. If you pass START, collect DKK 4000.;MoveToField;37

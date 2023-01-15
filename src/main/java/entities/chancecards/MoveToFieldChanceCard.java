@@ -10,7 +10,8 @@ public class MoveToFieldChanceCard extends ChanceCard {
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-        chanceAction.moveToField(fieldIndex);
         chanceAction.printDescription(desc);
+        chanceAction.moveToField(fieldIndex);
+
     }
 }

@@ -10,7 +10,8 @@ public class MoveSpacesChanceCard extends ChanceCard {
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-        chanceAction.moveSpaces(spaces);
         chanceAction.printDescription(desc);
+        chanceAction.moveSpaces(spaces);
+
     }
 }
