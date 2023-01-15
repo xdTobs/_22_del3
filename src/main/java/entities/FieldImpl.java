@@ -213,7 +213,11 @@ public class FieldImpl implements FieldAction {
             int rent = ferry.getRent(ferrysOwned);
             houseOwner.addBalance(rent);
             gameBoard.getCurrentPlayer().addBalance(-rent);
+            if (houseOwner != gameBoard.getCurrentPlayer()){
+                userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), ferry.getName(), String.valueOf(rent)));
+            }
         }
+
     }
 
     private int ferryPlayerOwns(Ferry ferry) {

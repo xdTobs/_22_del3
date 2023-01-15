@@ -20,7 +20,7 @@ public class RandomDiceCup extends DiceCup {
         for (Die d : dice) {
             sum += d.getFaceValue();
         }
-        return 2;
+        return sum;
     }
 
 
