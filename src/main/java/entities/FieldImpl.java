@@ -207,7 +207,6 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-//TODO
         if (houseOwner != null) {
             int ferrysOwned = ferryPlayerOwns(ferry);
             int rent = ferry.getRent(ferrysOwned);
