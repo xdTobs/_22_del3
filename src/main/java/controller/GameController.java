@@ -105,6 +105,7 @@ public class GameController {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         userIO.showMessage(Message.rollDice(currentPlayer.getName()));
         gameBoard.getDiceCup().roll();
+        view.updateDie(gameBoard.getDiceCup());
         view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
 
         // Player is given 4000 in movePlayer if he passes start.
