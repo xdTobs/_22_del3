@@ -57,6 +57,7 @@ public class Deck {
                         cards.add(new ChangeBalConditionalChanceCard(numbers[0], numbers[1], split[0]));
                 case ("ChangeBalFromPlayers") -> cards.add(new ChangeBalFromPlayersChanceCard(numbers[0], split[0]));
                 case ("MoveSpaces") -> cards.add(new MoveSpacesChanceCard(numbers[0], split[0]));
+                case ("MoveBackSpaces") ->cards.add(new MoveSpacesChanceCard(-numbers[0], split[0]));
                 case ("MoveToBrewery") -> cards.add(new MoveToBreweryChanceCard(split[0]));
                 case ("MoveToField") -> cards.add(new MoveToFieldChanceCard(Integer.parseInt(split[2]), split[0]));
                 case ("MoveToFerry") -> cards.add(new MoveToFerryChanceCard(split[0]));
