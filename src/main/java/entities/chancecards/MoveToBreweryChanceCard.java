@@ -7,7 +7,8 @@ public class MoveToBreweryChanceCard extends ChanceCard{
 
     @Override
     public void executeCardAction(ChanceAction chanceAction) {
-    chanceAction.moveToBrewery();
-    chanceAction.printDescription(desc);
+        chanceAction.printDescription(desc);
+        chanceAction.moveToBrewery();
+
     }
 }

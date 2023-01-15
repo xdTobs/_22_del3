@@ -50,15 +50,13 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void moveToField(int index) {
-        if(index<gameBoard.getCurrentPlayer().getPosition()){
+        int BeginningPosition = gameBoard.getCurrentPlayer().getPosition();
+        gameBoard.getCurrentPlayer().setPosition(index);
+        gameBoard.fieldAction();
+        if(index<BeginningPosition){
             userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
             gameBoard.getCurrentPlayer().addBalance(4000);
         }
-
-
-        gameBoard.getCurrentPlayer().setPosition(index);
-
-        gameBoard.fieldAction();
     }
 
     @Override
