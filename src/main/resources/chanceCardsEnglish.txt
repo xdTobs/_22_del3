@@ -27,8 +27,8 @@ It's your birthday. Receive DKK 200 from each fellow player.;ChangeBalFromPlayer
 You have put money up front for a joint festival. Remarkably, everyone pays immediately. Receive DKK 500 from each fellow player.;ChangeBalFromPlayers
 You must hold a family party and receive a subsidy of DKK 500 from each fellow player.;ChangeBalFromPlayers
 Advance three spaces.;MoveSpaces;3
-Move back three spaces.;MoveSpaces;37
-Move back three spaces.;MoveSpaces;37
+Move back three spaces.;MoveSpaces;-3
+Move back three spaces.;MoveSpaces;-3
 Go to the nearest shipping company and pay the owner twice the rent he or she is otherwise entitled to, if the company is not owned by anyone you can buy it from the bank.;MoveToFerry
 Go to the nearest shipping company and pay the owner twice the rent he or she is otherwise entitled to, if the company is not owned by anyone you can buy it from the bank.;MoveToFerry
 Advance to START.;MoveToField;0
