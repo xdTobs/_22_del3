@@ -190,7 +190,7 @@ public class ChanceCardTest {
     }
     @Test
     void goToJailTest(){
-        gameBoard.setRandomDiceCup(new PredictedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new GoToJailChanceCard("GoToJailChance")));
         gameBoard.setDeck(deck);
 
