@@ -207,8 +207,7 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-//TODO Husleje for færger virker ikke ordenligt. tror det er en fejl med counteren af færger -spørg jakob for detaljer.
-
+//TODO
         if (houseOwner != null) {
             int ferrysOwned = ferryPlayerOwns(ferry);
             int rent = ferry.getRent(ferrysOwned);
