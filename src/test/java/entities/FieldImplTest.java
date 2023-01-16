@@ -1,7 +1,6 @@
 package entities;
 
 import controller.*;
-import controller.TestUserIO;
 import entities.chancecards.Deck;
 import entities.dicecup.PredeterminedDiceCup;
 import entities.dicecup.RandomDiceCup;
@@ -14,10 +13,8 @@ import org.junit.jupiter.api.Test;
 import view.TestView;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-import static entities.Utils.predeterminedDiceCup;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FieldImplTest {
 
@@ -28,13 +25,14 @@ class FieldImplTest {
     @BeforeEach
     void setUp() {
         //Number of fields
-        Field[] fields = new Field[12];
+        Field[] fields = new Field[6];
         //Type of fields
         fields[0] = new Start("Start");
-        fields[1] = new Jail("Test jail");
+        fields[1] = new Parking("Parking");
         fields[2] = new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
-        fields[3] = new Jail("Test jail");
+        fields[3] = new GoToJail("Test go to jail");
         fields[4] = new Street("Test Street2", 3000, 1000, new int[]{50, 100, 200, 300, 400, 500});
+        fields[5] = new Jail("Jail");
         fields[2].setPair(new FieldPair(Color.orange, new int[]{2, 4}));
         fields[4].setPair(new FieldPair(Color.orange, new int[]{2, 4}));
         BasicUserIO basicUserIO = new BasicUserIO() {
@@ -134,32 +132,6 @@ class FieldImplTest {
 
     }
 
-    @Test
-    @DisplayName("If player lands on go to jail, he should get automatically moved to jail and his status should be set to jailed")
-    void gotoJail() {
-        Field[] fields = new Field[3];
-        fields[0] = new Start("Start, test field");
-        fields[1] = new GoToJail("Go to jail test field");
-        fields[2] = new Jail("Jail test field");
-
-        RandomDiceCup randomDiceCup = new RandomDiceCup(new TestDie[]{new TestDie(1), new TestDie(0)});
-        TestUserIO testUserIO = TestUserIO.debugSetup();
-        Deck deck = new Deck(new ArrayList<>());
-        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
-        GameBoard gameBoard = new GameBoard(randomDiceCup, fields, deck, testUserIO, players);
-        GameController gameController = new GameController(new TestView(), testUserIO, gameBoard);
-
-        // Player should go one step, land on go to jail and then get moved to jail.
-        gameController.playTurn();
-
-
-        assertEquals(2, gameBoard.getCurrentPlayer().getPosition());
-        assertTrue(gameBoard.getCurrentPlayer().isJailed());
-    }
-
-//    void streetAction() {
-//    }
-
     // TODO
     // Tobias vill du kigge på dette og se så jeg har gjort det rigtigt?
     @Test
@@ -170,7 +142,6 @@ class FieldImplTest {
         gameBoard.nextPlayer();
         gameController.playTurn();
         Player[] players = gameBoard.getPlayers();
-        Player player1 = players[0];
         Player player2 = players[1];
         /*
         Name, Price, HousePrice, {no house, 1 house, 2 houses, 3 houses, 4 houses, hotel}
@@ -242,4 +213,26 @@ class FieldImplTest {
         Street street = (Street) gameBoard.getFields()[2];
         assertEquals(player1, street.getOwner());
     }
+
+    @Test
+    @DisplayName("If a player is in Jail he should not be able to roll recieve rent.")
+    void noRentWhenInJailTest() {
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2), new Utils.Roll(0, 1), new Utils.Roll(0, 2)));
+        gameController.playTurn();
+        gameController.playTurn();
+        gameBoard.nextPlayer();
+        gameController.playTurn();
+        Player player1 = gameBoard.getPlayers()[0];
+        Player player2 = gameBoard.getCurrentPlayer();
+        assertEquals(player1.getBalance(), 26000);
+        assertEquals(player2.getBalance(), 30000);
+    }
+
+//    fields[0] = new Start("Start");
+//    fields[1] = new Parking("Test jail");
+//    fields[2] = new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
+//    fields[3] = new GoToJail("Test go to jail");
+//    fields[4] = new Street("Test Street2", 3000, 1000, new int[]{50, 100, 200, 300, 400, 500});
+//    fields[5] = new Jail("Jail");
+
 }

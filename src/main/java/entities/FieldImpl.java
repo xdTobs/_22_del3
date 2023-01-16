@@ -37,13 +37,13 @@ public class FieldImpl implements FieldAction {
 
         // If the street is owned by the bank, the player can buy it.
         Field boughtField = null;
-        if(street.isNotOwned()){
-            if(wantToBuyPrompt(street)){
+        if (street.isNotOwned()) {
+            if (wantToBuyPrompt(street)) {
                 boughtField = buyEmptyStreet(street);
-            }else {
+            } else {
                 return boughtField;
             }
-        }else {
+        } else {
             streetPayRentToOwner(street);
 
             // TODO PRIORITET 1 DOBBELT LEJE ALLE GRUNDE
@@ -127,19 +127,27 @@ public class FieldImpl implements FieldAction {
         return street;
     }
 
+    // We could generalize this to calculate for all rentableFields.
+    // If we do that we need an if statment to check for instanceof Ferry, Brewery and Street,
+    // and then call the correct method for calculating rent.
+    //
     @Override
     public void streetPayRentToOwner(Street street) {
-        // If the street is owned by another player, the player has to pay rent.
-        if (street.isNotOwned()) {
+        /*
+        If the street is owned by another player, the player has to pay rent to him.
+        First we check two things. If the street is not owned by another player, then we return, because nothing should happen.
+        If the street owner is in jail, then the player does not have to pay rent.
+         */
+        Player streetOwner = street.getOwner();
+        if (streetOwner.isJailed() || street.isNotOwned()) {
             return;
         }
-        Player houseOwner = street.getOwner();
         int rent = street.getRent(street.getHouses());
 
         if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
             rent *= 2;
         }
-        houseOwner.addBalance(rent);
+        streetOwner.addBalance(rent);
         gameBoard.getCurrentPlayer().addBalance(-rent);
     }
 
@@ -212,7 +220,7 @@ public class FieldImpl implements FieldAction {
             int rent = ferry.getRent(ferrysOwned);
             houseOwner.addBalance(rent);
             gameBoard.getCurrentPlayer().addBalance(-rent);
-            if (houseOwner != gameBoard.getCurrentPlayer()){
+            if (houseOwner != gameBoard.getCurrentPlayer()) {
                 userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), ferry.getName(), String.valueOf(rent)));
             }
         }
@@ -226,7 +234,7 @@ public class FieldImpl implements FieldAction {
             if (ferryCounter.getOwner() != null && ferryCounter.getOwner().getName().equals(ferry.getOwner().getName()))
                 count++;
         }
-        return count-1;
+        return count - 1;
 
     }
 
@@ -277,7 +285,7 @@ public class FieldImpl implements FieldAction {
 
 
     private int findHowManyInGroupPlayerOwns(RentableField rentableField) {
-        if (!rentableField.isOwned())
+        if (rentableField.isNotOwned())
             return 0;
         Player owner = rentableField.getOwner();
         int res = 0;
