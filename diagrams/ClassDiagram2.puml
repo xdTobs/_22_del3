@@ -1,22 +1,27 @@
 @startuml
 hide empty members
-'skinparam linetype ortho
+skinparam linetype ortho
 left to right direction
-skinparam nodesep 15
-skinparam ranksep 15
 
 package entities{
-
+    class ChanceCardImpl {
+        ~ GameBoard gameBoard
+        + void getOutOfJail()
+        + void changeBalance(int)
+        + void moveToField(int)
+        + void payPerProperty(int,int)
+    }
     class GameBoard {
         - Deck deckOfCards
+        - UserIO userIO
         + void fieldAction(Player)
         + boolean rollDieMovePlayer()
         + boolean isGameover()
     }
 
     class Player {
-        + int position()
         + boolean isJailed()
+        + double totalValue()
     }
     class DiceCup {
         + int getSum()
@@ -26,21 +31,11 @@ package entities{
     }
     class FieldImpl {
 	~ GameBoard gameBoard
-	~ view view
 	+ Field streetAction(Street)
     }
-     class ChanceCardImpl {
-            - GameBoard gameBoard
-            - UserIO userIO;
-            + void getOutOfJail()
-            + void changeBal(int)
-            + void moveToField(int)
-            + void payPerProperty(int,int)
-        }
-
 
     package chancecards {
-       class Deck {
+        class Deck {
             -ChanceCard[] cards
             + void pullCard()
         }
@@ -113,27 +108,31 @@ package view{
 }
 
 
-GameController -> GameBoard
+GameBoard <-- GameController
 
 
-GameBoard -down-> ChanceCardImpl
-GameBoard -right-> FieldImpl
+GameBoard --> ChanceCardImpl
+GameBoard --> FieldImpl
 
-GameBoard --> Player
+Player -up[hidden]-> FieldImpl
+
+GameBoard -left-> Player
 GameBoard --> DiceCup
-GameBoard --=> Deck
-GuiView -down-> LanguageController
-LanguageController .left.> Message
+GameBoard --> UserIO
+
+GameBoard -[norank]-> Deck
+GuiView --> LanguageController
+LanguageController .[norank].> Message
 ChanceCardImpl ..|>ChanceAction
-FieldAction <|. FieldImpl
-View <|..GuiView
-BasicUserIO <|.left. GuiView
-UserIO <|..BasicUserIO
-GameController -left->View
+FieldAction <|.. FieldImpl
+View <|.right. GuiView
+BasicUserIO <|.down. GuiView
+UserIO <|.right. BasicUserIO
+GameController -[norank]-> View
+GameController -> UserIO
 FieldAction <..Field
 FieldPair <-up-Field
-Deck -left-> ChanceCard
-GameController -->UserIO
-ChanceAction <.right.ChanceCard
+Deck  -right-> ChanceCard
+ChanceAction <.left.ChanceCard
 
 @enduml
