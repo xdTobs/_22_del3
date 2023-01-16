@@ -143,18 +143,15 @@ public class GameController {
         checkForAndRemoveBankruptPlayers();
 
 
-        // TODO Should you get extra turn if you land on goToJail?
-        // TODO If you have getOutOfJailCard and roll equal dice
-        // TODO should you get to continue playing?
-        // Checks if player gets an extra turn
-        // You don't immediately get an extra turn if you got equal dice before entering jail.
-        // If you enter jail, everything else stops, and you cannot continue until next turn.
-        // According to the rules you get an extra turn if you get equal dice when in jail,
-        // and you move the spaces the eyes show.
+
+
 
     }
 
 
+    /**
+     * Checks if player is jailed or not, and then pays the turn accordingly
+     */
     public void playTurn() {
         // If a player was jailed last turn he needs to pay a fine to get out or use a get out of jail free card.
         Player currentPlayer = gameBoard.getCurrentPlayer();
