@@ -109,22 +109,22 @@ package view{
 }
 
 
-GameController --> GameBoard
+GameController -> GameBoard
 
 
 GameBoard --> ChanceCardImpl
 GameBoard --> FieldImpl
 
-GameBoard -up-> Player
+GameBoard --> Player
 GameBoard -right-> DiceCup
 GameBoard --> Deck
 GuiView --> LanguageController
-LanguageController ..> Message
+LanguageController .left.> Message
 ChanceCardImpl ..|>ChanceAction
 FieldAction <|.. FieldImpl
 'View <|..GuiView
 BasicUserIO <|..GuiView
-UserIO <|..BasicUserIO
+UserIO <|.left.BasicUserIO
 GameController -left->View
 FieldAction <..Field
 FieldPair <--Field

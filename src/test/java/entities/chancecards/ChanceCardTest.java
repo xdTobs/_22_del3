@@ -151,9 +151,9 @@ public class ChanceCardTest {
         gameController.playTurn();
 
         assertTrue(gameBoard.getCurrentPlayer().isJailed());
-        gameController.playTurn(gameBoard.getCurrentPlayer());
+        gameController.playTurn();
         assertEquals(30000, gameBoard.getCurrentPlayer().getBalance());
-        assertTrue(!gameBoard.getCurrentPlayer().hasGetOutOfJailCard());
+        assertFalse(gameBoard.getCurrentPlayer().hasGetOutOfJailCard());
         assertFalse(gameBoard.getCurrentPlayer().isJailed());
         assertEquals(11,gameBoard.getCurrentPlayer().getPosition());
     }
