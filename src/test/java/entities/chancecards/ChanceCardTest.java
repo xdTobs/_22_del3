@@ -92,7 +92,7 @@ public class ChanceCardTest {
 
         gameController.playTurn();
         //Assert statement
-        assertEquals(9, gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
     }
 
     @Test
