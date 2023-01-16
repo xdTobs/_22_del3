@@ -333,7 +333,7 @@ public class GameBoard {
         ownedFields.clear();
     }
 
-    void jailPlayer() {
+    public void jailPlayer() {
         Player currentPlayer = getCurrentPlayer();
         Field[] fields = getFields();
 

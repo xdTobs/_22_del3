@@ -39,6 +39,7 @@ public class GameController {
     public void playGame() {
         // Moves all player to the start position.
         resetPlayerPositions();
+        int countNumberOfEqualDieRolls = 0;
         while (true) {
             if (gameBoard.isGameover()) {
                 boolean wantToQuit = userIO.promptYesOrNo(Message.gameOver(gameBoard.findWinner(), gameBoard.findLosers()));
@@ -49,16 +50,22 @@ public class GameController {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 if (currentPlayer.hasNotLost()) {
                     playTurn();
+
                     if (gameBoard.getDiceCup().equalDiceValue() && !currentPlayer.isJailed()) {
+                        countNumberOfEqualDieRolls++;
                         userIO.showMessage(Message.extraTurn(gameBoard.getCurrentPlayer().getName()));
+                        if (countNumberOfEqualDieRolls==3){
+                            gameBoard.jailPlayer();
+                            userIO.showMessage((Message.ThreeSameDieGoToJail(gameBoard.getCurrentPlayer().getName())));
+                        }
                     } else {
+                        countNumberOfEqualDieRolls = 0;
                         gameBoard.nextPlayer();
                         while (gameBoard.getCurrentPlayer().isBankrupt()) {
                             gameBoard.nextPlayer();
                         }
                     }
                 }
-
             }
         }
     }
