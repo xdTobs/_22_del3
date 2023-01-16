@@ -22,3 +22,4 @@ GO_TO_JAIL_FIELD:Unlucky roll! Go to jail!
 GO_TO_JAIL_CARD:Bad luck! This chance card puts you in jail!
 REMAINING_PLAYERS:Another player has lost. Remaining players are: *.
 WHAT_IS_YOUR_NAME:What is your name, *?
+CANNOT_AFFORD_PROPERTIES:Unfortunately, you don't have enough money to buy this property.

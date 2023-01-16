@@ -24,3 +24,4 @@ GOTOJAILFIELD:Uheldigt kast! Du skal i fængsel!
 GOTOJAILCARD:Dårligt held! Dette kort sender dig i fængsel!
 REMAININGPLAYERS:En anden spiller har tabt. Tilbageværende spillere er: *
 WHATISYOURNAME:Hvad er dit navn, *?
+CANNOTAFFORDPROPERTIES:Du har desværre ikke penge nok til at købe her.
