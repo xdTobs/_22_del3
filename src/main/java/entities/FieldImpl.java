@@ -28,7 +28,12 @@ public class FieldImpl implements FieldAction {
     private boolean wantToBuyPrompt(RentableField field) {
         String playerName = gameBoard.getCurrentPlayer().getName();
         String fieldName = field.getName();
-        return userIO.promptBuyField(playerName, fieldName);
+        if(gameBoard.getCurrentPlayer().getBalance()-field.getPrice()>0)
+            return userIO.promptBuyField(playerName, fieldName);
+        else{
+            userIO.showMessage(Message.youCannotAfford(gameBoard.getCurrentPlayer().getName()));
+            return false;
+        }
     }
 
 
@@ -89,7 +94,7 @@ public class FieldImpl implements FieldAction {
             }
             List<Street> availableStreets = new ArrayList<>();
             for (Street ownedPairStreet : ownedPairStreets) {
-                if (ownedPairStreet.getHouses() < 5 && ownedPairStreet.getHouses() == minHouses.get(ownedPairStreet.getPair()))
+                if (ownedPairStreet.getHouses() < 5 && ownedPairStreet.getHouses() == minHouses.get(ownedPairStreet.getPair())&&gameBoard.getCurrentPlayer().getBalance()-ownedPairStreet.getHousePrice()>0)
                     availableStreets.add(ownedPairStreet);
             }
 
