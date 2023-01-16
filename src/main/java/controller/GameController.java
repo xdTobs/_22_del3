@@ -49,16 +49,18 @@ public class GameController {
                 Player currentPlayer = gameBoard.getCurrentPlayer();
                 if (currentPlayer.hasNotLost()) {
                     playTurn();
+
                     if (gameBoard.getDiceCup().equalDiceValue() && !currentPlayer.isJailed()) {
                         userIO.showMessage(Message.extraTurn(gameBoard.getCurrentPlayer().getName()));
+
                     } else {
+                        gameBoard.getCurrentPlayer().setSameDieJailCounter(0);
                         gameBoard.nextPlayer();
                         while (gameBoard.getCurrentPlayer().isBankrupt()) {
                             gameBoard.nextPlayer();
                         }
                     }
                 }
-
             }
         }
     }
@@ -113,6 +115,17 @@ public class GameController {
         userIO.showMessage(Message.rollDice(currentPlayer.getName()));
         gameBoard.getDiceCup().roll();
         view.updateDie(gameBoard.getDiceCup());
+
+        if (gameBoard.getDiceCup().equalDiceValue()){
+            gameBoard.getCurrentPlayer().incSameDieJailCounter();
+            if (gameBoard.getCurrentPlayer().getSameDieJailCounter()==3){
+                gameBoard.jailPlayer();
+                userIO.showMessage((Message.ThreeSameDieGoToJail(gameBoard.getCurrentPlayer().getName())));
+                return false;
+
+            }
+        }
+
         view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
 
         // Player is given 4000 in movePlayer if he passes start.

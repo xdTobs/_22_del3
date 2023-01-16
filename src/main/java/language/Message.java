@@ -108,6 +108,9 @@ public class Message {
     public static Message noRentInJail(String playerName, String rent, String fieldName, String houseOwner){
         return of(Type.DONT_PAY_RENT, playerName, rent, fieldName, houseOwner);
     }
+    public static Message ThreeSameDieGoToJail(String playerName){
+        return of(Type.THREE_SAME_GO_JAIL, playerName);
+    }
 
     public static Message finishBuyingHouses() {
         return of(Type.STOP_BUYING_HOUSES);
@@ -206,5 +209,7 @@ public static Message pawnSelectProperty(){
         DO_YOU_WANT_TO_SELL, BUY_BACK_HOUSE_OPTION, DONT_WANT_TO_BUY_BACK_HOUSE, BUY_BACK,
         DONT_PAY_RENT,
         YOU_CANNOT_AFFORD
+        DONT_PAY_RENT,
+        THREE_SAME_GO_JAIL,
     }
 }
