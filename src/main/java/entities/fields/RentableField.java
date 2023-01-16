@@ -8,11 +8,13 @@ public abstract class RentableField extends Field {
     int price;
     int[] rents;
     private Player owner = null;
+    boolean pawned;
 
     public RentableField(String name, int price, int[] rents) {
         super(name);
         this.price = price;
         this.rents = rents;
+        pawned = false;
     }
 
     public static int[] parseRent(String line) {
@@ -30,7 +32,7 @@ public abstract class RentableField extends Field {
     public int getPrice() {
         return price;
     }
-    //TODO skal vi lave de samme metoder for "Hotels"?
+
 
     public int getRent(int i) {
         return rents[i];
@@ -51,4 +53,11 @@ public abstract class RentableField extends Field {
         this.owner = owner;
     }
 
+    public boolean isPawned() {
+        return pawned;
+    }
+
+    public void setPawned(boolean pawned) {
+        this.pawned = pawned;
+    }
 }

@@ -143,6 +143,7 @@ public class GameController {
         }
         gameBoard.fieldAction();
         gameBoard.getFieldImpl().buyHouseProcess();
+        gameBoard.getFieldImpl().sellHousePawnProcess();
 
         checkForAndRemoveBankruptPlayers();
 
