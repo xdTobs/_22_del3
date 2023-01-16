@@ -137,9 +137,19 @@ public static Message pawnSelectProperty(){
     public static Message sellHouseOption(String streetName, String pricePer) {
         return of(Type.SELL_HOUSE_OPTION, streetName, pricePer);
     }
+    public static Message buyBackHouseOption(String streetName, String pricePer) {
+        return of(Type.BUY_BACK_HOUSE_OPTION, streetName, pricePer);
+    }
 
+    public static Message dontWantToBuyBackHouse(){
+        return of(Type.DONT_WANT_TO_BUY_BACK_HOUSE);
+    }
     public static Message selectHouse() {
         return of(Type.SELECT_HOUSE);
+    }
+
+    public static Message buyBack(String name) {
+        return of(Type.BUY_BACK,name);
     }
 
     public Type getType() {
@@ -182,6 +192,6 @@ public static Message pawnSelectProperty(){
         SELL_HOUSE_OPTION,
         PAWN_SELECT_PROPERTY,
         SELL_SELECT_HOUSE,
-        DO_YOU_WANT_TO_SELL,
+        DO_YOU_WANT_TO_SELL, BUY_BACK_HOUSE_OPTION, DONT_WANT_TO_BUY_BACK_HOUSE, BUY_BACK,
     }
 }

@@ -19,6 +19,10 @@ public class FieldImpl implements FieldAction {
         this.userIO = userIO;
     }
 
+    static long roundToHundred(double num) {
+        long i = (long) Math.ceil(num);
+        return ((i + 99) / 100) * 100;
+    }
 
     // TODO Vi har sagt til Anton at vi nok vil nå at implementere salg af hus og hotel, og pantsæntning af grunde.
     private void sellHousePawnFieldProcess() {
@@ -30,7 +34,6 @@ public class FieldImpl implements FieldAction {
         String fieldName = field.getName();
         return userIO.promptBuyField(playerName, fieldName);
     }
-
 
     @Override
     public Field streetAction(Street street) {
@@ -59,7 +62,6 @@ public class FieldImpl implements FieldAction {
         }
         return boughtField;
     }
-
 
     public void buyHouseProcess() {
         boolean ableToBuyHouse = false;
@@ -113,6 +115,7 @@ public class FieldImpl implements FieldAction {
         String playerName = gameBoard.getCurrentPlayer().getName();
         return userIO.promptYesOrNo(Message.buyHouse(playerName));
     }
+
     public void sellHousePawnProcess() {
         List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
         List<Street> streetsWithHouses = new ArrayList<>();
@@ -122,14 +125,14 @@ public class FieldImpl implements FieldAction {
             else ownedFieldsWithoutHouses.add(ownedField);
         }
 
-        while((streetsWithHouses.size()>0||ownedFieldsWithoutHouses.size()>0)&&userIO.promptYesOrNo(Message.doYouWantToSell())) {
+        while ((streetsWithHouses.size() > 0 || ownedFieldsWithoutHouses.size() > 0) && userIO.promptYesOrNo(Message.doYouWantToSell())) {
 
-           ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
+            ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
             streetsWithHouses = new ArrayList<>();
             ownedFieldsWithoutHouses = new ArrayList<>();
             for (RentableField ownedField : ownedFields) {
                 if (ownedField instanceof Street street && street.getHouses() > 0) streetsWithHouses.add(street);
-                else if(!ownedField.isPawned()) ownedFieldsWithoutHouses.add(ownedField);
+                else if (!ownedField.isPawned()) ownedFieldsWithoutHouses.add(ownedField);
             }
 
             Message[] choices;
@@ -138,7 +141,7 @@ public class FieldImpl implements FieldAction {
                 choices = new Message[3];
                 choices[1] = Message.sellHouse();
                 choices[2] = Message.pawnProperty();
-                sellHouse =1;
+                sellHouse = 1;
             } else if (streetsWithHouses.size() > 0) {
                 choices = new Message[2];
                 choices[1] = Message.sellHouse();
@@ -149,75 +152,26 @@ public class FieldImpl implements FieldAction {
                 sellHouse = 2;
             }
             choices[0] = Message.dontWantToSell();
-            int choice = userIO.promptChoice(Message.doYouWantToSell(),choices);
+            int choice = userIO.promptChoice(Message.doYouWantToSell(), choices);
 
-            if(choice==0)
-                return;
-            if(choice==2||sellHouse==2&&ownedFieldsWithoutHouses.size()>0)
+            if (choice == 0) return;
+            if (choice == 2 || sellHouse == 2 && ownedFieldsWithoutHouses.size() > 0)
                 pawnPropertyProcess(ownedFieldsWithoutHouses);
-            else if(choice==1&&sellHouse==1){
+            else if (choice == 1 && sellHouse == 1) {
                 sellPropertyProcess(streetsWithHouses);
             }
         }
 
-    }
-
-    public void sellHousePawnProcess(int rev) {
-        List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
-        List<Street> streetsWithHouses = new ArrayList<>();
-        List<RentableField> ownedFieldsWithoutHouses = new ArrayList<>();
-        for (RentableField ownedField : ownedFields) {
-            if (ownedField instanceof Street street && street.getHouses() > 0) streetsWithHouses.add(street);
-            else ownedFieldsWithoutHouses.add(ownedField);
-        }
-
-        Message[] choices;
-        if (streetsWithHouses.size() > 0 && ownedFieldsWithoutHouses.size() > 0) {
-            choices = new Message[3];
-            choices[1] = Message.sellHouse();
-            choices[2] = Message.pawnProperty();
-        } else if (streetsWithHouses.size() > 0) {
-            choices = new Message[2];
-            choices[1] = Message.sellHouse();
-        } else {
-            choices = new Message[2];
-            choices[1] = Message.pawnProperty();
-        }
-        choices[0] = Message.dontWantToSell();
-        while ((streetsWithHouses.size() > 0 || ownedFieldsWithoutHouses.size() > 0)) {
-            int choice = wantToSell(choices);
-            if(choice==0)
-                return;
-
-           streetsWithHouses = new ArrayList<>();
-           ownedFieldsWithoutHouses = new ArrayList<>();
-            for (RentableField ownedField : ownedFields) {
-                if (ownedField instanceof Street street && street.getHouses() > 0) streetsWithHouses.add(street);
-                else if (!ownedField.isPawned()) ownedFieldsWithoutHouses.add(ownedField);
-            }
-
-
-            if (choices.length == 3 || ownedFieldsWithoutHouses.size() > 0) {
-
-                pawnPropertyProcess(ownedFieldsWithoutHouses);
-            } else {
-                if(streetsWithHouses.size()==0)
-                    return;
-                sellPropertyProcess(streetsWithHouses);
-
-            }
-        }
     }
 
     private void sellPropertyProcess(List<Street> streetsWithHouses) {
-        List<Street>streetsWithMaxHouses = new ArrayList<>();
-        HashMap<FieldPair,Integer>maxHouses = new HashMap<>();
+        List<Street> streetsWithMaxHouses = new ArrayList<>();
+        HashMap<FieldPair, Integer> maxHouses = new HashMap<>();
         for (Street street : streetsWithHouses) {
             maxHouses.put(street.getPair(), Math.max(street.getHouses(), maxHouses.getOrDefault(street.getPair(), street.getHouses())));
         }
-        for (Street s : streetsWithHouses){
-            if(s.getHouses() == maxHouses.get(s.getPair()))
-                streetsWithMaxHouses.add(s);
+        for (Street s : streetsWithHouses) {
+            if (s.getHouses() == maxHouses.get(s.getPair())) streetsWithMaxHouses.add(s);
         }
         Message[] choices = new Message[streetsWithMaxHouses.size() + 1];
         for (int i = 0; i < streetsWithMaxHouses.size(); i++) {
@@ -252,6 +206,56 @@ public class FieldImpl implements FieldAction {
 
         String playerName = gameBoard.getCurrentPlayer().getName();
         return userIO.promptChoice(Message.sell(playerName), choices);
+    }
+
+    public void buyPawnedFields() {
+        List<RentableField> ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
+        List<RentableField> pawnedFields = new ArrayList<>();
+
+        for (RentableField ownedField : ownedFields) {
+            int price = ownedField.getPrice();
+            int half = price / 2;
+            double repay = Math.ceil(half + half * 0.1);
+            long round = roundToHundred(repay);
+
+            if (ownedField.isPawned() && gameBoard.getCurrentPlayer().getBalance() - round > 0)
+                pawnedFields.add(ownedField);
+        }
+        if (pawnedFields.size() == 0) return;
+        while (pawnedFields.size() > 0 && wantToBuyBack()) {
+            pawnedFields = new ArrayList<>();
+            for (RentableField ownedField : ownedFields) {
+                int price = ownedField.getPrice();
+                int half = price / 2;
+                double repay = Math.ceil(half + half * 0.1);
+                long round = roundToHundred(repay);
+
+                if (ownedField.isPawned() && gameBoard.getCurrentPlayer().getBalance() - round > 0)
+                    pawnedFields.add(ownedField);
+            }
+            if (pawnedFields.size() == 0) return;
+
+
+            Message[] choices = new Message[pawnedFields.size() + 1];
+            long[] round = new long[pawnedFields.size()];
+            for (int i = 0; i < pawnedFields.size(); i++) {
+                int price = pawnedFields.get(i).getPrice();
+                int half = price / 2;
+                double repay = Math.ceil(half + half * 0.1);
+                round[i] = roundToHundred(repay);
+                choices[i + 1] = Message.buyBackHouseOption(pawnedFields.get(i).getName(), round[i] + "");
+            }
+
+            choices[0] = Message.dontWantToBuyBackHouse();
+            int choice = userIO.promptChoice(Message.sellSelectHouse(), choices);
+            if (choice == 0) return;
+            pawnedFields.get(choice - 1).setPawned(false);
+            gameBoard.getCurrentPlayer().addBalance(Math.toIntExact(-round[choice - 1]));
+        }
+    }
+
+    private boolean wantToBuyBack() {
+        return userIO.promptYesOrNo(Message.buyBack(gameBoard.getCurrentPlayer().getName()));
     }
 
     public RentableField buyEmptyStreet(RentableField street) {
