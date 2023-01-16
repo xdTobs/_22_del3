@@ -139,8 +139,14 @@ public class FieldImpl implements FieldAction {
         if (street.getHouses() == 0 && streetPlayerOwnsPair(street)) {
             rent *= 2;
         }
-        houseOwner.addBalance(rent);
-        gameBoard.getCurrentPlayer().addBalance(-rent);
+        if (!houseOwner.isJailed()){
+
+            houseOwner.addBalance(rent);
+            gameBoard.getCurrentPlayer().addBalance(-rent);
+        }else{
+            userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf(street.getRent(street.getHouses())), street.getName(), street.getOwner().getName()));
+        }
+
     }
 
     @Override
@@ -207,15 +213,20 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-        if (houseOwner != null) {
-            int ferrysOwned = ferryPlayerOwns(ferry);
-            int rent = ferry.getRent(ferrysOwned);
-            houseOwner.addBalance(rent);
-            gameBoard.getCurrentPlayer().addBalance(-rent);
-            if (houseOwner != gameBoard.getCurrentPlayer()){
-                userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), ferry.getName(), String.valueOf(rent)));
+        if (!houseOwner.isJailed()){
+            if (houseOwner != null) {
+                int ferrysOwned = ferryPlayerOwns(ferry);
+                int rent = ferry.getRent(ferrysOwned);
+                houseOwner.addBalance(rent);
+                gameBoard.getCurrentPlayer().addBalance(-rent);
+                if (houseOwner != gameBoard.getCurrentPlayer()){
+                    userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), ferry.getName(), String.valueOf(rent)));
+                }
             }
+        }else {
+            userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf(ferry.getRent(ferryPlayerOwns(ferry))), ferry.getName(), ferry.getOwner().getName()));
         }
+
 
     }
 
@@ -269,10 +280,15 @@ public class FieldImpl implements FieldAction {
 
         int breweriesOwned = findHowManyInGroupPlayerOwns(brewery);
         int rent = brewery.getRent(breweriesOwned) * diceSum;
-        if (houseOwner != null) {
-            houseOwner.addBalance(rent);
-            gameBoard.getCurrentPlayer().addBalance(-rent);
+        if (!houseOwner.isJailed()){
+            if (houseOwner != null) {
+                houseOwner.addBalance(rent);
+                gameBoard.getCurrentPlayer().addBalance(-rent);
+            }
+        }else {
+            userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf(brewery.getRent(findHowManyInGroupPlayerOwns(brewery))), brewery.getName(), brewery.getOwner().getName()));
         }
+
     }
 
 
