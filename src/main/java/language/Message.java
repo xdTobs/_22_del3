@@ -23,6 +23,20 @@ public class Message {
     public static Message buyHouse(String playerName) {
         return of(Type.WANT_TO_BUY_HOUSE, playerName);
     }
+    public static Message sell(String playerName) {
+        return of(Type.WANT_TO_SELL, playerName);
+    }
+    public static Message sellHouse() {
+        return of(Type.SELL_HOUSE);
+    }
+    public static Message pawnProperty() {
+        return of(Type.PAWN_PROPERTY);
+    }
+    public static Message dontWantToSell() {
+        return of(Type.DONT_WANT_TO_SELL);
+    }
+
+
 
     public static Message bailOut(String playerName) {
         return of(Type.WANT_TO_BAIL_OUT, playerName);
@@ -98,6 +112,12 @@ public class Message {
     public static Message finishBuyingHouses() {
         return of(Type.STOP_BUYING_HOUSES);
     }
+public static Message pawnSelectProperty(){
+    return of(Type.PAWN_SELECT_PROPERTY);
+}
+    public static Message sellSelectHouse(){
+        return of(Type.SELL_SELECT_HOUSE);
+    }
 
 
     public static Message parking() {
@@ -120,8 +140,26 @@ public class Message {
         return of(Type.HOUSE_OPTION, streetName, pricePer);
     }
 
+    public static Message doYouWantToSell(){
+        return of(Type.DO_YOU_WANT_TO_SELL);
+    }
+
+    public static Message sellHouseOption(String streetName, String pricePer) {
+        return of(Type.SELL_HOUSE_OPTION, streetName, pricePer);
+    }
+    public static Message buyBackHouseOption(String streetName, String pricePer) {
+        return of(Type.BUY_BACK_HOUSE_OPTION, streetName, pricePer);
+    }
+
+    public static Message dontWantToBuyBackHouse(){
+        return of(Type.DONT_WANT_TO_BUY_BACK_HOUSE);
+    }
     public static Message selectHouse() {
         return of(Type.SELECT_HOUSE);
+    }
+
+    public static Message buyBack(String name) {
+        return of(Type.BUY_BACK,name);
     }
 
     public Type getType() {
@@ -156,8 +194,16 @@ public class Message {
         WANT_TO_BAIL_OUT,
         WANT_TO_BUY_FIELD,
         WANT_TO_BUY_HOUSE,
+        WANT_TO_SELL,
         WHAT_IS_YOUR_NAME,
         YES,
+        PAWN_PROPERTY,
+        SELL_HOUSE,
+        DONT_WANT_TO_SELL,
+        SELL_HOUSE_OPTION,
+        PAWN_SELECT_PROPERTY,
+        SELL_SELECT_HOUSE,
+        DO_YOU_WANT_TO_SELL, BUY_BACK_HOUSE_OPTION, DONT_WANT_TO_BUY_BACK_HOUSE, BUY_BACK,
         DONT_PAY_RENT,
         YOU_CANNOT_AFFORD
     }
