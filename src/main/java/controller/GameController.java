@@ -39,7 +39,6 @@ public class GameController {
     public void playGame() {
         // Moves all player to the start position.
         resetPlayerPositions();
-        int countNumberOfEqualDieRolls = 0;
         while (true) {
             if (gameBoard.isGameover()) {
                 boolean wantToQuit = userIO.promptYesOrNo(Message.gameOver(gameBoard.findWinner(), gameBoard.findLosers()));
@@ -52,14 +51,10 @@ public class GameController {
                     playTurn();
 
                     if (gameBoard.getDiceCup().equalDiceValue() && !currentPlayer.isJailed()) {
-                        countNumberOfEqualDieRolls++;
                         userIO.showMessage(Message.extraTurn(gameBoard.getCurrentPlayer().getName()));
-                        if (countNumberOfEqualDieRolls==3){
-                            gameBoard.jailPlayer();
-                            userIO.showMessage((Message.ThreeSameDieGoToJail(gameBoard.getCurrentPlayer().getName())));
-                        }
+
                     } else {
-                        countNumberOfEqualDieRolls = 0;
+                        gameBoard.getCurrentPlayer().setSameDieJailCounter(0);
                         gameBoard.nextPlayer();
                         while (gameBoard.getCurrentPlayer().isBankrupt()) {
                             gameBoard.nextPlayer();
@@ -117,6 +112,17 @@ public class GameController {
         userIO.showMessage(Message.rollDice(currentPlayer.getName()));
         gameBoard.getDiceCup().roll();
         view.updateDie(gameBoard.getDiceCup());
+
+        if (gameBoard.getDiceCup().equalDiceValue()){
+            gameBoard.getCurrentPlayer().incSameDieJailCounter();
+            if (gameBoard.getCurrentPlayer().getSameDieJailCounter()==3){
+                gameBoard.jailPlayer();
+                userIO.showMessage((Message.ThreeSameDieGoToJail(gameBoard.getCurrentPlayer().getName())));
+                return false;
+
+            }
+        }
+
         view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
 
         // Player is given 4000 in movePlayer if he passes start.
