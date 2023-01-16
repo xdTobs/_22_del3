@@ -64,6 +64,9 @@ public class Message {
     public static Message chanceCard(String playerName, String description) {
         return of(Type.CHANCE_CARD, playerName, description);
     }
+    public static Message youCannotAfford(String playerName){
+        return of(Type.YOU_CANNOT_AFFORD,playerName);
+    }
 
     public static Message leaveJail(String playerName) {
         return of(Type.LEAVE_JAIL, playerName);
@@ -150,6 +153,7 @@ public class Message {
         WANT_TO_BUY_HOUSE,
         WHAT_IS_YOUR_NAME,
         YES,
-        DONT_PAY_RENT
+        DONT_PAY_RENT,
+        YOU_CANNOT_AFFORD
     }
 }
