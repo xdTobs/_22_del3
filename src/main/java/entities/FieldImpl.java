@@ -43,20 +43,19 @@ public class FieldImpl implements FieldAction {
             }else {
                 return boughtField;
             }
-        }else {
+        } else if (!(street.getOwner().getName()==gameBoard.getCurrentPlayer().getName())) {
             streetPayRentToOwner(street);
-
+            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
+        }
             // TODO PRIORITET 1 DOBBELT LEJE ALLE GRUNDE
             // Vi har ikke gjort så man får dobbelt leje hvis man ejer alle grunde i en FieldPair.
             // Denne føles ret basic, og burde vi implementere.
-            // TODO PRIORITET 2 INGEN LEJE I FÆNGSEL
             // Reglerne er:
             //  Er man i fængsel, har man stadig ret til at købe grunde (ved
             //  auktion eller handel spillerne imellem), men man kan ikke opkræve leje af de
             //  andre spillere.
             // Begge to burde vi nå. Det skal også skrives test till dem.
-            userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
-        }
+
         return boughtField;
     }
 
