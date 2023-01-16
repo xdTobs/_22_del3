@@ -105,11 +105,15 @@ public class GameController {
         Player currentPlayer = gameBoard.getCurrentPlayer();
         userIO.showMessage(Message.rollDice(currentPlayer.getName()));
         gameBoard.getDiceCup().roll();
+        view.updateDie(gameBoard.getDiceCup());
         view.movePlayerVisually(currentPlayer, gameBoard.getDiceCup());
 
         // Player is given 4000 in movePlayer if he passes start.
         boolean hasPassedStart = gameBoard.movePlayer();
-        view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
+        view.updatePlayerBalances(gameBoard.getPlayers());
+        view.updatePlayerLocations(gameBoard.getPlayers());
+        view.updateHousesAndFields(gameBoard.getFields());
+        //view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
         return hasPassedStart;
     }
 
@@ -118,7 +122,10 @@ public class GameController {
         if (playerHasBeenRemoved && !gameBoard.isGameover()) {
             userIO.showMessage(Message.remainingPlayers(gameBoard.getRemainingPlayerNames()));
         }
-        view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
+        view.updatePlayerBalances(gameBoard.getPlayers());
+        view.updatePlayerLocations(gameBoard.getPlayers());
+        view.updateHousesAndFields(gameBoard.getFields());
+        //view.update(gameBoard.getPlayers(), gameBoard.getFields(), gameBoard.getDiceCup());
     }
 
     private void playNotInJailTurn() {

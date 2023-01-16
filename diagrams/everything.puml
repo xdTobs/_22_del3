@@ -1,0 +1,476 @@
+@startuml
+abstract class entities.dicecup.DiceCup {
+# Die[] dice
++ {abstract}void roll()
++ {abstract}int[] getDiceValues()
++ boolean equalDiceValue()
++ {abstract}int getSum()
+}
+abstract class entities.dicecup.Die {
+~ int faceValue
++ <<Create>> Die()
+~ {abstract}void roll()
+~ int getFaceValue()
++ boolean equals(Object)
+}
+class language.LanguageController {
+- EnumMap<Message.Type,String> languageMap
++ <<Create>> LanguageController()
++ <<Create>> LanguageController(String)
++ String getMessage(Message)
+}
+class entities.fields.GoToJail {
++ <<Create>> GoToJail(String)
++ Field executeFieldAction(FieldAction)
+}
+class entities.GameBoard {
+- DiceCup randomDiceCup
+- HashMap<Player,List<RentableField>> ownershipMap
+- Field[] fields
+- Deck deck
+- Player[] players
+- int playerTurn
+- ChanceCardImpl chanceCardImpl
+- FieldImpl fieldImpl
+- List<Player> orderOfLosing
++ <<Create>> GameBoard(Field[],UserIO,Player[])
++ <<Create>> GameBoard(DiceCup,Field[],UserIO,Player[])
++ <<Create>> GameBoard(DiceCup,Field[],Deck,UserIO,Player[])
++ {static} GameBoard setup(Field[],UserIO,int)
+- {static} Stream<String> getLineStream()
++ {static} Field[] getDefaultFields()
+- {static} Field[] initFieldPairs(Field[])
++ void setDeck(Deck)
++ void setRandomDiceCup(DiceCup)
++ ChanceCardImpl getChanceCardImpl()
++ HashMap<Player,List<RentableField>> getOwnershipMap()
++ FieldImpl getFieldImpl()
++ Field getField(int)
++ void fieldAction()
++ int totalPlayerValue(Player)
++ Field[] getFields()
++ void resetPlayerPositions()
++ int[] getProperties(Player)
++ Player getCurrentPlayer()
++ DiceCup getDiceCup()
++ boolean currentPlayerIsOnChanceField()
+- Field getFieldOfCurrentPlayer()
++ boolean movePlayer()
++ boolean movePlayer(int)
++ boolean setNewPosition(int)
++ Player[] getPlayers()
++ void nextPlayer()
++ boolean isGameover()
++ String findWinner()
++ String findLosers()
++ Deck getDeck()
++ boolean removeBankruptPlayers()
++ void sellAllFields(Player)
+~ void jailPlayer()
++ String getRemainingPlayerNames()
+}
+class entities.chancecards.MoveToBreweryChanceCard {
++ <<Create>> MoveToBreweryChanceCard(String)
++ void executeCardAction(ChanceAction)
+}
+class entities.chancecards.MoveToFerryChanceCard {
++ <<Create>> MoveToFerryChanceCard(String)
++ void executeCardAction(ChanceAction)
+}
+class entities.fields.Street {
+~ Color color
+~ int housePrice
+~ int houses
++ <<Create>> Street(String,int,int,int[])
++ int getRent(int)
++ int getHousePrice()
++ int getHouses()
++ void setHouses(int)
++ void setOwner(Player)
++ Field executeFieldAction(FieldAction)
+}
+class entities.fields.Jail {
++ <<Create>> Jail(String)
++ Field executeFieldAction(FieldAction)
+}
+class language.Message {
+- String[] args
+- Type type
++ <<Create>> Message(Type,String[])
++ {static} Message of(Type,String)
++ {static} Message buyField(String,String)
++ {static} Message buyHouse(String)
++ {static} Message bailOut(String)
++ {static} Message taxPrompt(String,String)
++ {static} Message numberOfPlayers()
++ {static} Message yes()
++ {static} Message no()
++ {static} Message giftToPoorPlayerCard(String,int)
++ {static} Message noGiftToRichPlayerCard(String,int)
++ {static} Message rollDice(String)
++ {static} Message gameOver(String,String)
++ {static} Message chanceCard(String,String)
++ {static} Message leaveJail(String)
++ {static} Message enterPlayerName(String)
++ {static} Message passedStart(String)
++ {static} Message remainingPlayers(String)
++ {static} Message payRent(String,String,String)
++ {static} Message finishBuyingHouses()
++ {static} Message parking()
++ {static} Message extraTurn(String)
++ {static} Message goToJailField()
++ {static} Message goToJailCard()
++ {static} Message houseOption(String,String)
++ {static} Message selectHouse()
++ Type getType()
++ String[] getArgs()
+}
+enum language.Type {
++  CHANCE_CARD
++  EXTRA_TURN
++  GAME_OVER_MESSAGE
++  GO_TO_JAIL_CARD
++  GO_TO_JAIL_FIELD
++  HOUSE_OPTION
++  LEAVE_JAIL
++  MONEY_GIFT_CARD_SUCCESSFUL
++  MONEY_GIFT_CARD_UNSUCCESSFUL
++  NO
++  PARKING
++  PASSED_START
++  PAY_RENT
++  PLAYER_COUNT
++  REMAINING_PLAYERS
++  ROLL_DICE
++  SELECT_HOUSE
++  STOP_BUYING_HOUSES
++  TAX_PROMPT
++  WANT_TO_BAIL_OUT
++  WANT_TO_BUY_FIELD
++  WANT_TO_BUY_HOUSE
++  WHAT_IS_YOUR_NAME
++  YES
+}
+class entities.fields.Tax {
+- int percentPrice
+- int fixedPrice
++ <<Create>> Tax(String,int,int)
++ int getFixedPrice()
++ int getPercentPrice()
++ Field executeFieldAction(FieldAction)
+}
+abstract class entities.chancecards.ChanceCard {
+~ String desc
++ {abstract}void executeCardAction(ChanceAction)
+}
+class entities.ChanceCardImpl {
+- GameBoard gameBoard
+- UserIO userIO
++ <<Create>> ChanceCardImpl(GameBoard,UserIO)
++ void getOutOfJail()
++ void changeBal(int)
++ void changeBalConditional(int,int)
++ void changeBalFromPlayers(int)
++ void moveToField(int)
++ void moveSpaces(int)
++ void moveToFerry()
++ void payPerProperty(int,int)
++ void goToJail()
++ void moveToBrewery()
++ void printDescription(String)
+}
+class view.GuiView {
+- GUI gui
+- GUI_Player[] guiPlayers
+- LanguageController languageController
++ <<Create>> GuiView(GUI,LanguageController)
++ int promptChoice(Message,Message)
+- int promptChoice(Message,String[])
++ int promptRange(Message,int,int)
++ String promptString(Message)
++ void showMessage(Message)
++ {static} GuiView setup(Field[],LanguageController)
+- {static} GUI_Field createGuiField(GUI_Field,Field,String)
+- {static} GUI_Field createGuiField(GUI_Field,Field)
++ void addPlayersToGui(Player[])
++ void updateDie(DiceCup)
++ void updatePlayerBalances(Player[])
++ void movePlayerVisually(Player,DiceCup)
+- GUI_Player findGuiPlayerFromPlayer(Player)
+- void setGuiPosition(GUI_Player,int)
++ void updatePlayerLocations(Player[])
++ void update(Player[],Field[],DiceCup)
++ void updateHousesAndFields(Field[])
+}
+class entities.dicecup.RandomDiceCup {
++ <<Create>> RandomDiceCup()
++ <<Create>> RandomDiceCup(Die[])
++ int getSum()
++ int[] getDiceValues()
++ void roll()
+}
+class entities.chancecards.MoveToFieldChanceCard {
+~ int fieldIndex
++ <<Create>> MoveToFieldChanceCard(int,String)
++ void executeCardAction(ChanceAction)
+}
+class entities.Player {
+- String name
+- int balance
+- int position
+- boolean jailed
+- int getOutOfJailCards
+- int jailTimeCounter
+- boolean hasLost
++ <<Create>> Player(String)
++ <<Create>> Player(String,int)
++ {static} Player[] setupPlayers(String[])
++ boolean isJailed()
++ void setJailed(boolean)
++ int getBalance()
++ void setBalance(int)
++ void addBalance(int)
++ int getPosition()
++ void setPosition(int)
++ boolean hasGetOutOfJailCard()
++ void setGetOutOfJailCards(int)
++ void addGetOutOfJailCard()
++ void decrementGetOutOfJailCards()
++ void incJailTimeCounter()
++ int getJailTimeCounter()
++ void setJailTimeCounter(int)
++ String getName()
++ boolean isBankruptThisTurn()
++ boolean isBankrupt()
++ boolean hasNotLost()
++ void setHasLost(boolean)
+}
+class controller.UserIO {
+~ BasicUserIO basicUserIO
++ <<Create>> UserIO(BasicUserIO)
++ int promptChoice(Message,Message)
++ boolean promptYesOrNo(Message)
++ boolean promptBuyField(String,String)
++ int promptRange(Message,int,int)
++ String[] promptPlayerNames(int)
++ String promptString(Message)
++ void showMessage(Message)
+}
+class entities.fields.ChanceField {
++ <<Create>> ChanceField(String)
++ Field executeFieldAction(FieldAction)
+}
+class entities.fields.Ferry {
++ <<Create>> Ferry(String,int,int[])
++ Field executeFieldAction(FieldAction)
+}
+class entities.fields.Start {
++ <<Create>> Start(String)
++ Field executeFieldAction(FieldAction)
+}
+class entities.chancecards.PayPerPropertyChanceCard {
+~ int perHouse
+~ int perHotel
++ <<Create>> PayPerPropertyChanceCard(int,int,String)
++ void executeCardAction(ChanceAction)
+}
+class entities.chancecards.GoToJailChanceCard {
++ <<Create>> GoToJailChanceCard(String)
++ void executeCardAction(ChanceAction)
+}
+class entities.chancecards.GetOutOfJailChanceCard {
++ <<Create>> GetOutOfJailChanceCard(String)
++ void executeCardAction(ChanceAction)
+}
+class entities.chancecards.ChangeBalConditionalChanceCard {
+~ int amount
+~ int condition
++ <<Create>> ChangeBalConditionalChanceCard(int,int,String)
++ void executeCardAction(ChanceAction)
+}
+interface controller.BasicUserIO {
+~ int promptChoice(Message,Message)
+~ int promptRange(Message,int,int)
+~ String promptString(Message)
+~ void showMessage(Message)
+}
+class entities.chancecards.ChangeBalFromPlayersChanceCard {
+~ int amount
++ <<Create>> ChangeBalFromPlayersChanceCard(int,String)
++ void executeCardAction(ChanceAction)
+}
+class entities.FieldImpl {
+~ GameBoard gameBoard
+~ UserIO userIO
++ <<Create>> FieldImpl(GameBoard,UserIO)
+- void sellHousePawnFieldProcess()
+- boolean wantToBuyPrompt(RentableField)
++ Field streetAction(Street)
++ void buyHouseProcess()
+- void buyHouse(Street)
+- boolean wantToBuyHouse()
++ RentableField buyEmptyStreet(RentableField)
++ void streetPayRentToOwner(Street)
++ boolean streetPlayerOwnsPair(Street)
++ void taxAction(Tax)
+- boolean wantToPayPercentPrice(Tax)
++ void goToJailAction(GoToJail)
++ void jailAction(Jail)
++ Field ferryAction(Ferry)
+- void ferryPayRent(Ferry)
+- int ferryPlayerOwns(Ferry)
++ void chanceFieldAction(ChanceField)
++ Field breweryAction(Brewery)
++ void parkingAction()
+- void breweryPayRent(Brewery)
+- int findHowManyInGroupPlayerOwns(RentableField)
+}
+class entities.dicecup.DieSixSided {
+- int max
++ <<Create>> DieSixSided()
++ <<Create>> DieSixSided(int)
++ void roll()
++ int getFaceValue()
+}
+class Main {
++ {static} void main(String[])
+}
+interface controller.View {
+~ void addPlayersToGui(Player[])
+~ void updateDie(DiceCup)
+~ void updatePlayerBalances(Player[])
+~ void updatePlayerLocations(Player[])
+~ void movePlayerVisually(Player,DiceCup)
+~ void update(Player[],Field[],DiceCup)
+~ void updateHousesAndFields(Field[])
+}
+class entities.fields.FieldPair {
+- Color backgroundColor
+- Color foregroundColor
+- int[] fieldIds
++ <<Create>> FieldPair(Color,int[])
++ <<Create>> FieldPair(Color,Color,int[])
++ int[] getFieldIds()
++ Color getBackgroundColor()
++ Color getForegroundColor()
+}
+class entities.fields.Parking {
++ <<Create>> Parking(String)
++ Field executeFieldAction(FieldAction)
+}
+abstract class entities.fields.RentableField {
+~ int price
+~ int[] rents
+- Player owner
++ <<Create>> RentableField(String,int,int[])
++ {static} int[] parseRent(String)
++ int getPrice()
++ int getRent(int)
++ Player getOwner()
++ boolean isNotOwned()
++ boolean isOwned()
++ void setOwner(Player)
+}
+class entities.chancecards.MoveSpacesChanceCard {
+~ int spaces
++ <<Create>> MoveSpacesChanceCard(int,String)
++ void executeCardAction(ChanceAction)
+}
+class entities.chancecards.ChangeBalChanceCard {
+~ int amount
++ <<Create>> ChangeBalChanceCard(int,String)
++ void executeCardAction(ChanceAction)
+}
+class entities.chancecards.Deck {
+- List<ChanceCard> cards
++ <<Create>> Deck(List<ChanceCard>)
++ {static} Integer[] numberReader(String)
++ {static} Deck setup()
++ {static} void shuffleCards(List<ChanceCard>)
++ ChanceCard pullChanceCard()
+}
+interface entities.chancecards.ChanceAction {
+~ void getOutOfJail()
+~ void changeBal(int)
+~ void changeBalConditional(int,int)
+~ void changeBalFromPlayers(int)
+~ void moveToField(int)
+~ void moveSpaces(int)
+~ void moveToFerry()
+~ void payPerProperty(int,int)
+~ void goToJail()
+~ void moveToBrewery()
+~ void printDescription(String)
+}
+class controller.GameController {
+- View view
+- GameBoard gameBoard
+- UserIO userIO
++ <<Create>> GameController(View,UserIO,GameBoard)
++ {static} GameController setup(View,UserIO,GameBoard)
++ void playGame()
++ void resetPlayerPositions()
+- void leaveJail()
+- void inJail()
+- boolean rollDiceAndMove()
+- void checkForAndRemoveBankruptPlayers()
+- void playNotInJailTurn()
++ void playTurn()
+}
+interface entities.fields.FieldAction {
+~ Field streetAction(Street)
+~ void streetPayRentToOwner(Street)
+~ boolean streetPlayerOwnsPair(Street)
+~ void taxAction(Tax)
+~ void goToJailAction(GoToJail)
+~ void jailAction(Jail)
+~ Field ferryAction(Ferry)
+~ void chanceFieldAction(ChanceField)
+~ Field breweryAction(Brewery)
+~ void parkingAction()
+}
+class entities.fields.Brewery {
++ <<Create>> Brewery(String,int,int[])
++ int getRent(int)
++ Field executeFieldAction(FieldAction)
+}
+abstract class entities.fields.Field {
+- FieldPair pair
+- String name
+# <<Create>> Field(String)
++ FieldPair getPair()
++ void setPair(FieldPair)
++ {static} Field parse(String)
++ {abstract}Field executeFieldAction(FieldAction)
++ String getName()
+}
+
+
+entities.fields.Field <|-- entities.fields.GoToJail
+entities.chancecards.ChanceCard <|-- entities.chancecards.MoveToBreweryChanceCard
+entities.chancecards.ChanceCard <|-- entities.chancecards.MoveToFerryChanceCard
+entities.fields.RentableField <|-- entities.fields.Street
+entities.fields.Field <|-- entities.fields.Jail
+entities.fields.Field <|-- entities.fields.Tax
+entities.chancecards.ChanceAction <|.. entities.ChanceCardImpl
+controller.View <|.. view.GuiView
+controller.BasicUserIO <|.. view.GuiView
+entities.dicecup.DiceCup <|-- entities.dicecup.RandomDiceCup
+entities.chancecards.ChanceCard <|-- entities.chancecards.MoveToFieldChanceCard
+controller.BasicUserIO <|.. controller.UserIO
+entities.fields.Field <|-- entities.fields.ChanceField
+entities.fields.RentableField <|-- entities.fields.Ferry
+entities.fields.Field <|-- entities.fields.Start
+entities.chancecards.ChanceCard <|-- entities.chancecards.PayPerPropertyChanceCard
+entities.chancecards.ChanceCard <|-- entities.chancecards.GoToJailChanceCard
+entities.chancecards.ChanceCard <|-- entities.chancecards.GetOutOfJailChanceCard
+entities.chancecards.ChanceCard <|-- entities.chancecards.ChangeBalConditionalChanceCard
+entities.chancecards.ChanceCard <|-- entities.chancecards.ChangeBalFromPlayersChanceCard
+entities.FieldAction <|.. entities.FieldImpl
+entities.dicecup.Die <|-- entities.dicecup.DieSixSided
+entities.fields.Field <|-- entities.fields.Parking
+entities.fields.Field <|-- entities.fields.RentableField
+entities.chancecards.ChanceCard <|-- entities.chancecards.MoveSpacesChanceCard
+entities.chancecards.ChanceCard <|-- entities.chancecards.ChangeBalChanceCard
+entities.fields.RentableField <|-- entities.fields.Brewery
+@enduml

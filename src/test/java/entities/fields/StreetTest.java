@@ -18,10 +18,6 @@ class StreetTest {
     }
 
     @Test
-    void executeFieldAction() {
-    }
-
-    @Test
     void getRent() {
         assertEquals(200, street1.getRent(0));
         assertEquals(250, street2.getRent(1));

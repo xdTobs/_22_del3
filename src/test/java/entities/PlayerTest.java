@@ -1,10 +1,12 @@
 package entities;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO Go through all tests, and make sure they are implemented with correct logic.
 public class PlayerTest {
 
     public static Player[] getTwoDebugPlayers(int money) {
@@ -49,6 +51,20 @@ public class PlayerTest {
     }
 
     @Test
+    void addNegativeBalance() {
+        player.addBalance(-10);
+        assertEquals(10, player.getBalance());
+    }
+
+    @Test
+    @DisplayName("Adding balance to a player who has lost should not change the balance.")
+    void addBalanceToPlayerLost() {
+        player.setHasLost(true);
+        player.addBalance(10);
+        assertEquals(20, player.getBalance());
+    }
+
+    @Test
     void getPosition() {
         assertEquals(0, player.getPosition());
     }
@@ -76,41 +92,9 @@ public class PlayerTest {
     }
 
     @Test
-    void dontBuyField() {
-        player.setPosition(1);
-        boolean buyField = false;
-        //Forventet værdi: 0
-    }
-
-    @Test
     void playersStartWith30000() {
-        player.getBalance();
-        //expected 30000.
+        Player player = new Player("Test Player");
+        assertEquals(30000, player.getBalance());
     }
-
-    @Test
-    void getExtraTurn() {
-
-    }
-
-    @Test
-    void leaveGameWhenBankrupt() {
-        player.setHasLost(true);
-        //Skal resterende spillere så få tur, så man kan se at de ikke er en del af spillet mere?
-    }
-
-    @Test
-    void get4000WhenPassingStart() {
-        player.setPosition(0);
-        player.setBalance(0);
-        player.setPosition(10);
-        player.setPosition(1);
-        //har altså passeret start
-        assertNotEquals(0, 4000);
-    }
-
-
-//todo: Lave tests færdige.
-    //Tilføj gerne testen til test-matrixen tilsidst i LaTex!:)
 
 }

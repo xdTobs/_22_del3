@@ -1,0 +1,135 @@
+@startuml
+hide empty members
+'skinparam linetype ortho
+left to right direction
+
+package entities{
+    class ChanceCardImpl {
+        ~ GameBoard gameBoard
+        ~ view view
+        + void getOutOfJail()
+        + void changeBal(int)
+        + void moveToField(int)
+        + void payPerProperty(int,int)
+    }
+    class GameBoard {
+        - Deck deckOfCards
+        + void fieldAction(Player)
+        + boolean rollDieMovePlayer()
+        + boolean isGameover()
+    }
+
+    class Player {
+        + boolean isJailed()
+        + double totalValue()
+    }
+    class DiceCup {
+        + int getSum()
+        + boolean diceAreEqual()
+        + int[] getDiceValues()
+        + void roll()
+    }
+    class FieldImpl {
+	~ GameBoard gameBoard
+	~ view view
+	+ Field streetAction(Street)
+    }
+
+    package chancecards {
+        class Deck {
+            -ChanceCard[] cards
+            + void pullCard()
+        }
+        interface ChanceAction {
+            ~ void getOutOfJail()
+            ~ void changeBal(int)
+            ~ void moveToField(int)
+            ~ void payPerProperty(int,int)
+        }
+        abstract class ChanceCard {
+            # String desc
+            + {abstract}void executeCardAction(ChanceAction)
+        }
+    }
+    package fields {
+         abstract class Field {
+            # FieldPair pair
+            + {abstract}Field executeFieldAction(FieldAction)
+        }
+        class FieldPair {
+            + int[] getFieldIds()
+            + Color getBackgroundColor()
+        }
+
+        interface FieldAction {
+            ~ Field streetAction(Street)
+            ~ void streetPayRentToOwner(Street);
+        }
+    }
+}
+
+
+package language{
+    class LanguageController {
+        + String getMessage(String)
+    }
+    class Message {
+    + {static} Message gameOver(String,String)
+    + {static} Message enterPlayerName(String)
+    }
+}
+
+package controller {
+    class UserIO {
+        ~ BasicUserIO basicUserIO
+        + boolean promptYesOrNo(Message)
+        + void showMessage(Message)
+    }
+
+    interface BasicUserIO {
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
+
+    class GameController {
+        + void playGame()
+        + void playTurn(Player)
+    }
+}
+package view{
+    class GuiView {
+        + void update(Player[],Field[])
+        + String promptPlayer(String[],String)
+    }
+
+    interface View {
+        ~ void update(Player[],Field[])
+        ~ String promptPlayer(String[],String)
+    }
+}
+
+
+GameController --> GameBoard
+
+
+GameBoard --> ChanceCardImpl
+GameBoard --> FieldImpl
+
+GameBoard -up-> Player
+GameBoard -right-> DiceCup
+GameBoard --> Deck
+GuiView --> LanguageController
+LanguageController ..> Message
+ChanceCardImpl ..|>ChanceAction
+FieldAction <|.. FieldImpl
+'View <|..GuiView
+BasicUserIO <|..GuiView
+UserIO <|..BasicUserIO
+GameController -left->View
+FieldAction <..Field
+FieldPair <--Field
+Deck  -->ChanceCard
+GameController -->UserIO
+ChanceAction <..ChanceCard
+
+@enduml

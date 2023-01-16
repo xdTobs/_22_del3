@@ -50,7 +50,7 @@ public class GuiView implements View, BasicUserIO {
     /**
      * We have this method only for the SELECT_HOUSE Message.Type.
      * We need to be able to construct a choice prompt with field names as values,
-     * without having to fields ot the Message.Type enum.
+     * without having fields at the Message.Type enum.
      */
     private int promptChoice(Message message, String[] choicesArray) {
         String answer = this.gui.getUserSelection(languageController.getMessage(message), choicesArray);
@@ -171,11 +171,11 @@ public class GuiView implements View, BasicUserIO {
         int sum = randomDiceCup.getSum();
         GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
         for (int i = 1; i <= sum; i++) {
-//            try {
-//                Thread.sleep(200);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if (startPos + i < 40) {
                 setGuiPosition(guiPlayer, startPos + i);
             } else {

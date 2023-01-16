@@ -2,11 +2,11 @@ package entities.dicecup;
 
 import entities.Utils;
 
-public class PredictedDiceCup extends DiceCup {
+public class PredeterminedDiceCup extends DiceCup {
     Utils.Roll[] rolls;
     int curRoll;
 
-    public PredictedDiceCup(Utils.Roll... rolls) {
+    public PredeterminedDiceCup(Utils.Roll... rolls) {
         this.rolls = rolls;
         curRoll = 0;
     }
@@ -33,8 +33,9 @@ public class PredictedDiceCup extends DiceCup {
         }
         return sum;
     }
-    public boolean allRollsUsed(){
-        return curRoll==rolls.length;
+
+    public boolean allRollsUsed() {
+        return curRoll == rolls.length;
     }
 
 }

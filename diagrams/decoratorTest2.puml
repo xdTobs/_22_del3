@@ -1,0 +1,47 @@
+@startuml
+
+
+skinparam nodesep 15
+skinparam ranksep 45
+skinparam linetype ortho
+'top to bottom direction
+
+hide empty members
+
+note top of GameController
+We use:
+- TestView as View
+- TestIO as BasicUserIO
+end note
+class GameController {
+    - BasicUserIO basicUserIO
+    - View view
+    + <<Create>> GameController(View, BasicUserIO, GameBoard)
+    + void playGame()
+}
+interface BasicUserIO {
+    ~ int promptChoice(Message,Message)
+    ~ void showMessage(Message)
+}
+
+class TestView {
+    + void update(Player[],Field[],DiceCup)
+}
+
+interface View {
+    ~ void update(Player[],Field[],DiceCup)
+}
+class TestIO{
+    ~ int promptChoice(Message,Message)
+    + void showMessage(Message)
+}
+
+
+GameController -[hidden]-> TestView
+GameController --> BasicUserIO
+GameController --> View
+GameController -[hidden]up-> TestIO
+TestView ..|> View
+TestView ..|> BasicUserIO
+TestIO ..|> BasicUserIO
+@enduml

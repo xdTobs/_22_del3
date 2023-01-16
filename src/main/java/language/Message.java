@@ -36,6 +36,7 @@ public class Message {
         return of(Type.PLAYER_COUNT);
     }
 
+
     public static Message yes() {
         return of(Type.YES);
     }
