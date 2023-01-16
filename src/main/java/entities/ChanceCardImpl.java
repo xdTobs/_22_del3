@@ -90,6 +90,7 @@ public class ChanceCardImpl implements ChanceAction {
         }
         gameBoard.getCurrentPlayer().setPosition(pos);
         gameBoard.fieldAction();
+        gameBoard.fieldAction();
     }
 
     @Override
