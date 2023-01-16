@@ -212,8 +212,8 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-        if (!houseOwner.isJailed()){
-            if (houseOwner != null) {
+        if (houseOwner != null){
+            if (!houseOwner.isJailed()){
                 int ferrysOwned = ferryPlayerOwns(ferry);
                 int rent = ferry.getRent(ferrysOwned);
                 houseOwner.addBalance(rent);
@@ -221,9 +221,9 @@ public class FieldImpl implements FieldAction {
                 if (houseOwner != gameBoard.getCurrentPlayer()){
                     userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), ferry.getName(), String.valueOf(rent)));
                 }
+            }else {
+                userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf(ferry.getRent(ferryPlayerOwns(ferry))), ferry.getName(), ferry.getOwner().getName()));
             }
-        }else {
-            userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf(ferry.getRent(ferryPlayerOwns(ferry))), ferry.getName(), ferry.getOwner().getName()));
         }
 
 

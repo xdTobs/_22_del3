@@ -46,6 +46,7 @@ public class ChanceCardTest {
         fields[11] = new Start("Start");
         fields[1].setPair(new FieldPair(Color.orange, new int[]{1, 3}));
         fields[3].setPair(new FieldPair(Color.orange, new int[]{1, 3}));
+        fields[5].setPair(new FieldPair(Color.orange, new int []{5}));
         TestUserIO testUserIO = TestUserIO.debugSetup();
         //Test dice, that moves you one step.
         RandomDiceCup randomDiceCup = predeterminedDiceCup(new Utils.Roll(1, 1));
@@ -81,7 +82,16 @@ public class ChanceCardTest {
         gameBoard.setDeck(deck);
 
         gameController.playTurn();
-        //Assert statement
+        assertEquals(5, gameBoard.getCurrentPlayer().getPosition());
+    }
+    @Test
+    @DisplayName("Player pat dobbelt rent on ferry CHANCECARD")
+    void dobbeltRentOnFerryChanceCard(){
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
+        Deck deck = new Deck(List.of(new MoveToFerryChanceCard("ferry")));
+        gameBoard.setDeck(deck);
+
+        gameController.playTurn();
         assertEquals(5, gameBoard.getCurrentPlayer().getPosition());
     }
 
