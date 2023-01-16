@@ -72,6 +72,10 @@ public class Message {
         return of(Type.LEAVE_JAIL, playerName);
     }
 
+    public static Message inJail(String playerName) {
+        return of(Type.IN_JAIL, playerName);
+    }
+
     public static Message enterPlayerName(String playerOrder) {
         return of(Type.WHAT_IS_YOUR_NAME, playerOrder);
     }
@@ -136,6 +140,7 @@ public class Message {
         GO_TO_JAIL_FIELD,
         HOUSE_OPTION,
         LEAVE_JAIL,
+        IN_JAIL,
         MONEY_GIFT_CARD_SUCCESSFUL,
         MONEY_GIFT_CARD_UNSUCCESSFUL,
         NO,

@@ -10,7 +10,7 @@ public class Player {
     private boolean hasLost;
 
     public Player(String name) {
-        this(name, 1000);
+        this(name, 30000);
     }
 
 

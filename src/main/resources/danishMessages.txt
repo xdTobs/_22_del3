@@ -2,7 +2,8 @@ MOVETO:*, ryk til *.
 ONPICFIELDCARD:Vælg et felt at rykke frem til. Hvis det er ledigt, får du det gratis. Hvis det er ejet, skal du betale leje.
 GAMEOVERMESSAGE:* har vundet spillet! Rankeringen af de andre spillere er: *.
 ROLLDICE:*, det er din tur. Kast tærningerne!
-LEAVEJAIL:*, du er i fængsel. Betal dig ud eller slå 2 ens terninger for at komme ud. Efter 3 ture i fængsel bliver du tvunget til at betale for at komme ud.
+INJAIL:*, du er i fængsel. Betal dig ud eller slå 2 ens terninger for at komme ud. Efter 3 ture i fængsel bliver du tvunget til at betale for at komme ud.
+LEAVEJAIL:*, du er ikke længere i fængsel. FRIHED!
 CHANCECARD:* træk et chancekort. På det står der at du: *
 PARKING: Du er på parkeringspladsen. Her sker der ikke så meget.
 PLAYERCOUNT:Hvor mange spillere vil spille?
