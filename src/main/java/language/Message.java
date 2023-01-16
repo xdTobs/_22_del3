@@ -23,6 +23,20 @@ public class Message {
     public static Message buyHouse(String playerName) {
         return of(Type.WANT_TO_BUY_HOUSE, playerName);
     }
+    public static Message sell(String playerName) {
+        return of(Type.WANT_TO_SELL, playerName);
+    }
+    public static Message sellHouse() {
+        return of(Type.SELL_HOUSE);
+    }
+    public static Message pawnProperty() {
+        return of(Type.PAWN_PROPERTY);
+    }
+    public static Message dontWantToSell() {
+        return of(Type.DONT_WANT_TO_SELL);
+    }
+
+
 
     public static Message bailOut(String playerName) {
         return of(Type.WANT_TO_BAIL_OUT, playerName);
@@ -88,6 +102,12 @@ public class Message {
     public static Message finishBuyingHouses() {
         return of(Type.STOP_BUYING_HOUSES);
     }
+public static Message pawnSelectProperty(){
+    return of(Type.PAWN_SELECT_PROPERTY);
+}
+    public static Message sellSelectHouse(){
+        return of(Type.SELL_SELECT_HOUSE);
+    }
 
 
     public static Message parking() {
@@ -108,6 +128,14 @@ public class Message {
 
     public static Message houseOption(String streetName, String pricePer) {
         return of(Type.HOUSE_OPTION, streetName, pricePer);
+    }
+
+    public static Message doYouWantToSell(){
+        return of(Type.DO_YOU_WANT_TO_SELL);
+    }
+
+    public static Message sellHouseOption(String streetName, String pricePer) {
+        return of(Type.SELL_HOUSE_OPTION, streetName, pricePer);
     }
 
     public static Message selectHouse() {
@@ -145,7 +173,10 @@ public class Message {
         WANT_TO_BAIL_OUT,
         WANT_TO_BUY_FIELD,
         WANT_TO_BUY_HOUSE,
+        WANT_TO_SELL,
+        HOUSE_OR_PROPERTY,
         WHAT_IS_YOUR_NAME,
-        YES,
+        YES, PAWN_PROPERTY, SELL_HOUSE,
+        DONT_WANT_TO_SELL, SELL_HOUSE_OPTION, PAWN_OPTION,PAWN_SELECT_PROPERTY,SELL_SELECT_HOUSE, DO_YOU_WANT_TO_SELL,
     }
 }
