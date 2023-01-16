@@ -53,8 +53,12 @@ public class GameController {
                         userIO.showMessage(Message.extraTurn(gameBoard.getCurrentPlayer().getName()));
                     } else {
                         gameBoard.nextPlayer();
+                        while (gameBoard.getCurrentPlayer().isBankrupt()) {
+                            gameBoard.nextPlayer();
+                        }
                     }
                 }
+
             }
         }
     }
