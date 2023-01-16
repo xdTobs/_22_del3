@@ -208,8 +208,7 @@ public static Message pawnSelectProperty(){
         SELL_SELECT_HOUSE,
         DO_YOU_WANT_TO_SELL, BUY_BACK_HOUSE_OPTION, DONT_WANT_TO_BUY_BACK_HOUSE, BUY_BACK,
         DONT_PAY_RENT,
-        YOU_CANNOT_AFFORD
-        DONT_PAY_RENT,
+        YOU_CANNOT_AFFORD,
         THREE_SAME_GO_JAIL,
     }
 }
