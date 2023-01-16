@@ -42,7 +42,7 @@ public class ChanceCardTest {
         fields[7] = new GoToJail("Test GoToJail");
         fields[8] = new Jail("Test Jail");
         fields[9] = new Start("Start");
-        fields[10] = new Start("Start");
+        fields[10] = new ChanceField("Test Chance");
         fields[11] = new Start("Start");
         fields[1].setPair(new FieldPair(Color.orange, new int[]{1, 3}));
         fields[3].setPair(new FieldPair(Color.orange, new int[]{1, 3}));
@@ -74,6 +74,7 @@ public class ChanceCardTest {
     }
 
     @Test
+    @DisplayName("Player should move the to the next ferry with MoveToNextFerryChanceCard.")
     void moveToFerryPositive() {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new MoveToFerryChanceCard("ferry")));
@@ -85,6 +86,7 @@ public class ChanceCardTest {
     }
 
     @Test
+    @DisplayName("Player should move the correct amount of steps with MoveSpacesChanceCard.")
     void moveSpacesPositive() {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new MoveSpacesChanceCard(4, "moveSpaces")));
@@ -92,10 +94,23 @@ public class ChanceCardTest {
 
         gameController.playTurn();
         //Assert statement
-        assertEquals(9, gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
     }
 
     @Test
+    @DisplayName("Player should move recieve money when moving past Start with MoveSpacesChanceCard.")
+    void moveSpacesPassStart() {
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(6, 4)));
+        Deck deck = new Deck(List.of(new MoveSpacesChanceCard(2, "moveSpaces")));
+        gameBoard.setDeck(deck);
+        gameController.playTurn();
+        //Assert statement
+        assertEquals(0, gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(34000, gameBoard.getCurrentPlayer().getBalance());
+    }
+
+    @Test
+    @DisplayName("Player should receive money if he is below threshold.")
     void changeBalConditionalPositive() {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1, 20000, "ChangeBalConditional")));
@@ -107,6 +122,7 @@ public class ChanceCardTest {
     }
 
     @Test
+    @DisplayName("Player not recieve any money if his balance is equal to the limit.")
     void changeBalConditionalNegative() {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new ChangeBalConditionalChanceCard(1, 20000, "ChangeBalConditional")));
@@ -145,17 +161,16 @@ public class ChanceCardTest {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3), new Utils.Roll(1, 2), new Utils.Roll(2, 1)));
         Deck deck = new Deck(List.of(new GetOutOfJailChanceCard("outOfJailChance")));
         gameBoard.setDeck(deck);
-
         gameController.playTurn();
         gameController.playTurn();
-        gameController.playTurn();
-
         assertTrue(gameBoard.getCurrentPlayer().isJailed());
         gameController.playTurn();
+
+        assertFalse(gameBoard.getCurrentPlayer().isJailed());
         assertEquals(30000, gameBoard.getCurrentPlayer().getBalance());
         assertFalse(gameBoard.getCurrentPlayer().hasGetOutOfJailCard());
         assertFalse(gameBoard.getCurrentPlayer().isJailed());
-        assertEquals(11,gameBoard.getCurrentPlayer().getPosition());
+        assertEquals(11, gameBoard.getCurrentPlayer().getPosition());
     }
 
     @Test
@@ -189,8 +204,9 @@ public class ChanceCardTest {
         assertEquals(4, gameBoard.getCurrentPlayer().getPosition());
 
     }
+
     @Test
-    void goToJailTest(){
+    void goToJailTest() {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new GoToJailChanceCard("GoToJailChance")));
         gameBoard.setDeck(deck);

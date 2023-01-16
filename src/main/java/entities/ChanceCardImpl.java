@@ -53,7 +53,7 @@ public class ChanceCardImpl implements ChanceAction {
         int BeginningPosition = gameBoard.getCurrentPlayer().getPosition();
         gameBoard.getCurrentPlayer().setPosition(index);
         gameBoard.fieldAction();
-        if(index<BeginningPosition){
+        if (index < BeginningPosition) {
             userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
             gameBoard.getCurrentPlayer().addBalance(4000);
         }
@@ -61,17 +61,23 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void moveSpaces(int spaces) {
-        int playerPos = gameBoard.getCurrentPlayer().getPosition();
-        if (playerPos + spaces > 0 && playerPos + spaces < gameBoard.getFields().length) {
-            gameBoard.getCurrentPlayer().setPosition(playerPos + spaces);
-        } else if (playerPos + spaces < 0) {
-            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length + playerPos + spaces);
-        } else {
-                userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
-                gameBoard.getCurrentPlayer().addBalance(4000);
-            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
+        boolean hasPassedStart = gameBoard.movePlayer(spaces);
+        if (hasPassedStart) {
+            userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
+            gameBoard.getCurrentPlayer().addBalance(4000);
         }
         gameBoard.fieldAction();
+//        int playerPos = gameBoard.getCurrentPlayer().getPosition();
+//        if (playerPos + spaces > 0 && playerPos + spaces < gameBoard.getFields().length) {
+//            gameBoard.getCurrentPlayer().setPosition(playerPos + spaces);
+//        } else if (playerPos + spaces < 0) {
+//            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length + playerPos + spaces);
+//        } else {
+//                userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
+//                gameBoard.getCurrentPlayer().addBalance(4000);
+//            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
+//        }
+//        gameBoard.fieldAction();
     }
 
     @Override
@@ -89,7 +95,7 @@ public class ChanceCardImpl implements ChanceAction {
     @Override
     public void payPerProperty(int perHouse, int perHotel) {
         //only the selected player pays
-        int[]properties = gameBoard.getProperties(gameBoard.getCurrentPlayer());
+        int[] properties = gameBoard.getProperties(gameBoard.getCurrentPlayer());
 
 
         gameBoard.getCurrentPlayer().addBalance(-((properties[0] * perHouse) + (properties[1] * perHotel)));
