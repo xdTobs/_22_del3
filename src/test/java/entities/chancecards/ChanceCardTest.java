@@ -148,7 +148,7 @@ public class ChanceCardTest {
 
         gameController.playTurn();
         gameController.playTurn();
-        gameController.playTurn();
+        //gameController.playTurn();
 
         assertTrue(gameBoard.getCurrentPlayer().isJailed());
         gameController.playTurn();
