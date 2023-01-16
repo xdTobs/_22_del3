@@ -87,12 +87,14 @@ public class ChanceCardTest {
     @Test
     @DisplayName("Player pat dobbelt rent on ferry CHANCECARD")
     void dobbeltRentOnFerryChanceCard(){
-        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(4, 1), new Utils.Roll(3, 1)));
         Deck deck = new Deck(List.of(new MoveToFerryChanceCard("ferry")));
         gameBoard.setDeck(deck);
 
         gameController.playTurn();
-        assertEquals(5, gameBoard.getCurrentPlayer().getPosition());
+        gameBoard.nextPlayer();
+        gameController.playTurn();
+        assertEquals(28000, gameBoard.getCurrentPlayer().getBalance());
     }
 
     @Test
