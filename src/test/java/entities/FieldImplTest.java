@@ -228,11 +228,4 @@ class FieldImplTest {
         assertEquals(player2.getBalance(), 30000);
     }
 
-//    fields[0] = new Start("Start");
-//    fields[1] = new Parking("Test jail");
-//    fields[2] = new Street("Test Street1", 4000, 1000, new int[]{50, 100, 200, 300, 400, 500});
-//    fields[3] = new GoToJail("Test go to jail");
-//    fields[4] = new Street("Test Street2", 3000, 1000, new int[]{50, 100, 200, 300, 400, 500});
-//    fields[5] = new Jail("Jail");
-
 }
