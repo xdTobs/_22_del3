@@ -29,9 +29,7 @@ package entities{
 	~ view view
 	+ Field streetAction(Street)
     }
-
-    package chancecards {
-        class ChanceCardImpl {
+     class ChanceCardImpl {
             - GameBoard gameBoard
             - UserIO userIO;
             + void getOutOfJail()
@@ -39,7 +37,10 @@ package entities{
             + void moveToField(int)
             + void payPerProperty(int,int)
         }
-        class Deck {
+
+
+    package chancecards {
+       class Deck {
             -ChanceCard[] cards
             + void pullCard()
         }
@@ -115,25 +116,24 @@ package view{
 GameController -> GameBoard
 
 
-GameBoard ---> ChanceCardImpl
-GameBoard --> FieldImpl
+GameBoard -down-> ChanceCardImpl
+GameBoard -right-> FieldImpl
 
-GameBoard -right-> Player
+GameBoard --> Player
 GameBoard --> DiceCup
-GameBoard --> Deck
+GameBoard --=> Deck
 GuiView -down-> LanguageController
 LanguageController .left.> Message
 ChanceCardImpl ..|>ChanceAction
-FieldAction <|.. FieldImpl
+FieldAction <|. FieldImpl
 View <|..GuiView
 BasicUserIO <|.left. GuiView
 UserIO <|..BasicUserIO
 GameController -left->View
 FieldAction <..Field
 FieldPair <-up-Field
-Deck  -->ChanceCard
+Deck -left-> ChanceCard
 GameController -->UserIO
-ChanceAction <.left.ChanceCard
-FieldAction -[hidden]left-> Player
+ChanceAction <.right.ChanceCard
 
 @enduml
