@@ -84,6 +84,9 @@ public class Message {
     public static Message payRent(String playerName, String fieldName, String rent) {
         return of(Type.PAY_RENT, playerName, fieldName, rent);
     }
+    public static Message noRentInJail(String playerName, String rent, String fieldName, String houseOwner){
+        return of(Type.DONT_PAY_RENT, playerName, rent, fieldName, houseOwner);
+    }
 
     public static Message finishBuyingHouses() {
         return of(Type.STOP_BUYING_HOUSES);
@@ -147,5 +150,6 @@ public class Message {
         WANT_TO_BUY_HOUSE,
         WHAT_IS_YOUR_NAME,
         YES,
+        DONT_PAY_RENT
     }
 }
