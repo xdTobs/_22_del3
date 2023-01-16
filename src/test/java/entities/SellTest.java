@@ -45,7 +45,7 @@ class SellTest {
             // This means we always say no to buying new house.
             @Override
             public int promptChoice(Message message, Message... choices) {
-                if (message.getType() == Message.Type.PAWN_SELECT_PROPERTY||message.getType() == Message.Type.WANT_TO_SELL||message.getType() == Message.Type.SELL_SELECT_HOUSE) {
+                if (message.getType() == Message.Type.PAWN_SELECT_PROPERTY||message.getType() == Message.Type.WANT_TO_SELL||message.getType() == Message.Type.SELL_SELECT_HOUSE||message.getType() == Message.Type.BUY_BACK) {
                     return 1;
                 } else {
                     return 0;
@@ -90,6 +90,7 @@ class SellTest {
         street2.setHouses(1);
 
         gameController.playTurn();
+
         assertEquals(0,street1.getHouses());
         assertEquals(0,street2.getHouses());
         assertTrue(street1.isPawned());
