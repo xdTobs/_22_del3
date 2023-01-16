@@ -30,5 +30,3 @@ SELL_HOUSE:I want to sell houses.
 PAWN_PROPERTY:I want to pawn properties.
 DONT_WANT_TO_SELL:I don't want to sell anything.
 DO_YOU_WANT_TO_SELL:Do you want to sell anything?
-
-
