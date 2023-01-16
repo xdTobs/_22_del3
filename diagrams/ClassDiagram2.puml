@@ -2,16 +2,11 @@
 hide empty members
 'skinparam linetype ortho
 left to right direction
+skinparam nodesep 15
+skinparam ranksep 15
 
 package entities{
-    class ChanceCardImpl {
-        ~ GameBoard gameBoard
-        ~ view view
-        + void getOutOfJail()
-        + void changeBal(int)
-        + void moveToField(int)
-        + void payPerProperty(int,int)
-    }
+
     class GameBoard {
         - Deck deckOfCards
         + void fieldAction(Player)
@@ -20,8 +15,8 @@ package entities{
     }
 
     class Player {
+        + int position()
         + boolean isJailed()
-        + double totalValue()
     }
     class DiceCup {
         + int getSum()
@@ -36,6 +31,14 @@ package entities{
     }
 
     package chancecards {
+        class ChanceCardImpl {
+            - GameBoard gameBoard
+            - UserIO userIO;
+            + void getOutOfJail()
+            + void changeBal(int)
+            + void moveToField(int)
+            + void payPerProperty(int,int)
+        }
         class Deck {
             -ChanceCard[] cards
             + void pullCard()
@@ -112,24 +115,25 @@ package view{
 GameController -> GameBoard
 
 
-GameBoard --> ChanceCardImpl
+GameBoard ---> ChanceCardImpl
 GameBoard --> FieldImpl
 
-GameBoard --> Player
-GameBoard -right-> DiceCup
+GameBoard -right-> Player
+GameBoard --> DiceCup
 GameBoard --> Deck
-GuiView --> LanguageController
+GuiView -down-> LanguageController
 LanguageController .left.> Message
 ChanceCardImpl ..|>ChanceAction
 FieldAction <|.. FieldImpl
-'View <|..GuiView
-BasicUserIO <|..GuiView
-UserIO <|.left.BasicUserIO
+View <|..GuiView
+BasicUserIO <|.left. GuiView
+UserIO <|..BasicUserIO
 GameController -left->View
 FieldAction <..Field
-FieldPair <--Field
+FieldPair <-up-Field
 Deck  -->ChanceCard
 GameController -->UserIO
-ChanceAction <..ChanceCard
+ChanceAction <.left.ChanceCard
+FieldAction -[hidden]left-> Player
 
 @enduml
