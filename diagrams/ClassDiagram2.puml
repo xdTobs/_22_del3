@@ -2,6 +2,8 @@
 hide empty members
 skinparam linetype ortho
 left to right direction
+skinparam nodesep 25
+skinparam ranksep 15
 
 package entities{
     class ChanceCardImpl {
@@ -72,10 +74,6 @@ package language{
     class LanguageController {
         + String getMessage(String)
     }
-    class Message {
-    + {static} Message gameOver(String,String)
-    + {static} Message enterPlayerName(String)
-    }
 }
 
 package controller {
@@ -121,15 +119,15 @@ GameBoard --> DiceCup
 GameBoard --> UserIO
 
 GameBoard -[norank]-> Deck
-GuiView --> LanguageController
-LanguageController .[norank].> Message
+GuiView -[norank]-> LanguageController
+Deck -[hidden]up-> LanguageController
 ChanceCardImpl ..|>ChanceAction
 FieldAction <|.. FieldImpl
-View <|.right. GuiView
+View <|.left. GuiView
 BasicUserIO <|.down. GuiView
 UserIO <|.right. BasicUserIO
-GameController -[norank]-> View
-GameController -> UserIO
+GameController --> View
+GameController -left> UserIO
 FieldAction <..Field
 FieldPair <-up-Field
 Deck  -right-> ChanceCard
