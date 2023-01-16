@@ -1,126 +1,135 @@
 @startuml
+hide empty members
+'skinparam linetype ortho
 left to right direction
 
-interface view.view {
-~ void update(Player[],Field[])
-~ String promptPlayer(String[],String)
+package entities{
+    class ChanceCardImpl {
+        ~ GameBoard gameBoard
+        ~ view view
+        + void getOutOfJail()
+        + void changeBal(int)
+        + void moveToField(int)
+        + void payPerProperty(int,int)
+    }
+    class GameBoard {
+        - Deck deckOfCards
+        + void fieldAction(Player)
+        + boolean rollDieMovePlayer()
+        + boolean isGameover()
+    }
+
+    class Player {
+        + boolean isJailed()
+        + double totalValue()
+    }
+    class DiceCup {
+        + int getSum()
+        + boolean diceAreEqual()
+        + int[] getDiceValues()
+        + void roll()
+    }
+    class FieldImpl {
+	~ GameBoard gameBoard
+	~ view view
+	+ Field streetAction(Street)
+    }
+
+    package chancecards {
+        class Deck {
+            -ChanceCard[] cards
+            + void pullCard()
+        }
+        interface ChanceAction {
+            ~ void getOutOfJail()
+            ~ void changeBal(int)
+            ~ void moveToField(int)
+            ~ void payPerProperty(int,int)
+        }
+        abstract class ChanceCard {
+            # String desc
+            + {abstract}void executeCardAction(ChanceAction)
+        }
+    }
+    package fields {
+         abstract class Field {
+            # FieldPair pair
+            + {abstract}Field executeFieldAction(FieldAction)
+        }
+        class FieldPair {
+            + int[] getFieldIds()
+            + Color getBackgroundColor()
+        }
+
+        interface FieldAction {
+            ~ Field streetAction(Street)
+            ~ void streetPayRentToOwner(Street);
+        }
+    }
 }
 
 
-interface enities.chancecards.ChanceAction {
-~ void getOutOfJail()
-~ void changeBal(int)
-~ void moveToField(int)
-~ void payPerProperty(int,int)
-}
-class entities.GameBoard {
-+ void fieldAction(Player)
-+ boolean rollDieMovePlayer()
-+ boolean isGameover()
-}
-class entities.Player {
-
-
-
-
-
-
-
-+ boolean isJailed()
-+ double totalValue()
+package language{
+    class LanguageController {
+        + String getMessage(String)
+    }
+    class Message {
+    + {static} Message gameOver(String,String)
+    + {static} Message enterPlayerName(String)
+    }
 }
 
+package controller {
+    class UserIO {
+        ~ BasicUserIO basicUserIO
+        + boolean promptYesOrNo(Message)
+        + void showMessage(Message)
+    }
 
+    interface BasicUserIO {
+        ~ int promptChoice(Message,Message)
+        ~ void showMessage(Message)
+    }
 
-
-class enities.chancecards.Deck {
--ChanceCard[] cards
-+ void pullCard()
+    class GameController {
+        + void playGame()
+        + void playTurn(Player)
+    }
 }
+package view{
+    class GuiView {
+        + void update(Player[],Field[])
+        + String promptPlayer(String[],String)
+    }
 
-class entities.ChanceCardImpl {
-~ GameBoard gameBoard
-~ view view
-+ void getOutOfJail()
-+ void changeBal(int)
-+ void moveToField(int)
-+ void payPerProperty(int,int)
-}
-
-abstract class entities.fields.Field {
-
-
-# FieldPair pair
-+ FieldPair getPair()
-+ int getPosition()
-# void parse(String)
-+ {abstract}Field executeFieldAction(FieldAction)
-+ String getName()
-}
-class language.LanguageController {
-+ String getMessage(String)
-}
-class entities.fields.FieldPair {
-+ int[] getFieldIds()
-+ Color getBackgroundColor()
-}
-abstract class entities.dicecup.Die {
-~ int faceValue
-~ {abstract}void roll()
-~ int getFaceValue()
+    interface View {
+        ~ void update(Player[],Field[])
+        ~ String promptPlayer(String[],String)
+    }
 }
 
 
-class entities.dicecup.DiceCup {
-+ int getSum()
-+ boolean diceAreEqual()
-+ int[] getDiceValues()
-+ void roll()
-}
-class controller.GameController {
-+ void playGame()
-+ void playTurn(Player)
-}
+GameController --> GameBoard
 
 
+GameBoard --> ChanceCardImpl
+GameBoard --> FieldImpl
 
-class view.GuiView {
-+ void update(Player[],Field[])
-+ String promptPlayer(String[],String)
-}
-
-
-
-abstract class enities.chancecards.ChanceCard {
-# String desc
-+ {abstract}void executeCardAction(ChanceAction)
-}
-class entities.FieldImpl {
-~ GameBoard gameBoard
-~ view view
-+ Field streetAction(Street)
-}
-class Main {
-+ {static} void main(String[])
-}
-
-interface entities.fields.FieldAction {
-~ Field streetAction(Street)
-~ void streetPayRentToOwner(Street);
-}
-
-
-
-
-
-enities.chancecards.ChanceAction <|.up. entities.ChanceCardImpl
-entities.fields.FieldAction <|.up. entities.FieldImpl
-view.view <|.. view.GuiView
-controller.GameController --> view.view
-controller.GameController --> entities.GameBoard
-entities.GameBoard -down-->entities.dicecup
-Main -->controller.GameController
-entities.GameBoard --->language.LanguageController
-entities.fields.FieldAction<..entities.fields.Field
+GameBoard -up-> Player
+GameBoard -right-> DiceCup
+GameBoard --> Deck
+GuiView --> LanguageController
+LanguageController ..> Message
+ChanceCardImpl ..|>ChanceAction
+FieldAction <|.. FieldImpl
+'View <|..GuiView
+BasicUserIO <|..GuiView
+UserIO <|..BasicUserIO
+GameController -left->View
+FieldAction <..Field
+FieldPair <--Field
+Deck  -->ChanceCard
+GameController -->UserIO
+ChanceAction <..ChanceCard
 
 @enduml
