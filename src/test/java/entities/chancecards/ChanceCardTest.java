@@ -166,7 +166,7 @@ public class ChanceCardTest {
 
         gameController.playTurn();
         //30000 + 4000 - 1000
-        assertEquals(33000, gameBoard.getCurrentPlayer().getBalance());
+        assertEquals(33500, gameBoard.getCurrentPlayer().getBalance());
         assertEquals(1, gameBoard.getCurrentPlayer().getPosition());
     }
 
@@ -184,8 +184,8 @@ public class ChanceCardTest {
         field2.setHouses(2);
 
         gameController.playTurn();
-        //30000 - 1000 - 200 - 3000 for houses after tax
-        assertEquals(25800, gameBoard.getCurrentPlayer().getBalance());
+        //30000 - 1000 - 200 - 3000 + whatever for sale. for houses after tax
+        assertEquals(21800, gameBoard.getCurrentPlayer().getBalance());
         assertEquals(4, gameBoard.getCurrentPlayer().getPosition());
 
     }
