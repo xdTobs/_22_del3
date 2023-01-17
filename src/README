@@ -5,6 +5,8 @@ HOW TO START THE GAME:
 - open the following folders in order: src -> main -> java.
 - Right click on the class file and press "Run 'Main.main()'".
 
+-The jar file is located in the directory out/artifacts/_22_del3_jar, as _22_del3.jar
+
 HOW TO RUN ALL TESTS:
 - open the following folders in order: src -> test.
 - Right click on the green java folder and press "Run 'All Tests'".
