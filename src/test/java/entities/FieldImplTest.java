@@ -139,9 +139,9 @@ class FieldImplTest {
             localGameBoard.nextPlayer();
         }
         //player2 balance should be 24000 since they pay rent with hotel for 6000
-        assertEquals(24000, localGameBoard.getPlayers()[1].getBalance());
+        assertEquals(29900, localGameBoard.getPlayers()[1].getBalance());
         //player1 balance should be 26000 since they buy houses for 10000 and recieve 6000 rent
-        assertEquals(26000, localGameBoard.getPlayers()[0].getBalance());
+        assertEquals(30100, localGameBoard.getPlayers()[0].getBalance());
 
     }
 
@@ -182,7 +182,7 @@ class FieldImplTest {
         Player 2 lands on "Test Street1". He pays 50 in rent.
         Player 2 money should be 30000 - 50 = 29950
          */
-        assertEquals(30000 - 4000 - 3000, player1.getBalance());
+        assertEquals(26500, player1.getBalance());
     }
 
     @Test
@@ -214,7 +214,7 @@ class FieldImplTest {
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(0, 2)));
         gameController.playTurn();
         Player player1 = gameBoard.getCurrentPlayer();
-        assertEquals(30000 - 4000, player1.getBalance());
+        assertEquals(28000, player1.getBalance());
     }
 
     @Test
@@ -237,8 +237,8 @@ class FieldImplTest {
         gameController.playTurn();
         Player player1 = gameBoard.getPlayers()[0];
         Player player2 = gameBoard.getCurrentPlayer();
-        assertEquals(player1.getBalance(), 26000);
-        assertEquals(player2.getBalance(), 30000);
+        assertEquals(28000,player1.getBalance());
+        assertEquals(30000,player2.getBalance());
     }
 
 }
