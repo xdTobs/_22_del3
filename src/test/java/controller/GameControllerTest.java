@@ -6,8 +6,6 @@ import entities.PlayerTest;
 import entities.Utils;
 import entities.chancecards.ChangeBalConditionalChanceCard;
 import entities.chancecards.Deck;
-import entities.chancecards.GoToJailChanceCard;
-import entities.chancecards.MoveToBreweryChanceCard;
 import entities.dicecup.PredeterminedDiceCup;
 import entities.dicecup.RandomDiceCup;
 import entities.fields.*;
@@ -20,7 +18,8 @@ import java.awt.*;
 import java.util.List;
 
 import static entities.Utils.predeterminedDiceCup;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameControllerTest {
     GameBoard gameBoard;

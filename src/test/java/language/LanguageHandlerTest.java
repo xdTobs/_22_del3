@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LanguageControllerTest {
-    LanguageController languageController = LanguageController.getDefaultLanguageController();
+class LanguageHandlerTest {
+    LanguageHandler languageHandler = LanguageHandler.getDefaultLanguageHandler();
 
 
     @Test
@@ -15,7 +15,7 @@ class LanguageControllerTest {
     void testGetMessageEnum() {
         Message buyProperty = Message.buyField("Henrik Zenkert", "Strøget");
         String expected = "Henrik Zenkert has landed on Strøget. Would you like to buy it?";
-        var result = languageController.getMessage(buyProperty);
+        var result = languageHandler.getMessage(buyProperty);
         assertEquals(expected, result);
     }
 
@@ -30,7 +30,7 @@ class LanguageControllerTest {
     void getMessage() {
         // * pulled a chance card. It tells you to: *
         var m = Message.chanceCard("Henrik", "Go to an empty square.");
-        var s = languageController.getMessage(m);
+        var s = languageHandler.getMessage(m);
         assertEquals("Henrik pulled a chance card. It tells you to: Go to an empty square.", s);
     }
 }

@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // TODO Go through all tests, and make sure they are implemented with correct logic.
 public class PlayerTest {
-
     public static Player[] getTwoDebugPlayers(int money) {
         Player player1 = new Player("Player1", money);
         Player player2 = new Player("Player2", money);
@@ -22,6 +21,9 @@ public class PlayerTest {
         this.player = new Player("Test", 20);
     }
 
+    // TODO IMPORTANT! Add test case ID to tests.
+    // EXAMPLE
+    // TestID: 21.
     @Test
     void isJailed() {
         assertFalse(player.isJailed());

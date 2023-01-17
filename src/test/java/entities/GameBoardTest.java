@@ -1,27 +1,21 @@
 package entities;
 
 import controller.UserIO;
-import view.TestView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import view.TestView;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameBoardTest {
 
-
-//    public static GameBoard debugSetup(int diceValue, Field[] fields) {
-//        return debugSetup(diceValue, fields, new Deck(new ArrayList<>()));
-//    }
-//
-//    public static GameBoard debugSetup(int diceValue, Field[] fields, Deck deck) {
-//    }
 
     GameBoard board;
 
     @BeforeEach
     void setUp() {
-        Player[]players = PlayerTest.getTwoDebugPlayers(30000);
+        Player[] players = PlayerTest.getTwoDebugPlayers(30000);
         board = new GameBoard(GameBoard.getDefaultFields(), new UserIO(new TestView()), players);
     }
 
@@ -79,14 +73,10 @@ public class GameBoardTest {
 
     @Test
     void isGameover() {
-
-    }
-
-    @Test
-    void getLatestChanceCard() {
-        /*board.getDeck().pullCard();
-        ChanceCard card = board.getDeck().getLatestChanceCard();
-        assertNotNull(card != null);*/
+        var currentPlayer = board.getCurrentPlayer();
+        currentPlayer.setBalance(-10);
+        board.removeBankruptPlayers();
+        assertTrue(board.isGameover());
     }
 
 

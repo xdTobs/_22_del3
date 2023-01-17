@@ -7,7 +7,7 @@ import entities.dicecup.DiceCup;
 import entities.fields.*;
 import gui_fields.*;
 import gui_main.GUI;
-import language.LanguageController;
+import language.LanguageHandler;
 import language.Message;
 
 import java.awt.*;
@@ -17,67 +17,19 @@ public class GuiView extends BasicUserIO implements View {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    private final LanguageController languageController;
+    private final LanguageHandler languageHandler;
 
     /**
      * Constructor for the GUI_View class.
      * We create GUI_Fields corresponding to the fields in the gameboard.
      * We use the GUI_Fields created to create our GUI.
      */
-    public GuiView(GUI gui, LanguageController languageController) {
+    public GuiView(GUI gui, LanguageHandler languageHandler) {
         this.gui = gui;
-        this.languageController = languageController;
+        this.languageHandler = languageHandler;
     }
 
-    /**
-     * If this gets called with no choices, then we will instead use the args as choices.
-     * We do this, so we can use buy houses thing.
-     */
-    @Override
-    public int promptChoice(Message message, Message... choices) {
-        String[] choiceArray = new String[0];
-        if (choices.length != 0) {
-            choiceArray = new String[choices.length];
-            for (int i = 0; i < choices.length; i++) {
-                choiceArray[i] = languageController.getMessage(choices[i]);
-            }
-        } else if (message.getArgs().length > 1) {
-            choiceArray = message.getArgs();
-        }
-        return promptChoice(message, choiceArray);
-    }
-
-    /**
-     * We have this method only for the SELECT_HOUSE Message.Type.
-     * We need to be able to construct a choice prompt with field names as values,
-     * without having fields at the Message.Type enum.
-     */
-    private int promptChoice(Message message, String[] choicesArray) {
-        String answer = this.gui.getUserSelection(languageController.getMessage(message), choicesArray);
-        for (int i = 0; i < choicesArray.length; i++) {
-            if (answer.equals(choicesArray[i])) {
-                return i;
-            }
-        }
-        String choices = Arrays.stream(choicesArray).reduce("", (acc, choice) -> acc + ", " + choice);
-        throw new UnsupportedOperationException("An answer have been given that is not in the choices array.\nAnswer given: " + answer + "\nChoices: " + choices);
-    }
-
-    @Override
-    public int promptRange(Message message, int min, int max) {
-        return this.gui.getUserInteger(languageController.getMessage(message), min, max);
-    }
-
-    @Override
-    public String promptString(Message message) {
-        return this.gui.getUserString(languageController.getMessage(message));
-    }
-
-    @Override
-    public void showMessage(Message message) {
-        gui.showMessage(languageController.getMessage(message));
-    }
-    public static GuiView setup(Field[] fields, LanguageController languageController) {
+    public static GuiView setup(Field[] fields, LanguageHandler languageHandler) {
         GUI_Field[] guiFields = new GUI_Field[40];
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] instanceof Start start) {
@@ -109,9 +61,58 @@ public class GuiView extends BasicUserIO implements View {
             }
         }
 
-        GuiView guiview = new GuiView(new GUI(guiFields), languageController);
+        GuiView guiview = new GuiView(new GUI(guiFields), languageHandler);
         guiview.updateHousesAndFields(fields);
         return guiview;
+    }
+
+    /**
+     * If this gets called with no choices, then we will instead use the args as choices.
+     * We do this, so we can use buy houses thing.
+     */
+    @Override
+    public int promptChoice(Message message, Message... choices) {
+        String[] choiceArray = new String[0];
+        if (choices.length != 0) {
+            choiceArray = new String[choices.length];
+            for (int i = 0; i < choices.length; i++) {
+                choiceArray[i] = languageHandler.getMessage(choices[i]);
+            }
+        } else if (message.getArgs().length > 1) {
+            choiceArray = message.getArgs();
+        }
+        return promptChoice(message, choiceArray);
+    }
+
+    /**
+     * We have this method only for the SELECT_HOUSE Message.Type.
+     * We need to be able to construct a choice prompt with field names as values,
+     * without having fields at the Message.Type enum.
+     */
+    private int promptChoice(Message message, String[] choicesArray) {
+        String answer = this.gui.getUserSelection(languageHandler.getMessage(message), choicesArray);
+        for (int i = 0; i < choicesArray.length; i++) {
+            if (answer.equals(choicesArray[i])) {
+                return i;
+            }
+        }
+        String choices = Arrays.stream(choicesArray).reduce("", (acc, choice) -> acc + ", " + choice);
+        throw new UnsupportedOperationException("An answer have been given that is not in the choices array.\nAnswer given: " + answer + "\nChoices: " + choices);
+    }
+
+    @Override
+    public int promptRange(Message message, int min, int max) {
+        return this.gui.getUserInteger(languageHandler.getMessage(message), min, max);
+    }
+
+    @Override
+    public String promptString(Message message) {
+        return this.gui.getUserString(languageHandler.getMessage(message));
+    }
+
+    @Override
+    public void showMessage(Message message) {
+        gui.showMessage(languageHandler.getMessage(message));
     }
 
     private static GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
