@@ -417,19 +417,22 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-
-        int breweriesOwned = findHowManyInGroupPlayerOwns(brewery);
-        int rent = brewery.getRent(breweriesOwned) * diceSum;
-        if (!houseOwner.isJailed()){
-            if (houseOwner != null) {
+        if (houseOwner != null){
+            if (!houseOwner.isJailed()){
+                int breweriesOwned = findHowManyInGroupPlayerOwns(brewery);
+                int rent = (brewery.getRent(breweriesOwned) * diceSum)/2;
                 houseOwner.addBalance(rent);
                 gameBoard.getCurrentPlayer().addBalance(-rent);
+                if (houseOwner != gameBoard.getCurrentPlayer()) {
+                    userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), brewery.getName(), String.valueOf((brewery.getRent(findHowManyInGroupPlayerOwns(brewery)) * diceSum)/2)));
+                }
+            }else {
+                userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf((brewery.getRent(findHowManyInGroupPlayerOwns(brewery)) * diceSum)/2), brewery.getName(), brewery.getOwner().getName()));
             }
-        }else {
-            userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf(brewery.getRent(findHowManyInGroupPlayerOwns(brewery))), brewery.getName(), brewery.getOwner().getName()));
         }
-
     }
+
+
 
 
     private int findHowManyInGroupPlayerOwns(RentableField rentableField) {
