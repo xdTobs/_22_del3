@@ -6,6 +6,7 @@ import entities.dicecup.PredeterminedDiceCup;
 import entities.dicecup.RandomDiceCup;
 import entities.dicecup.TestDie;
 import entities.fields.*;
+import language.LanguageHandler;
 import language.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,6 +62,11 @@ class FieldImplTest {
             public void showMessage(Message message) {
             }
 
+            @Override
+            public void setLanguageHandler(LanguageHandler languageHandler) {
+
+            }
+
         };
         TestUserIO testUserIO = TestUserIO.debugSetup(basicUserIO);
 
@@ -101,6 +107,11 @@ class FieldImplTest {
 
             @Override
             public void showMessage(Message message) {
+
+            }
+
+            @Override
+            public void setLanguageHandler(LanguageHandler languageHandler) {
 
             }
 

@@ -13,11 +13,11 @@ import language.Message;
 import java.awt.*;
 import java.util.Arrays;
 
-public class GuiView extends BasicUserIO implements View {
+public class GuiView implements View, BasicUserIO {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
-    private final LanguageHandler languageHandler;
+    private LanguageHandler languageHandler;
 
     /**
      * Constructor for the GUI_View class.
@@ -113,6 +113,11 @@ public class GuiView extends BasicUserIO implements View {
     @Override
     public void showMessage(Message message) {
         gui.showMessage(languageHandler.getMessage(message));
+    }
+
+    @Override
+    public void setLanguageHandler(LanguageHandler languageHandler) {
+        this.languageHandler = languageHandler;
     }
 
     private static GUI_Field createGuiField(GUI_Field gf, Field field, String subtext) {
@@ -257,22 +262,23 @@ public class GuiView extends BasicUserIO implements View {
             gui.getFields()[i].setDescription(formatDesc(fields[i]));
         }
     }
-    public String formatDesc(Field field){
+
+    public String formatDesc(Field field) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html><center>");
         sb.append(field.getName());
         sb.append("<br>");
-        if(field instanceof RentableField rf){
-            sb.append("Price: "+rf.getPrice());
+        if (field instanceof RentableField rf) {
+            sb.append("Price: ").append(rf.getPrice());
             sb.append("<br>");
-            if(rf instanceof Street street){
-                sb.append("House Price: "+street.getHousePrice()+"<br>");
-                sb.append("Rent with 0 houses: "+rf.getRent(0)+"<br>");
-                sb.append("Rent with 1 houses: "+rf.getRent(1)+"<br>");
-                sb.append("Rent with 2 houses: "+rf.getRent(2)+"<br>");
-                sb.append("Rent with 3 houses: "+rf.getRent(3)+"<br>");
-                sb.append("Rent with 4 houses: "+rf.getRent(4)+"<br>");
-                sb.append("Rent with hotel: "+rf.getRent(5)+"<br>");
+            if (rf instanceof Street street) {
+                sb.append("House Price: ").append(street.getHousePrice()).append("<br>");
+                sb.append("Rent with 0 houses: ").append(rf.getRent(0)).append("<br>");
+                sb.append("Rent with 1 houses: ").append(rf.getRent(1)).append("<br>");
+                sb.append("Rent with 2 houses: ").append(rf.getRent(2)).append("<br>");
+                sb.append("Rent with 3 houses: ").append(rf.getRent(3)).append("<br>");
+                sb.append("Rent with 4 houses: ").append(rf.getRent(4)).append("<br>");
+                sb.append("Rent with hotel: ").append(rf.getRent(5)).append("<br>");
             }
         }
 

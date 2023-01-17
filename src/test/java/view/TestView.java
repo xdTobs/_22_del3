@@ -5,9 +5,10 @@ import controller.View;
 import entities.Player;
 import entities.dicecup.DiceCup;
 import entities.fields.Field;
+import language.LanguageHandler;
 import language.Message;
 
-public class TestView extends BasicUserIO implements View {
+public class TestView implements View, BasicUserIO {
     @Override
     public void addPlayersToGui(Player[] players) {
 
@@ -61,6 +62,11 @@ public class TestView extends BasicUserIO implements View {
 
     @Override
     public void showMessage(Message message) {
+
+    }
+
+    @Override
+    public void setLanguageHandler(LanguageHandler languageHandler) {
 
     }
 }

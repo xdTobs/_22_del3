@@ -4,18 +4,17 @@ package controller;
 import language.LanguageHandler;
 import language.Message;
 
-public abstract class BasicUserIO {
-    LanguageHandler languageHandler;
+public interface BasicUserIO {
+    int promptChoice(Message message, Message... choices);
 
-    public abstract int promptChoice(Message message, Message... choices);
+    int promptRange(Message message, int min, int max);
 
-    public abstract int promptRange(Message message, int min, int max);
+    String promptString(Message message);
 
-    public abstract String promptString(Message message);
+    void showMessage(Message message);
 
-    public abstract void showMessage(Message message);
-
-    public void setLanguageController(LanguageHandler languageHandler) {
-        this.languageHandler = languageHandler;
-    }
+    void setLanguageHandler(LanguageHandler languageHandler);
+//    public void setLanguageController(LanguageHandler languageHandler) {
+//        this.languageHandler = languageHandler;
+//    }
 }

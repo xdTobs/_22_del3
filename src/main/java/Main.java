@@ -21,7 +21,7 @@ public class Main {
             UserIO userIO = new UserIO(view);
             Language language = userIO.promptLanguage(Language.getLanguages());
             LanguageHandler languageHandler = LanguageHandler.getLanguageHandler(language);
-            view.setLanguageController(languageHandler);
+            view.setLanguageHandler(languageHandler);
             int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
             GameBoard gameBoard = GameBoard.setup(fields, userIO, numberOfPlayers);
             GameController game = GameController.setup(view, userIO, gameBoard);
