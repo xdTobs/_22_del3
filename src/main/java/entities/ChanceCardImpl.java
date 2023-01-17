@@ -42,9 +42,11 @@ public class ChanceCardImpl implements ChanceAction {
 
     @Override
     public void changeBalFromPlayers(int amount) {
-        for (Player p : gameBoard.getPlayers()) {
-            gameBoard.getCurrentPlayer().addBalance(amount);
-            p.addBalance(-amount);
+            for (Player p : gameBoard.getPlayers()) {
+                if (!p.isBankrupt()){
+                gameBoard.getCurrentPlayer().addBalance(amount);
+                p.addBalance(-amount);
+            }
         }
     }
 

@@ -7,6 +7,7 @@ public class Player {
     private boolean jailed;
     private int getOutOfJailCards = 0;
     private int jailTimeCounter;
+    private int sameDieJailCounter;
     private boolean hasLost;
 
     public Player(String name) {
@@ -94,6 +95,10 @@ public class Player {
         this.jailTimeCounter = jailTimeCounter;
     }
 
+    public void incSameDieJailCounter(){sameDieJailCounter++;}
+    public int getSameDieJailCounter(){return sameDieJailCounter;}
+    public void setSameDieJailCounter(int sameDieJailCounter){this.sameDieJailCounter=sameDieJailCounter;}
+
     public String getName() {
         return name;
     }
@@ -106,7 +111,7 @@ public class Player {
     }
 
     public boolean isBankrupt() {
-        return this.getBalance() < 0;
+        return this.getBalance() < 0 || hasLost;
     }
 
     public boolean hasNotLost() {

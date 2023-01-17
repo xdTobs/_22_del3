@@ -119,6 +119,7 @@ public class ChanceCardTest {
         //Assert statement
         assertEquals(0, gameBoard.getCurrentPlayer().getPosition());
         assertEquals(34000, gameBoard.getCurrentPlayer().getBalance());
+
     }
 
     @Test
@@ -234,4 +235,17 @@ public class ChanceCardTest {
         assertTrue(dc.allRollsUsed());
     }
 
+    @Test
+    @DisplayName("player should not receive 200 dkk from bankrupt players")
+       void TwoHundredFromBankruptPlayerTest() {
+        //setup portion
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
+        Deck deck = new Deck(List.of(new ChangeBalFromPlayersChanceCard(200, "test")));
+        gameBoard.setDeck(deck);
+        gameBoard.getPlayers()[1].setHasLost(true);
+
+        //player balance should be equal to starting balance since they should not receive from bankrupt player
+        gameController.playTurn();
+        assertEquals(30000, gameBoard.getCurrentPlayer().getBalance());
+    }
 }
