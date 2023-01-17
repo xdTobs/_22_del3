@@ -1,7 +1,7 @@
 GAME_OVER_MESSAGE:* has won the game! The order of the rest of the players was: *. Choose yes to quit game.
 ROLL_DICE:*, it is your turn. Roll the dice!
 IN_JAIL:*, you are in Jail. Pay a fine or roll equal dice to get out. After three turns in jail you are forced to pay fine and leave jail.
-LEAVE_JAIL: *, you're no longer in jail. FREEDOM!
+LEAVE_JAIL:*, you're no longer in jail. FREEDOM!
 CHANCE_CARD:* pulled a chance card. It tells you to: *
 PARKING: You are at the parking lot. There is not much happening here.
 PLAYER_COUNT:How many players will be playing?
@@ -26,14 +26,14 @@ GO_TO_JAIL_FIELD:Unlucky roll! Go to jail!
 GO_TO_JAIL_CARD:Bad luck! This chance card puts you in jail!
 REMAINING_PLAYERS:Another player has lost. Remaining players are: *.
 WHAT_IS_YOUR_NAME:What is your name, *?
-WANT_TO_SELL:*,do you want to sell houses or pawn properties first?
+WANT_TO_SELL:*, do you want to sell houses or pawn properties first?
 SELL_HOUSE:I want to sell houses.
 PAWN_PROPERTY:I want to pawn properties.
 DONT_WANT_TO_SELL:I don't want to sell anything.
 DO_YOU_WANT_TO_SELL:Do you want to sell anything?
 BUY_BACK_HOUSE_OPTION:Buy back * for * DKK
 DONT_WANT_TO_BUY_BACK_HOUSE:I don't want to buy back any properties.
-BUY_BACK:*, Do you want to buy back any of your pawned fields?
+BUY_BACK:*, do you want to buy back any of your pawned fields?
 DONT_PAY_RENT:*, you don´t need to pay * in rent at *, because * is in jail.
 YOU_CANNOT_AFFORD:*, you cannot afford to buy this.
 THREE_SAME_GO_JAIL: *, you rolled equal eyes, three times in a row... Go to jail!
