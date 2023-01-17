@@ -240,8 +240,10 @@ public class GuiView extends BasicUserIO implements View {
             }
             if (gui.getFields()[i] instanceof GUI_Street gui_street && fields[i] instanceof Street street) {
                 if (street.getHouses() < 5) {
-                    gui_street.setHouses(street.getHouses());
+                    int houses = street.getHouses();
                     gui_street.setHotel(false);
+                    gui_street.setHouses(houses);
+
                 } else if (street.getHouses() == 5) {
                     gui_street.setHouses(0);
                     gui_street.setHotel(true);

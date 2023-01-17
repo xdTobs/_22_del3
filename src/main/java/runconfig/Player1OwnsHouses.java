@@ -15,7 +15,7 @@ public class Player1OwnsHouses {
 
     public static void main(String[] args) {
         Field[] fields = GameBoard.getDefaultFields();
-        GuiView view = GuiView.setup(fields, new LanguageController());
+        GuiView view = GuiView.setup(fields, LanguageController.getDefaultLanguageController());
         UserIO userIO = new UserIO(view);
 
         int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);
