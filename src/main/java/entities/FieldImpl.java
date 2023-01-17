@@ -24,7 +24,7 @@ public class FieldImpl implements FieldAction {
         return ((i + 99) / 100) * 100;
     }
 
-    // TODO Vi har sagt til Anton at vi nok vil nå at implementere salg af hus og hotel, og pantsæntning af grunde.
+
     private void sellHousePawnFieldProcess() {
         throw new RuntimeException("Not implemented yet");
     }
@@ -55,14 +55,7 @@ public class FieldImpl implements FieldAction {
             streetPayRentToOwner(street);
             userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
         }
-            // TODO PRIORITET 1 DOBBELT LEJE ALLE GRUNDE
-            // Vi har ikke gjort så man får dobbelt leje hvis man ejer alle grunde i en FieldPair.
-            // Denne føles ret basic, og burde vi implementere.
-            // Reglerne er:
-            //  Er man i fængsel, har man stadig ret til at købe grunde (ved
-            //  auktion eller handel spillerne imellem), men man kan ikke opkræve leje af de
-            //  andre spillere.
-            // Begge to burde vi nå. Det skal også skrives test till dem.
+
 
         return boughtField;
     }
