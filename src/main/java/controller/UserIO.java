@@ -25,6 +25,9 @@ public class UserIO implements BasicUserIO {
     public boolean promptYesOrNo(Message message) {
         return (basicUserIO.promptChoice(message, Message.yes(), Message.no())) == 0;
     }
+    public boolean promptNoOrYes(Message message) {
+        return (basicUserIO.promptChoice(message, Message.no(),Message.yes())) == 0;
+    }
 
     public boolean promptBuyField(String playerName, String fieldName) {
         return promptYesOrNo(Message.buyField(playerName, fieldName));
