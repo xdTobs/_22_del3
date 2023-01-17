@@ -71,7 +71,7 @@ package entities{
 
 
 package language{
-    class LanguageController {
+    class LanguageHandler {
         + String getMessage(String)
     }
 }
@@ -119,8 +119,8 @@ GameBoard --> DiceCup
 GameBoard --> UserIO
 
 GameBoard -[norank]-> Deck
-GuiView -[norank]-> LanguageController
-Deck -[hidden]up-> LanguageController
+GuiView -[norank]-> LanguageHandler
+Deck -[hidden]up-> LanguageHandler
 ChanceCardImpl ..|>ChanceAction
 FieldAction <|.. FieldImpl
 View <|.left. GuiView

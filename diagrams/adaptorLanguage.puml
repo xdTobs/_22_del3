@@ -10,15 +10,16 @@ skinparam nodesep 45
 
 class GuiView {
     - GUI gui
-    - LangController langController
-    + int promptChoice(Message,Message)
+    - LanguageHandler languageHandler
+    + int promptChoiceLanguageHandlerMessage,Message)
     + void showMessage(Message)
     + void update(Player[],Field[],DiceCup)
 }
 
 
 package lang {
-    class LangController {
+    class LanguageHandler
+     {
         - EnumMap<Message.Type, String> langMap
         + String getMessage(Message)
     }
@@ -68,9 +69,10 @@ interface BasicUserIO {
 
 
 BasicUserIO <|.up. GuiView
-GuiView -down-> LangController
+GuiView -down-> LanguageHandler
 
-LangController -down-> Message.Type
+
+LanguageHandler -down-> Message.Type
 Message +-up- Message.Type :Type is an \ninner class
 
 GameController -up-> UserIO
