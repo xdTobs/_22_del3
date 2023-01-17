@@ -1,27 +1,41 @@
-MOVETO:*, ryk til *.
-ONPICFIELDCARD:Vælg et felt at rykke frem til. Hvis det er ledigt, får du det gratis. Hvis det er ejet, skal du betale leje.
-GAMEOVERMESSAGE:* har vundet spillet! Rankeringen af de andre spillere er: *.
-ROLLDICE:*, det er din tur. Kast tærningerne!
-INJAIL:*, du er i fængsel. Betal dig ud eller slå 2 ens terninger for at komme ud. Efter 3 ture i fængsel bliver du tvunget til at betale for at komme ud.
-LEAVEJAIL:*, du er ikke længere i fængsel. FRIHED!
-CHANCECARD:* træk et chancekort. På det står der at du: *
+GAME_OVER_MESSAGE:* har vundet spillet! Rækkefølgen af de andre spillere er *. Vælg "ja" for at afslutte spillet
+ROLL_DICE:*, det er din tur. Kast terningerne!
+IN_JAIL:*, du er i fængsel. Betal penge eller slå to ens terninger for at komme ud. Efter 3 ture bliver du tvunget til at betale en bøde og bliver løsladt.
+LEAVE_JAIL:*, du er ikke længere i fængsel. FRIHED!
+CHANCE_CARD:* træk et chancekort. Det fortæller dig følgende: *
 PARKING: Du er på parkeringspladsen. Her sker der ikke så meget.
-PLAYERCOUNT:Hvor mange spillere vil spille?
-MONEYGIFTCARDSUCCESSFUL:*, your values have been tallied under the requirement, you have received *.
-MONEYGIFTCARDUNSUCCESSFUL:*, your values have been tallied over the requirement, you do NOT receive *.
-WANTTOBUYFIELD:* er landet på *. Vil du købe det?
-WANTTOBAILOUT: *, vil du betale 1000 DKK for at komme ud af fængslet?
+PLAYER_COUNT:Hvor mange spillere vil spille?
+MONEY_GIFT_CARD_SUCCESSFUL:*, dine værdier er blevet optalt til at være under kravet, du har modtaget *.
+MONEY_GIFT_CARD_UNSUCCESSFUL:*, dine værdier er blevet optalt til at være over kravet, du modtager IKKE *.
+WANT_TO_BUY_FIELD:* er landet på *. Vil du købe det?
+WANT_TO_BAIL_OUT: *, vil du betale 1000 DKK for at komme ud af fængslet?
 YES:Ja!
 NO:Nej.
-EXTRATURN:*, du slog to ens terninger. Du får en ekstra tur!
-TAXPROMPT:Du skal betale skat og valget mellem: * eller * % af alle dine penge.
-PASSEDSTART:*, du har passeret start. Du får 4000 DKK.
-WANTTOBUYHOUSE:*, vil du købe et hus?
-STOPBUYINGHOUSES:Jeg vil ikke købe flere huse.
-SELECTHOUSE:Vælg den ejendom du gerne vil købe et hus til:
-HOUSEOPTION:* for * DKK per
-PAYRENT:*, du skal betale leje på *, for * DKK.
-GOTOJAILFIELD:Uheldigt kast! Du skal i fængsel!
-GOTOJAILCARD:Dårligt held! Dette kort sender dig i fængsel!
-REMAININGPLAYERS:En anden spiller har tabt. Tilbageværende spillere er: *
-WHATISYOURNAME:Hvad er dit navn, *?
+EXTRA_TURN:*, du slog to ens terninger. Du får en ekstra tur!
+TAX_PROMPT:Du skal betale skat og valget mellem: * eller * % af alle dine penge.
+PASSED_START:*, du har passeret start. Du får 4000 DKK.
+WANT_TO_BUY_HOUSE:*, vil du købe et hus?
+STOP_BUYING_HOUSES:Jeg vil ikke købe flere huse.
+SELECT_HOUSE:Vælg den ejendom du gerne vil købe et hus til:
+SELL_SELECT_HOUSE:Vælg den ejendom som du ønsker at sælge for
+PAWN_SELECT_PROPERTY:Vælg den ejendom som du ønsker at pantsætte
+HOUSE_OPTION:* for * DKK per
+SELL_HOUSE_OPTION:Sælg * for * DKK per
+PAY_RENT:*, du skal betale leje på *, for * DKK.
+GO_TO_JAIL_FIELD:Uheldigt kast! Du skal i fængsel!
+GO_TO_JAIL_CARD:Dårligt held! Dette kort sender dig i fængsel!
+REMAINING_PLAYERS:En anden spiller har tabt. Tilbageværende spillere er: *
+WHAT_IS_YOUR_NAME:Hvad er dit navn, *?
+WANT_TO_SELL:*, Vil du sælge huse eller pantsætte ejendomme først?
+SELL_HOUSE:Jeg vil gerne sælge huse.
+PAWN_PROPERTY:Jeg vil gerne pantsætte ejendomme.
+DONT_WANT_TO_SELL:jeg vil ikke sælge noget.
+DO_YOU_WANT_TO_SELL:Vil du sælge noget?
+BUY_BACK_HOUSE_OPTION:Tilbagekøb * for * DKK
+DONT_WANT_TO_BUY_BACK_HOUSE:Jeg vil ikke tilbagekøbe noget.
+BUY_BACK:*, vil du tilbagekøbe nogle af dine pantsætte grunde?
+DONT_PAY_RENT:*, du behøver ikke at betale * i leje *, fordi * er i fængsel.
+YOU_CANNOT_AFFORD:*, du har ikke råd til dette.
+THREE_SAME_GO_JAIL: *, du slog ens terninger 3 gange i træk... Du skal i fængsel!
+SELECT_LANGUAGE:Vælg et sprog:
+EMPTY_PLACEHOLDER_FOR_CHOICES:*
