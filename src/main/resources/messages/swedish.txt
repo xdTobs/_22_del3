@@ -1,0 +1,41 @@
+GAME_OVER_MESSAGE:* har vunnit! Grattis! Övriga spelare från näst först till sist.:*. Välj ja för att avsluta spelet.
+ROLL_DICE:*, det är din tur. Kasta tärningen!
+IN_JAIL:*, du är i fängelse. Betala en böter eller kasta lika tärningar för att komma ut. Efter tre omgångar i fängelse tvingas du att betala böter och lämna fängelse.
+LEAVE_JAIL:*, du är inte längre i fängelse. FRIHET!
+CHANCE_CARD:* drog ett chanskort. Det säger dig att: *
+PARKING:Du är på parkeringsplatsen. Det händer inte så mycket här.
+PLAYER_COUNT:Hur många spelare kommer att spela?
+MONEY_GIFT_CARD_SUCCESSFUL:*, din fattiglapp! Dina tillgångar är så små att du har fått en gåva på *
+MONEY_GIFT_CARD_UNSUCCESSFUL:*, du är alltför rik, du får INTE en gåva på *
+WANT_TO_BUY_FIELD:* har landat på *. Vill du köpa det?
+WANT_TO_BAIL_OUT:*, vill du betala 1000 DKK för att bli fri från fängelse?
+YES:Ja!
+NO:Nej.
+EXTRA_TURN:*, du slog lika tärningar. Spela igen!
+TAX_PROMPT:Du måste betala skatt, du har valet mellan: * eller * % av allt rikedom.
+PASSED_START:*, du passerade start. Du får 4000 DKK.
+WANT_TO_BUY_HOUSE:*, vill du köpa ett hus?
+STOP_BUYING_HOUSES:Jag vill inte köpa fler hus.
+SELECT_HOUSE:Välj fastigheten som du önskar att köpa ett hus för
+SELL_SELECT_HOUSE:Välj fastigheten som du önskar att sälja ett hus för
+PAWN_SELECT_PROPERTY:Välj fastigheten som du önskar att pantsätta
+HOUSE_OPTION:* för * DKK per
+SELL_HOUSE_OPTION:Sälj * för * DKK per
+PAY_RENT:*, du måste betala hyra på *, för * DKK.
+GO_TO_JAIL_FIELD:Oturligt kast! Gå till fängelse!
+GO_TO_JAIL_CARD:Vilken otur! Detta chanskort sätter dig i fängelse!
+REMAINING_PLAYERS:Ytterligare en spelare har förlorat. Återstående spelare är: *.
+WHAT_IS_YOUR_NAME:Vad heter du, *?
+WANT_TO_SELL: *, vill du sälja hus eller pantegodset först?
+SELL_HOUSE: Jag vill sälja hus.
+PAWN_PROPERTY: Jag vill pantsätta fastigheter.
+DONT_WANT_TO_SELL: Jag vill inte sälja något.
+DO_YOU_WANT_TO_SELL: Vill du sälja något?
+BUY_BACK_HOUSE_OPTION: Köp tillbaka * för * DKK
+DONT_WANT_TO_BUY_BACK_HOUSE: Jag vill inte köpa tillbaka några fastigheter.
+BUY_BACK: *, Vill du köpa tillbaka någon av dina pantsatta marken?
+DONT_PAY_RENT: *, du behöver inte betala * i hyra på *, eftersom * är i fängelse.
+YOU_CANNOT_AFFORD: *, du har inte råd att köpa det här.
+THREE_SAME_GO_JAIL: *, du rullade likadana ögon, tre gånger i rad... Gå till fängelse!
+SELECT_LANGUAGE: Välj språk
+EMPTY_PLACEHOLDER_FOR_CHOICES:*

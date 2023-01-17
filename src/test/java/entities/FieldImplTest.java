@@ -60,6 +60,7 @@ class FieldImplTest {
             @Override
             public void showMessage(Message message) {
             }
+
         };
         TestUserIO testUserIO = TestUserIO.debugSetup(basicUserIO);
 
@@ -102,6 +103,7 @@ class FieldImplTest {
             public void showMessage(Message message) {
 
             }
+
         };
         UserIO testUserIO = new UserIO(basicUserIO);
         Player[] players = PlayerTest.getTwoDebugPlayers(30000);

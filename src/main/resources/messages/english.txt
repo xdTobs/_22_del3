@@ -16,7 +16,7 @@ TAX_PROMPT:You have to pay tax, you have the choice between: * or * % of all wea
 PASSED_START:*, you passed start. You receive 4000 DKK.
 WANT_TO_BUY_HOUSE:*, would you like to buy a House?
 STOP_BUYING_HOUSES:I don't want to buy any more Houses.
-SELECT_HOUSE:Select the property that you wish to buy a house for
+SELECT_HOUSE:Select the property that you wish to buy a house for.
 SELL_SELECT_HOUSE:Select the property that you wish to sell a house for
 PAWN_SELECT_PROPERTY:Select the property that you wish to pawn
 HOUSE_OPTION:* for * DKK per
@@ -37,3 +37,5 @@ BUY_BACK:*, Do you want to buy back any of your pawned fields?
 DONT_PAY_RENT:*, you don´t need to pay * in rent at *, because * is in jail.
 YOU_CANNOT_AFFORD:*, you cannot afford to buy this.
 THREE_SAME_GO_JAIL: *, you rolled equal eyes, three times in a row... Go to jail!
+SELECT_LANGUAGE: Välj språk
+EMPTY_PLACEHOLDER_FOR_CHOICES:*

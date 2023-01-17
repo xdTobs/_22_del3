@@ -2,8 +2,7 @@ package controller;
 
 import language.Message;
 
-public class TestBasicUserIO implements BasicUserIO {
-
+public class TestBasicUserIO extends BasicUserIO {
     @Override
     public int promptChoice(Message message, Message... choices) {
         return 0;

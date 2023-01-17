@@ -1,5 +1,6 @@
 package controller;
 
+import language.Language;
 import language.Message;
 
 /**
@@ -8,7 +9,7 @@ import language.Message;
  * Our GuiView implements the most basic of IO and every IO goes through the GuiView IO. We add more specific methods here,
  * which makes it easier to ask Player for input or show message.
  */
-public class UserIO implements BasicUserIO {
+public class UserIO extends BasicUserIO {
     BasicUserIO basicUserIO;
 
     public UserIO(BasicUserIO basicUserIO) {
@@ -44,6 +45,12 @@ public class UserIO implements BasicUserIO {
             }
         }
         return names;
+    }
+
+    public Language promptLanguage(String[] languages) {
+        Message[] languageChoices = Message.selectLanguage(languages);
+        int choice = basicUserIO.promptChoice(Message.selectLanguage(), languageChoices);
+        return Language.getLanguageEnum(languages[choice]);
     }
 
     @Override

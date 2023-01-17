@@ -2,12 +2,12 @@ package view;
 
 import controller.BasicUserIO;
 import controller.View;
+import entities.Player;
 import entities.dicecup.DiceCup;
 import entities.fields.Field;
-import entities.Player;
 import language.Message;
 
-public class TestView implements View, BasicUserIO {
+public class TestView extends BasicUserIO implements View {
     @Override
     public void addPlayersToGui(Player[] players) {
 

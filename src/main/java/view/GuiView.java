@@ -2,18 +2,18 @@ package view;
 
 import controller.BasicUserIO;
 import controller.View;
+import entities.Player;
 import entities.dicecup.DiceCup;
 import entities.fields.*;
-import entities.Player;
-import language.LanguageController;
-import language.Message;
 import gui_fields.*;
 import gui_main.GUI;
+import language.LanguageController;
+import language.Message;
 
 import java.awt.*;
 import java.util.Arrays;
 
-public class GuiView implements View, BasicUserIO {
+public class GuiView extends BasicUserIO implements View {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
@@ -77,8 +77,6 @@ public class GuiView implements View, BasicUserIO {
     public void showMessage(Message message) {
         gui.showMessage(languageController.getMessage(message));
     }
-
-
     public static GuiView setup(Field[] fields, LanguageController languageController) {
         GUI_Field[] guiFields = new GUI_Field[40];
         for (int i = 0; i < fields.length; i++) {
@@ -172,7 +170,7 @@ public class GuiView implements View, BasicUserIO {
         GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
         for (int i = 1; i <= sum; i++) {
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

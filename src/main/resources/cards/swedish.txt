@@ -1,0 +1,46 @@
+Oljepriserna har stigit och du måste betala DKK 500 per hus och DKK 2000 per hotell.;PayPerProperty
+Fastighetsskatten har ökat. De extra utgifterna är: DKK 800 per hus, DKK 2300 per hotell.;PayPerProperty
+Du har kört förbi en "fullständig stopp", betala en böter på DKK 1000.;ChangeBalNeg
+Betala för en bil tvätt och smörjning DKK 300.;ChangeBalNeg
+Betala DKK 200 för leverans av 2 stycken ölkartonger.;ChangeBalNeg
+Betala 3000 för att reparera din kärra.;ChangeBalNeg
+Betala 3000 för att reparera din kärra.;ChangeBalNeg
+Du har köpt 4 nya däck till din bil, betala DKK 1000.;ChangeBalNeg
+Du har fått en parkeringsböter, betala DKK 200.;ChangeBalNeg
+Betala din bilförsäkring, DKK 1000.;ChangeBalNeg
+Du har varit utomlands och köpt för många cigaretter, betala DKK 200 i tull.;ChangeBalNeg
+Tandläkarräkning, betala DKK 2000.;ChangeBalNeg
+Du har vunnit klasslotteriet. Ta emot DKK 500.;ChangeBalPos
+Du har vunnit klasslotteriet. Ta emot DKK 500.;ChangeBalPos
+Du tar emot din utdelning. Ta emot DKK 1000 från banken.;ChangeBalPos
+Du tar emot din utdelning. Ta emot DKK 1000 från banken.;ChangeBalPos
+Du tar emot din utdelning. Ta emot DKK 1000 från banken.;ChangeBalPos
+Kommunen har avskrivit en kvartals skatt. Ta ut DKK 3000 från banken.;ChangeBalPos
+Du har varit på hästtävlingar och satsat lite pengar. Ta emot DKK 1000.;ChangeBalPos
+På grund av inflation har du fått en lönebonus, ta emot DKK 1000.;ChangeBalPos
+Din premieobligation har löpt ut. Du tar emot DKK 1000 från banken.;ChangeBalPos
+Din premieobligation har löpt ut. Du tar emot DKK 1000 från banken.;ChangeBalPos
+Du har sålt någon gammal möbler på en auktion. Ta emot DKK 1000 från banken.;ChangeBalPos
+Värdet av egen odling från din nyttoträdgård uppgår till 200 som du tar emot från banken.;ChangeBalPos
+Du tar emot "Matadorstipendiet" på DKK 40000, men endast om dina totala värden inte överstiger DKK 15000.;ChangeBalConditional
+Det är din födelsedag. Ta emot DKK 200 från varje medspelare.;ChangeBalFromPlayers
+Du har satt pengar på förhand för en gemensam festival. Märkligt nog betalar alla omedelbart. Ta emot DKK 500 från varje medspelare.;ChangeBalFromPlayers
+Du måste hålla en familjefest och få ett bidrag på DKK 500 från varje medspelare.;ChangeBalFromPlayers
+Flytta fram tre rutor.;MoveSpaces;3
+Flytta tillbaka tre rutor.;MoveBackSpaces;3
+Flytta tillbaka tre rutor.;MoveBackSpaces;3
+Gå till närmaste färjelinje och betala ägaren dubbelt så mycket hyra som han/hon annars har rätt till, om företaget inte ägs av någon kan du köpa det från banken.;MoveToFerry
+Gå till närmaste färjelinje och betala ägaren dubbelt så mycket hyra som han/hon annars har rätt till, om företaget inte ägs av någon kan du köpa det från banken.;MoveToFerry
+Flytta till START.;MoveToField;0
+Flytta till START.;MoveToField;0
+Flytta till Frederiksberg Allé. Om du passerar START, samla in DKK 4000.;MoveToField;37
+Ta "Mols Linjen", flytta din pjäs framåt och om du passerar START, samla in DKK 4000.;MoveToField;15
+Flytta till Grønningen, om du passerar start samla in DKK 4000.;MoveToField;24
+Flytta till Vimmelskaftet, om du passerar start samla in DKK 4000.;MoveToField;32
+Flytta till Strandvejen. Om du passerar START, samla in DKK 4000.;MoveToField;19
+Gå till "Rådhusplatsen" .;MoveToField;39
+Ta närmaste färja, om du passerar start samla in DKK 4000.;MoveToFerry
+Till födelsedagen av kungen är du härmed benådad för fängelse. Denna kort kan sparas tills du behöver det, eller säljas.;GetOutOfJailFree
+Till födelsedagen av kungen är du härmed benådad för fängelse. Denna kort kan sparas tills du behöver det, eller säljas.;GetOutOfJailFree
+Gå till fängelset, du får inte pengar för att passera start;GoToJail
+Gå till fängelset, du får inte pengar för att passera start;GoToJail

@@ -1,20 +1,37 @@
 package language;
 
 
+import exceptions.NotImplementedYetException;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class LanguageController {
-    private final EnumMap<Message.Type, String> languageMap = new EnumMap<>(Message.Type.class);
+    private final EnumMap<Message.Type, String> languageMap;
 
-    public LanguageController() {
-        this("englishMessages.txt");
+    public LanguageController(EnumMap<Message.Type, String> languageMap) {
+        this.languageMap = languageMap;
     }
 
-    public LanguageController(String resource) {
+    public static LanguageController getDefaultLanguageController() {
+        return getLanguageController(Language.ENGLISH);
+    }
+
+    public static LanguageController getLanguageController(Language language) {
+        return switch (language) {
+            case ENGLISH -> new LanguageController(createDictionary("messages/english.txt"));
+            case SWEDISH -> new LanguageController(createDictionary("messages/swedish.txt"));
+            default -> throw new NotImplementedYetException("Unexpected value: " + language);
+        };
+    }
+
+    private static EnumMap<Message.Type, String> createDictionary(String resource) {
         InputStream inputStream = LanguageController.class.getClassLoader().getResourceAsStream(resource);
         if (inputStream == null) {
             throw new NullPointerException("InputStream should not be null");
@@ -22,24 +39,25 @@ public class LanguageController {
         var bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         // If we need to split text in englishMessages we will use * for split.
+        EnumMap<Message.Type, String> dictionary = new EnumMap<>(Message.Type.class);
         for (String line : bufferedReader.lines().toList()) {
             // We use limit, so we only split on first ":"
             String[] split = line.split(":", 2);
             Message.Type type = Message.Type.valueOf(split[0]);
-            languageMap.put(type, split[1]);
+            dictionary.put(type, split[1]);
         }
 
-        List<Message.Type> missingTypes = Arrays.stream(Message.Type.values()).filter(type -> !languageMap.containsKey(type)).toList();
+        List<Message.Type> missingTypes = Arrays.stream(Message.Type.values()).filter(type -> !dictionary.containsKey(type)).toList();
 
         if (missingTypes.size() != 0) {
             String s = missingTypes.stream().map(Enum::toString).reduce("", (acc, type) -> acc + type);
             throw new RuntimeException("LanguageMap is missing the following keys: " + s);
         }
-        if (languageMap.size() != Message.Type.values().length) {
-            String s = languageMap.keySet().stream().map(Enum::toString).reduce("", (acc, type) -> acc + type);
+        if (dictionary.size() != Message.Type.values().length) {
+            String s = dictionary.keySet().stream().map(Enum::toString).reduce("", (acc, type) -> acc + type);
             throw new RuntimeException("LanguageMap has too many keys: " + s);
         }
-
+        return dictionary;
     }
 
     // First arg in message is prepended to message rest of args are appended seperated by ","

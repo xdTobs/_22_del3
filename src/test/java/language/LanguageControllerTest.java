@@ -1,14 +1,13 @@
 package language;
 
-import controller.BasicUserIO;
-import org.apache.commons.lang.NotImplementedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LanguageControllerTest {
-    LanguageController languageController = new LanguageController();
+    LanguageController languageController = LanguageController.getDefaultLanguageController();
 
 
     @Test

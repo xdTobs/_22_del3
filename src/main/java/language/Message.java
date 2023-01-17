@@ -23,19 +23,22 @@ public class Message {
     public static Message buyHouse(String playerName) {
         return of(Type.WANT_TO_BUY_HOUSE, playerName);
     }
+
     public static Message sell(String playerName) {
         return of(Type.WANT_TO_SELL, playerName);
     }
+
     public static Message sellHouse() {
         return of(Type.SELL_HOUSE);
     }
+
     public static Message pawnProperty() {
         return of(Type.PAWN_PROPERTY);
     }
+
     public static Message dontWantToSell() {
         return of(Type.DONT_WANT_TO_SELL);
     }
-
 
 
     public static Message bailOut(String playerName) {
@@ -78,8 +81,9 @@ public class Message {
     public static Message chanceCard(String playerName, String description) {
         return of(Type.CHANCE_CARD, playerName, description);
     }
-    public static Message youCannotAfford(String playerName){
-        return of(Type.YOU_CANNOT_AFFORD,playerName);
+
+    public static Message youCannotAfford(String playerName) {
+        return of(Type.YOU_CANNOT_AFFORD, playerName);
     }
 
     public static Message leaveJail(String playerName) {
@@ -105,20 +109,24 @@ public class Message {
     public static Message payRent(String playerName, String fieldName, String rent) {
         return of(Type.PAY_RENT, playerName, fieldName, rent);
     }
-    public static Message noRentInJail(String playerName, String rent, String fieldName, String houseOwner){
+
+    public static Message noRentInJail(String playerName, String rent, String fieldName, String houseOwner) {
         return of(Type.DONT_PAY_RENT, playerName, rent, fieldName, houseOwner);
     }
-    public static Message ThreeSameDieGoToJail(String playerName){
+
+    public static Message ThreeSameDieGoToJail(String playerName) {
         return of(Type.THREE_SAME_GO_JAIL, playerName);
     }
 
     public static Message finishBuyingHouses() {
         return of(Type.STOP_BUYING_HOUSES);
     }
-public static Message pawnSelectProperty(){
-    return of(Type.PAWN_SELECT_PROPERTY);
-}
-    public static Message sellSelectHouse(){
+
+    public static Message pawnSelectProperty() {
+        return of(Type.PAWN_SELECT_PROPERTY);
+    }
+
+    public static Message sellSelectHouse() {
         return of(Type.SELL_SELECT_HOUSE);
     }
 
@@ -143,26 +151,41 @@ public static Message pawnSelectProperty(){
         return of(Type.HOUSE_OPTION, streetName, pricePer);
     }
 
-    public static Message doYouWantToSell(){
+    public static Message doYouWantToSell() {
         return of(Type.DO_YOU_WANT_TO_SELL);
     }
 
     public static Message sellHouseOption(String streetName, String pricePer) {
         return of(Type.SELL_HOUSE_OPTION, streetName, pricePer);
     }
+
     public static Message buyBackHouseOption(String streetName, String pricePer) {
         return of(Type.BUY_BACK_HOUSE_OPTION, streetName, pricePer);
     }
 
-    public static Message dontWantToBuyBackHouse(){
+    public static Message dontWantToBuyBackHouse() {
         return of(Type.DONT_WANT_TO_BUY_BACK_HOUSE);
     }
+
     public static Message selectHouse() {
         return of(Type.SELECT_HOUSE);
     }
 
     public static Message buyBack(String name) {
-        return of(Type.BUY_BACK,name);
+        return of(Type.BUY_BACK, name);
+    }
+
+    public static Message selectLanguage() {
+        return of(Type.SELECT_LANGUAGE);
+    }
+
+    public static Message[] selectLanguage(String[] languages) {
+        Message[] messages = new Message[languages.length];
+        for (int i = 0; i < languages.length; i++) {
+            String capitalized = languages[i].substring(0, 1).toUpperCase() + languages[i].substring(1).toLowerCase();
+            messages[i] = of(Type.EMPTY_PLACEHOLDER_FOR_CHOICES, capitalized);
+        }
+        return messages;
     }
 
     public Type getType() {
@@ -174,41 +197,42 @@ public static Message pawnSelectProperty(){
     }
 
     public enum Type {
+        BUY_BACK,
+        BUY_BACK_HOUSE_OPTION,
         CHANCE_CARD,
+        DONT_PAY_RENT,
+        DONT_WANT_TO_BUY_BACK_HOUSE,
+        DONT_WANT_TO_SELL,
+        DO_YOU_WANT_TO_SELL,
         EXTRA_TURN,
         GAME_OVER_MESSAGE,
         GO_TO_JAIL_CARD,
         GO_TO_JAIL_FIELD,
         HOUSE_OPTION,
-        LEAVE_JAIL,
         IN_JAIL,
+        LEAVE_JAIL,
         MONEY_GIFT_CARD_SUCCESSFUL,
         MONEY_GIFT_CARD_UNSUCCESSFUL,
         NO,
         PARKING,
         PASSED_START,
+        PAWN_PROPERTY,
+        PAWN_SELECT_PROPERTY,
         PAY_RENT,
         PLAYER_COUNT,
         REMAINING_PLAYERS,
         ROLL_DICE,
         SELECT_HOUSE,
+        SELL_HOUSE,
+        SELL_HOUSE_OPTION,
+        SELL_SELECT_HOUSE,
         STOP_BUYING_HOUSES,
         TAX_PROMPT,
-        WANT_TO_BAIL_OUT,
-        WANT_TO_BUY_FIELD,
-        WANT_TO_BUY_HOUSE,
-        WANT_TO_SELL,
+        THREE_SAME_GO_JAIL,
+        WANT_TO_BAIL_OUT, WANT_TO_BUY_FIELD, WANT_TO_BUY_HOUSE, WANT_TO_SELL,
         WHAT_IS_YOUR_NAME,
         YES,
-        PAWN_PROPERTY,
-        SELL_HOUSE,
-        DONT_WANT_TO_SELL,
-        SELL_HOUSE_OPTION,
-        PAWN_SELECT_PROPERTY,
-        SELL_SELECT_HOUSE,
-        DO_YOU_WANT_TO_SELL, BUY_BACK_HOUSE_OPTION, DONT_WANT_TO_BUY_BACK_HOUSE, BUY_BACK,
-        DONT_PAY_RENT,
         YOU_CANNOT_AFFORD,
-        THREE_SAME_GO_JAIL,
+        SELECT_LANGUAGE, EMPTY_PLACEHOLDER_FOR_CHOICES,
     }
 }

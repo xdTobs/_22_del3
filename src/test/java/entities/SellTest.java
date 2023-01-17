@@ -3,7 +3,6 @@ package entities;
 import controller.BasicUserIO;
 import controller.GameController;
 import controller.TestUserIO;
-import controller.UserIO;
 import entities.chancecards.Deck;
 import entities.dicecup.PredeterminedDiceCup;
 import entities.dicecup.RandomDiceCup;
@@ -17,7 +16,8 @@ import java.awt.*;
 import java.util.List;
 
 import static entities.Utils.predeterminedDiceCup;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SellTest {
     GameController gameController;
