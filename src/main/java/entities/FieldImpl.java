@@ -51,7 +51,7 @@ public class FieldImpl implements FieldAction {
             } else {
                 return boughtField;
             }
-        } else {
+        } else if(street.getOwner()!=gameBoard.getCurrentPlayer()) {
             streetPayRentToOwner(street);
             userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), street.getName(), String.valueOf(street.getRent(street.getHouses()))));
         }
