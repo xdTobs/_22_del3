@@ -5,7 +5,7 @@ import controller.UserIO;
 import entities.GameBoard;
 import entities.fields.Field;
 import entities.fields.Street;
-import language.LanguageController;
+import language.LanguageHandler;
 import language.Message;
 import view.GuiView;
 
@@ -15,7 +15,7 @@ public class Player1OwnsHouses {
 
     public static void main(String[] args) {
         Field[] fields = GameBoard.getDefaultFields();
-        GuiView view = GuiView.setup(fields, LanguageController.getDefaultLanguageController());
+        GuiView view = GuiView.setup(fields, LanguageHandler.getDefaultLanguageHandler());
         UserIO userIO = new UserIO(view);
 
         int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);

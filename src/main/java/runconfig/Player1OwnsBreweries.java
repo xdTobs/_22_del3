@@ -5,7 +5,7 @@ import controller.UserIO;
 import entities.GameBoard;
 import entities.fields.Ferry;
 import entities.fields.Field;
-import language.LanguageController;
+import language.LanguageHandler;
 import language.Message;
 import view.GuiView;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class Player1OwnsBreweries {
     public static void main(String[] args) {
         Field[] fields = GameBoard.getDefaultFields();
-        GuiView view = GuiView.setup(fields, LanguageController.getDefaultLanguageController());
+        GuiView view = GuiView.setup(fields, LanguageHandler.getDefaultLanguageHandler());
         UserIO userIO = new UserIO(view);
 
         int numberOfPlayers = userIO.promptRange(Message.numberOfPlayers(), 2, 4);

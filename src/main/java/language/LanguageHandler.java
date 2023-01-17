@@ -12,27 +12,27 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class LanguageController {
+public class LanguageHandler {
     private final EnumMap<Message.Type, String> languageMap;
 
-    public LanguageController(EnumMap<Message.Type, String> languageMap) {
+    public LanguageHandler(EnumMap<Message.Type, String> languageMap) {
         this.languageMap = languageMap;
     }
 
-    public static LanguageController getDefaultLanguageController() {
-        return getLanguageController(Language.ENGLISH);
+    public static LanguageHandler getDefaultLanguageHandler() {
+        return getLanguageHandler(Language.ENGLISH);
     }
 
-    public static LanguageController getLanguageController(Language language) {
+    public static LanguageHandler getLanguageHandler(Language language) {
         return switch (language) {
-            case ENGLISH -> new LanguageController(createDictionary("messages/english.txt"));
-            case SWEDISH -> new LanguageController(createDictionary("messages/swedish.txt"));
+            case ENGLISH -> new LanguageHandler(createDictionary("messages/english.txt"));
+            case SWEDISH -> new LanguageHandler(createDictionary("messages/swedish.txt"));
             default -> throw new NotImplementedYetException("Unexpected value: " + language);
         };
     }
 
     private static EnumMap<Message.Type, String> createDictionary(String resource) {
-        InputStream inputStream = LanguageController.class.getClassLoader().getResourceAsStream(resource);
+        InputStream inputStream = LanguageHandler.class.getClassLoader().getResourceAsStream(resource);
         if (inputStream == null) {
             throw new NullPointerException("InputStream should not be null");
         }
