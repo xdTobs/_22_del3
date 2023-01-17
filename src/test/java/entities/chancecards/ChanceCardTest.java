@@ -228,16 +228,9 @@ public class ChanceCardTest {
         assertEquals(8, gameBoard.getCurrentPlayer().getPosition());
         assertTrue(gameBoard.getCurrentPlayer().isJailed());
     }
-
-    @AfterEach
-    void tearDown() {
-        PredeterminedDiceCup dc = (PredeterminedDiceCup) gameBoard.getDiceCup();
-        assertTrue(dc.allRollsUsed());
-    }
-
     @Test
     @DisplayName("player should not receive 200 dkk from bankrupt players")
-       void TwoHundredFromBankruptPlayerTest() {
+    void TwoHundredFromBankruptPlayerTest() {
         //setup portion
         gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
         Deck deck = new Deck(List.of(new ChangeBalFromPlayersChanceCard(200, "test")));
@@ -248,4 +241,23 @@ public class ChanceCardTest {
         gameController.playTurn();
         assertEquals(30000, gameBoard.getCurrentPlayer().getBalance());
     }
+
+    @Test
+    @DisplayName("Move To Brewery Test")
+    void moveToNextBreweryChanceCardTest(){
+        gameBoard.setRandomDiceCup(new PredeterminedDiceCup(new Utils.Roll(1, 3)));
+        Deck deck = new Deck(List.of(new MoveToBreweryChanceCard("Move To Next Brewery")));
+        gameBoard.setDeck(deck);
+        gameController.playTurn();
+        assertEquals(6, gameBoard.getCurrentPlayer().getPosition());
+
+    }
+
+    @AfterEach
+    void tearDown() {
+        PredeterminedDiceCup dc = (PredeterminedDiceCup) gameBoard.getDiceCup();
+        assertTrue(dc.allRollsUsed());
+    }
+
+
 }
