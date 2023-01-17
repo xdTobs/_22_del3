@@ -4,21 +4,17 @@ import controller.GameController;
 import controller.UserIO;
 import entities.GameBoard;
 import entities.Player;
-import entities.fields.Ferry;
 import entities.fields.Field;
 import entities.fields.RentableField;
-import language.LanguageController;
-import language.Message;
+import language.LanguageHandler;
 import view.GuiView;
-
-import java.util.List;
 
 public class Player1OwnsEverything {
 
     //shows gameover
     public static void main(String[] args) {
         Field[] fields = GameBoard.getDefaultFields();
-        GuiView view = GuiView.setup(fields, LanguageController.getDefaultLanguageController());
+        GuiView view = GuiView.setup(fields, LanguageHandler.getDefaultLanguageHandler());
         UserIO userIO = new UserIO(view);
 
         Player[]players = new Player[]{new Player("1",1),new Player("2",1),new Player("3",1),new Player("4",1)};
