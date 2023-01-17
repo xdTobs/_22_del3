@@ -77,7 +77,7 @@ public class FieldImpl implements FieldAction {
         }
 
         for (Street street : ownedStreets) {
-            if (streetPlayerOwnsPair(street)) {
+            if (streetPlayerOwnsPair(street)&& pairIsntMaxed(street.getPair())) {
                 ableToBuyHouse = true;
                 ownedPairStreets.add(street);
             }
@@ -108,6 +108,16 @@ public class FieldImpl implements FieldAction {
             buyHouse(availableStreets.get(selection - 1));
 
         }
+    }
+
+    private boolean pairIsntMaxed(FieldPair pair) {
+        int isMaxedCounter = 0;
+        for (int i : pair.getFieldIds()){
+            Street s = (Street)gameBoard.getField(i);
+            if (s.getHouses()==5)
+                isMaxedCounter++;
+        }
+        return isMaxedCounter == pair.getFieldIds().length;
     }
 
     private void buyHouse(Street street) {
@@ -417,14 +427,14 @@ public class FieldImpl implements FieldAction {
                 houseOwner = player;
             }
         }
-        if (houseOwner != null){
+        if (houseOwner != null&&houseOwner!=gameBoard.getCurrentPlayer()){
             if (!houseOwner.isJailed()){
                 int breweriesOwned = findHowManyInGroupPlayerOwns(brewery);
-                int rent = (brewery.getRent(breweriesOwned) * diceSum)/2;
+                int rent = (brewery.getRent(breweriesOwned-1) * diceSum);
                 houseOwner.addBalance(rent);
                 gameBoard.getCurrentPlayer().addBalance(-rent);
                 if (houseOwner != gameBoard.getCurrentPlayer()) {
-                    userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), brewery.getName(), String.valueOf((brewery.getRent(findHowManyInGroupPlayerOwns(brewery)) * diceSum)/2)));
+                    userIO.showMessage(Message.payRent(gameBoard.getCurrentPlayer().getName(), brewery.getName(), rent+""));
                 }
             }else {
                 userIO.showMessage(Message.noRentInJail(gameBoard.getCurrentPlayer().getName(),String.valueOf((brewery.getRent(findHowManyInGroupPlayerOwns(brewery)) * diceSum)/2), brewery.getName(), brewery.getOwner().getName()));

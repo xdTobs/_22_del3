@@ -3,6 +3,7 @@ package runconfig;
 import controller.GameController;
 import controller.UserIO;
 import entities.GameBoard;
+import entities.fields.Brewery;
 import entities.fields.Ferry;
 import entities.fields.Field;
 import language.LanguageHandler;
@@ -23,15 +24,11 @@ public class Player1OwnsBreweries {
 
         GameController game = GameController.setup(view, userIO, gameBoard);
 
-        Ferry ferry1 = (Ferry) gameBoard.getField(5);
-        Ferry ferry2 = (Ferry) gameBoard.getField(15);
-        Ferry ferry3 = (Ferry) gameBoard.getField(25);
-        Ferry ferry4 = (Ferry) gameBoard.getField(35);
-        ferry1.setOwner(gameBoard.getCurrentPlayer());
-        ferry2.setOwner(gameBoard.getCurrentPlayer());
-        ferry3.setOwner(gameBoard.getCurrentPlayer());
-        ferry4.setOwner(gameBoard.getCurrentPlayer());
-        gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer()).addAll(List.of(ferry1,ferry2,ferry3,ferry4));
+        Brewery brewery1 = (Brewery) gameBoard.getField(12);
+        Brewery brewery2 = (Brewery) gameBoard.getField(28);
+        brewery1.setOwner(gameBoard.getCurrentPlayer());
+        brewery2.setOwner(gameBoard.getCurrentPlayer());
+        gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer()).addAll(List.of(brewery1,brewery2));
         game.playGame();
     }
 }
