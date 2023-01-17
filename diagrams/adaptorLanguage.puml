@@ -4,8 +4,8 @@
 'left to right direction
 'top to bottom direction
 
-skinparam nodesep 45
-'skinparam ranksep 45
+skinparam nodesep 5
+skinparam ranksep 25
 
 
 class GuiView {
@@ -72,8 +72,9 @@ BasicUserIO <|.up. GuiView
 GuiView -down-> LanguageHandler
 
 
-LanguageHandler -down-> Message.Type
-Message +-up- Message.Type :Type is an \ninner class
+LanguageHandler --> Message.Type
+LanguageHandler ..> Message
+Message +-right- Message.Type :Type is an \ninner class\n
 
 GameController -up-> UserIO
 UserIO .up.|> BasicUserIO
