@@ -129,7 +129,7 @@ public class FieldImpl implements FieldAction {
             else ownedFieldsWithoutHouses.add(ownedField);
         }
 
-        while ((streetsWithHouses.size() > 0 || ownedFieldsWithoutHouses.size() > 0) && userIO.promptYesOrNo(Message.doYouWantToSell())) {
+        while ((streetsWithHouses.size() > 0 || ownedFieldsWithoutHouses.size() > 0) && !userIO.promptNoOrYes(Message.doYouWantToSell())) {
 
             ownedFields = gameBoard.getOwnershipMap().get(gameBoard.getCurrentPlayer());
             streetsWithHouses = new ArrayList<>();
