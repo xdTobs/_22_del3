@@ -145,8 +145,7 @@ class FieldImplTest {
 
     }
 
-    // TODO
-    // Tobias vill du kigge på dette og se så jeg har gjort det rigtigt?
+
     @Test
     @DisplayName("If player lands on a street and it is owned  by a different player he should pay rent.")
     void payRentToOwner() {
