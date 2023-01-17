@@ -37,3 +37,5 @@ BUY_BACK:*, Do you want to buy back any of your pawned fields?
 DONT_PAY_RENT:*, you don´t need to pay * in rent at *, because * is in jail.
 YOU_CANNOT_AFFORD:*, you cannot afford to buy this.
 THREE_SAME_GO_JAIL: *, you rolled equal eyes, three times in a row... Go to jail!
+SELECT_LANGUAGE: Välj språk
+EMPTY_PLACEHOLDER_FOR_CHOICES:*

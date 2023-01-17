@@ -13,7 +13,7 @@ import language.Message;
 import java.awt.*;
 import java.util.Arrays;
 
-public class GuiView implements View, BasicUserIO {
+public class GuiView extends BasicUserIO implements View {
 
     final private GUI gui;
     private GUI_Player[] guiPlayers;
@@ -77,8 +77,6 @@ public class GuiView implements View, BasicUserIO {
     public void showMessage(Message message) {
         gui.showMessage(languageController.getMessage(message));
     }
-
-
     public static GuiView setup(Field[] fields, LanguageController languageController) {
         GUI_Field[] guiFields = new GUI_Field[40];
         for (int i = 0; i < fields.length; i++) {

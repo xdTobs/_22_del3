@@ -7,7 +7,7 @@ PARKING:Du är på parkeringsplatsen. Det händer inte så mycket här.
 PLAYER_COUNT:Hur många spelare kommer att spela?
 MONEY_GIFT_CARD_SUCCESSFUL:*, din fattiglapp! Dina tillgångar är så små att du har fått en gåva på *
 MONEY_GIFT_CARD_UNSUCCESSFUL:*, du är alltför rik, du får INTE en gåva på *
-WANT_TO_BUY_FIELD:* har landat på. Vill du köpa det?
+WANT_TO_BUY_FIELD:* har landat på *. Vill du köpa det?
 WANT_TO_BAIL_OUT:*, vill du betala 1000 DKK för att bli fri från fängelse?
 YES:Ja!
 NO:Nej.
@@ -26,7 +26,7 @@ GO_TO_JAIL_FIELD:Oturligt kast! Gå till fängelse!
 GO_TO_JAIL_CARD:Vilken otur! Detta chanskort sätter dig i fängelse!
 REMAINING_PLAYERS:Ytterligare en spelare har förlorat. Återstående spelare är: *.
 WHAT_IS_YOUR_NAME:Vad heter du, *?
-WANT_TO_SELL: Vill du sälja hus eller pantegodset först?
+WANT_TO_SELL: *, vill du sälja hus eller pantegodset först?
 SELL_HOUSE: Jag vill sälja hus.
 PAWN_PROPERTY: Jag vill pantsätta fastigheter.
 DONT_WANT_TO_SELL: Jag vill inte sälja något.
@@ -37,3 +37,5 @@ BUY_BACK: *, Vill du köpa tillbaka någon av dina pantsatta marken?
 DONT_PAY_RENT: *, du behöver inte betala * i hyra på *, eftersom * är i fängelse.
 YOU_CANNOT_AFFORD: *, du har inte råd att köpa det här.
 THREE_SAME_GO_JAIL: *, du rullade likadana ögon, tre gånger i rad... Gå till fängelse!
+SELECT_LANGUAGE: Välj språk
+EMPTY_PLACEHOLDER_FOR_CHOICES:*
