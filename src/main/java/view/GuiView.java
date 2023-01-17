@@ -252,6 +252,30 @@ public class GuiView extends BasicUserIO implements View {
                 }
 
             }
+
+            gui.getFields()[i].setDescription(formatDesc(fields[i]));
         }
+    }
+    public String formatDesc(Field field){
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><center>");
+        sb.append(field.getName());
+        sb.append("<br>");
+        if(field instanceof RentableField rf){
+            sb.append("Price: "+rf.getPrice());
+            sb.append("<br>");
+            if(rf instanceof Street street){
+                sb.append("House Price: "+street.getHousePrice()+"<br>");
+                sb.append("Rent with 0 houses: "+rf.getRent(0)+"<br>");
+                sb.append("Rent with 1 houses: "+rf.getRent(1)+"<br>");
+                sb.append("Rent with 2 houses: "+rf.getRent(2)+"<br>");
+                sb.append("Rent with 3 houses: "+rf.getRent(3)+"<br>");
+                sb.append("Rent with 4 houses: "+rf.getRent(4)+"<br>");
+                sb.append("Rent with hotel: "+rf.getRent(5)+"<br>");
+            }
+        }
+
+        sb.append("</center></html>");
+        return sb.toString();
     }
 }
