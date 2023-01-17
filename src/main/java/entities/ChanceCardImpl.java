@@ -69,17 +69,6 @@ public class ChanceCardImpl implements ChanceAction {
             gameBoard.getCurrentPlayer().addBalance(4000);
         }
         gameBoard.fieldAction();
-//        int playerPos = gameBoard.getCurrentPlayer().getPosition();
-//        if (playerPos + spaces > 0 && playerPos + spaces < gameBoard.getFields().length) {
-//            gameBoard.getCurrentPlayer().setPosition(playerPos + spaces);
-//        } else if (playerPos + spaces < 0) {
-//            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length + playerPos + spaces);
-//        } else {
-//                userIO.showMessage(Message.passedStart(gameBoard.getCurrentPlayer().getName()));
-//                gameBoard.getCurrentPlayer().addBalance(4000);
-//            gameBoard.getCurrentPlayer().setPosition(gameBoard.getFields().length - playerPos + spaces);
-//        }
-//        gameBoard.fieldAction();
     }
 
     @Override
@@ -91,6 +80,8 @@ public class ChanceCardImpl implements ChanceAction {
             if (pos == 40) pos = 0;
         }
         gameBoard.getCurrentPlayer().setPosition(pos);
+        // You pay double rent if you land on a ferry with a chance card.
+        // If you don't own it and say no to buying it you will get asked twice, unfortunately.
         gameBoard.fieldAction();
         gameBoard.fieldAction();
     }

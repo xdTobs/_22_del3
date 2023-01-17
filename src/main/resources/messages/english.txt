@@ -16,7 +16,7 @@ TAX_PROMPT:You have to pay tax, you have the choice between: * or * % of all wea
 PASSED_START:*, you passed start. You receive 4000 DKK.
 WANT_TO_BUY_HOUSE:*, would you like to buy a House?
 STOP_BUYING_HOUSES:I don't want to buy any more Houses.
-SELECT_HOUSE:Select the property that you wish to buy a house for
+SELECT_HOUSE:Select the property that you wish to buy a house for.
 SELL_SELECT_HOUSE:Select the property that you wish to sell a house for
 PAWN_SELECT_PROPERTY:Select the property that you wish to pawn
 HOUSE_OPTION:* for * DKK per

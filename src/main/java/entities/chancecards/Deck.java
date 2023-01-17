@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private List<ChanceCard> cards;
+    private final List<ChanceCard> cards;
 
     public Deck(List<ChanceCard> cards) {
         this.cards = cards;
@@ -39,7 +39,7 @@ public class Deck {
     }
 
     public static Deck setup() {
-        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream("chanceCardsEnglish.txt");
+        var inputStream = GameBoard.class.getClassLoader().getResourceAsStream("cards/english.txt");
         if (inputStream == null) {
             throw new IllegalStateException("InputStream should not be null");
         }

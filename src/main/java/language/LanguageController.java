@@ -4,14 +4,17 @@ package language;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class LanguageController {
     private final EnumMap<Message.Type, String> languageMap = new EnumMap<>(Message.Type.class);
 
     public LanguageController() {
-        this("englishMessages.txt");
+        this("messages/english.txt");
     }
 
     public LanguageController(String resource) {

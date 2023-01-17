@@ -2,13 +2,13 @@ package view;
 
 import controller.BasicUserIO;
 import controller.View;
+import entities.Player;
 import entities.dicecup.DiceCup;
 import entities.fields.*;
-import entities.Player;
-import language.LanguageController;
-import language.Message;
 import gui_fields.*;
 import gui_main.GUI;
+import language.LanguageController;
+import language.Message;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -172,7 +172,7 @@ public class GuiView implements View, BasicUserIO {
         GUI_Player guiPlayer = findGuiPlayerFromPlayer(currentPlayer);
         for (int i = 1; i <= sum; i++) {
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
