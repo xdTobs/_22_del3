@@ -1,0 +1,41 @@
+@startuml
+note right of LanguageHandler
+LanguageHandler parses a CSV
+file and keeps track of all text.
+If we give it Language.ENGLISH
+it will read the english csv file.
+end note
+
+class LanguageHandler {
+    - EnumMap<Message.Type,String> languageMap
+    + {static} LanguageHandler getLanguageHandler(Language)
+    - {static} EnumMap<Message.Type,String> createDictionary(String)
+    + String getMessage(Message)
+}
+enum Language {
+    +  ENGLISH
+    +  SWEDISH
+    + {static} Language getLanguageEnum(String)
+}
+class Message {
+    - String[] args
+    - Type type
+    + {static} Message remainingPlayers(String)
+    + {static} Message payRent(String,String,String)
+    + {static} Message rollDice(String)
+    + {static} Message of(Type,String)
+    + Type getType()
+    + String[] getArgs()
+}
+
+enum Type {
+    +  GAME_OVER_MESSAGE
+    +  PAY_RENT
+    +  ROLL_DICE
+}
+
+Message +-right- Type :Type is an \ninner enum
+LanguageHandler --> Language
+LanguageHandler --> Message
+
+@enduml

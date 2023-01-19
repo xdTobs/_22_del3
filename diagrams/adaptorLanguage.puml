@@ -1,54 +1,38 @@
 @startuml
 'skinparam linetype ortho
 'skinparam linetype polyline
-'left to right direction
-'top to bottom direction
+hide empty members
 
-skinparam nodesep 5
 skinparam ranksep 25
 
 
 class GuiView {
     - GUI gui
     - LanguageHandler languageHandler
-    + int promptChoiceLanguageHandlerMessage,Message)
+    + int promptChoiceLanguageHandlerMessage, Message)
     + void showMessage(Message)
-    + void update(Player[],Field[],DiceCup)
+    + void update(Player[], Field[], DiceCup)
 }
 
 
-package lang {
-    class LanguageHandler
-     {
-        - EnumMap<Message.Type, String> langMap
+package language {
+    class LanguageHandler {
+        - EnumMap<Message.Type, String> languageMap
         + String getMessage(Message)
-    }
-    class Message {
-        - String[] args
-        - Message.Type type
-        + {static} Message of(Message.Type,String)
-        + {static} Message buyHouse(String)
-        + {static} Message yes()
-        + {static} Message no()
-    }
-    enum Message.Type {
-        +  WANT_TO_BUY_HOUSE
-        +  YES
-        +  NO
     }
 }
 
 package controller {
-interface BasicUserIO {
-        ~ int promptChoice(Message,Message)
+    interface BasicUserIO {
+        ~ int promptChoice(Message, Message...)
         ~ void showMessage(Message)
     }
 
     class UserIO {
         ~ BasicUserIO basicUserIO
         + boolean promptYesOrNo(Message)
-        + boolean promptBuyField(String,String)
-        ~ int promptChoice(Message,Message)
+        + boolean promptBuyField(String, String)
+        ~ int promptChoice(Message, Message)
         ~ void showMessage(Message)
     }
     class GameController {
@@ -68,14 +52,13 @@ interface BasicUserIO {
 'Message +-- Type
 
 
-BasicUserIO <|.up. GuiView
-GuiView -down-> LanguageHandler
+GuiView --> LanguageHandler
+LanguageHandler --> language.Message
+UserIO -right-> GuiView
+GuiView .right[norank].|> BasicUserIO
 
 
-LanguageHandler --> Message.Type
-LanguageHandler ..> Message
-Message +-right- Message.Type :Type is an \ninner class\n
 
-GameController -up-> UserIO
-UserIO .up.|> BasicUserIO
+GameController --> UserIO
+UserIO ..|> BasicUserIO
 @enduml

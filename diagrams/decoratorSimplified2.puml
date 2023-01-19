@@ -1,6 +1,6 @@
 @startuml
 
-skinparam nodesep 25
+skinparam nodesep 15
 skinparam ranksep 45
 skinparam linetype ortho
 'top to bottom direction
@@ -13,25 +13,24 @@ end note
 class GameController {
     - BasicUserIO basicUserIO
     - View view
-    + <<Create>> GameController(View, BasicUserIO, GameBoard)
     + void playGame()
 }
 interface BasicUserIO {
-    ~ int promptChoice(Message,Message)
+    ~ int promptChoice(Message, Message...)
     ~ void showMessage(Message)
 }
 
 class GuiView {
-    ~ int promptChoice(Message,Message)
+    ~ int promptChoice(Message, Message...)
     + void showMessage(Message)
-    + void update(Player[],Field[],DiceCup)
+    + void update(Player[], Field[], DiceCup)
 }
 
 interface View {
-    ~ void update(Player[],Field[],DiceCup)
+    ~ void update(Player[], Field[], DiceCup)
 }
 class TestIO{
-    ~ int promptChoice(Message,Message)
+    ~ int promptChoice(Message, Message)
     + void showMessage(Message)
 }
 hide TestIO

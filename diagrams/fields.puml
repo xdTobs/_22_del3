@@ -1,0 +1,120 @@
+@startuml
+class GameBoard{
+    ...
+}
+class UserIO{
+    ...
+}
+
+class FieldImpl{
+    GameBoard gameBoard;
+    UserIO userIO;
+    + Field streetAction(Street street)
+    + RentableField buyEmptyStreet(RentableField street)
+    + void streetPayRentToOwner(Street street)
+    + boolean streetPlayerOwnsPair(Street street)
+    + void taxAction(Tax tax)
+    + void goToJailAction(GoToJail goToJail)
+    + void jailAction(Jail jail)
+    + Field ferryAction(Ferry ferry)
+    + void chanceFieldAction(ChanceField chanceField)
+    + Field breweryAction(Brewery brewery)
+    + void parkingAction()
+}
+' implements FieldAction {
+hide empty members
+package fields {
+    class ChanceField {
+        + Field runCard(FieldAction)
+    }
+    class Ferry {
+        + Field runCard(FieldAction)
+    }
+    class GoToJail {
+        + Field runCard(FieldAction)
+    }
+    class Jail {
+        + Field runCard(FieldAction)
+    }
+    class Parking {
+        + Field runCard(FieldAction)
+    }
+    class Start {
+        + Field runCard(FieldAction)
+    }
+    class Tax {
+        + Field runCard(FieldAction)
+    }
+    class Street {
+        ~ int housePrice
+        ~ int houses
+        + void setHouses(int)
+        + Field runCard(FieldAction)
+    }
+    class FieldPair {
+        - Color backgroundColor
+        - Color foregroundColor
+        - int[] fieldIds
+        + int[] getFieldIds()
+        + Color getBackgroundColor()
+        + Color getForegroundColor()
+    }
+    abstract class RentableField {
+        ~ int[] rents
+        ~ int price
+        - Player owner
+        ~ boolean pawned
+        + void setOwner()
+    }
+    interface FieldAction {
+        ~ Field streetAction(Street)
+        ~ void streetPayRentToOwner(Street)
+        ~ void taxAction(Tax)
+        ~ void goToJailAction(GoToJail)
+        ~ void jailAction(Jail)
+        ~ Field ferryAction(Ferry)
+        ~ void chanceFieldAction(ChanceField)
+        ~ Field breweryAction(Brewery)
+        ~ void parkingAction()
+    }
+    class Brewery {
+        + int getRent(int)
+        + Field runCard(FieldAction)
+    }
+    abstract class Field {
+        - FieldPair pair
+        - String name
+        + FieldPair getPair()
+        + void setPair(FieldPair)
+        + {static} Field parse(String)
+        + {abstract}Field runCard(FieldAction)
+        + String getName()
+    }
+}
+
+'UserIO -down-> GameBoard
+FieldImpl -[hidden]-> FieldPair
+FieldImpl -right-> UserIO
+FieldImpl -left-> GameBoard
+'UserIO -down-> GameBoard
+'GameBoard-->FieldPair
+
+GoToJail -down[hidden]-> ChanceField
+ChanceField -down[hidden]-> Start
+Start -right[hidden]-> Jail
+Jail -right[hidden]-> Parking
+Parking -right[hidden]-> Tax
+
+FieldImpl ..|> FieldAction
+Field -up-> FieldPair
+Field <|-left- GoToJail
+Field <|-- ChanceField
+Start -up-|> Field
+Field <|- Jail
+Field <|- Parking
+Field <|-- Tax
+Field <|-right- RentableField
+RentableField <|-down- Ferry
+RentableField <|-up- Street
+RentableField <|-right- Brewery
+@enduml

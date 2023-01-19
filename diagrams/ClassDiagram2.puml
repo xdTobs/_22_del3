@@ -2,8 +2,8 @@
 hide empty members
 skinparam linetype ortho
 left to right direction
-skinparam nodesep 25
-skinparam ranksep 15
+skinparam nodesep 20
+skinparam ranksep 20
 
 package entities{
     class ChanceCardImpl {
@@ -121,13 +121,12 @@ GameBoard --> UserIO
 GameBoard -[norank]-> Deck
 GuiView -[norank]-> LanguageHandler
 Deck -[hidden]up-> LanguageHandler
-ChanceCardImpl ..|>ChanceAction
+ChanceCardImpl ..|> ChanceAction
 FieldAction <|.. FieldImpl
 View <|.left. GuiView
 BasicUserIO <|.down. GuiView
 UserIO <|.right. BasicUserIO
 GameController --> View
-GameController -left> UserIO
 FieldAction <..Field
 FieldPair <-up-Field
 Deck  -right-> ChanceCard
