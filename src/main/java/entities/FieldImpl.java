@@ -110,7 +110,7 @@ public class FieldImpl implements FieldAction {
             if (s.getHouses()==5)
                 isMaxedCounter++;
         }
-        return isMaxedCounter == pair.getFieldIds().length;
+        return isMaxedCounter != pair.getFieldIds().length;
     }
 
     private void buyHouse(Street street) {
