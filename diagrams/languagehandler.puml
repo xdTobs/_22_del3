@@ -1,11 +1,18 @@
 @startuml
-note right of LanguageHandler
-LanguageHandler parses a CSV
-file and keeps track of all text.
-If we give it Language.ENGLISH
-it will read the english csv file.
-end note
+hide empty members
 
+
+class GuiView{
+}
+
+package language {
+    note left of LanguageHandler
+    LanguageHandler parser en csv
+    fil og holder styr på alt tekst.
+    Hvis vi giver den enumen
+    Language.ENGLISH så læser den,
+    den engelske tekst ind fra csv filen.
+    end note
 class LanguageHandler {
     - EnumMap<Message.Type,String> languageMap
     + {static} LanguageHandler getLanguageHandler(Language)
@@ -16,6 +23,7 @@ enum Language {
     +  ENGLISH
     +  SWEDISH
     + {static} Language getLanguageEnum(String)
+    + {static} String[] getLanguages()
 }
 class Message {
     - String[] args
@@ -33,9 +41,10 @@ enum Type {
     +  PAY_RENT
     +  ROLL_DICE
 }
-
+}
 Message +-right- Type :Type is an \ninner enum
 LanguageHandler --> Language
 LanguageHandler --> Message
+GuiView --> LanguageHandler
 
 @enduml

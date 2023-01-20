@@ -1,10 +1,4 @@
 @startuml
-class GameBoard{
-    ...
-}
-class UserIO{
-    ...
-}
 
 class FieldImpl{
     GameBoard gameBoard;
@@ -25,31 +19,31 @@ class FieldImpl{
 hide empty members
 package fields {
     class ChanceField {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class Ferry {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class GoToJail {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class Jail {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class Parking {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class Start {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class Tax {
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class Street {
         ~ int housePrice
         ~ int houses
         + void setHouses(int)
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     class FieldPair {
         - Color backgroundColor
@@ -79,7 +73,7 @@ package fields {
     }
     class Brewery {
         + int getRent(int)
-        + Field runCard(FieldAction)
+        + Field executeFieldAction(FieldAction)
     }
     abstract class Field {
         - FieldPair pair
@@ -87,17 +81,12 @@ package fields {
         + FieldPair getPair()
         + void setPair(FieldPair)
         + {static} Field parse(String)
-        + {abstract}Field runCard(FieldAction)
+        + {abstract}Field executeFieldAction(FieldAction)
         + String getName()
     }
 }
 
-'UserIO -down-> GameBoard
 FieldImpl -[hidden]-> FieldPair
-FieldImpl -right-> UserIO
-FieldImpl -left-> GameBoard
-'UserIO -down-> GameBoard
-'GameBoard-->FieldPair
 
 GoToJail -down[hidden]-> ChanceField
 ChanceField -down[hidden]-> Start

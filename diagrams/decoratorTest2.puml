@@ -1,21 +1,17 @@
 @startuml
+'skinparam nodesep 15
+'skinparam ranksep 55
+'skinparam linetype ortho
 
-
-skinparam nodesep 15
-skinparam ranksep 55
-skinparam linetype ortho
-'top to bottom direction
-
+left to right direction
 hide empty members
 
 note top of GameController
-We use:
-- TestView as View
-- TestIO as BasicUserIO
+Vi bruger:
+- TestView som View
+- TestIO som BasicUserIO
 end note
 class GameController {
-    - BasicUserIO basicUserIO
-    - View view
     + void playGame()
 }
 interface BasicUserIO {
@@ -35,12 +31,9 @@ class TestIO{
     + void showMessage(Message)
 }
 
-
-GameController -[hidden]-> TestView
-GameController --> BasicUserIO
-GameController --> View
-GameController -[hidden]up-> TestIO
-TestView ..|> View
-TestView ..|> BasicUserIO
-TestIO ..|> BasicUserIO
+View -right[hidden]-> BasicUserIO
+GameController o-- BasicUserIO
+GameController o-- View
+TestView .up.|> View
+TestIO .up.|> BasicUserIO
 @enduml
