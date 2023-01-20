@@ -95,7 +95,7 @@ Jail -right[hidden]-> Parking
 Parking -right[hidden]-> Tax
 
 FieldImpl ..|> FieldAction
-Field -up-> FieldPair
+Field o-up- FieldPair
 Field <|-left- GoToJail
 Field <|-- ChanceField
 Start -up-|> Field

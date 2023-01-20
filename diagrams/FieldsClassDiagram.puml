@@ -109,5 +109,5 @@ entities.fields.RentableField <|-- entities.fields.Brewery
 entities.fields.Field <|-- entities.fields.RentableField
 entities.fields.Field <|-- entities.fields.Parking
 entities.fields.Field <|-- entities.fields.GoToJail
-entities.fields.FieldAction ..>entities.fields.Field
+'entities.fields.FieldAction ..>entities.fields.Field
 @enduml

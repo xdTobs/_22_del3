@@ -43,8 +43,8 @@ enum Type {
 }
 }
 Message +-right- Type :Type is an \ninner enum
-LanguageHandler --> Language
-LanguageHandler --> Message
-GuiView --> LanguageHandler
+LanguageHandler o-- Language
+LanguageHandler o-- Message
+GuiView o-- LanguageHandler
 
 @enduml
