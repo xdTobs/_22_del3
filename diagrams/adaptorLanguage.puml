@@ -52,13 +52,13 @@ package controller {
 'Message +-- Type
 
 
-GuiView --> LanguageHandler
-LanguageHandler --> language.Message
-UserIO -right-> GuiView
+GuiView o-- LanguageHandler
+LanguageHandler o-- language.Message
+UserIO o-right- GuiView
 GuiView .right[norank].|> BasicUserIO
 
 
 
-GameController --> UserIO
+GameController o-- UserIO
 UserIO ..|> BasicUserIO
 @enduml

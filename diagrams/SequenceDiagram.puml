@@ -1,0 +1,30 @@
+@startuml
+participant GameController
+participant GameBoard
+loop not gameOver
+    GameController -> GameController : playTurn
+    activate GameController
+    alt player in jail
+        GameController -> UserIO :  [balance > 1000]\nbailOutPrompt():boolean
+        UserIO --> GameController : wantsToLeaveJail
+        GameController -> Player : [wantsToLeaveJail = true] \nisJailed = false
+        GameController -> View : update
+    else
+        GameController -> UserIO : showRollMessage():void
+        GameController -> GameBoard : rollDiceAndMove():bool
+        GameBoard -> DiceCup : rollDice:void
+        GameBoard -> GameBoard: movePlayer(int: value):void
+        GameBoard -> Player: setPosition(int: position):void
+        GameBoard -> GameController: hasPassedStart
+        GameBoard -> Player: [hasPassedStart=true] \naddBalance(int: balance = 4000)
+        GameController -> View : update:void
+        GameController -> GameBoard : fieldAction:void
+        GameBoard -> Field : executeFieldAction:void
+        GameController -> GameBoard : removeLosers:void
+        GameController -> View : update():void
+    end
+    GameController -> GameBoard :[not equalDice] \nnextPlayer():void
+end
+deactivate GameController
+GameController -> UserIO : gameOverMessage:void
+@enduml

@@ -42,6 +42,6 @@ GameController o-- BasicUserIO
 GameController o-- View
 GuiView .up.|> View
 GuiView .up.|> BasicUserIO
-GuiView --o matador.gui_main.GUI
+GuiView o-- matador.gui_main.GUI
 
 @enduml
