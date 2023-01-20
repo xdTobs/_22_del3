@@ -1,0 +1,88 @@
+@startuml
+participant Actor
+Actor -> Main : main
+activate Main
+Main -> GameBoard : setup
+activate GameBoard
+GameBoard --> Main
+deactivate GameBoard
+Main -> GameController : setup
+activate GameController
+GameController --> Main
+deactivate GameController
+Main -> View : setup
+activate View
+View --> Main
+deactivate View
+group while (!gameOver)
+Main -> GameController : playGame
+activate GameController
+
+GameController -> GameController : playTurn
+activate GameController
+
+group if (player.inJail)
+GameController -> GameController : inJail
+activate GameController
+GameController -> View : update
+activate View
+View --> GameController
+deactivate View
+
+deactivate GameController
+end
+group else
+GameController -> GameController : playNotInJailTurn
+activate GameController
+GameController -> GameController : rollDiceAndMove
+activate GameController
+GameController -> View : update
+activate View
+View --> GameController
+deactivate View
+GameController -> GameBoard : jailPlayer
+activate GameBoard
+GameBoard --> GameController
+deactivate GameBoard
+GameController -> GameBoard : movePlayer
+activate GameBoard
+GameBoard --> GameController
+deactivate GameBoard
+GameController -> View : update
+activate View
+View --> GameController
+deactivate View
+
+deactivate GameController
+GameController -> GameBoard : fieldAction
+activate GameBoard
+GameBoard --> GameController
+deactivate GameBoard
+GameController -> GameBoard : checkRemoveBankruptPlayers
+activate GameController
+GameController -> View : update
+activate View
+View --> GameController
+deactivate View
+deactivate GameController
+deactivate GameController
+deactivate GameController
+end
+group if (!equalDice)
+GameController -> GameBoard : nextPlayer
+activate GameBoard
+GameBoard --> GameController
+deactivate GameBoard
+end
+end
+
+GameController -> View : displayGameOverMessage
+activate View
+View --> GameController
+deactivate View
+
+
+GameController --> Main
+deactivate GameController
+deactivate Main
+@enduml
